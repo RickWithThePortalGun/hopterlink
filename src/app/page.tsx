@@ -7,6 +7,7 @@ import { Shield, Star, Timer } from 'lucide-react'
 import Link from 'next/link'
 import Feature from './feature'
 import HeaderContainer from '@/components/HeaderContainer'
+import Cards from '@/components/Cards'
 
 export default function Home() {
   return (
@@ -99,6 +100,7 @@ export default function Home() {
                   Recent Activity
                 </Typography>
                 {/* //Cards */}
+                <Cards/>
               </div>
               <div className="flex flex-col gap-6 items-center">
                 <Typography

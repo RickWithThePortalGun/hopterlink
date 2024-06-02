@@ -1,9 +1,16 @@
 'use client'
+import { Button } from '@/components/ui/button'
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger
+} from '@/components/ui/navigation-menu'
+import Typography from '@/components/ui/typography'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { usePathname } from 'next/navigation'
-import Typography from '@/components/ui/typography'
 import {
   Drawer,
   DrawerClose,
@@ -11,7 +18,7 @@ import {
   DrawerHeader,
   DrawerTrigger
 } from '@/components/ui/drawer'
-import { MenuIcon, X } from 'lucide-react'
+import { Car, MenuIcon, PlusCircle, SoupIcon, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Logo from '../Logo'
 
@@ -19,48 +26,62 @@ interface SidebarProps
   extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function Header({ className }: SidebarProps) {
-  const pathname = usePathname()
-  const {theme}=useTheme();
+  const { theme } = useTheme()
   console.log(theme)
   const items = [
-     {
-      href: 'https://map.sistilli.dev/public/coding/SaaS+Boilerplate',
-      title: 'Restaurants',
-      openInNewTab: true
+    {
+      category: 'Healthcare and Medical',
+      services: [
+        'Hospitals',
+        'Clinics',
+        'Dental Services',
+        'Pharmacies',
+        'Medical Equipment',
+        'Health Insurance'
+      ]
     },
     {
-      href: 'https://map.sistilli.dev/public/coding/SaaS+Boilerplate',
-      title: 'Home Services',
-      openInNewTab: true
+      category: 'Food and Beverage',
+      services: [
+        'Restaurants',
+        'Cafes and Coffee Shops',
+        'Bars and Pubs',
+        'Catering Services',
+        'Food Trucks',
+        'Bakeries'
+      ]
+    },
+    {
+      category: 'Automotive',
+      services: [
+        'Car Dealerships',
+        'Auto Repair and Maintenance',
+        'Car Rentals',
+        'Auto Parts and Accessories',
+        'Car Washes'
+      ]
     }
   ]
-
   const getLogo = () => (
     <Link href="/" className="pointer flex items-center">
-      <Logo/>
+      <Logo />
     </Link>
   )
 
   const getAuthButtons = () => (
     <div className="flex gap-3 items-center">
-       <Link
-        href="/login"
-        target="_blank"
-      >
-        <Typography variant="p">Write a review</Typography>
+      <Link href="/login" target="_blank">
+        <Typography variant="p">Add a business</Typography>
       </Link>
-      <Link
-        href="/login"
-        target="_blank"
-      >
+      <Link href="/login" target="_blank">
         <Typography variant="p">Sign in</Typography>
       </Link>
       <Link
         href="https://map.sistilli.dev/public/coding/SaaS+Boilerplate"
         target="_blank"
       >
-        <Button size="tiny" variant={"secondary"}>
-            Sign Up
+        <Button size="tiny" variant={'secondary'}>
+          Sign Up
         </Button>
       </Link>
     </div>
@@ -69,7 +90,7 @@ export function Header({ className }: SidebarProps) {
   const getHeaderItems = () => {
     return (
       <>
-        {items.map((item) => {
+        {/* {items.map((item) => {
           const selected =
             pathname === item.href ||
             pathname.includes(item.href)
@@ -88,7 +109,63 @@ export function Header({ className }: SidebarProps) {
               </Typography>
             </Link>
           )
-        })}
+        })} */}
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+                  <NavigationMenuTrigger>
+                  Health & Medicine                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                    {items[0].services.map((service, index) => (
+                      <>
+                        <NavigationMenuLink className={"flex-row flex gap-2"}>
+                        <PlusCircle/>  {service}
+                        </NavigationMenuLink>
+                      </>
+                    ))}
+                    </ul>
+                  </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+                  <NavigationMenuTrigger >
+                  Food & Dining
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                  <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                    {items[1].services.map((service, index) => (
+                      <>
+                        <NavigationMenuLink className={"flex-row flex gap-2"}>
+                        <SoupIcon/> {service}
+                        </NavigationMenuLink>
+                      </>
+                    ))}
+                    </ul>
+                  </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+                  <NavigationMenuTrigger>
+                    Automotive
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[600px] ">
+                    {items[2].services.map((service, index) => (
+                      <>
+                        <NavigationMenuLink className={"flex-row flex gap-2"}>
+                         <Car/> {service}
+                        </NavigationMenuLink>
+                      </>
+                    ))}
+                    </ul>
+                  </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+                  <NavigationMenuTrigger>
+                    More
+                  </NavigationMenuTrigger>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
       </>
     )
   }
@@ -115,7 +192,7 @@ export function Header({ className }: SidebarProps) {
           </div>
           {/* Mobile */}
           <div className="md:hidden flex gap-x-4 items-center">
-            {getAuthButtons()}
+            {/* {getAuthButtons()} */}
             <Drawer direction="right">
               <DrawerTrigger asChild>
                 <MenuIcon />

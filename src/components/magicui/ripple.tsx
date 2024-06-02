@@ -22,8 +22,8 @@ const Ripple = React.memo(React.forwardRef<HTMLDivElement>((props, ref) => {
               rounded-full bg-neutral-400`}
             style={{
               ...circleProps,
-              width: (circleProps.width || 0) + i * 70,
-              height: (circleProps.height || 0) + i * 70,
+              width: (circleProps.width ?? 0) + i * 70,
+              height: (circleProps.height ?? 0) + i * 70,
               opacity: circleProps.opacity - i * 0.03,
               animationDelay: `${i * 0.06}s`
             }}

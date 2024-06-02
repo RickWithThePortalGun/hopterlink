@@ -1,18 +1,16 @@
+import { ThemeProvider } from '@/providers/theme-provider'
+import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { ThemeProvider } from '@/providers/theme-provider'
-import { Header } from '@/components/common/header'
-import { Footer } from '@/components/common/footer'
-import { Analytics } from '@vercel/analytics/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title:
-    'Pandem - Information you need during on-call emergencies',
+    'HopterLink - Find, Review, and Connect with Local Gems.',
   description:
-    'Quickly link new on-call tickets to similar past incidents and their solutions. All directly in Slack the moment an incident happens.',
+    'Every review tells a story, every story shapes a community.',
   openGraph: {
     images: '/opengraph-image.png'
   },
