@@ -1,5 +1,5 @@
-"use client";
-import { type AnimationProps, motion } from "framer-motion";
+'use client'
+import { type AnimationProps, motion } from 'framer-motion'
 
 const animationProps: AnimationProps = {
   initial: { '--x': '100%', scale: 0.8 },
@@ -56,4 +56,4 @@ const ShinyButton = ({ text }: { text: string }) => {
   )
 }
 
-export default ShinyButton;
+export default ShinyButton

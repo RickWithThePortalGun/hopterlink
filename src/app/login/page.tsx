@@ -13,14 +13,21 @@ const page = () => {
       <div className="w-screen h-screen flex flex-row">
         <div className="bg-secondary hidden md:flex border-r-2 w-1/2 relative">
           <div className="top-10 left-10 absolute">
-            <Logo className={""} />
+            <Logo className={''} />
           </div>
-          <div className="relative flex h-full w-full items-center justify-center overflow-hidden border md:shadow-xl">
-      <p className="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-white">
-        Hopterlink™
-      </p>
-      <Ripple />
-    </div>        </div>
+          <div
+            className="relative flex h-full w-full items-center justify-center
+              overflow-hidden border md:shadow-xl"
+          >
+            <p
+              className="z-10 whitespace-pre-wrap text-center text-5xl font-medium
+                tracking-tighter text-white"
+            >
+              Hopterlink™
+            </p>
+            <Ripple />
+          </div>{' '}
+        </div>
         <div className="bg-transparent md:w-1/2 w-full">
           <div
             className="w-full h-screen flex items-center justify-center px-4
@@ -35,7 +42,7 @@ const page = () => {
                   space-y-1.5 p-6 my-6"
               >
                 <h3 className="font-semibold tracking-tight text-2xl">
-                Sign In
+                  Sign In
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   Enter your email below to login to
@@ -85,7 +92,7 @@ const page = () => {
                       disabled:cursor-not-allowed disabled:opacity-50"
                     id="password"
                     required
-                    placeholder='●●●●●●●●●'
+                    placeholder="●●●●●●●●●"
                     control-id="ControlID-2"
                   />
                 </div>

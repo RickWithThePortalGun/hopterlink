@@ -18,7 +18,13 @@ import {
   DrawerHeader,
   DrawerTrigger
 } from '@/components/ui/drawer'
-import { Car, MenuIcon, PlusCircle, SoupIcon, X } from 'lucide-react'
+import {
+  Car,
+  MenuIcon,
+  PlusCircle,
+  SoupIcon,
+  X
+} from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Logo from '../Logo'
 
@@ -113,56 +119,78 @@ export function Header({ className }: SidebarProps) {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-                  <NavigationMenuTrigger>
-                  Health & Medicine                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                    {items[0].services.map((service, index) => (
+              <NavigationMenuTrigger>
+                Health & Medicine{' '}
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul
+                  className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2
+                    lg:w-[600px] "
+                >
+                  {items[0].services.map(
+                    (service, index) => (
                       <>
-                        <NavigationMenuLink className={"flex-row flex gap-2"}>
-                        <PlusCircle/>  {service}
+                        <NavigationMenuLink
+                          className={'flex-row flex gap-2'}
+                        >
+                          <PlusCircle /> {service}
                         </NavigationMenuLink>
                       </>
-                    ))}
-                    </ul>
-                  </NavigationMenuContent>
+                    )
+                  )}
+                </ul>
+              </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-                  <NavigationMenuTrigger >
-                  Food & Dining
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                  <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                    {items[1].services.map((service, index) => (
+              <NavigationMenuTrigger>
+                Food & Dining
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul
+                  className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2
+                    lg:w-[600px] "
+                >
+                  {items[1].services.map(
+                    (service, index) => (
                       <>
-                        <NavigationMenuLink className={"flex-row flex gap-2"}>
-                        <SoupIcon/> {service}
+                        <NavigationMenuLink
+                          className={'flex-row flex gap-2'}
+                        >
+                          <SoupIcon /> {service}
                         </NavigationMenuLink>
                       </>
-                    ))}
-                    </ul>
-                  </NavigationMenuContent>
+                    )
+                  )}
+                </ul>
+              </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-                  <NavigationMenuTrigger>
-                    Automotive
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[600px] ">
-                    {items[2].services.map((service, index) => (
+              <NavigationMenuTrigger>
+                Automotive
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul
+                  className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2
+                    lg:w-[600px] "
+                >
+                  {items[2].services.map(
+                    (service, index) => (
                       <>
-                        <NavigationMenuLink className={"flex-row flex gap-2"}>
-                         <Car/> {service}
+                        <NavigationMenuLink
+                          className={'flex-row flex gap-2'}
+                        >
+                          <Car /> {service}
                         </NavigationMenuLink>
                       </>
-                    ))}
-                    </ul>
-                  </NavigationMenuContent>
+                    )
+                  )}
+                </ul>
+              </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-                  <NavigationMenuTrigger>
-                    More
-                  </NavigationMenuTrigger>
+              <NavigationMenuTrigger>
+                More
+              </NavigationMenuTrigger>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>

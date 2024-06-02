@@ -10,7 +10,6 @@ const page = () => {
   return (
     <PathContainer>
       <div className="w-screen h-screen flex flex-row">
-        
         <div className="bg-transparent w-1/2">
           <div
             className="w-full h-screen flex items-center justify-center px-4
@@ -28,7 +27,8 @@ const page = () => {
                   Sign Up
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Enter your details below to join Hopterlink.
+                  Enter your details below to join
+                  Hopterlink.
                 </p>
               </div>
               <div className="p-6 pt-0 grid gap-4">
@@ -74,7 +74,7 @@ const page = () => {
                       disabled:cursor-not-allowed disabled:opacity-50"
                     id="password"
                     required
-                    placeholder='●●●●●●●●●'
+                    placeholder="●●●●●●●●●"
                     control-id="ControlID-2"
                   />
                 </div>

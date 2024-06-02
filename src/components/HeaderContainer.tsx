@@ -2,15 +2,20 @@ import React, { type ReactNode } from 'react'
 import { Footer } from './common/footer'
 import { Header } from './common/header'
 
-
-const HeaderContainer = ({children}:{children:ReactNode}) => {
+const HeaderContainer = ({
+  children
+}: {
+  children: ReactNode
+}) => {
   return (
     <>
       <Header />
       <div className="flex flex-1 justify-center w-full">
-        <div className="flex w-full max-w-[1280px] h-full">{children}</div>
+        <div className="flex w-full max-w-[1280px] h-full">
+          {children}
+        </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   )
 }

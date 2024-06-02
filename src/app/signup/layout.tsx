@@ -1,5 +1,3 @@
-
-
 const SignupLayout = ({
   children
 }: {
@@ -7,6 +5,5 @@ const SignupLayout = ({
 }) => {
   return <main>{children}</main>
 }
-  
-  export default SignupLayout;
-  
+
+export default SignupLayout
