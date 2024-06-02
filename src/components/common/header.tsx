@@ -125,7 +125,7 @@ export function Header({ className }: SidebarProps) {
               <NavigationMenuContent>
                 <ul
                   className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2
-                    lg:w-[600px] "
+                    lg:w-[600px]"
                 >
                   {items[0].services.map(
                     (service, index) => (
@@ -148,7 +148,7 @@ export function Header({ className }: SidebarProps) {
               <NavigationMenuContent>
                 <ul
                   className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2
-                    lg:w-[600px] "
+                    lg:w-[600px]"
                 >
                   {items[1].services.map(
                     (service, index) => (
@@ -171,7 +171,7 @@ export function Header({ className }: SidebarProps) {
               <NavigationMenuContent>
                 <ul
                   className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2
-                    lg:w-[600px] "
+                    lg:w-[600px]"
                 >
                   {items[2].services.map(
                     (service, index) => (
