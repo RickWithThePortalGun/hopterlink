@@ -1,6 +1,19 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTrigger
+} from '@/components/ui/drawer'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu"
+import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
@@ -10,29 +23,24 @@ import {
 } from '@/components/ui/navigation-menu'
 import Typography from '@/components/ui/typography'
 import { cn } from '@/lib/utils'
-import Link from 'next/link'
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTrigger
-} from '@/components/ui/drawer'
 import {
   Car,
   MenuIcon,
+  MoonIcon,
   PlusCircle,
   SoupIcon,
+  SunIcon,
   X
 } from 'lucide-react'
 import { useTheme } from 'next-themes'
+import Link from 'next/link'
 import Logo from '../Logo'
 
 interface SidebarProps
   extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function Header({ className }: SidebarProps) {
-  const { theme } = useTheme()
+  const { theme,setTheme } = useTheme()
   console.log(theme)
   const items = [
     {
@@ -76,6 +84,27 @@ export function Header({ className }: SidebarProps) {
 
   const getAuthButtons = () => (
     <div className="flex gap-3 items-center">
+          <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="secondary" size="sm">
+          <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => { setTheme("light"); }}>
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => { setTheme("dark"); }}>
+
+          Dark
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => { setTheme("system"); }}>
+          System
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
       <Link href="/login" target="_blank">
         <Typography variant="p">Add a business</Typography>
       </Link>
@@ -83,7 +112,7 @@ export function Header({ className }: SidebarProps) {
         <Typography variant="p">Sign in</Typography>
       </Link>
       <Link
-        href="https://map.sistilli.dev/public/coding/SaaS+Boilerplate"
+        href="/signup"
         target="_blank"
       >
         <Button size="tiny" variant={'secondary'}>
@@ -116,6 +145,7 @@ export function Header({ className }: SidebarProps) {
             </Link>
           )
         })} */}
+        <div className='flex max-lg:hidden'>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -131,6 +161,7 @@ export function Header({ className }: SidebarProps) {
                     (service, index) => (
                       <>
                         <NavigationMenuLink
+                        key={index}
                           className={'flex-row flex gap-2'}
                         >
                           <PlusCircle /> {service}
@@ -154,6 +185,7 @@ export function Header({ className }: SidebarProps) {
                     (service, index) => (
                       <>
                         <NavigationMenuLink
+                        key={index}
                           className={'flex-row flex gap-2'}
                         >
                           <SoupIcon /> {service}
@@ -177,6 +209,7 @@ export function Header({ className }: SidebarProps) {
                     (service, index) => (
                       <>
                         <NavigationMenuLink
+                        key={index}
                           className={'flex-row flex gap-2'}
                         >
                           <Car /> {service}
@@ -194,6 +227,7 @@ export function Header({ className }: SidebarProps) {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
+        </div>
       </>
     )
   }
@@ -206,7 +240,7 @@ export function Header({ className }: SidebarProps) {
         className
       )}
     >
-      <div className="w-full max-w-[1280px] md:px-8 px-4">
+      <div className="w-full max-w-[1440px] md:px-8 px-4">
         {/* Desktop */}
         <div className="flex items-center gap-x-8 w-full">
           <div className="md:flex-0 min-w-fit flex-1">

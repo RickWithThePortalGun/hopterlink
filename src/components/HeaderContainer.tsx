@@ -11,7 +11,7 @@ const HeaderContainer = ({
     <>
       <Header />
       <div className="flex flex-1 justify-center w-full">
-        <div className="flex w-full max-w-[1280px] h-full">
+        <div className="flex w-full max-w-[1440px] h-full">
           {children}
         </div>
       </div>

@@ -5,12 +5,13 @@ import React from 'react'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import Logo from '@/components/Logo'
+import Ripple from '@/components/magicui/ripple'
 
 const page = () => {
   return (
     <PathContainer>
-      <div className="w-screen h-screen flex flex-row">
-        <div className="bg-transparent w-1/2">
+      <div className="w-screen h-screen max-md:items-center max-md:justify-center flex flex-row">
+        <div className="bg-transparent w-1/2 max-lg:w-full">
           <div
             className="w-full h-screen flex items-center justify-center px-4
               theme-zinc"
@@ -96,10 +97,22 @@ const page = () => {
             </div>
           </div>
         </div>
-        <div className="bg-secondary border-r-2 w-1/2 relative">
+        <div className="bg-secondary border-r-2 max-lg:hidden w-1/2  relative">
           <div className="top-10 right-10 absolute">
             <Logo />
           </div>
+          <div
+            className="relative flex h-full w-full items-center justify-center
+              overflow-hidden border md:shadow-xl"
+          >
+            <p
+              className="z-10 whitespace-pre-wrap text-center text-5xl font-medium
+                tracking-tighter text-white"
+            >
+              Hopterlink™
+            </p>
+            <Ripple />
+          </div>{' '}
         </div>
       </div>
     </PathContainer>
