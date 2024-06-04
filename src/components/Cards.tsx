@@ -6,7 +6,7 @@ import {
 } from './ui/avatar'
 import Typography from './ui/typography'
 
-const Cards = (props: Props) => {
+const Cards = () => {
   return (
     <>
       <div
