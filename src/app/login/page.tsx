@@ -11,7 +11,7 @@ const page = () => {
   return (
     <PathContainer>
       <div className="w-screen h-screen flex flex-row">
-      <div className="bg-secondary border-r-2 max-lg:hidden w-1/2  relative">
+        <div className="bg-secondary border-r-2 max-lg:hidden w-1/2 relative">
           <div className="top-10 left-10 absolute">
             <Logo />
           </div>

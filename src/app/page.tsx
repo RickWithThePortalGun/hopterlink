@@ -146,9 +146,7 @@ export default function Home() {
                           <Typography variant={'h5'}>
                             {category.name}
                           </Typography>
-                          <p
-                            className="text-xs"
-                          >
+                          <p className="text-xs">
                             {category.description}
                           </p>
                         </div>
@@ -166,10 +164,7 @@ export default function Home() {
               Get in touch
             </Typography>
             <div>Book a demo, or hop on a call</div>
-            <Link
-              href="/"
-              target="_blank"
-            >
+            <Link href="/" target="_blank">
               <Button size="tiny" variant="ghost">
                 {`Add a Business`}
               </Button>

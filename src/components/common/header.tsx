@@ -12,7 +12,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu"
+} from '@/components/ui/dropdown-menu'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -40,7 +40,7 @@ interface SidebarProps
   extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function Header({ className }: SidebarProps) {
-  const { theme,setTheme } = useTheme()
+  const { theme, setTheme } = useTheme()
   console.log(theme)
   const items = [
     {
@@ -84,37 +84,51 @@ export function Header({ className }: SidebarProps) {
 
   const getAuthButtons = () => (
     <div className="flex gap-3 items-center">
-          <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="secondary" size="sm">
-          <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => { setTheme("light"); }}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => { setTheme("dark"); }}>
-
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => { setTheme("system"); }}>
-          System
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="secondary" size="sm">
+            <SunIcon
+              className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all
+                dark:-rotate-90 dark:scale-0"
+            />
+            <MoonIcon
+              className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0
+                transition-all dark:rotate-0 dark:scale-100"
+            />
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem
+            onClick={() => {
+              setTheme('light')
+            }}
+          >
+            Light
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              setTheme('dark')
+            }}
+          >
+            Dark
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              setTheme('system')
+            }}
+          >
+            System
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
       <Link href="/login" target="_blank">
         <Typography variant="p">Add a business</Typography>
       </Link>
       <Link href="/login" target="_blank">
         <Typography variant="p">Sign in</Typography>
       </Link>
-      <Link
-        href="/signup"
-        target="_blank"
-      >
+      <Link href="/signup" target="_blank">
         <Button size="tiny" variant={'secondary'}>
           Sign Up
         </Button>
@@ -145,88 +159,94 @@ export function Header({ className }: SidebarProps) {
             </Link>
           )
         })} */}
-        <div className='flex max-lg:hidden'>
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>
-                Health & Medicine{' '}
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul
-                  className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2
-                    lg:w-[600px]"
-                >
-                  {items[0].services.map(
-                    (service, index) => (
-                      <>
-                        <NavigationMenuLink
-                        key={index}
-                          className={'flex-row flex gap-2'}
-                        >
-                          <PlusCircle /> {service}
-                        </NavigationMenuLink>
-                      </>
-                    )
-                  )}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>
-                Food & Dining
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul
-                  className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2
-                    lg:w-[600px]"
-                >
-                  {items[1].services.map(
-                    (service, index) => (
-                      <>
-                        <NavigationMenuLink
-                        key={index}
-                          className={'flex-row flex gap-2'}
-                        >
-                          <SoupIcon /> {service}
-                        </NavigationMenuLink>
-                      </>
-                    )
-                  )}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>
-                Automotive
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul
-                  className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2
-                    lg:w-[600px]"
-                >
-                  {items[2].services.map(
-                    (service, index) => (
-                      <>
-                        <NavigationMenuLink
-                        key={index}
-                          className={'flex-row flex gap-2'}
-                        >
-                          <Car /> {service}
-                        </NavigationMenuLink>
-                      </>
-                    )
-                  )}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>
-                More
-              </NavigationMenuTrigger>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+        <div className="flex max-lg:hidden">
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  Health & Medicine{' '}
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul
+                    className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2
+                      lg:w-[600px]"
+                  >
+                    {items[0].services.map(
+                      (service, index) => (
+                        <>
+                          <NavigationMenuLink
+                            key={index}
+                            className={
+                              'flex-row flex gap-2'
+                            }
+                          >
+                            <PlusCircle /> {service}
+                          </NavigationMenuLink>
+                        </>
+                      )
+                    )}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  Food & Dining
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul
+                    className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2
+                      lg:w-[600px]"
+                  >
+                    {items[1].services.map(
+                      (service, index) => (
+                        <>
+                          <NavigationMenuLink
+                            key={index}
+                            className={
+                              'flex-row flex gap-2'
+                            }
+                          >
+                            <SoupIcon /> {service}
+                          </NavigationMenuLink>
+                        </>
+                      )
+                    )}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  Automotive
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul
+                    className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2
+                      lg:w-[600px]"
+                  >
+                    {items[2].services.map(
+                      (service, index) => (
+                        <>
+                          <NavigationMenuLink
+                            key={index}
+                            className={
+                              'flex-row flex gap-2'
+                            }
+                          >
+                            <Car /> {service}
+                          </NavigationMenuLink>
+                        </>
+                      )
+                    )}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  More
+                </NavigationMenuTrigger>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
       </>
     )

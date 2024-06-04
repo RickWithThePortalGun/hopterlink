@@ -10,7 +10,10 @@ import Ripple from '@/components/magicui/ripple'
 const page = () => {
   return (
     <PathContainer>
-      <div className="w-screen h-screen max-md:items-center max-md:justify-center flex flex-row">
+      <div
+        className="w-screen h-screen max-md:items-center max-md:justify-center
+          flex flex-row"
+      >
         <div className="bg-transparent w-1/2 max-lg:w-full">
           <div
             className="w-full h-screen flex items-center justify-center px-4
@@ -97,7 +100,7 @@ const page = () => {
             </div>
           </div>
         </div>
-        <div className="bg-secondary border-r-2 max-lg:hidden w-1/2  relative">
+        <div className="bg-secondary border-r-2 max-lg:hidden w-1/2 relative">
           <div className="top-10 right-10 absolute">
             <Logo />
           </div>

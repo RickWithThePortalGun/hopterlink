@@ -12,7 +12,7 @@ export function Footer() {
             href="/"
             className="pointer flex items-center"
           >
-            <Logo/>
+            <Logo />
           </Link>
         </div>
         <div className="flex max-w-fit items-center gap-x-4">
@@ -22,7 +22,7 @@ export function Footer() {
             className="pointer block w-fit flex-1"
           >
             <Typography variant="p" className="w-max">
-             Add a business
+              Add a business
             </Typography>
           </Link>
           <Link
