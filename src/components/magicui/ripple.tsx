@@ -26,9 +26,9 @@ const Ripple = React.memo(
               rounded-full bg-neutral-400`}
             style={{
               ...circleProps,
-              width: (circleProps.width ?? 0) + i * 70,
-              height: (circleProps.height ?? 0) + i * 70,
-              opacity: circleProps.opacity - i * 0.03,
+              width: (circleProps.width as number ?? 0) + i * 70,
+              height: (circleProps.height as number ?? 0) + i * 70,
+              opacity: circleProps.opacity as number - i * 0.03,
               animationDelay: `${i * 0.06}s`
             }}
           />

@@ -70,3 +70,22 @@
     }
   }
 }
+
+@keyframes fillStar {
+  from {
+    fill: none;
+  }
+  to {
+    fill: #ffd700;
+  }
+}
+
+.star {
+  fill: none;
+  stroke: #ffd700;
+  stroke-width: 2;
+}
+
+.star.filled {
+  animation: fillStar 0.5s forwards;
+}

@@ -173,7 +173,6 @@ export function Header({ className }: SidebarProps) {
                   >
                     {items[0].services.map(
                       (service, index) => (
-                        <>
                           <NavigationMenuLink
                             key={index}
                             className={
@@ -182,7 +181,6 @@ export function Header({ className }: SidebarProps) {
                           >
                             <PlusCircle /> {service}
                           </NavigationMenuLink>
-                        </>
                       )
                     )}
                   </ul>
@@ -199,7 +197,6 @@ export function Header({ className }: SidebarProps) {
                   >
                     {items[1].services.map(
                       (service, index) => (
-                        <>
                           <NavigationMenuLink
                             key={index}
                             className={
@@ -208,7 +205,6 @@ export function Header({ className }: SidebarProps) {
                           >
                             <SoupIcon /> {service}
                           </NavigationMenuLink>
-                        </>
                       )
                     )}
                   </ul>

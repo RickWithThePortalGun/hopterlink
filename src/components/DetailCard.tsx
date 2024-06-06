@@ -2,27 +2,39 @@ import Image from 'next/image'
 import React from 'react'
 import Typography from './ui/typography'
 import { BadgeInfo } from 'lucide-react'
+import AverageReview from './AverageReview'
+import { priceRangeMapping } from '@/app/categories/[slug]/page'
 
 interface Props {
   name: string
   loading: boolean
   description: string
   hours: string
+  stars:number
+  price_range:string
 }
 
 const DetailCard = ({
   name,
   loading,
   description,
-  hours
+  hours,
+  stars,
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  price_range
 }: Props) => {
+  const priceRange =
+    priceRangeMapping[
+      price_range as keyof typeof priceRangeMapping
+    ]
+
   return (
     <>
       <div
         className="h-fit w-[80] my-8 rounded-md flex flex-row items-start
           bg-transparent hover:border-secondary border-[1px]
           border-transparent hover:transition hover:ease-in-out
-          hover:shadow-secondary ease-in-out hover:shadow-md p-4"
+          ease-in-out p-4"
       >
         <div className="m-2">
           <Image
@@ -39,6 +51,7 @@ const DetailCard = ({
           >
             {name}
           </Typography>
+          <AverageReview value={stars} />
           <div
             className="rounded-[18px] bg-teal-400/10 border-none mt-[5px] w-fit
               py-2"
@@ -48,12 +61,12 @@ const DetailCard = ({
             </p>
           </div>
           {description ? (
-            <div className="flex flex-row items-center gap-2">
+            <div className="flex flex-row items-start gap-2 mt-6">
               {' '}
               <BadgeInfo size={16} />
               <p
-                className="text-start line-clamp-2 md:line-clamp-3 lg:line-clamp-2
-                  w-full"
+                className="text-start text-xs line-clamp-2 md:line-clamp-3
+                  lg:line-clamp-2 w-full"
               >
                 {description}
               </p>
@@ -61,6 +74,7 @@ const DetailCard = ({
           ) : (
             ''
           )}
+         <Typography variant={"p"} className={`${priceRange.className} text-bold text-center text-xs px-2`}> {priceRange.text}</Typography>
         </div>
       </div>
     </>

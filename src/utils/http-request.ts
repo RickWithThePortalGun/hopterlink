@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const uri = 'https://0470-197-210-76-187.ngrok-free.app'
+const uri = 'http://localhost:8000'
 
 const Axios = axios.create({
   baseURL: uri

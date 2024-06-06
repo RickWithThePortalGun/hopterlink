@@ -16,19 +16,26 @@ import { useEffect, useState } from 'react'
 
 export default function Home() {
   const [categories, setCategories] = useState<any[]>([])
+  const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true) // Set loading to true initially
 
   const fetchCategories = async () => {
     try {
       const result: any[] = await getCategories()
       setCategories(result)
+      console.log(categories)
     } catch (error) {
       console.error('Error fetching categories:', error)
     } finally {
       setLoading(false)
     }
   }
-
+  const handleSearch = () => {
+    // Encode the search term to pass it as a URL parameter
+    const encodedSearchTerm = encodeURIComponent(searchTerm);
+    // Navigate to the search results page with the encoded search term as query parameter
+    window.location.href = `/search?query=${encodedSearchTerm}`;
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -64,11 +71,15 @@ export default function Home() {
               <Input
                 className="w-full focus:ring-transparent"
                 type="search"
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value)
+                }}
                 placeholder="things to do, nail salons, restaurants, spas.."
               />
-              <Link href="/categories" target="_blank">
+              <div onClick={handleSearch}>
                 <ShinyButton text="Search" />
-              </Link>
+              </div>
             </div>
             {/* <Image
             width={1024}
@@ -126,7 +137,8 @@ export default function Home() {
             </Typography>
             {loading ? (
               <CategoriesSkeletonLoader />
-            ) : categories.length > 0 ? (
+            // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+            ) : categories && categories?.length ? (
               <div
                 className="grid w-full grid-cols-2 max-md:grid-cols-2 lg:grid-cols-4
                   auto-rows-auto gap-4"

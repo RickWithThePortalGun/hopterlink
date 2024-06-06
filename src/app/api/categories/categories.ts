@@ -1,5 +1,4 @@
 import request from '@/utils/http-request'
-import axios from 'axios'
 
 export const getCategories = async () => {
   const uri = '/categories'
@@ -11,6 +10,7 @@ export const getCategories = async () => {
     console.error('Error fetching categories:', error)
   }
 }
+
 export const getCategory = async (slug: string) => {
   const uri = '/categories'
   try {
@@ -19,12 +19,7 @@ export const getCategory = async (slug: string) => {
     )
     const response = data.results[0].business
     console.log(response)
-    const promises = response.map(
-      async (url: string) => await axios.get(url)
-    )
-    const results = await Promise.all(promises)
-    console.log(results)
-    return results.map((result) => result.data)
+    return response
   } catch (error) {
     console.error('Error fetching categories:', error)
   }
@@ -36,9 +31,9 @@ export const getBusinessInfo = async (slug: string) => {
     const { data } = await request.get(
       `${uri}?slug=${slug}`
     )
-    console.log(data)
     return data.results[0]
   } catch (error) {
     console.error('Error fetching categories:', error)
   }
 }
+
