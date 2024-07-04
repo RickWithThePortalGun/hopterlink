@@ -1,115 +1,104 @@
-'use client'
-import PathContainer from '@/components/PathContainer'
-import { Input } from '@/components/ui/input'
-import React from 'react'
-import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
-import Logo from '@/components/Logo'
-import Ripple from '@/components/magicui/ripple'
+"use client";
+import Logo from "@/components/Logo";
+import Particles from "@/components/magicui/particles";
+import { buttonVariants } from "@/components/ui/button";
+import UserAuthForm from "@/components/ui/forms/user-auth-form";
+import Typography from "@/components/ui/typography";
+import { cn } from "@/lib/utils";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+// import Ripple from '@/components/magicui/ripple';
 
-const page = () => {
+// export const metadata: Metadata = {
+//   title: 'Authentication',
+//   description: 'Authentication forms built using the components.'
+// };
+
+export default function AuthenticationPage() {
+  const { status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
   return (
-    <PathContainer>
-      <div className="w-screen h-screen flex flex-row">
-        <div className="bg-secondary hidden md:flex border-r-2 w-1/2 relative">
-          <div className="top-10 left-10 absolute">
-            <Logo className={""} />
+    <div
+      className="relative h-screen flex-col items-center justify-center
+        md:grid lg:max-w-none lg:grid-cols-2 lg:px-0"
+    >
+      <Link
+        href="/examples/authentication"
+        className={cn(
+          buttonVariants({ variant: "ghost" }),
+          "absolute right-4 top-4 hidden md:right-8 md:top-8",
+        )}
+      >
+        Login
+      </Link>
+      <div
+        className="relative hidden h-full flex-col bg-muted p-10 text-white
+          lg:flex dark:border-r"
+      >
+        <Particles
+          className="absolute top-0 bottom-0 left-0 right-0"
+          color="#c55e0c"
+          staticity={10}
+        />
+
+        <div className="relative z-20 flex items-center text-lg font-medium">
+          <Logo />
+        </div>
+        <div className="relative z-20 mt-auto">
+          <blockquote className="space-y-2">
+            <Typography variant={"h5"} className="text-accent-foreground">
+              &ldquo;Hopterlink has saved me countless hours of work and helped
+              me discover services faster than ever before.&rdquo;
+            </Typography>
+            <footer className="text-sm text-muted-foreground">
+              Sofia Davis
+            </footer>
+          </blockquote>
+        </div>
+        {/* <Ripple/> */}
+      </div>
+      <div className="flex h-full items-center p-4 lg:p-8">
+        <div
+          className="mx-auto flex w-full flex-col justify-center space-y-6
+            sm:w-[350px]"
+        >
+          <div className="flex flex-col space-y-2 text-center">
+            <h1 className="text-2xl font-semibold tracking-tight">Log in</h1>
+            <p className="text-sm text-muted-foreground">
+              Enter your details to log in to your account.
+            </p>
+            <Link href={`/signup`} className="text-xs text-[#c55e0c]">
+              Don&apos;t have an account?
+            </Link>
           </div>
-          <div className="relative flex h-full w-full items-center justify-center overflow-hidden border md:shadow-xl">
-      <p className="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-white">
-        Hopterlink™
-      </p>
-      <Ripple />
-    </div>        </div>
-        <div className="bg-transparent md:w-1/2 w-full">
-          <div
-            className="w-full h-screen flex items-center justify-center px-4
-              theme-zinc"
-          >
-            <div
-              className="rounded-lg border bg-secondary text-card-primary shadow-sm
-                w-full max-w-sm"
+          <UserAuthForm />
+          <p className="px-8 text-center text-sm text-muted-foreground">
+            By clicking continue, you agree to our{" "}
+            <Link
+              href="/terms"
+              className="underline underline-offset-4 hover:text-primary"
             >
-              <div
-                className="flex flex-col text-center justify-center items-center
-                  space-y-1.5 p-6 my-6"
-              >
-                <h3 className="font-semibold tracking-tight text-2xl">
-                Sign In
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Enter your email below to login to
-                  Hopterlink.
-                </p>
-              </div>
-              <div className="p-6 pt-0 grid gap-4">
-                <div className="grid gap-2">
-                  <Label
-                    className="text-sm font-medium leading-none
-                      peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    htmlFor="email"
-                  >
-                    Email
-                  </Label>
-                  <Input
-                    type="email"
-                    className="flex h-10 w-full rounded-md border border-input
-                      bg-background px-3 py-2 text-sm ring-offset-background
-                      file:border-0 file:bg-transparent file:text-sm
-                      file:font-medium placeholder:text-muted-foreground
-                      focus-visible:outline-none focus-visible:ring-2
-                      focus-visible:ring-ring focus-visible:ring-offset-2
-                      disabled:cursor-not-allowed disabled:opacity-50"
-                    id="email"
-                    placeholder="user@example.com"
-                    required
-                    control-id="ControlID-1"
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label
-                    className="text-sm font-medium leading-none
-                      peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    htmlFor="password"
-                  >
-                    Password
-                  </Label>
-                  <Input
-                    type="password"
-                    className="flex h-10 w-full rounded-md border border-input
-                      bg-background px-3 py-2 text-sm ring-offset-background
-                      file:border-0 file:bg-transparent file:text-sm
-                      file:font-medium placeholder:text-muted-foreground
-                      focus-visible:outline-none focus-visible:ring-2
-                      focus-visible:ring-ring focus-visible:ring-offset-2
-                      disabled:cursor-not-allowed disabled:opacity-50"
-                    id="password"
-                    required
-                    placeholder='●●●●●●●●●'
-                    control-id="ControlID-2"
-                  />
-                </div>
-              </div>
-              <div className="flex items-center p-6 pt-0">
-                <Button
-                  className="inline-flex items-center justify-center whitespace-nowrap
-                    rounded-md text-sm font-medium ring-offset-background
-                    transition-colors focus-visible:outline-none
-                    focus-visible:ring-2 focus-visible:ring-ring
-                    focus-visible:ring-offset-2 disabled:pointer-events-none
-                    disabled:opacity-50 bg-primary text-primary-foreground
-                    hover:bg-primary/90 h-10 px-4 py-2 w-full"
-                  control-id="ControlID-3"
-                >
-                  Sign in
-                </Button>
-              </div>
-            </div>
-          </div>
+              Terms of Service
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="/privacy"
+              className="underline underline-offset-4 hover:text-primary"
+            >
+              Privacy Policy
+            </Link>
+            .
+          </p>
         </div>
       </div>
-    </PathContainer>
-  )
+    </div>
+  );
 }
-
-export default page

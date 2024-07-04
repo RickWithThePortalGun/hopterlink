@@ -32,7 +32,10 @@ export function GridPattern({
 }: GridPatternProps) {
   const id = useId();
   const containerRef = useRef(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [dimensions, setDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
   const [squares, setSquares] = useState(() => generateSquares(numSquares));
 
   function getPos() {
@@ -98,7 +101,8 @@ export function GridPattern({
       ref={containerRef}
       aria-hidden="true"
       className={cn(
-        "pointer-events-none absolute inset-0 h-full w-full fill-gray-400/30 stroke-gray-400/30 ",
+        `pointer-events-none absolute inset-0 h-full w-full
+          fill-gray-400/30 stroke-gray-400/30`,
         className,
       )}
       {...props}
@@ -132,7 +136,7 @@ export function GridPattern({
               repeatType: "reverse",
             }}
             onAnimationComplete={() => {
-              updateSquarePosition(id)
+              updateSquarePosition(id);
             }}
             key={`${x}-${y}-${index}`}
             width={width - 1}

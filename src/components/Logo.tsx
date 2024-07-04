@@ -1,6 +1,6 @@
-import { useTheme } from 'next-themes';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+"use client";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const Logo = () => {
   const { theme } = useTheme();
@@ -15,9 +15,10 @@ const Logo = () => {
 
   return (
     <img
-      src={theme === 'dark' ? '/Hopterlink png 2.png' : '/Hopterlink png 3.png'}
+      src={theme === "dark" ? "/Hopterlink png 2.png" : "/Hopterlink png 3.png"}
       alt="Logo"
-      className="mr-3 w-20"    />
+      className="mr-3 w-20"
+    />
   );
 };
 
