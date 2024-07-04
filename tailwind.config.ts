@@ -1,5 +1,30 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/ban-types */
 import type { Config } from 'tailwindcss'
+import defaultTheme from 'tailwindcss/defaultTheme'
+import colors from 'tailwindcss/colors'
+import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette'
 
+const addVariablesForColors = ({
+  addBase,
+  theme
+}: {
+  addBase: Function
+  theme: Function
+}) => {
+  const allColors = flattenColorPalette(theme('colors'))
+  const newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [
+      `--${key}`,
+      val
+    ])
+  )
+
+  addBase({
+    ':root': newVars
+  })
+}
 const config = {
   darkMode: ['class'],
   content: [
@@ -18,6 +43,9 @@ const config = {
       }
     },
     extend: {
+      ringColor: {
+        'custom-color': '#FF5733' // Change this to your desired color
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -57,6 +85,20 @@ const config = {
         }
       },
       keyframes: {
+        'caret-blink': {
+          '0%,70%,100%': { opacity: '1' },
+          '20%,50%': { opacity: '0' }
+        },
+        shimmer: {
+          '0%, 90%, 100%': {
+            'background-position':
+              'calc(-100% - var(--shimmer-width)) 0'
+          },
+          '30%, 60%': {
+            'background-position':
+              'calc(100% + var(--shimmer-width)) 0'
+          }
+        },
         ripple: {
           '0%, 100%': {
             transform: 'translate(-50%, -50%) scale(1)'
@@ -79,6 +121,9 @@ const config = {
         }
       },
       animation: {
+        'caret-blink':
+          'caret-blink 1.25s ease-out infinite',
+        shimmer: 'shimmer 8s infinite',
         ripple: 'ripple 3400ms ease infinite',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out'
@@ -117,7 +162,8 @@ const config = {
   plugins: [
     require('tailwindcss-animate'),
     require('@headlessui/tailwindcss'),
-    require('@tailwindcss/forms')
+    require('@tailwindcss/forms'),
+    addVariablesForColors
   ]
 } satisfies Config
 

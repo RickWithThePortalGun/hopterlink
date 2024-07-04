@@ -2,15 +2,14 @@
 import { getCategory } from '@/app/api/categories/categories'
 import DetailCard from '@/components/DetailCard'
 import HeaderContainer from '@/components/HeaderContainer'
+import SearchComponent from '@/components/SearchComponent'
 import SearchLoaders from '@/components/SearchLoaders'
-import ShinyButton from '@/components/magicui/shiny-button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import Typography from '@/components/ui/typography'
 import { ChevronDown, Info } from 'lucide-react'
@@ -31,15 +30,18 @@ const Page = ({ params }: Props) => {
       const category = await getCategory(slug)
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       setCategory(category ?? [])
+      console.log(category)
       setLoading(false)
     } catch (error) {
       console.error('Error fetching categories:', error)
       setLoading(false)
     }
   }
+
   const handleBusinessClick = (item: { slug: string }) => {
     router.push(`/business/${item.slug}`)
   }
+
   const slugify = (value: string) => {
     return value
       .toLowerCase()
@@ -48,7 +50,8 @@ const Page = ({ params }: Props) => {
   }
 
   useEffect(() => {
-    const slug = slugify(params.slug)
+    const decodedSlug = decodeURIComponent(params.slug)
+    const slug = slugify(decodedSlug)
     const fetchData = async () => {
       try {
         console.log(slug)
@@ -60,8 +63,6 @@ const Page = ({ params }: Props) => {
     void fetchData()
   }, [params.slug])
 
-
-  
   return (
     <HeaderContainer>
       <div
@@ -70,19 +71,18 @@ const Page = ({ params }: Props) => {
       >
         <div className="flex flex-col gap-6 items-start mt-12">
           <div className="flex-col flex gap-4 items-center mt-6 md:flex-row w-full">
-            <Input
-              className="w-full focus:ring-transparent"
-              type="search"
-              placeholder="things to do, nail salons, restaurants, spas.."
-            />
-            <ShinyButton text="Search" />
+            <SearchComponent />
           </div>
           <Separator />
           <Typography
             className="max-w-2xl text-start"
             variant="h2"
           >
-            Top 10 best {params.slug.replace(/%20/g, ' ')}{' '}
+            Top 10 best{' '}
+            {decodeURIComponent(params.slug).replace(
+              /-/g,
+              ' '
+            )}{' '}
             businesses in the city.
           </Typography>
         </div>
@@ -126,27 +126,27 @@ const Page = ({ params }: Props) => {
                   Sponsored Ads <Info />
                 </div>
                 {category.map((item) => (
-                  <>
-                    <div
-                      onClick={() => {
-                        handleBusinessClick({
-                          slug: item.slug
-                        })
-                      }}
-                      className="cursor-pointer"
-                    >
-                      <DetailCard
-                        loading={loading}
-                        price_range={item.price_range}
-                        stars={item.average_rating}
-                        key={item.name}
-                        name={item.name}
-                        hours={item.hours}
-                        description={item.description}
-                      />
-                      <Separator />
-                    </div>
-                  </>
+                  <div
+                    key={item.name}
+                    onClick={() => {
+                      handleBusinessClick({
+                        slug: item.slug
+                      })
+                    }}
+                    className="cursor-pointer"
+                  >
+                    <DetailCard
+                      loading={loading}
+                      review_count={item.review_count}
+                      price_range={item.price_range}
+                      tags={item.tags}
+                      stars={item.average_rating}
+                      name={item.name}
+                      hours={item.hours}
+                      description={item.description}
+                    />
+                    <Separator />
+                  </div>
                 ))}
               </div>
             )}
@@ -160,24 +160,24 @@ const Page = ({ params }: Props) => {
 export default Page
 
 export const priceRangeMapping = {
-  '$': {
+  $: {
     text: 'Very Affordable',
-    className: 'text-green-500',
+    className: 'text-green-500 text-xs'
   },
-  '$$': {
+  $$: {
     text: 'Affordable',
-    className: 'text-blue-500',
+    className: 'text-blue-500 text-xs'
   },
-  '$$$': {
+  $$$: {
     text: 'Fair Price',
-    className: 'text-yellow-500',
+    className: 'text-yellow-500 text-xs'
   },
-  '$$$$': {
+  $$$$: {
     text: 'Expensive',
-    className: 'text-orange-500',
+    className: 'text-orange-500 text-xs'
   },
-  '$$$$$': {
+  $$$$$: {
     text: 'Very Expensive',
-    className: 'text-red-500',
-  },
-};
+    className: 'text-red-500 text-xs'
+  }
+}

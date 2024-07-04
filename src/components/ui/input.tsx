@@ -14,11 +14,11 @@ const Input = React.forwardRef<
       type={type}
       className={cn(
         `flex h-10 w-full rounded-md border border-input
-          bg-background px-3 py-2 text-sm ring-offset-background
-          file:border-0 file:bg-transparent file:text-sm
-          file:font-medium placeholder:text-muted-foreground
-          focus-visible:outline-none focus-visible:ring-2
-          focus-visible:ring-white disabled:cursor-not-allowed
+          bg-background px-3 py-2 text-sm file:border-0
+          file:bg-transparent file:text-sm file:font-medium
+          placeholder:text-muted-foreground
+          disabled:cursor-not-allowed focus-visible:border-0
+          focus-visible:outline-none focus-visible:ring-custom-color
           disabled:opacity-50`,
         className
       )}

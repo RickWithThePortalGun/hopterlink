@@ -1,10 +1,15 @@
+import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/providers/theme-provider'
 import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
+import AuthProvider from './auth/Provider'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Montserrat({
+  weight: '400',
+  subsets: ['latin']
+})
 
 export const metadata: Metadata = {
   title:
@@ -17,9 +22,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title:
-      'Pandem - Information you need during on-call emergencies',
-    description:
-      'Quickly link new on-call tickets to similar past incidents and their solutions. All directly in Slack the moment an incident happens.',
+      'Hopterlink - Find, Review, and Connect with Local Gems.',
     images: ['https://i.imgur.com/MPMcyPP.png']
   }
 }
@@ -37,18 +40,22 @@ export default function RootLayout({
     >
       <Analytics />
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main
-            className={`flex min-h-screen flex-col ${inter.className}`}
+        <AuthProvider>
+          {' '}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
           >
-            {children}
-          </main>
-        </ThemeProvider>
+            <main
+              className={`flex min-h-screen flex-col ${inter.className}`}
+            >
+              {children}
+            </main>
+            <Toaster />
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   )

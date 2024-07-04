@@ -11,13 +11,24 @@ export const getCategories = async () => {
   }
 }
 
+export const getRecentReviews = async (page = 1) => {
+  const uri = `/latest-reviews/?page=${page}`
+  try {
+    const result = await request.get(uri)
+    console.log(result)
+    return result.data // Adjusted to return the entire response
+  } catch (error) {
+    console.error('Error fetching reviews:', error)
+  }
+}
+
 export const getCategory = async (slug: string) => {
   const uri = '/categories'
   try {
     const { data } = await request.get(
       `${uri}?slug=${slug}`
     )
-    const response = data.results[0].business
+    const response = data.results[0].businesses
     console.log(response)
     return response
   } catch (error) {
@@ -36,4 +47,3 @@ export const getBusinessInfo = async (slug: string) => {
     console.error('Error fetching categories:', error)
   }
 }
-

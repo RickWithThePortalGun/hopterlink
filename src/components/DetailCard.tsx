@@ -1,32 +1,36 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import Image from 'next/image'
 import React from 'react'
 import Typography from './ui/typography'
 import { BadgeInfo } from 'lucide-react'
 import AverageReview from './AverageReview'
-import { priceRangeMapping } from '@/app/categories/[slug]/page'
 
 interface Props {
   name: string
   loading: boolean
   description: string
   hours: string
-  stars:number
-  price_range:string
+  stars: number
+  price_range: string
+  tags: any
+  review_count: any
 }
 
 const DetailCard = ({
   name,
   loading,
+  tags,
   description,
   hours,
   stars,
+  review_count,
   // eslint-disable-next-line @typescript-eslint/naming-convention
   price_range
 }: Props) => {
-  const priceRange =
-    priceRangeMapping[
-      price_range as keyof typeof priceRangeMapping
-    ]
+  // const priceRange =
+  //   priceRangeMapping[
+  //     price_range as keyof typeof priceRangeMapping
+  //   ]
 
   return (
     <>
@@ -36,7 +40,7 @@ const DetailCard = ({
           border-transparent hover:transition hover:ease-in-out
           ease-in-out p-4"
       >
-        <div className="m-2">
+        <div className="m-2 rounded-md overflow-hidden">
           <Image
             src={`https://github.com/shadcn.png`}
             alt="image"
@@ -51,7 +55,12 @@ const DetailCard = ({
           >
             {name}
           </Typography>
-          <AverageReview value={stars} />
+          <div className="flex flex-row items-center gap-4 ">
+            <AverageReview size={14} value={stars} />
+            <p className="text-gray-400 text-xs">
+              ({review_count} reviews)
+            </p>
+          </div>
           <div
             className="rounded-[18px] bg-teal-400/10 border-none mt-[5px] w-fit
               py-2"
@@ -74,7 +83,38 @@ const DetailCard = ({
           ) : (
             ''
           )}
-         <Typography variant={"p"} className={`${priceRange.className} text-bold text-center text-xs px-2`}> {priceRange.text}</Typography>
+          {tags && tags.length > 0 && (
+            <div className="w-full flex gap-2 flex-wrap">
+              {tags.map(
+                (tag: {
+                  slug: React.Key | null | undefined
+                  name:
+                    | string
+                    | number
+                    | bigint
+                    | boolean
+                    | React.ReactElement<
+                        any,
+                        | string
+                        | React.JSXElementConstructor<any>
+                      >
+                    | Iterable<React.ReactNode>
+                    | React.ReactPortal
+                    | Promise<React.AwaitedReactNode>
+                    | null
+                    | undefined
+                }) => (
+                  <p
+                    key={tag.slug}
+                    className="max-w-[100px] truncate bg-teal-400/10 border-none mt-[5px]
+                      text-[10px] px-2 py-1 rounded-[18px]"
+                  >
+                    {tag.name}
+                  </p>
+                )
+              )}
+            </div>
+          )}
         </div>
       </div>
     </>
