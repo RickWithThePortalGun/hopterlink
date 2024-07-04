@@ -12,8 +12,7 @@
     "start": "next start",
     "lint": "npm run next-lint && npm run format",
     "next-lint": "next lint --fix --quiet",
-    "format": "prettier --write --log-level error .",
-    "prepare": "husky"
+    "format": "prettier --write --log-level error ."
   },
   "dependencies": {
     "@emoji-mart/data": "^1.2.1",
