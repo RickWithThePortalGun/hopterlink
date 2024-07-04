@@ -37,7 +37,7 @@ export default function Home() {
             />
 
             <div
-              className="w-1/2 items-start flex-col p-2 gap-6 justify-center h-screen
+              className="w-1/2 max-md:w-full items-start max-md:items-center flex-col p-2 gap-6 justify-center h-screen
                 flex"
             >
               <div
@@ -54,21 +54,21 @@ export default function Home() {
                     ease-out hover:text-neutral-600 hover:duration-300
                     hover:dark:text-neutral-400"
                 >
-                  <span>✨ Introducing Hopterlink</span>
+                  <span className="max-md:text-sm">✨ Introducing Hopterlink</span>
                   <ChevronRight />
                 </AnimatedShinyText>
               </div>
-              <div className="max-w-4xl text-6xl font-extrabold tracking-tight text-start">
+              <div className="max-w-4xl text-6xl max-md:text-3xl font-extrabold tracking-tight text-start max-md:text-center">
                 <FlipWords words={words} />
                 Local Gems.
               </div>
-              <p className="max-w-4xl text-xl tracking-normal">
+              <p className="max-w-4xl text-xl max-md:text-sm tracking-normal">
                 Every review tells a story, every story shapes a community.
               </p>
               <div className="flex-col flex gap-4 items-center mt-6 md:flex-row w-full">
                 <SearchComponent />
               </div>
-              <div className="flex flex-row gap-4 items-center w-full">
+              <div className="flex flex-row max-md:flex-col gap-4 max-md:text-xs items-center w-full">
                 Popular Searches
                 <p
                   className="px-2 py-1 bg-transparent border-primary border-[1px]
@@ -90,9 +90,9 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="w-1/2 p-2 gap-6 h-screen flex">
+            <div className={"flex items-center justify-center w-full"}>
               <ImageCarousel />
-            </div>
+              </div>
           </div>
           <div className="flex flex-col md:pt-24 md:gap-36 gap-24 items-center">
             <div className="flex flex-col gap-12 items-center">
