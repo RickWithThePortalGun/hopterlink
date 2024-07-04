@@ -1,14 +1,14 @@
-'use client'
-import Logo from '@/components/Logo'
-import Particles from '@/components/magicui/particles'
-import { buttonVariants } from '@/components/ui/button'
-import UserAuthForm from '@/components/ui/forms/user-auth-form'
-import Typography from '@/components/ui/typography'
-import { cn } from '@/lib/utils'
-import { useSession } from 'next-auth/react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+"use client";
+import Logo from "@/components/Logo";
+import Particles from "@/components/magicui/particles";
+import { buttonVariants } from "@/components/ui/button";
+import UserAuthForm from "@/components/ui/forms/user-auth-form";
+import Typography from "@/components/ui/typography";
+import { cn } from "@/lib/utils";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 // import Ripple from '@/components/magicui/ripple';
 
 // export const metadata: Metadata = {
@@ -17,14 +17,14 @@ import { useEffect } from 'react'
 // };
 
 export default function AuthenticationPage() {
-  const { status } = useSession()
-  const router = useRouter()
+  const { status } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
-    if (status === 'authenticated') {
-      router.push('/')
+    if (status === "authenticated") {
+      router.push("/");
     }
-  }, [status, router])
+  }, [status, router]);
   return (
     <div
       className="relative h-screen flex-col items-center justify-center
@@ -33,8 +33,8 @@ export default function AuthenticationPage() {
       <Link
         href="/examples/authentication"
         className={cn(
-          buttonVariants({ variant: 'ghost' }),
-          'absolute right-4 top-4 hidden md:right-8 md:top-8'
+          buttonVariants({ variant: "ghost" }),
+          "absolute right-4 top-4 hidden md:right-8 md:top-8",
         )}
       >
         Login
@@ -54,13 +54,9 @@ export default function AuthenticationPage() {
         </div>
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
-            <Typography
-              variant={'h5'}
-              className="text-accent-foreground"
-            >
-              &ldquo;Hopterlink has saved me countless hours
-              of work and helped me discover services faster
-              than ever before.&rdquo;
+            <Typography variant={"h5"} className="text-accent-foreground">
+              &ldquo;Hopterlink has saved me countless hours of work and helped
+              me discover services faster than ever before.&rdquo;
             </Typography>
             <footer className="text-sm text-muted-foreground">
               Sofia Davis
@@ -75,29 +71,24 @@ export default function AuthenticationPage() {
             sm:w-[350px]"
         >
           <div className="flex flex-col space-y-2 text-center">
-            <h1 className="text-2xl font-semibold tracking-tight">
-              Log in
-            </h1>
+            <h1 className="text-2xl font-semibold tracking-tight">Log in</h1>
             <p className="text-sm text-muted-foreground">
               Enter your details to log in to your account.
             </p>
-            <Link
-              href={`/signup`}
-              className="text-xs text-[#c55e0c]"
-            >
+            <Link href={`/signup`} className="text-xs text-[#c55e0c]">
               Don&apos;t have an account?
             </Link>
           </div>
           <UserAuthForm />
           <p className="px-8 text-center text-sm text-muted-foreground">
-            By clicking continue, you agree to our{' '}
+            By clicking continue, you agree to our{" "}
             <Link
               href="/terms"
               className="underline underline-offset-4 hover:text-primary"
             >
               Terms of Service
-            </Link>{' '}
-            and{' '}
+            </Link>{" "}
+            and{" "}
             <Link
               href="/privacy"
               className="underline underline-offset-4 hover:text-primary"
@@ -109,5 +100,5 @@ export default function AuthenticationPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

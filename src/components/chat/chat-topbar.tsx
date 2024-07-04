@@ -1,21 +1,15 @@
-import { type UserData } from '@/app/data'
-import { Info, Phone, Video } from 'lucide-react'
-import Link from 'next/link'
-import { Avatar, AvatarImage } from '../ui/avatar'
+import { type UserData } from "@/app/data";
+import { Info, Phone, Video } from "lucide-react";
+import Link from "next/link";
+import { Avatar, AvatarImage } from "../ui/avatar";
 
 interface ChatTopbarProps {
-  selectedUser: UserData
+  selectedUser: UserData;
 }
 
-export const TopbarIcons = [
-  { icon: Phone },
-  { icon: Video },
-  { icon: Info }
-]
+export const TopbarIcons = [{ icon: Phone }, { icon: Video }, { icon: Info }];
 
-export default function ChatTopbar({
-  selectedUser
-}: ChatTopbarProps) {
+export default function ChatTopbar({ selectedUser }: ChatTopbarProps) {
   return (
     <div className="w-full h-20 flex p-4 justify-between items-end border-b">
       <div className="flex items-center gap-2">
@@ -29,9 +23,7 @@ export default function ChatTopbar({
           />
         </Avatar>
         <div className="flex flex-col">
-          <span className="font-medium">
-            {selectedUser.name}
-          </span>
+          <span className="font-medium">{selectedUser.name}</span>
           <span className="text-xs">Active 2 mins ago</span>
         </div>
       </div>
@@ -45,13 +37,10 @@ export default function ChatTopbar({
               dark:hover:bg-secondary rounded-lg flex items-center
               justify-center dark:hover:text-white"
           >
-            <icon.icon
-              size={20}
-              className="text-muted-foreground"
-            />
+            <icon.icon size={20} className="text-muted-foreground" />
           </Link>
         ))}
       </div>
     </div>
-  )
+  );
 }

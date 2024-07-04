@@ -1,22 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-'use client'
+"use client";
 
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger
-} from '@/components/ui/popover'
-import { SmileIcon } from 'lucide-react'
-import Picker from '@emoji-mart/react'
-import data from '@emoji-mart/data'
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { SmileIcon } from "lucide-react";
+import Picker from "@emoji-mart/react";
+import data from "@emoji-mart/data";
 
 interface EmojiPickerProps {
-  onChange: (value: string) => void
+  onChange: (value: string) => void;
 }
 
-export const EmojiPicker = ({
-  onChange
-}: EmojiPickerProps) => {
+export const EmojiPicker = ({ onChange }: EmojiPickerProps) => {
   return (
     <Popover>
       <PopoverTrigger>
@@ -32,10 +30,10 @@ export const EmojiPicker = ({
           data={data}
           maxFrequentRows={1}
           onEmojiSelect={(emoji: any) => {
-            onChange(emoji.native)
+            onChange(emoji.native);
           }}
         />
       </PopoverContent>
     </Popover>
-  )
-}
+  );
+};

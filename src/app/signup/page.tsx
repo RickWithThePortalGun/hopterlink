@@ -1,9 +1,9 @@
-'use client'
-import Logo from '@/components/Logo'
-import PathContainer from '@/components/PathContainer'
-import SignUpForm from '@/components/SignUpForm'
-import Particles from '@/components/magicui/particles'
-import Typography from '@/components/ui/typography'
+"use client";
+import Logo from "@/components/Logo";
+import PathContainer from "@/components/PathContainer";
+import SignUpForm from "@/components/SignUpForm";
+import Particles from "@/components/magicui/particles";
+import Typography from "@/components/ui/typography";
 
 const page = () => {
   return (
@@ -31,17 +31,17 @@ const page = () => {
               overflow-hidden md:shadow-xl"
           >
             <Typography
-              variant={'h1'}
+              variant={"h1"}
               className="z-10 whitespace-pre-wrap text-center font-medium
                 tracking-tighter"
             >
               Hopterlink™
             </Typography>
-          </div>{' '}
+          </div>{" "}
         </div>
       </div>
     </PathContainer>
-  )
-}
+  );
+};
 
-export default page
+export default page;

@@ -1,8 +1,8 @@
-'use client'
-import React, { type PropsWithChildren } from 'react'
-import { SessionProvider } from 'next-auth/react'
+"use client";
+import React, { type PropsWithChildren } from "react";
+import { SessionProvider } from "next-auth/react";
 const AuthProvider = ({ children }: PropsWithChildren) => {
-  return <SessionProvider>{children}</SessionProvider>
-}
+  return <SessionProvider>{children}</SessionProvider>;
+};
 
-export default AuthProvider
+export default AuthProvider;

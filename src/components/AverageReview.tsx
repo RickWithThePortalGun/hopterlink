@@ -1,8 +1,8 @@
-import { Star, StarHalf } from 'lucide-react'
+import { Star, StarHalf } from "lucide-react";
 
 interface Props {
-  value: number
-  size: number
+  value: number;
+  size: number;
 }
 
 const AverageReview = ({ value, size }: Props) => {
@@ -16,38 +16,38 @@ const AverageReview = ({ value, size }: Props) => {
       ) : value >= 0.5 ? (
         <StarHalf className="text-primary" size={size} />
       ) : (
-        ''
+        ""
       )}
       {value >= 2 ? (
         <Star className="text-primary" size={size} />
       ) : value >= 1.5 ? (
         <StarHalf className="text-primary" size={size} />
       ) : (
-        ''
+        ""
       )}
       {value >= 3 ? (
         <Star className="text-primary" size={size} />
       ) : value >= 2.5 ? (
         <StarHalf className="text-primary" size={size} />
       ) : (
-        ''
+        ""
       )}
       {value >= 4 ? (
         <Star className="text-primary" size={size} />
       ) : value >= 3.5 ? (
         <StarHalf className="text-primary" size={size} />
       ) : (
-        ''
+        ""
       )}
       {value >= 5 ? (
         <Star className="text-primary" size={size} />
       ) : value >= 4.5 ? (
         <StarHalf className="text-primary" size={size} />
       ) : (
-        ''
+        ""
       )}
     </div>
-  )
-}
+  );
+};
 
-export default AverageReview
+export default AverageReview;

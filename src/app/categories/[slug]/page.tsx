@@ -1,67 +1,67 @@
-'use client'
-import { getCategory } from '@/app/api/categories/categories'
-import DetailCard from '@/components/DetailCard'
-import HeaderContainer from '@/components/HeaderContainer'
-import SearchComponent from '@/components/SearchComponent'
-import SearchLoaders from '@/components/SearchLoaders'
+"use client";
+import { getCategory } from "@/app/api/categories/categories";
+import DetailCard from "@/components/DetailCard";
+import HeaderContainer from "@/components/HeaderContainer";
+import SearchComponent from "@/components/SearchComponent";
+import SearchLoaders from "@/components/SearchLoaders";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
-import { Separator } from '@/components/ui/separator'
-import Typography from '@/components/ui/typography'
-import { ChevronDown, Info } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
+import Typography from "@/components/ui/typography";
+import { ChevronDown, Info } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface Props {
-  params: { slug: string }
+  params: { slug: string };
 }
 
 const Page = ({ params }: Props) => {
-  const [category, setCategory] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
-  const router = useRouter()
+  const [category, setCategory] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const fetchCategory = async (slug: string) => {
     try {
-      const category = await getCategory(slug)
+      const category = await getCategory(slug);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      setCategory(category ?? [])
-      console.log(category)
-      setLoading(false)
+      setCategory(category ?? []);
+      console.log(category);
+      setLoading(false);
     } catch (error) {
-      console.error('Error fetching categories:', error)
-      setLoading(false)
+      console.error("Error fetching categories:", error);
+      setLoading(false);
     }
-  }
+  };
 
   const handleBusinessClick = (item: { slug: string }) => {
-    router.push(`/business/${item.slug}`)
-  }
+    router.push(`/business/${item.slug}`);
+  };
 
   const slugify = (value: string) => {
     return value
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '')
-  }
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  };
 
   useEffect(() => {
-    const decodedSlug = decodeURIComponent(params.slug)
-    const slug = slugify(decodedSlug)
+    const decodedSlug = decodeURIComponent(params.slug);
+    const slug = slugify(decodedSlug);
     const fetchData = async () => {
       try {
-        console.log(slug)
-        await fetchCategory(slug)
+        console.log(slug);
+        await fetchCategory(slug);
       } catch (error) {
-        console.error('Error fetching categories:', error)
+        console.error("Error fetching categories:", error);
       }
-    }
-    void fetchData()
-  }, [params.slug])
+    };
+    void fetchData();
+  }, [params.slug]);
 
   return (
     <HeaderContainer>
@@ -74,15 +74,8 @@ const Page = ({ params }: Props) => {
             <SearchComponent />
           </div>
           <Separator />
-          <Typography
-            className="max-w-2xl text-start"
-            variant="h2"
-          >
-            Top 10 best{' '}
-            {decodeURIComponent(params.slug).replace(
-              /-/g,
-              ' '
-            )}{' '}
+          <Typography className="max-w-2xl text-start" variant="h2">
+            Top 10 best {decodeURIComponent(params.slug).replace(/-/g, " ")}{" "}
             businesses in the city.
           </Typography>
         </div>
@@ -97,23 +90,14 @@ const Page = ({ params }: Props) => {
                   className="border-2 border-secondary flex flex-row gap-4 items-center
                     text-xs justify-center w-fit px-4 h-10 rounded-full"
                 >
-                  <Typography>Recommended</Typography>{' '}
-                  <ChevronDown />
+                  <Typography>Recommended</Typography> <ChevronDown />
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem>
-                  Recommended
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  Most Reviewed
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  Most Rated
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  Alphabetical Order
-                </DropdownMenuItem>
+                <DropdownMenuItem>Recommended</DropdownMenuItem>
+                <DropdownMenuItem>Most Reviewed</DropdownMenuItem>
+                <DropdownMenuItem>Most Rated</DropdownMenuItem>
+                <DropdownMenuItem>Alphabetical Order</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -130,8 +114,8 @@ const Page = ({ params }: Props) => {
                     key={item.name}
                     onClick={() => {
                       handleBusinessClick({
-                        slug: item.slug
-                      })
+                        slug: item.slug,
+                      });
                     }}
                     className="cursor-pointer"
                   >
@@ -154,30 +138,30 @@ const Page = ({ params }: Props) => {
         </div>
       </div>
     </HeaderContainer>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;
 
 export const priceRangeMapping = {
   $: {
-    text: 'Very Affordable',
-    className: 'text-green-500 text-xs'
+    text: "Very Affordable",
+    className: "text-green-500 text-xs",
   },
   $$: {
-    text: 'Affordable',
-    className: 'text-blue-500 text-xs'
+    text: "Affordable",
+    className: "text-blue-500 text-xs",
   },
   $$$: {
-    text: 'Fair Price',
-    className: 'text-yellow-500 text-xs'
+    text: "Fair Price",
+    className: "text-yellow-500 text-xs",
   },
   $$$$: {
-    text: 'Expensive',
-    className: 'text-orange-500 text-xs'
+    text: "Expensive",
+    className: "text-orange-500 text-xs",
   },
   $$$$$: {
-    text: 'Very Expensive',
-    className: 'text-red-500 text-xs'
-  }
-}
+    text: "Very Expensive",
+    className: "text-red-500 text-xs",
+  },
+};

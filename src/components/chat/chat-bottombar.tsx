@@ -1,58 +1,49 @@
-import { loggedInUserData, type Message } from '@/app/data'
-import { cn } from '@/lib/utils'
-import { AnimatePresence, motion } from 'framer-motion'
+import { loggedInUserData, type Message } from "@/app/data";
+import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   FileImage,
   Mic,
   Paperclip,
   PlusCircle,
   SendHorizontal,
-  ThumbsUp
-} from 'lucide-react'
-import Link from 'next/link'
-import React, { useRef, useState } from 'react'
-import { EmojiPicker } from '../emoji-picker'
-import { buttonVariants } from '../ui/button'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '../ui/popover'
-import { Textarea } from '../ui/textarea'
+  ThumbsUp,
+} from "lucide-react";
+import Link from "next/link";
+import React, { useRef, useState } from "react";
+import { EmojiPicker } from "../emoji-picker";
+import { buttonVariants } from "../ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Textarea } from "../ui/textarea";
 
 interface ChatBottombarProps {
-  sendMessage: (newMessage: Message) => void
-  isMobile: boolean
+  sendMessage: (newMessage: Message) => void;
+  isMobile: boolean;
 }
 
-export const BottombarIcons = [
-  { icon: FileImage },
-  { icon: Paperclip }
-]
+export const BottombarIcons = [{ icon: FileImage }, { icon: Paperclip }];
 
 export default function ChatBottombar({
   sendMessage,
-  isMobile
+  isMobile,
 }: ChatBottombarProps) {
-  const [message, setMessage] = useState('')
-  const inputRef = useRef<HTMLTextAreaElement>(null)
+  const [message, setMessage] = useState("");
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleInputChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setMessage(event.target.value)
-  }
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(event.target.value);
+  };
 
   const handleThumbsUp = () => {
     const newMessage: Message = {
       id: message.length + 1,
       name: loggedInUserData.name,
       avatar: loggedInUserData.avatar,
-      message: '👍'
-    }
-    sendMessage(newMessage)
-    setMessage('')
-  }
+      message: "👍",
+    };
+    sendMessage(newMessage);
+    setMessage("");
+  };
 
   const handleSend = () => {
     if (message.trim()) {
@@ -60,30 +51,28 @@ export default function ChatBottombar({
         id: message.length + 1,
         name: loggedInUserData.name,
         avatar: loggedInUserData.avatar,
-        message: message.trim()
-      }
-      sendMessage(newMessage)
-      setMessage('')
+        message: message.trim(),
+      };
+      sendMessage(newMessage);
+      setMessage("");
 
       if (inputRef.current) {
-        inputRef.current.focus()
+        inputRef.current.focus();
       }
     }
-  }
+  };
 
-  const handleKeyPress = (
-    event: React.KeyboardEvent<HTMLTextAreaElement>
-  ) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault()
-      handleSend()
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      handleSend();
     }
 
-    if (event.key === 'Enter' && event.shiftKey) {
-      event.preventDefault()
-      setMessage((prev) => prev + '\n')
+    if (event.key === "Enter" && event.shiftKey) {
+      event.preventDefault();
+      setMessage((prev) => prev + "\n");
     }
-  }
+  };
 
   return (
     <div className="p-2 flex justify-between w-full items-center gap-2">
@@ -94,18 +83,15 @@ export default function ChatBottombar({
               href="#"
               className={cn(
                 buttonVariants({
-                  variant: 'ghost',
-                  size: 'icon'
+                  variant: "ghost",
+                  size: "icon",
                 }),
-                'h-9 w-9',
+                "h-9 w-9",
                 `dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted
-                dark:hover:text-white`
+                dark:hover:text-white`,
               )}
             >
-              <PlusCircle
-                size={20}
-                className="text-muted-foreground"
-              />
+              <PlusCircle size={20} className="text-muted-foreground" />
             </Link>
           </PopoverTrigger>
           <PopoverContent side="top" className="w-full p-2">
@@ -115,18 +101,15 @@ export default function ChatBottombar({
                   href="#"
                   className={cn(
                     buttonVariants({
-                      variant: 'ghost',
-                      size: 'icon'
+                      variant: "ghost",
+                      size: "icon",
                     }),
-                    'h-9 w-9',
+                    "h-9 w-9",
                     `dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted
-                    dark:hover:text-white`
+                    dark:hover:text-white`,
                   )}
                 >
-                  <Mic
-                    size={20}
-                    className="text-muted-foreground"
-                  />
+                  <Mic size={20} className="text-muted-foreground" />
                 </Link>
                 {BottombarIcons.map((icon, index) => (
                   <Link
@@ -134,18 +117,15 @@ export default function ChatBottombar({
                     href="#"
                     className={cn(
                       buttonVariants({
-                        variant: 'ghost',
-                        size: 'icon'
+                        variant: "ghost",
+                        size: "icon",
                       }),
-                      'h-9 w-9',
+                      "h-9 w-9",
                       `dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted
-                      dark:hover:text-white`
+                      dark:hover:text-white`,
                     )}
                   >
-                    <icon.icon
-                      size={20}
-                      className="text-muted-foreground"
-                    />
+                    <icon.icon size={20} className="text-muted-foreground" />
                   </Link>
                 ))}
               </div>
@@ -154,18 +134,15 @@ export default function ChatBottombar({
                 href="#"
                 className={cn(
                   buttonVariants({
-                    variant: 'ghost',
-                    size: 'icon'
+                    variant: "ghost",
+                    size: "icon",
                   }),
-                  'h-9 w-9',
+                  "h-9 w-9",
                   `dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted
-                  dark:hover:text-white`
+                  dark:hover:text-white`,
                 )}
               >
-                <Mic
-                  size={20}
-                  className="text-muted-foreground"
-                />
+                <Mic size={20} className="text-muted-foreground" />
               </Link>
             )}
           </PopoverContent>
@@ -178,18 +155,15 @@ export default function ChatBottombar({
                 href="#"
                 className={cn(
                   buttonVariants({
-                    variant: 'ghost',
-                    size: 'icon'
+                    variant: "ghost",
+                    size: "icon",
                   }),
-                  'h-9 w-9',
+                  "h-9 w-9",
                   `dark:bg-muted dark:text-muted-foreground mx-1
-                  dark:hover:bg-muted dark:hover:text-white`
+                  dark:hover:bg-muted dark:hover:text-white`,
                 )}
               >
-                <icon.icon
-                  size={20}
-                  className="text-muted-foreground"
-                />
+                <icon.icon size={20} className="text-muted-foreground" />
               </Link>
             ))}
           </div>
@@ -207,9 +181,9 @@ export default function ChatBottombar({
           transition={{
             opacity: { duration: 0.05 },
             layout: {
-              type: 'spring',
-              bounce: 0.15
-            }
+              type: "spring",
+              bounce: 0.15,
+            },
           }}
         >
           <Textarea
@@ -226,9 +200,9 @@ export default function ChatBottombar({
           <div className="absolute right-2 bottom-0.5">
             <EmojiPicker
               onChange={(value) => {
-                setMessage(message + value)
+                setMessage(message + value);
                 if (inputRef.current) {
-                  inputRef.current.focus()
+                  inputRef.current.focus();
                 }
               }}
             />
@@ -240,41 +214,35 @@ export default function ChatBottombar({
             href="#"
             className={cn(
               buttonVariants({
-                variant: 'ghost',
-                size: 'icon'
+                variant: "ghost",
+                size: "icon",
               }),
-              'h-9 w-9',
+              "h-9 w-9",
               `dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted
-              dark:hover:text-white shrink-0`
+              dark:hover:text-white shrink-0`,
             )}
             onClick={handleSend}
           >
-            <SendHorizontal
-              size={20}
-              className="text-muted-foreground"
-            />
+            <SendHorizontal size={20} className="text-muted-foreground" />
           </Link>
         ) : (
           <Link
             href="#"
             className={cn(
               buttonVariants({
-                variant: 'ghost',
-                size: 'icon'
+                variant: "ghost",
+                size: "icon",
               }),
-              'h-9 w-9',
+              "h-9 w-9",
               `dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted
-              dark:hover:text-white shrink-0`
+              dark:hover:text-white shrink-0`,
             )}
             onClick={handleThumbsUp}
           >
-            <ThumbsUp
-              size={20}
-              className="text-muted-foreground"
-            />
+            <ThumbsUp size={20} className="text-muted-foreground" />
           </Link>
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 }

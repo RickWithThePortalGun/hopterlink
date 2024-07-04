@@ -1,35 +1,35 @@
-'use client'
-import React, { useEffect, useState } from 'react'
-import CategoriesSkeletonLoader from './CategoriesSkeletonLoader'
-import Typography from './ui/typography'
-import { getCategories } from '@/app/api/categories/categories'
-import Link from 'next/link'
+"use client";
+import React, { useEffect, useState } from "react";
+import CategoriesSkeletonLoader from "./CategoriesSkeletonLoader";
+import Typography from "./ui/typography";
+import { getCategories } from "@/app/api/categories/categories";
+import Link from "next/link";
 
 const CategoryCards = () => {
-  const [categories, setCategories] = useState<any[]>([])
-  const [loading, setLoading] = useState(true) // Set loading to true initially
+  const [categories, setCategories] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true); // Set loading to true initially
 
   const fetchCategories = async () => {
     try {
-      const result: any[] = await getCategories()
-      setCategories(result)
+      const result: any[] = await getCategories();
+      setCategories(result);
     } catch (error) {
-      console.error('Error fetching categories:', error)
+      console.error("Error fetching categories:", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await fetchCategories()
+        await fetchCategories();
       } catch (error) {
-        console.error('Error fetching categories:', error)
+        console.error("Error fetching categories:", error);
       }
-    }
-    void fetchData()
-  }, [])
+    };
+    void fetchData();
+  }, []);
 
   return (
     <>
@@ -53,14 +53,12 @@ const CategoryCards = () => {
                     className="flex flex-col z-40 p-4 rounded-md bg-background border-[1px]
                       gap-6 w-[200px] h-[200px] items-center justify-center"
                   >
-                    <Typography variant={'h5'}>
-                      {category.name}
-                    </Typography>
+                    <Typography variant={"h5"}>{category.name}</Typography>
                   </div>
                 </Link>
-              )
+              );
             } else {
-              return null
+              return null;
             }
           })}
         </div>
@@ -68,7 +66,7 @@ const CategoryCards = () => {
         <p>No categories found</p> // Render a message if categories is empty
       )}
     </>
-  )
-}
+  );
+};
 
-export default CategoryCards
+export default CategoryCards;

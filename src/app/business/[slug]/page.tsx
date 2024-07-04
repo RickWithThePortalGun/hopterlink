@@ -2,89 +2,86 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/naming-convention */
-'use client'
-import { getBusinessInfo } from '@/app/api/categories/categories'
-import HeaderContainer from '@/components/HeaderContainer'
+"use client";
+import { getBusinessInfo } from "@/app/api/categories/categories";
+import HeaderContainer from "@/components/HeaderContainer";
 
-import { priceRangeMapping } from '@/app/categories/[slug]/page'
-import AddAReview from '@/components/AddAReview'
-import AverageReview from '@/components/AverageReview'
-import BusinessAdInfo from '@/components/BusinessAdInfo'
-import BusinessCTA from '@/components/BusinessCTA'
-import Crumbs from '@/components/Crumbs'
-import ReviewsCard from '@/components/ReviewsCard'
-import SendAMesage from '@/components/SendAMesage'
-import { toast } from '@/components/ui-hooks/use-toast'
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
-import Typography from '@/components/ui/typography'
-import axios from 'axios'
+import { priceRangeMapping } from "@/app/categories/[slug]/page";
+import AddAReview from "@/components/AddAReview";
+import AverageReview from "@/components/AverageReview";
+import BusinessAdInfo from "@/components/BusinessAdInfo";
+import BusinessCTA from "@/components/BusinessCTA";
+import Crumbs from "@/components/Crumbs";
+import ReviewsCard from "@/components/ReviewsCard";
+import SendAMesage from "@/components/SendAMesage";
+import { toast } from "@/components/ui-hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import Typography from "@/components/ui/typography";
+import axios from "axios";
 import {
   Bookmark,
   BookmarkCheck,
   Link2,
   MapPin,
   Share,
-  Timer
-} from 'lucide-react'
-import { useSession } from 'next-auth/react'
-import Link from 'next/link'
-import { useParams } from 'next/navigation'
-import { type Key, useEffect, useState } from 'react'
-import { RotatingLines } from 'react-loader-spinner'
-import { type Session } from 'next-auth'
-import Image from 'next/image'
-import { MultiStepLoader } from '@/components/ui/multi-step-loader'
+  Timer,
+} from "lucide-react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { type Key, useEffect, useState } from "react";
+import { RotatingLines } from "react-loader-spinner";
+import { type Session } from "next-auth";
+import Image from "next/image";
+import { MultiStepLoader } from "@/components/ui/multi-step-loader";
 
 const Business = () => {
-  const params = useParams<{ slug: string }>()
+  const params = useParams<{ slug: string }>();
   const {
-    data: session
+    data: session,
   }: {
-    status: string
-    data: { access_token: string } | Session
-  } = useSession()
-  const accessToken = session?.access_token ?? ''
-  const [businessInfo, setBusinessInfo] = useState<any>({})
-  const [loading, setLoading] = useState(false)
-  const [isFavorite, setIsFavorite] = useState(false)
+    status: string;
+    data: { access_token: string } | Session;
+  } = useSession();
+  const accessToken = session?.access_token ?? "";
+  const [businessInfo, setBusinessInfo] = useState<any>({});
+  const [loading, setLoading] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const copyToClipboard = (text: any) => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(text).then(
         () => {
           toast({
-            title: 'Link Copied',
-            description:
-              'The business URL has been copied to your clipboard.'
-          })
+            title: "Link Copied",
+            description: "The business URL has been copied to your clipboard.",
+          });
         },
         (err) => {
           toast({
-            title: 'Error',
-            description:
-              'Failed to copy the link. Please try again.'
-          })
-          console.error('Could not copy text: ', err)
-        }
-      )
+            title: "Error",
+            description: "Failed to copy the link. Please try again.",
+          });
+          console.error("Could not copy text: ", err);
+        },
+      );
     } else {
       toast({
-        title: 'Unsupported Browser',
-        description:
-          'Your browser does not support the clipboard feature.'
-      })
+        title: "Unsupported Browser",
+        description: "Your browser does not support the clipboard feature.",
+      });
     }
-  }
+  };
   const handleShareClick = () => {
-    const businessURL = window.location.href
-    copyToClipboard(businessURL)
-  }
+    const businessURL = window.location.href;
+    copyToClipboard(businessURL);
+  };
   const fetchBusinessProfile = async (slug: string) => {
-    const business = await getBusinessInfo(slug)
-    setBusinessInfo(business)
-    return business
-  }
+    const business = await getBusinessInfo(slug);
+    setBusinessInfo(business);
+    return business;
+  };
 
   const checkFavorite = async (businessId: any) => {
     try {
@@ -92,57 +89,51 @@ const Business = () => {
         `http://127.0.0.1:8000/favorites/check/${businessId}/`,
         {
           headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session?.access_token}`
-          }
-        }
-      )
-      return response.data
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session?.access_token}`,
+          },
+        },
+      );
+      return response.data;
     } catch (error) {
-      console.error('Error checking favorite:', error)
-      throw error
+      console.error("Error checking favorite:", error);
+      throw error;
     }
-  }
+  };
 
   useEffect(() => {
-    const slug = params.slug
+    const slug = params.slug;
     const fetchData = async () => {
       try {
-        setLoading(true)
-        const business = await fetchBusinessProfile(slug)
-        console.log(business.id)
+        setLoading(true);
+        const business = await fetchBusinessProfile(slug);
+        console.log(business.id);
         if (business.id) {
-          const { is_favorite } = await checkFavorite(
-            business.id
-          )
-          console.log('check favorite it')
-          console.log(is_favorite)
-          setIsFavorite(is_favorite)
+          const { is_favorite } = await checkFavorite(business.id);
+          console.log("check favorite it");
+          console.log(is_favorite);
+          setIsFavorite(is_favorite);
         }
       } catch (error) {
-        console.error('Error fetching categories:', error)
+        console.error("Error fetching categories:", error);
       }
-      setLoading(false)
-    }
-    void fetchData()
-  }, [params.slug, session?.access_token])
+      setLoading(false);
+    };
+    void fetchData();
+  }, [params.slug, session?.access_token]);
 
-  const [activeSection, setActiveSection] =
-    useState('overview')
+  const [activeSection, setActiveSection] = useState("overview");
   const renderContent = () => {
     switch (activeSection) {
-      case 'overview':
-        return <div>{businessInfo?.description}</div>
-      case 'menu':
-        return <div>{businessInfo?.services}</div>
-      case 'gallery':
+      case "overview":
+        return <div>{businessInfo?.description}</div>;
+      case "menu":
+        return <div>{businessInfo?.services}</div>;
+      case "gallery":
         return (
           <div>
             {businessInfo.images?.map(
-              (
-                image: any,
-                index: Key | null | undefined
-              ) => (
+              (image: any, index: Key | null | undefined) => (
                 <Image
                   key={index}
                   src={image.image}
@@ -150,11 +141,11 @@ const Business = () => {
                   width={100}
                   height={100}
                 />
-              )
+              ),
             )}
           </div>
-        )
-      case 'reviews':
+        );
+      case "reviews":
         return (
           <div>
             {businessInfo?.reviews
@@ -166,60 +157,57 @@ const Business = () => {
                 </div>
               ))}
           </div>
-        )
+        );
       default:
-        return null
+        return null;
     }
-  }
+  };
 
   const getTabClass = (section: string) => {
     return section === activeSection
-      ? 'bg-secondary rounded-full px-4 py-2 cursor-pointer'
-      : 'px-4 py-2 cursor-pointer'
-  }
+      ? "bg-secondary rounded-full px-4 py-2 cursor-pointer"
+      : "px-4 py-2 cursor-pointer";
+  };
 
-  console.log(businessInfo)
-  const priceRange = businessInfo?.price_range
+  console.log(businessInfo);
+  const priceRange = businessInfo?.price_range;
 
   const handleAddToFavorites = async () => {
     const axiosInstance = axios.create({
-      baseURL: 'http://127.0.0.1:8000/api/',
+      baseURL: "http://127.0.0.1:8000/api/",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session?.access_token}`
-      }
-    })
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session?.access_token}`,
+      },
+    });
     try {
-      await axiosInstance.post(
-        'http://localhost:8000/favorites/add/',
-        {
-          business_id: businessInfo.id
-        }
-      )
-      setIsFavorite(true)
+      await axiosInstance.post("http://localhost:8000/favorites/add/", {
+        business_id: businessInfo.id,
+      });
+      setIsFavorite(true);
       toast({
-        title: 'Added to Favorites',
-        description: `${businessInfo.name} has been added to your favorites.`
-      })
+        title: "Added to Favorites",
+        description: `${businessInfo.name} has been added to your favorites.`,
+      });
     } catch (error) {
       toast({
-        title: 'Something went wrong',
+        title: "Something went wrong",
         description:
-          'There was an error adding this business to your favorites. Please try again later.'
-      })
+          "There was an error adding this business to your favorites. Please try again later.",
+      });
     }
-  }
+  };
   const loadingStates = [
     {
-      text: `Asking for information..`
+      text: `Asking for information..`,
     },
     {
-      text: `Recieving information..`
+      text: `Recieving information..`,
     },
     {
-      text: `Rendering information..`
-    }
-  ]
+      text: `Rendering information..`,
+    },
+  ];
   return (
     <HeaderContainer>
       {loading ? (
@@ -253,10 +241,7 @@ const Business = () => {
             className="mt-12 w-full flex-row max-md:flex-col flex justify-between
               items-center"
           >
-            <Typography
-              className="text-primary"
-              variant={'h1'}
-            >
+            <Typography className="text-primary" variant={"h1"}>
               {businessInfo?.name}
             </Typography>
             <div>
@@ -269,12 +254,12 @@ const Business = () => {
                         value={businessInfo?.average_rating}
                       />
                     </div>
-                    <Typography variant={'p'}>
+                    <Typography variant={"p"}>
                       {businessInfo?.reviews.length} Reviews
                     </Typography>
                   </>
                 ) : (
-                  ''
+                  ""
                 )}
               </div>
             </div>
@@ -284,8 +269,7 @@ const Business = () => {
               <div className="flex flex-row gap-2 items-center">
                 <MapPin />
                 <Typography className="max-md:text-center">
-                  {businessInfo?.street_address}{' '}
-                  {businessInfo?.city},{' '}
+                  {businessInfo?.street_address} {businessInfo?.city},{" "}
                   {businessInfo?.state}
                 </Typography>
               </div>
@@ -294,10 +278,10 @@ const Business = () => {
                 <Typography className="max-md:text-center">
                   {businessInfo.website ? (
                     <Link href={businessInfo?.website}>
-                      {businessInfo?.website}{' '}
+                      {businessInfo?.website}{" "}
                     </Link>
                   ) : (
-                    ''
+                    ""
                   )}
                 </Typography>
               </div>
@@ -307,20 +291,19 @@ const Business = () => {
                   Opens {businessInfo?.hours}
                 </Typography>
               </div>
-              {businessInfo.tags &&
-                businessInfo.tags.length > 0 && (
-                  <div className="w-full flex gap-2 flex-wrap">
-                    {businessInfo.tags.map((tag: any) => (
-                      <p
-                        key={tag.slug}
-                        className="max-w-[100px] truncate bg-teal-400/10 border-none mt-[5px]
+              {businessInfo.tags && businessInfo.tags.length > 0 && (
+                <div className="w-full flex gap-2 flex-wrap">
+                  {businessInfo.tags.map((tag: any) => (
+                    <p
+                      key={tag.slug}
+                      className="max-w-[100px] truncate bg-teal-400/10 border-none mt-[5px]
                           text-[10px] px-2 py-1 rounded-[18px]"
-                      >
-                        {tag.name}
-                      </p>
-                    ))}
-                  </div>
-                )}
+                    >
+                      {tag.name}
+                    </p>
+                  ))}
+                </div>
+              )}
             </div>
             <div className="flex flex-row gap-2 items-center">
               {/* <DollarSign size={14} />
@@ -342,7 +325,7 @@ const Business = () => {
               <SendAMesage businessInfo={businessInfo} />
               <Button
                 className="flex gap-2 items-center"
-                variant={'default'}
+                variant={"default"}
                 onClick={handleShareClick}
               >
                 <Share /> Share
@@ -352,7 +335,7 @@ const Business = () => {
               {!isFavorite ? (
                 <Button
                   className="flex gap-2 items-center"
-                  variant={'outline'}
+                  variant={"outline"}
                   onClick={handleAddToFavorites}
                 >
                   <Bookmark />
@@ -361,7 +344,7 @@ const Business = () => {
               ) : (
                 <Button
                   className="flex gap-2 items-center"
-                  variant={'outline'}
+                  variant={"outline"}
                   disabled
                 >
                   <BookmarkCheck />
@@ -376,33 +359,33 @@ const Business = () => {
                 justify-between"
             >
               <div
-                className={getTabClass('overview')}
+                className={getTabClass("overview")}
                 onClick={() => {
-                  setActiveSection('overview')
+                  setActiveSection("overview");
                 }}
               >
                 Overview
               </div>
               <div
-                className={getTabClass('menu')}
+                className={getTabClass("menu")}
                 onClick={() => {
-                  setActiveSection('menu')
+                  setActiveSection("menu");
                 }}
               >
                 Services
               </div>
               <div
-                className={getTabClass('gallery')}
+                className={getTabClass("gallery")}
                 onClick={() => {
-                  setActiveSection('gallery')
+                  setActiveSection("gallery");
                 }}
               >
                 Gallery
               </div>
               <div
-                className={getTabClass('reviews')}
+                className={getTabClass("reviews")}
                 onClick={() => {
-                  setActiveSection('reviews')
+                  setActiveSection("reviews");
                 }}
               >
                 Reviews
@@ -410,22 +393,16 @@ const Business = () => {
             </div>
             <Separator />
             <div className="flex flex-row max-lg:flex-col items-start gap-4">
-              <div className="w-2/3 max-lg:w-full">
-                {renderContent()}
-              </div>
+              <div className="w-2/3 max-lg:w-full">{renderContent()}</div>
               <div className="flex flex-col gap-2">
                 {businessInfo.name ? (
                   <>
-                    {' '}
-                    <BusinessCTA
-                      businessInfo={businessInfo}
-                    />
-                    <BusinessAdInfo
-                      businessInfo={businessInfo}
-                    />
+                    {" "}
+                    <BusinessCTA businessInfo={businessInfo} />
+                    <BusinessAdInfo businessInfo={businessInfo} />
                   </>
                 ) : (
-                  ''
+                  ""
                 )}
               </div>
             </div>
@@ -433,7 +410,7 @@ const Business = () => {
         </div>
       )}
     </HeaderContainer>
-  )
-}
+  );
+};
 
-export default Business
+export default Business;

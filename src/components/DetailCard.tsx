@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import Image from 'next/image'
-import React from 'react'
-import Typography from './ui/typography'
-import { BadgeInfo } from 'lucide-react'
-import AverageReview from './AverageReview'
+import Image from "next/image";
+import React from "react";
+import Typography from "./ui/typography";
+import { BadgeInfo } from "lucide-react";
+import AverageReview from "./AverageReview";
 
 interface Props {
-  name: string
-  loading: boolean
-  description: string
-  hours: string
-  stars: number
-  price_range: string
-  tags: any
-  review_count: any
+  name: string;
+  loading: boolean;
+  description: string;
+  hours: string;
+  stars: number;
+  price_range: string;
+  tags: any;
+  review_count: any;
 }
 
 const DetailCard = ({
@@ -25,7 +25,7 @@ const DetailCard = ({
   stars,
   review_count,
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  price_range
+  price_range,
 }: Props) => {
   // const priceRange =
   //   priceRangeMapping[
@@ -49,29 +49,22 @@ const DetailCard = ({
           />
         </div>
         <div className="w-2/3 m-2 pl-4 gap-2 flex flex-col">
-          <Typography
-            variant={'h3'}
-            className="font-bold text-start"
-          >
+          <Typography variant={"h3"} className="font-bold text-start">
             {name}
           </Typography>
           <div className="flex flex-row items-center gap-4 ">
             <AverageReview size={14} value={stars} />
-            <p className="text-gray-400 text-xs">
-              ({review_count} reviews)
-            </p>
+            <p className="text-gray-400 text-xs">({review_count} reviews)</p>
           </div>
           <div
             className="rounded-[18px] bg-teal-400/10 border-none mt-[5px] w-fit
               py-2"
           >
-            <p className="text-center text-teal-300 text-xs px-2">
-              {hours}
-            </p>
+            <p className="text-center text-teal-300 text-xs px-2">{hours}</p>
           </div>
           {description ? (
             <div className="flex flex-row items-start gap-2 mt-6">
-              {' '}
+              {" "}
               <BadgeInfo size={16} />
               <p
                 className="text-start text-xs line-clamp-2 md:line-clamp-3
@@ -81,13 +74,13 @@ const DetailCard = ({
               </p>
             </div>
           ) : (
-            ''
+            ""
           )}
           {tags && tags.length > 0 && (
             <div className="w-full flex gap-2 flex-wrap">
               {tags.map(
                 (tag: {
-                  slug: React.Key | null | undefined
+                  slug: React.Key | null | undefined;
                   name:
                     | string
                     | number
@@ -95,14 +88,13 @@ const DetailCard = ({
                     | boolean
                     | React.ReactElement<
                         any,
-                        | string
-                        | React.JSXElementConstructor<any>
+                        string | React.JSXElementConstructor<any>
                       >
                     | Iterable<React.ReactNode>
                     | React.ReactPortal
                     | Promise<React.AwaitedReactNode>
                     | null
-                    | undefined
+                    | undefined;
                 }) => (
                   <p
                     key={tag.slug}
@@ -111,14 +103,14 @@ const DetailCard = ({
                   >
                     {tag.name}
                   </p>
-                )
+                ),
               )}
             </div>
           )}
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default DetailCard
+export default DetailCard;

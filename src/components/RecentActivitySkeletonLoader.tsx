@@ -1,5 +1,5 @@
-import React from 'react'
-import { Skeleton } from './ui/skeleton'
+import React from "react";
+import { Skeleton } from "./ui/skeleton";
 
 const RecentActivitySkeletonLoader = () => {
   return (
@@ -14,17 +14,17 @@ const RecentActivitySkeletonLoader = () => {
       <Skeleton
         className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
           items-center justify-center"
-      />{' '}
+      />{" "}
       <Skeleton
         className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
           items-center justify-center"
-      />{' '}
+      />{" "}
       <Skeleton
         className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
           items-center justify-center"
       />
     </div>
-  )
-}
+  );
+};
 
-export default RecentActivitySkeletonLoader
+export default RecentActivitySkeletonLoader;

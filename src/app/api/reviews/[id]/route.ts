@@ -1,6 +1,6 @@
-import type { NextRequest } from 'next/server'
+import type { NextRequest } from "next/server";
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {}

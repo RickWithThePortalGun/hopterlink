@@ -1,9 +1,9 @@
-import React, { type CSSProperties } from 'react'
+import React, { type CSSProperties } from "react";
 
 // Modify these
-const MAIN_CIRCLE_SIZE = 210
-const MAIN_CIRCLE_OPACITY = 0.24
-const NUM_CIRCLES = 8
+const MAIN_CIRCLE_SIZE = 210;
+const MAIN_CIRCLE_OPACITY = 0.24;
+const NUM_CIRCLES = 8;
 
 const Ripple = React.memo(
   React.forwardRef<HTMLDivElement>((props, ref) => {
@@ -11,8 +11,8 @@ const Ripple = React.memo(
       width: MAIN_CIRCLE_SIZE,
       height: MAIN_CIRCLE_SIZE,
       opacity: MAIN_CIRCLE_OPACITY,
-      animationDelay: '0s'
-    }
+      animationDelay: "0s",
+    };
 
     return (
       <div
@@ -26,23 +26,18 @@ const Ripple = React.memo(
               rounded-full bg-neutral-400`}
             style={{
               ...circleProps,
-              width:
-                ((circleProps.width as number) ?? 0) +
-                i * 70,
-              height:
-                ((circleProps.height as number) ?? 0) +
-                i * 70,
-              opacity:
-                (circleProps.opacity as number) - i * 0.03,
-              animationDelay: `${i * 0.06}s`
+              width: ((circleProps.width as number) ?? 0) + i * 70,
+              height: ((circleProps.height as number) ?? 0) + i * 70,
+              opacity: (circleProps.opacity as number) - i * 0.03,
+              animationDelay: `${i * 0.06}s`,
             }}
           />
         ))}
       </div>
-    )
-  })
-)
+    );
+  }),
+);
 
-Ripple.displayName = 'Ripple'
+Ripple.displayName = "Ripple";
 
-export default Ripple
+export default Ripple;

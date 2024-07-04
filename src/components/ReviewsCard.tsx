@@ -1,8 +1,8 @@
-import AverageReview from './AverageReview'
-import { Card } from './ui/cards'
+import AverageReview from "./AverageReview";
+import { Card } from "./ui/cards";
 
 interface Props {
-  review: any
+  review: any;
 }
 
 const ReviewsCard = ({ review }: Props) => {
@@ -13,9 +13,7 @@ const ReviewsCard = ({ review }: Props) => {
           <p className="text-sm font-bold">
             {review.user_first_name} {review.user_last_name}
           </p>
-          <p className="text-xs text-secondary font-bold">
-            {review.user_name}
-          </p>
+          <p className="text-xs text-secondary font-bold">{review.user_name}</p>
         </div>
         <AverageReview size={12} value={review.stars} />
       </div>
@@ -23,7 +21,7 @@ const ReviewsCard = ({ review }: Props) => {
         <p className="text-xs">{review.content}</p>
       </div>
     </Card>
-  )
-}
+  );
+};
 
-export default ReviewsCard
+export default ReviewsCard;

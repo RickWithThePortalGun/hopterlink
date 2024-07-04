@@ -1,27 +1,23 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-import { cn } from '@/lib/utils'
-import {
-  type CSSProperties,
-  type FC,
-  type ReactNode
-} from 'react'
+import { cn } from "@/lib/utils";
+import { type CSSProperties, type FC, type ReactNode } from "react";
 
 interface AnimatedShinyTextProps {
-  children: ReactNode
-  className?: string
-  shimmerWidth?: number
+  children: ReactNode;
+  className?: string;
+  shimmerWidth?: number;
 }
 
 const AnimatedShinyText: FC<AnimatedShinyTextProps> = ({
   children,
   className,
-  shimmerWidth = 100
+  shimmerWidth = 100,
 }) => {
   return (
     <p
       style={
         {
-          '--shimmer-width': `${shimmerWidth}px`
+          "--shimmer-width": `${shimmerWidth}px`,
         } as CSSProperties
       }
       className={cn(
@@ -38,12 +34,12 @@ const AnimatedShinyText: FC<AnimatedShinyTextProps> = ({
         `bg-gradient-to-r from-transparent via-black/80 via-50%
           to-transparent dark:via-white/80`,
 
-        className
+        className,
       )}
     >
       {children}
     </p>
-  )
-}
+  );
+};
 
-export default AnimatedShinyText
+export default AnimatedShinyText;

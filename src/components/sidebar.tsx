@@ -1,35 +1,31 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { MoreHorizontal, SquarePen } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { buttonVariants } from '@/components/ui/button'
+import Link from "next/link";
+import { MoreHorizontal, SquarePen } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  TooltipProvider
-} from '@/components/ui/tooltip'
-import { Avatar, AvatarImage } from './ui/avatar'
-import { type Message } from '@/app/data'
+  TooltipProvider,
+} from "@/components/ui/tooltip";
+import { Avatar, AvatarImage } from "./ui/avatar";
+import { type Message } from "@/app/data";
 
 interface SidebarProps {
-  isCollapsed: boolean
+  isCollapsed: boolean;
   links: Array<{
-    name: string
-    messages: Message[]
-    avatar: string
-    variant: 'outline' | 'ghost'
-  }>
-  onClick?: () => void
-  isMobile: boolean
+    name: string;
+    messages: Message[];
+    avatar: string;
+    variant: "outline" | "ghost";
+  }>;
+  onClick?: () => void;
+  isMobile: boolean;
 }
 
-export function Sidebar({
-  links,
-  isCollapsed,
-  isMobile
-}: SidebarProps) {
+export function Sidebar({ links, isCollapsed, isMobile }: SidebarProps) {
   return (
     <div
       data-collapsed={isCollapsed}
@@ -40,9 +36,7 @@ export function Sidebar({
         <div className="flex justify-between p-2 items-center">
           <div className="flex gap-2 items-center text-2xl">
             <p className="font-medium">Messages</p>
-            <span className="text-zinc-300">
-              ({links.length})
-            </span>
+            <span className="text-zinc-300">({links.length})</span>
           </div>
 
           <div>
@@ -50,10 +44,10 @@ export function Sidebar({
               href="#"
               className={cn(
                 buttonVariants({
-                  variant: 'ghost',
-                  size: 'icon'
+                  variant: "ghost",
+                  size: "icon",
                 }),
-                'h-9 w-9 mx-1'
+                "h-9 w-9 mx-1",
               )}
             >
               <MoreHorizontal size={20} />
@@ -63,10 +57,10 @@ export function Sidebar({
               href="#"
               className={cn(
                 buttonVariants({
-                  variant: 'ghost',
-                  size: 'icon'
+                  variant: "ghost",
+                  size: "icon",
                 }),
-                'h-9 w-9 mx-1'
+                "h-9 w-9 mx-1",
               )}
             >
               <SquarePen size={20} />
@@ -88,12 +82,12 @@ export function Sidebar({
                     className={cn(
                       buttonVariants({
                         variant: link.variant,
-                        size: 'icon'
+                        size: "icon",
                       }),
-                      'h-11 w-11 md:h-16 md:w-16',
-                      link.variant === 'grey' &&
+                      "h-11 w-11 md:h-16 md:w-16",
+                      link.variant === "grey" &&
                         `dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted
-                        dark:hover:text-white`
+                        dark:hover:text-white`,
                     )}
                   >
                     <Avatar className="flex justify-center items-center">
@@ -104,10 +98,8 @@ export function Sidebar({
                         height={6}
                         className="w-10 h-10 "
                       />
-                    </Avatar>{' '}
-                    <span className="sr-only">
-                      {link.name}
-                    </span>
+                    </Avatar>{" "}
+                    <span className="sr-only">{link.name}</span>
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent
@@ -125,12 +117,12 @@ export function Sidebar({
               className={cn(
                 buttonVariants({
                   variant: link.variant,
-                  size: 'xl'
+                  size: "xl",
                 }),
-                link.variant === 'grey' &&
+                link.variant === "grey" &&
                   `dark:bg-muted dark:text-white dark:hover:bg-muted
                   dark:hover:text-white shrink`,
-                'justify-start gap-4'
+                "justify-start gap-4",
               )}
             >
               <Avatar className="flex justify-center items-center">
@@ -146,24 +138,15 @@ export function Sidebar({
                 <span>{link.name}</span>
                 {link.messages.length > 0 && (
                   <span className="text-zinc-300 text-xs truncate ">
-                    {
-                      link.messages[
-                        link.messages.length - 1
-                      ].name.split(' ')[0]
-                    }
-                    :{' '}
-                    {
-                      link.messages[
-                        link.messages.length - 1
-                      ].message
-                    }
+                    {link.messages[link.messages.length - 1].name.split(" ")[0]}
+                    : {link.messages[link.messages.length - 1].message}
                   </span>
                 )}
               </div>
             </Link>
-          )
+          ),
         )}
       </nav>
     </div>
-  )
+  );
 }

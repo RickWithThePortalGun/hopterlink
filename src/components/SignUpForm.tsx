@@ -1,111 +1,99 @@
-import React, { useState, useEffect } from 'react'
-import { Button } from './ui/button'
-import { Label } from './ui/label'
-import { Input } from './ui/input'
-import Stepper from '@keyvaluesystems/react-stepper'
-import { PhoneInput } from './ui/phone-input'
+import React, { useState, useEffect } from "react";
+import { Button } from "./ui/button";
+import { Label } from "./ui/label";
+import { Input } from "./ui/input";
+import Stepper from "@keyvaluesystems/react-stepper";
+import { PhoneInput } from "./ui/phone-input";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
-  InputOTPSlot
-} from './ui/input-otp'
-import Link from 'next/link'
-import { Switch } from '@/components/ui/switch'
+  InputOTPSlot,
+} from "./ui/input-otp";
+import Link from "next/link";
+import { Switch } from "@/components/ui/switch";
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    phoneNo: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    otp: ''
-  })
-  const [currentStepIndex, setCurrentStepIndex] =
-    useState(0)
-  const [isFormValid, setIsFormValid] = useState(false)
+    firstName: "",
+    lastName: "",
+    phoneNo: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    otp: "",
+  });
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    validateForm()
-  }, [formData])
+    validateForm();
+  }, [formData]);
 
-  const handleInputChange = (e: {
-    target: { id: any; value: any }
-  }) => {
-    const { id, value } = e.target
-    setFormData({ ...formData, [id]: value })
-  }
+  const handleInputChange = (e: { target: { id: any; value: any } }) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
 
   const validateForm = () => {
-    const {
-      firstName,
-      lastName,
-      phoneNo,
-      email,
-      password,
-      confirmPassword
-    } = formData
+    const { firstName, lastName, phoneNo, email, password, confirmPassword } =
+      formData;
     const isValid =
-      firstName !== '' &&
-      lastName !== '' &&
-      phoneNo !== '' &&
-      email !== '' &&
-      password !== '' &&
-      password === confirmPassword
-    setIsFormValid(isValid)
-  }
+      firstName !== "" &&
+      lastName !== "" &&
+      phoneNo !== "" &&
+      email !== "" &&
+      password !== "" &&
+      password === confirmPassword;
+    setIsFormValid(isValid);
+  };
 
   const handleSignUp = () => {
     // Simulate form submission
-    console.log('Form Data:', formData)
-    setCurrentStepIndex(1) // Move to the next step after successful signup
-  }
+    console.log("Form Data:", formData);
+    setCurrentStepIndex(1); // Move to the next step after successful signup
+  };
 
   const handleOTPSubmit = () => {
     // Simulate OTP verification
-    console.log('OTP:', formData.otp)
-    setCurrentStepIndex(2) // Move to the next step after successful OTP verification
-  }
+    console.log("OTP:", formData.otp);
+    setCurrentStepIndex(2); // Move to the next step after successful OTP verification
+  };
 
   const steps = [
     {
-      stepLabel: 'Sign Up',
-      completed: currentStepIndex > 0
+      stepLabel: "Sign Up",
+      completed: currentStepIndex > 0,
     },
     {
-      stepLabel: 'Verification',
-      completed: currentStepIndex > 1
+      stepLabel: "Verification",
+      completed: currentStepIndex > 1,
     },
     {
-      stepLabel: 'Success',
-      completed: currentStepIndex > 2
-    }
-  ]
+      stepLabel: "Success",
+      completed: currentStepIndex > 2,
+    },
+  ];
 
   const handleContinue = () => {
     if (currentStepIndex === 0 && isFormValid) {
-      handleSignUp()
-    } else if (
-      currentStepIndex === 1 &&
-      formData.otp.length === 6
-    ) {
-      handleOTPSubmit()
+      handleSignUp();
+    } else if (currentStepIndex === 1 && formData.otp.length === 6) {
+      handleOTPSubmit();
     }
-  }
+  };
 
   const styles = {
     LineSeparator: () => ({
-      backgroundColor: '#028A0F'
+      backgroundColor: "#028A0F",
     }),
     ActiveNode: () => ({
-      backgroundColor: '#C55E0C'
+      backgroundColor: "#C55E0C",
     }),
     CompletedNode: () => ({
-      backgroundColor: '#028A0F'
-    })
-  }
+      backgroundColor: "#028A0F",
+    }),
+  };
   return (
     <div className="rounded-lg text-card-primary shadow-sm w-full max-w-sm">
       <Stepper
@@ -122,16 +110,11 @@ const SignUpForm = () => {
             className="flex flex-col text-center justify-center items-center
               space-y-1.5 p-6 my-6"
           >
-            <h3 className="font-semibold tracking-tight text-2xl">
-              Sign Up
-            </h3>
+            <h3 className="font-semibold tracking-tight text-2xl">Sign Up</h3>
             <p className="text-sm text-muted-foreground">
               Enter your details below to join Hopterlink.
             </p>
-            <Link
-              href={`/login`}
-              className="text-xs text-[#c55e0c]"
-            >
+            <Link href={`/login`} className="text-xs text-[#c55e0c]">
               Already have an account?
             </Link>
           </div>
@@ -197,8 +180,8 @@ const SignUpForm = () => {
                 onChange={(value) => {
                   setFormData({
                     ...formData,
-                    phoneNo: value
-                  })
+                    phoneNo: value,
+                  });
                 }}
               />
             </div>
@@ -279,8 +262,7 @@ const SignUpForm = () => {
             </div>
             <div className="flex flex-row justify-between items-center">
               <p className="text-xs font-extrabold">
-                Send me newsletters and promotional emails
-                from hopterlink
+                Send me newsletters and promotional emails from hopterlink
               </p>
               <Switch />
             </div>
@@ -316,41 +298,41 @@ const SignUpForm = () => {
                 <InputOTPGroup>
                   <InputOTPSlot
                     index={0}
-                    value={formData.otp[0] || ''}
+                    value={formData.otp[0] || ""}
                     onChange={(e) => {
                       setFormData({
                         ...formData,
                         otp:
                           formData.otp.substring(0, 0) +
                           e.target.value +
-                          formData.otp.substring(1)
-                      })
+                          formData.otp.substring(1),
+                      });
                     }}
                   />
                   <InputOTPSlot
                     index={1}
-                    value={formData.otp[1] || ''}
+                    value={formData.otp[1] || ""}
                     onChange={(e) => {
                       setFormData({
                         ...formData,
                         otp:
                           formData.otp.substring(0, 1) +
                           e.target.value +
-                          formData.otp.substring(2)
-                      })
+                          formData.otp.substring(2),
+                      });
                     }}
                   />
                   <InputOTPSlot
                     index={2}
-                    value={formData.otp[2] || ''}
+                    value={formData.otp[2] || ""}
                     onChange={(e) => {
                       setFormData({
                         ...formData,
                         otp:
                           formData.otp.substring(0, 2) +
                           e.target.value +
-                          formData.otp.substring(3)
-                      })
+                          formData.otp.substring(3),
+                      });
                     }}
                   />
                 </InputOTPGroup>
@@ -358,40 +340,38 @@ const SignUpForm = () => {
                 <InputOTPGroup>
                   <InputOTPSlot
                     index={3}
-                    value={formData.otp[3] || ''}
+                    value={formData.otp[3] || ""}
                     onChange={(e) => {
                       setFormData({
                         ...formData,
                         otp:
                           formData.otp.substring(0, 3) +
                           e.target.value +
-                          formData.otp.substring(4)
-                      })
+                          formData.otp.substring(4),
+                      });
                     }}
                   />
                   <InputOTPSlot
                     index={4}
-                    value={formData.otp[4] || ''}
+                    value={formData.otp[4] || ""}
                     onChange={(e) => {
                       setFormData({
                         ...formData,
                         otp:
                           formData.otp.substring(0, 4) +
                           e.target.value +
-                          formData.otp.substring(5)
-                      })
+                          formData.otp.substring(5),
+                      });
                     }}
                   />
                   <InputOTPSlot
                     index={5}
-                    value={formData.otp[5] || ''}
+                    value={formData.otp[5] || ""}
                     onChange={(e) => {
                       setFormData({
                         ...formData,
-                        otp:
-                          formData.otp.substring(0, 5) +
-                          e.target.value
-                      })
+                        otp: formData.otp.substring(0, 5) + e.target.value,
+                      });
                     }}
                   />
                 </InputOTPGroup>
@@ -399,8 +379,8 @@ const SignUpForm = () => {
             </div>
             <div className="mt-12">
               <p className="text-grey-500 text-xs mt-12">
-                We just sent a verification code to your
-                phone number. Please enter the code below.
+                We just sent a verification code to your phone number. Please
+                enter the code below.
               </p>
             </div>
 
@@ -430,13 +410,13 @@ const SignUpForm = () => {
             Account created successfully
           </h3>
           <p className="text-grey-500 text-xs mt-12">
-            Your account has been created and verified
-            successfully. We will now redirect you..
+            Your account has been created and verified successfully. We will now
+            redirect you..
           </p>
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default SignUpForm
+export default SignUpForm;

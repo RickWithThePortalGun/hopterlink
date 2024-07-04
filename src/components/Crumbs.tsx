@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react";
 import {
   Breadcrumb,
   BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbSeparator,
-  BreadcrumbPage
-} from './ui/breadcrumb'
+  BreadcrumbPage,
+} from "./ui/breadcrumb";
 
 interface Props {
-  businessInfo: any
+  businessInfo: any;
 }
 
 const Crumbs = ({ businessInfo }: Props) => {
@@ -21,20 +21,15 @@ const Crumbs = ({ businessInfo }: Props) => {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/components">
-            Business
-          </BreadcrumbLink>
+          <BreadcrumbLink href="/components">Business</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>
-            {' '}
-            {businessInfo?.name}
-          </BreadcrumbPage>
+          <BreadcrumbPage> {businessInfo?.name}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
-  )
-}
+  );
+};
 
-export default Crumbs
+export default Crumbs;

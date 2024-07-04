@@ -1,16 +1,16 @@
-import { cn } from '@/lib/utils'
-import { useId } from 'react'
+import { cn } from "@/lib/utils";
+import { useId } from "react";
 
 interface DotPatternProps {
-  width?: any
-  height?: any
-  x?: any
-  y?: any
-  cx?: any
-  cy?: any
-  cr?: any
-  className?: string
-  [key: string]: any
+  width?: any;
+  height?: any;
+  x?: any;
+  y?: any;
+  cx?: any;
+  cy?: any;
+  cr?: any;
+  className?: string;
+  [key: string]: any;
 }
 export function DotPattern({
   width = 16,
@@ -23,7 +23,7 @@ export function DotPattern({
   className,
   ...props
 }: DotPatternProps) {
-  const id = useId()
+  const id = useId();
 
   return (
     <svg
@@ -31,7 +31,7 @@ export function DotPattern({
       className={cn(
         `pointer-events-none absolute inset-0 h-full w-full
           fill-neutral-400/80`,
-        className
+        className,
       )}
       {...props}
     >
@@ -45,22 +45,12 @@ export function DotPattern({
           x={x}
           y={y}
         >
-          <circle
-            id="pattern-circle"
-            cx={cy}
-            cy={cy}
-            r={cr}
-          />
+          <circle id="pattern-circle" cx={cy} cy={cy} r={cr} />
         </pattern>
       </defs>
-      <rect
-        width="100%"
-        height="100%"
-        strokeWidth={0}
-        fill={`url(#${id})`}
-      />
+      <rect width="100%" height="100%" strokeWidth={0} fill={`url(#${id})`} />
     </svg>
-  )
+  );
 }
 
-export default DotPattern
+export default DotPattern;

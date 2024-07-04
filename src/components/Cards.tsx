@@ -1,65 +1,58 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-'use client'
+"use client";
 
-import { getRecentReviews } from '@/app/api/categories/categories'
-import formatTimeAgo from '@/constants/constants'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import AverageReview from './AverageReview'
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage
-} from './ui/avatar'
-import Typography from './ui/typography'
-import { Button } from './ui/button'
-import { Card } from './ui/cards'
-import RecentActivitySkeletonLoader from './RecentActivitySkeletonLoader'
+import { getRecentReviews } from "@/app/api/categories/categories";
+import formatTimeAgo from "@/constants/constants";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import AverageReview from "./AverageReview";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import Typography from "./ui/typography";
+import { Button } from "./ui/button";
+import { Card } from "./ui/cards";
+import RecentActivitySkeletonLoader from "./RecentActivitySkeletonLoader";
 
 const Cards = () => {
-  const [reviews, setReviews] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
-  const [page, setPage] = useState(1) // Current page number
-  const [hasMore, setHasMore] = useState(true) // Whether there are more reviews to load
-  const router = useRouter()
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1); // Current page number
+  const [hasMore, setHasMore] = useState(true); // Whether there are more reviews to load
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await fetchRecentActivity(page)
+        await fetchRecentActivity(page);
       } catch (error) {
-        console.error('Error fetching reviews:', error)
+        console.error("Error fetching reviews:", error);
       }
-    }
-    void fetchData() // Removed void because it's unnecessary here
-  }, [page]) // Fetch data when page changes
+    };
+    void fetchData(); // Removed void because it's unnecessary here
+  }, [page]); // Fetch data when page changes
 
   const fetchRecentActivity = async (page: number) => {
     try {
-      const result = await getRecentReviews(Number(page))
+      const result = await getRecentReviews(Number(page));
       if (result.results.length === 0) {
-        setHasMore(false) // No more reviews to load
+        setHasMore(false); // No more reviews to load
       } else {
-        setReviews((prevReviews) => [
-          ...prevReviews,
-          ...result.results
-        ])
+        setReviews((prevReviews) => [...prevReviews, ...result.results]);
       }
     } catch (error) {
-      console.error('Error fetching reviews:', error)
+      console.error("Error fetching reviews:", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleRoute = (item: { slug: any }) => {
-    router.push(`/business/${item.slug}`)
-  }
+    router.push(`/business/${item.slug}`);
+  };
 
   const handleViewMore = () => {
-    setPage((prevPage) => prevPage + 1) // Load next page of reviews
-  }
+    setPage((prevPage) => prevPage + 1); // Load next page of reviews
+  };
 
   return (
     <>
@@ -71,7 +64,7 @@ const Cards = () => {
           {reviews.map((review) => (
             <div
               onClick={() => {
-                handleRoute({ slug: review.business_slug })
+                handleRoute({ slug: review.business_slug });
               }}
               key={review.id}
               className="flex flex-col z-40 p-4 rounded-md bg-background border-[1px]
@@ -85,44 +78,28 @@ const Cards = () => {
                 </Avatar>
                 <div className="flex flex-col gap-0 leading-tight">
                   <Typography
-                    variant={'p'}
+                    variant={"p"}
                     className="text-sm font-semibold flex flex-row gap-1"
                   >
-                    {review.user_first_name}{' '}
-                    {review.user_last_name}{' '}
-                    <p className="text-medium font-light">
-                      wrote a review
-                    </p>
+                    {review.user_first_name} {review.user_last_name}{" "}
+                    <p className="text-medium font-light">wrote a review</p>
                   </Typography>
-                  <Typography
-                    variant={'p'}
-                    className="text-xs"
-                  >
+                  <Typography variant={"p"} className="text-xs">
                     {formatTimeAgo(new Date(review.date))}
                   </Typography>
                 </div>
               </div>
               <div>
-                <Card />{' '}
-                {/* Placeholder for your Card component */}
+                <Card /> {/* Placeholder for your Card component */}
               </div>
               <div className="justify-start flex flex-col gap-4">
-                <Typography
-                  variant={'h5'}
-                  className="font-bold"
-                >
+                <Typography variant={"h5"} className="font-bold">
                   {review.business_name}
                 </Typography>
                 <div className="flex flex-row gap-2">
-                  <AverageReview
-                    value={review.stars}
-                    size={14}
-                  />
+                  <AverageReview value={review.stars} size={14} />
                 </div>
-                <Typography
-                  variant={'p'}
-                  className="text-md"
-                >
+                <Typography variant={"p"} className="text-md">
                   {review.content}
                 </Typography>
               </div>
@@ -138,7 +115,7 @@ const Cards = () => {
         </Button>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Cards
+export default Cards;

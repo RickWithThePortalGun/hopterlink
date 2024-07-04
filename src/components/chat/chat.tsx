@@ -1,26 +1,22 @@
-import { type Message, type UserData } from '@/app/data'
-import ChatTopbar from './chat-topbar'
-import { ChatList } from './chat-list'
-import React from 'react'
+import { type Message, type UserData } from "@/app/data";
+import ChatTopbar from "./chat-topbar";
+import { ChatList } from "./chat-list";
+import React from "react";
 
 interface ChatProps {
-  messages?: Message[]
-  selectedUser: UserData
-  isMobile: boolean
+  messages?: Message[];
+  selectedUser: UserData;
+  isMobile: boolean;
 }
 
-export function Chat({
-  messages,
-  selectedUser,
-  isMobile
-}: ChatProps) {
-  const [messagesState, setMessages] = React.useState<
-    Message[]
-  >(messages ?? [])
+export function Chat({ messages, selectedUser, isMobile }: ChatProps) {
+  const [messagesState, setMessages] = React.useState<Message[]>(
+    messages ?? [],
+  );
 
   const sendMessage = (newMessage: Message) => {
-    setMessages([...messagesState, newMessage])
-  }
+    setMessages([...messagesState, newMessage]);
+  };
 
   return (
     <div className="flex flex-col justify-between w-full h-full">
@@ -33,5 +29,5 @@ export function Chat({
         isMobile={isMobile}
       />
     </div>
-  )
+  );
 }

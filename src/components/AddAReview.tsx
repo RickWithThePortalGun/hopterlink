@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-'use client'
+"use client";
 import {
   Credenza,
   CredenzaBody,
@@ -11,74 +11,71 @@ import {
   CredenzaFooter,
   CredenzaHeader,
   CredenzaTitle,
-  CredenzaTrigger
-} from '@/components/ui/credenza'
-import { StarIcon } from 'lucide-react'
-import { Rating } from 'react-simple-star-rating'
-import { Button } from './ui/button'
-import { Card } from './ui/cards'
-import { Textarea } from './ui/textarea'
-import { type SetStateAction, useState } from 'react'
-import axios from 'axios'
-import { useSession } from 'next-auth/react'
-import { toast } from './ui-hooks/use-toast'
-import { useRouter } from 'next/navigation'
+  CredenzaTrigger,
+} from "@/components/ui/credenza";
+import { StarIcon } from "lucide-react";
+import { Rating } from "react-simple-star-rating";
+import { Button } from "./ui/button";
+import { Card } from "./ui/cards";
+import { Textarea } from "./ui/textarea";
+import { type SetStateAction, useState } from "react";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import { toast } from "./ui-hooks/use-toast";
+import { useRouter } from "next/navigation";
 interface Props {
-  businessInfo: any
+  businessInfo: any;
 }
 const AddAReview = ({ businessInfo }: Props) => {
-  const { data: session, status } = useSession()
-  const [rating, setRating] = useState(1)
-  const [reviewText, setReviewText] = useState('')
-  const [isOpen, setIsOpen] = useState(false)
-  const router = useRouter()
+  const { data: session, status } = useSession();
+  const [rating, setRating] = useState(1);
+  const [reviewText, setReviewText] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   const handleRating = (rating: any) => {
-    console.log(rating)
-    setRating(rating)
-  }
+    console.log(rating);
+    setRating(rating);
+  };
 
   const handleReviewTextChange = (e: {
-    target: { value: SetStateAction<string> }
+    target: { value: SetStateAction<string> };
   }) => {
-    setReviewText(e.target.value)
-  }
+    setReviewText(e.target.value);
+  };
 
   const handleSubmitReview = async () => {
     const axiosInstance = axios.create({
-      baseURL: 'http://127.0.0.1:8000/',
+      baseURL: "http://127.0.0.1:8000/",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session?.access_token}`
-      }
-    })
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session?.access_token}`,
+      },
+    });
     try {
-      await axiosInstance.post('reviews/', {
+      await axiosInstance.post("reviews/", {
         stars: rating,
         content: reviewText,
-        business: businessInfo.id
-      })
-      setIsOpen(false)
+        business: businessInfo.id,
+      });
+      setIsOpen(false);
       toast({
-        title: 'Review Successfully Added',
-        description: `Thank you for reviewing ${businessInfo.name}! We hope you had a wonderful experience with them.`
-      })
-      router.refresh()
+        title: "Review Successfully Added",
+        description: `Thank you for reviewing ${businessInfo.name}! We hope you had a wonderful experience with them.`,
+      });
+      router.refresh();
     } catch (error) {
-      console.error('Error submitting review:', error)
+      console.error("Error submitting review:", error);
       toast({
-        title: 'Error Submitting Review',
-        description: `${error}`
-      })
+        title: "Error Submitting Review",
+        description: `${error}`,
+      });
     }
-  }
+  };
   return (
     <Credenza open={isOpen} onOpenChange={setIsOpen}>
       <CredenzaTrigger asChild>
-        <Button
-          className="flex gap-2 items-center"
-          variant={'outline'}
-        >
+        <Button className="flex gap-2 items-center" variant={"outline"}>
           <StarIcon /> Add a review
         </Button>
       </CredenzaTrigger>
@@ -88,14 +85,14 @@ const AddAReview = ({ businessInfo }: Props) => {
             Review your experience with {businessInfo?.name}
           </CredenzaTitle>
           <CredenzaDescription>
-            Make sure you have had some interaction with{' '}
-            {businessInfo?.name} before you leave a review.
+            Make sure you have had some interaction with {businessInfo?.name}{" "}
+            before you leave a review.
           </CredenzaDescription>
         </CredenzaHeader>
         <CredenzaBody>
           <Card className="p-4">
             <Rating
-              SVGclassName={'inline-block'}
+              SVGclassName={"inline-block"}
               emptyIcon={<StarIcon size={30} />}
               onClick={handleRating}
               fillIcon={<StarIcon size={30} />}
@@ -104,22 +101,22 @@ const AddAReview = ({ businessInfo }: Props) => {
               tooltipClassName="rating-tooltip"
               initialValue={1}
               tooltipStyle={{
-                backgroundColor: '#c55e0c',
-                borderRadius: '50px',
-                fontSize: '12px',
-                padding: '5px 10px',
-                marginTop: '-10px' // Added 'px' for valid CSS unit
+                backgroundColor: "#c55e0c",
+                borderRadius: "50px",
+                fontSize: "12px",
+                padding: "5px 10px",
+                marginTop: "-10px", // Added 'px' for valid CSS unit
               }}
               tooltipDefaultText={`Rate ${businessInfo?.name}`}
               tooltipArray={[
-                'Eww, No!',
-                'Not Quite',
-                'Meh, It’s Okay',
-                'Pretty Good',
-                'Absolutely Stellar!'
+                "Eww, No!",
+                "Not Quite",
+                "Meh, It’s Okay",
+                "Pretty Good",
+                "Absolutely Stellar!",
               ]}
-              fillStyle={{ display: '-webkit-inline-box' }}
-              emptyStyle={{ display: 'flex' }}
+              fillStyle={{ display: "-webkit-inline-box" }}
+              emptyStyle={{ display: "flex" }}
               transition
             />
             <div className="my-6">
@@ -159,7 +156,7 @@ const AddAReview = ({ businessInfo }: Props) => {
         </CredenzaBody>
         <CredenzaFooter>
           <Button
-            variant={'default'}
+            variant={"default"}
             disabled={reviewText.length < 10}
             type="submit"
             onClick={handleSubmitReview}
@@ -169,7 +166,7 @@ const AddAReview = ({ businessInfo }: Props) => {
         </CredenzaFooter>
       </CredenzaContent>
     </Credenza>
-  )
-}
+  );
+};
 
-export default AddAReview
+export default AddAReview;

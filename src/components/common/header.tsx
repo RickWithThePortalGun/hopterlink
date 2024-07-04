@@ -1,18 +1,18 @@
-'use client'
-import { Button } from '@/components/ui/button'
+"use client";
+import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
   DrawerHeader,
-  DrawerTrigger
-} from '@/components/ui/drawer'
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -20,10 +20,10 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle
-} from '@/components/ui/navigation-menu'
-import Typography from '@/components/ui/typography'
-import { cn } from '@/lib/utils'
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import Typography from "@/components/ui/typography";
+import { cn } from "@/lib/utils";
 import {
   BellDot,
   Car,
@@ -36,224 +36,215 @@ import {
   SoupIcon,
   SunIcon,
   User,
-  X
-} from 'lucide-react'
-import { signOut, useSession } from 'next-auth/react'
-import { useTheme } from 'next-themes'
-import Link from 'next/link'
-import Collection from '../Collection'
-import Logo from '../Logo'
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '../ui/avatar'
+  X,
+} from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
+import { useTheme } from "next-themes";
+import Link from "next/link";
+import Collection from "../Collection";
+import Logo from "../Logo";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
-interface SidebarProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function Header({ className }: SidebarProps) {
-  const { theme, setTheme } = useTheme()
-  const { status, data: session } = useSession()
+  const { theme, setTheme } = useTheme();
+  const { status, data: session } = useSession();
   // console.log(session?.access_token)
-  console.log(theme)
+  console.log(theme);
   const items = [
     {
-      category: 'Automotive',
+      category: "Automotive",
       services: [
-        'Auto Accessories',
-        'Auto Dealers – New',
-        'Auto Dealers – Used',
-        'Detail & Carwash',
-        'Gas Stations',
-        'Motorcycle Sales & Repair',
-        'Rental & Leasing',
-        'Service, Repair & Parts',
-        'Towing'
-      ]
+        "Auto Accessories",
+        "Auto Dealers – New",
+        "Auto Dealers – Used",
+        "Detail & Carwash",
+        "Gas Stations",
+        "Motorcycle Sales & Repair",
+        "Rental & Leasing",
+        "Service, Repair & Parts",
+        "Towing",
+      ],
     },
     {
-      category: 'Business Support & Supplies',
+      category: "Business Support & Supplies",
       services: [
-        'Consultants',
-        'Employment Agency',
-        'Marketing & Communications',
-        'Office Supplies',
-        'Printing & Publishing'
-      ]
+        "Consultants",
+        "Employment Agency",
+        "Marketing & Communications",
+        "Office Supplies",
+        "Printing & Publishing",
+      ],
     },
     {
-      category: 'Computers & Electronics',
+      category: "Computers & Electronics",
       services: [
-        'Computer Programming & Support',
-        'Consumer Electronics & Accessories'
-      ]
+        "Computer Programming & Support",
+        "Consumer Electronics & Accessories",
+      ],
     },
     {
-      category: 'Construction & Contractors',
+      category: "Construction & Contractors",
       services: [
-        'Architects, Landscape Architects, Engineers & Surveyors',
-        'Blasting & Demolition',
-        'Building Materials & Supplies',
-        'Construction Companies',
-        'Electricians',
-        'Engineer, Survey',
-        'Environmental Assessments',
-        'Inspectors',
-        'Plaster & Concrete',
-        'Plumbers',
-        'Roofers'
-      ]
+        "Architects, Landscape Architects, Engineers & Surveyors",
+        "Blasting & Demolition",
+        "Building Materials & Supplies",
+        "Construction Companies",
+        "Electricians",
+        "Engineer, Survey",
+        "Environmental Assessments",
+        "Inspectors",
+        "Plaster & Concrete",
+        "Plumbers",
+        "Roofers",
+      ],
     },
     {
-      category: 'Education',
+      category: "Education",
       services: [
-        'Adult & Continuing Education',
-        'Early Childhood Education',
-        'Educational Resources',
-        'Other Educational'
-      ]
+        "Adult & Continuing Education",
+        "Early Childhood Education",
+        "Educational Resources",
+        "Other Educational",
+      ],
     },
     {
-      category: 'Entertainment',
+      category: "Entertainment",
       services: [
-        'Artists, Writers',
-        'Event Planners & Supplies',
-        'Golf Courses',
-        'Movies',
-        'Productions'
-      ]
+        "Artists, Writers",
+        "Event Planners & Supplies",
+        "Golf Courses",
+        "Movies",
+        "Productions",
+      ],
     },
     {
-      category: 'Food & Dining',
+      category: "Food & Dining",
       services: [
-        'Desserts, Catering & Supplies',
-        'Fast Food & Carry Out',
-        'Grocery, Beverage & Tobacco',
-        'Restaurants'
-      ]
+        "Desserts, Catering & Supplies",
+        "Fast Food & Carry Out",
+        "Grocery, Beverage & Tobacco",
+        "Restaurants",
+      ],
     },
     {
-      category: 'Health & Medicine',
+      category: "Health & Medicine",
       services: [
-        'Acupuncture',
-        'Assisted Living & Home Health Care',
-        'Audiologist',
-        'Chiropractic',
-        'Clinics & Medical Centers',
-        'Dental',
-        'Diet & Nutrition',
-        'Laboratory, Imaging & Diagnostic',
-        'Massage Therapy',
-        'Mental Health',
-        'Nurse',
-        'Optical',
-        'Pharmacy, Drug & Vitamin Stores',
-        'Physical Therapy',
-        'Physicians & Assistants',
-        'Podiatry',
-        'Social Worker',
-        'Animal Hospital',
-        'Veterinary & Animal Surgeons'
-      ]
+        "Acupuncture",
+        "Assisted Living & Home Health Care",
+        "Audiologist",
+        "Chiropractic",
+        "Clinics & Medical Centers",
+        "Dental",
+        "Diet & Nutrition",
+        "Laboratory, Imaging & Diagnostic",
+        "Massage Therapy",
+        "Mental Health",
+        "Nurse",
+        "Optical",
+        "Pharmacy, Drug & Vitamin Stores",
+        "Physical Therapy",
+        "Physicians & Assistants",
+        "Podiatry",
+        "Social Worker",
+        "Animal Hospital",
+        "Veterinary & Animal Surgeons",
+      ],
     },
     {
-      category: 'Home & Garden',
+      category: "Home & Garden",
       services: [
-        'Antiques & Collectibles',
-        'Cleaning',
-        'Crafts, Hobbies & Sports',
-        'Flower Shops',
-        'Home Furnishings',
-        'Home Goods',
-        'Home Improvements & Repairs',
-        'Landscape & Lawn Service',
-        'Pest Control',
-        'Pool Supplies & Service',
-        'Security System & Services'
-      ]
+        "Antiques & Collectibles",
+        "Cleaning",
+        "Crafts, Hobbies & Sports",
+        "Flower Shops",
+        "Home Furnishings",
+        "Home Goods",
+        "Home Improvements & Repairs",
+        "Landscape & Lawn Service",
+        "Pest Control",
+        "Pool Supplies & Service",
+        "Security System & Services",
+      ],
     },
     {
-      category: 'Legal & Financial',
+      category: "Legal & Financial",
       services: [
-        'Accountants',
-        'Attorneys',
-        'Financial Institutions',
-        'Financial Services',
-        'Insurance',
-        'Other Legal'
-      ]
+        "Accountants",
+        "Attorneys",
+        "Financial Institutions",
+        "Financial Services",
+        "Insurance",
+        "Other Legal",
+      ],
     },
     {
-      category: 'Manufacturing, Wholesale, Distribution',
-      services: [
-        'Distribution, Import/Export',
-        'Manufacturing',
-        'Wholesale'
-      ]
+      category: "Manufacturing, Wholesale, Distribution",
+      services: ["Distribution, Import/Export", "Manufacturing", "Wholesale"],
     },
     {
-      category: 'Merchants (Retail)',
+      category: "Merchants (Retail)",
       services: [
-        'Cards & Gifts',
-        'Clothing & Accessories',
-        'Department Stores, Sporting Goods',
-        'General',
-        'Jewelry',
-        'Shoes'
-      ]
+        "Cards & Gifts",
+        "Clothing & Accessories",
+        "Department Stores, Sporting Goods",
+        "General",
+        "Jewelry",
+        "Shoes",
+      ],
     },
     {
-      category: 'Miscellaneous',
+      category: "Miscellaneous",
       services: [
-        'Civic Groups',
-        'Funeral Service Providers & Cemeteries',
-        'Miscellaneous',
-        'Utility Companies'
-      ]
+        "Civic Groups",
+        "Funeral Service Providers & Cemeteries",
+        "Miscellaneous",
+        "Utility Companies",
+      ],
     },
     {
-      category: 'Personal Care & Services',
+      category: "Personal Care & Services",
       services: [
-        'Animal Care & Supplies',
-        'Barber & Beauty Salons',
-        'Beauty Supplies',
-        'Dry Cleaners & Laundromats',
-        'Exercise & Fitness',
-        'Massage & Body Works',
-        'Nail Salons',
-        'Shoe Repairs',
-        'Tailors'
-      ]
+        "Animal Care & Supplies",
+        "Barber & Beauty Salons",
+        "Beauty Supplies",
+        "Dry Cleaners & Laundromats",
+        "Exercise & Fitness",
+        "Massage & Body Works",
+        "Nail Salons",
+        "Shoe Repairs",
+        "Tailors",
+      ],
     },
     {
-      category: 'Real Estate',
+      category: "Real Estate",
       services: [
-        'Agencies & Brokerage',
-        'Agents & Brokers',
-        'Apartment & Home Rental',
-        'Mortgage Broker & Lender',
-        'Property Management',
-        'Title Company'
-      ]
+        "Agencies & Brokerage",
+        "Agents & Brokers",
+        "Apartment & Home Rental",
+        "Mortgage Broker & Lender",
+        "Property Management",
+        "Title Company",
+      ],
     },
     {
-      category: 'Travel & Transportation',
+      category: "Travel & Transportation",
       services: [
-        'Hotel, Motel & Extended Stay',
-        'Moving & Storage',
-        'Packaging & Shipping',
-        'Transportation',
-        'Travel & Tourism'
-      ]
-    }
-  ]
+        "Hotel, Motel & Extended Stay",
+        "Moving & Storage",
+        "Packaging & Shipping",
+        "Transportation",
+        "Travel & Tourism",
+      ],
+    },
+  ];
 
   const getLogo = () => (
     <Link href="/" className="pointer flex items-center">
       <Logo />
     </Link>
-  )
+  );
 
   const getAuthButtons = () => (
     <div className="flex gap-3 items-center">
@@ -274,47 +265,47 @@ export function Header({ className }: SidebarProps) {
         <DropdownMenuContent align="end">
           <DropdownMenuItem
             onClick={() => {
-              setTheme('light')
+              setTheme("light");
             }}
           >
             Light
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {
-              setTheme('dark')
+              setTheme("dark");
             }}
           >
             Dark
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {
-              setTheme('system')
+              setTheme("system");
             }}
           >
             System
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      {status === 'authenticated' && (
+      {status === "authenticated" && (
         <>
-          {' '}
+          {" "}
           <BellDot size={20} />
           <Collection />
         </>
       )}
-      {status === 'unauthenticated' && (
+      {status === "unauthenticated" && (
         <Link href="/login" target="_blank">
           <Typography variant="p">Sign in</Typography>
         </Link>
       )}
-      {status === 'unauthenticated' && (
+      {status === "unauthenticated" && (
         <Link href="/signup" target="_blank">
-          <Button size="tiny" variant={'outline'}>
+          <Button size="tiny" variant={"outline"}>
             Sign Up
           </Button>
         </Link>
       )}
-      {status === 'authenticated' && (
+      {status === "authenticated" && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar className="border-2 border-white cursor-pointer">
@@ -338,7 +329,7 @@ export function Header({ className }: SidebarProps) {
             <DropdownMenuItem
               className="flex flex-row items-center gap-4"
               onClick={() => {
-                setTheme('system')
+                setTheme("system");
               }}
             >
               <Settings size={14} /> Settings
@@ -346,7 +337,7 @@ export function Header({ className }: SidebarProps) {
             <DropdownMenuItem
               className="flex flex-row items-center gap-4"
               onClick={() => {
-                void signOut()
+                void signOut();
               }}
             >
               <LogOut size={14} /> Logout
@@ -355,7 +346,7 @@ export function Header({ className }: SidebarProps) {
         </DropdownMenu>
       )}
     </div>
-  )
+  );
 
   const getHeaderItems = () => {
     return (
@@ -384,46 +375,38 @@ export function Header({ className }: SidebarProps) {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>
-                  Automotive{' '}
-                </NavigationMenuTrigger>
+                <NavigationMenuTrigger>Automotive </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul
                     className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2
                       lg:w-[600px]"
                   >
-                    {items[0].services.map(
-                      (service, index) => (
-                        <NavigationMenuLink
-                          key={index}
-                          className={'flex-row flex gap-2'}
-                        >
-                          <PlusCircle /> {service}
-                        </NavigationMenuLink>
-                      )
-                    )}
+                    {items[0].services.map((service, index) => (
+                      <NavigationMenuLink
+                        key={index}
+                        className={"flex-row flex gap-2"}
+                      >
+                        <PlusCircle /> {service}
+                      </NavigationMenuLink>
+                    ))}
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>
-                  Business Supplier
-                </NavigationMenuTrigger>
+                <NavigationMenuTrigger>Business Supplier</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul
                     className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2
                       lg:w-[600px]"
                   >
-                    {items[1].services.map(
-                      (service, index) => (
-                        <NavigationMenuLink
-                          key={index}
-                          className={'flex-row flex gap-2'}
-                        >
-                          <SoupIcon /> {service}
-                        </NavigationMenuLink>
-                      )
-                    )}
+                    {items[1].services.map((service, index) => (
+                      <NavigationMenuLink
+                        key={index}
+                        className={"flex-row flex gap-2"}
+                      >
+                        <SoupIcon /> {service}
+                      </NavigationMenuLink>
+                    ))}
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -436,28 +419,22 @@ export function Header({ className }: SidebarProps) {
                     className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2
                       lg:w-[600px]"
                   >
-                    {items[2].services.map(
-                      (service, index) => (
-                        <>
-                          <NavigationMenuLink
-                            key={index}
-                            className={
-                              'flex-row flex gap-2'
-                            }
-                          >
-                            <Car /> {service}
-                          </NavigationMenuLink>
-                        </>
-                      )
-                    )}
+                    {items[2].services.map((service, index) => (
+                      <>
+                        <NavigationMenuLink
+                          key={index}
+                          className={"flex-row flex gap-2"}
+                        >
+                          <Car /> {service}
+                        </NavigationMenuLink>
+                      </>
+                    ))}
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link href="/docs" legacyBehavior passHref>
-                  <NavigationMenuLink
-                    className={navigationMenuTriggerStyle()}
-                  >
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                     More
                   </NavigationMenuLink>
                 </Link>
@@ -466,23 +443,21 @@ export function Header({ className }: SidebarProps) {
           </NavigationMenu>
         </div>
       </>
-    )
-  }
+    );
+  };
 
   return (
     <div
       className={cn(
         `flex md:h-12 h-14 items-center justify-center w-full
           border-b fixed z-50 bg-secondary`,
-        className
+        className,
       )}
     >
       <div className="w-full max-w-[1440px] md:px-8 px-4">
         {/* Desktop */}
         <div className="flex items-center gap-x-8 w-full">
-          <div className="md:flex-0 min-w-fit flex-1">
-            {getLogo()}
-          </div>
+          <div className="md:flex-0 min-w-fit flex-1">{getLogo()}</div>
           <div className="hidden md:flex flex items-center w-full">
             <div className="flex items-center gap-x-8 flex-1">
               {getHeaderItems()}
@@ -505,9 +480,7 @@ export function Header({ className }: SidebarProps) {
                       </div>
                     </DrawerClose>
                   </DrawerHeader>
-                  <div className="p-4 pb-0 space-y-4">
-                    {getHeaderItems()}
-                  </div>
+                  <div className="p-4 pb-0 space-y-4">{getHeaderItems()}</div>
                 </div>
               </DrawerContent>
             </Drawer>
@@ -515,5 +488,5 @@ export function Header({ className }: SidebarProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

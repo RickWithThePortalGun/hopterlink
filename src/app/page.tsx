@@ -1,25 +1,20 @@
-import Cards from '@/components/Cards'
-import HeaderContainer from '@/components/HeaderContainer'
-import Typography from '@/components/ui/typography'
-import {
-  ChevronRight,
-  Shield,
-  Star,
-  Timer
-} from 'lucide-react'
-import Feature from './feature'
+import Cards from "@/components/Cards";
+import HeaderContainer from "@/components/HeaderContainer";
+import Typography from "@/components/ui/typography";
+import { ChevronRight, Shield, Star, Timer } from "lucide-react";
+import Feature from "./feature";
 
-import CategoryCards from '@/components/CategoryCards'
-import ImageCarousel from '@/components/ImageCarousel'
-import AnimatedShinyText from '@/components/magicui/animated-shiny-text'
-import Particles from '@/components/magicui/particles'
-import SearchComponent from '@/components/SearchComponent'
-import { FlipWords } from '@/components/ui/flip-words'
-import { Separator } from '@/components/ui/separator'
-import { cn } from '@/lib/utils'
+import CategoryCards from "@/components/CategoryCards";
+import ImageCarousel from "@/components/ImageCarousel";
+import AnimatedShinyText from "@/components/magicui/animated-shiny-text";
+import Particles from "@/components/magicui/particles";
+import SearchComponent from "@/components/SearchComponent";
+import { FlipWords } from "@/components/ui/flip-words";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
-  const words = ['Find', 'Review', 'Hire']
+  const words = ["Find", "Review", "Hire"];
 
   return (
     <>
@@ -51,7 +46,7 @@ export default function Home() {
                     text-base text-white transition-all ease-in
                     hover:cursor-pointer hover:bg-neutral-200
                     dark:border-white/5 dark:bg-neutral-900
-                    dark:hover:bg-neutral-800`
+                    dark:hover:bg-neutral-800`,
                 )}
               >
                 <AnimatedShinyText
@@ -68,8 +63,7 @@ export default function Home() {
                 Local Gems.
               </div>
               <p className="max-w-4xl text-xl tracking-normal">
-                Every review tells a story, every story
-                shapes a community.
+                Every review tells a story, every story shapes a community.
               </p>
               <div className="flex-col flex gap-4 items-center mt-6 md:flex-row w-full">
                 <SearchComponent />
@@ -102,10 +96,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col md:pt-24 md:gap-36 gap-24 items-center">
             <div className="flex flex-col gap-12 items-center">
-              <Typography
-                className="max-w-2xl"
-                variant="h1"
-              >
+              <Typography className="max-w-2xl" variant="h1">
                 Tons of benefits!
               </Typography>
               <div className="flex md:flex-row flex-col gap-12">
@@ -155,5 +146,5 @@ export default function Home() {
         </div>
       </HeaderContainer>
     </>
-  )
+  );
 }

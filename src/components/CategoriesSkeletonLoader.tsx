@@ -1,4 +1,4 @@
-import { Skeleton } from './ui/skeleton'
+import { Skeleton } from "./ui/skeleton";
 
 const CategoriesSkeletonLoader = () => {
   return (
@@ -13,23 +13,23 @@ const CategoriesSkeletonLoader = () => {
       <Skeleton
         className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
           items-center justify-center"
-      />{' '}
+      />{" "}
       <Skeleton
         className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
           items-center justify-center"
-      />{' '}
+      />{" "}
       <Skeleton
         className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
           items-center justify-center"
-      />{' '}
+      />{" "}
       <Skeleton
         className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
           items-center justify-center"
-      />{' '}
+      />{" "}
       <Skeleton
         className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
           items-center justify-center"
-      />{' '}
+      />{" "}
       <Skeleton
         className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
           items-center justify-center"
@@ -39,7 +39,7 @@ const CategoriesSkeletonLoader = () => {
           items-center justify-center"
       />
     </div>
-  )
-}
+  );
+};
 
-export default CategoriesSkeletonLoader
+export default CategoriesSkeletonLoader;
