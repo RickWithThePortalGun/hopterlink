@@ -138,7 +138,7 @@ const Page = () => {
             </Card>
             <div className="w-full flex flex-row items-center gap-2 my-4">
               <Button className="w-full" variant={"default"}>
-                Edit Profile
+                Edit your Profile
               </Button>
               <Button>
                 <Settings />
