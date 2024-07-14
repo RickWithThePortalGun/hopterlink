@@ -70,27 +70,7 @@ export default function Home() {
               <div className="flex-col flex gap-4 items-center mt-6 md:flex-row w-full">
                 <SearchComponent />
               </div>
-              <div className="flex flex-row max-md:flex-col gap-4 max-md:text-xs items-center w-full">
-                Popular Searches
-                <p
-                  className="px-2 py-1 bg-transparent border-primary border-[1px]
-                    rounded-full text-xs"
-                >
-                  Website Designer
-                </p>
-                <p
-                  className="px-2 py-1 bg-transparent border-primary border-[1px]
-                    rounded-full text-xs"
-                >
-                  Software Developer
-                </p>
-                <p
-                  className="px-2 py-1 bg-transparent border-primary border-[1px]
-                    rounded-full text-xs"
-                >
-                  Cake
-                </p>
-              </div>
+              
             </div>
             <div className={"flex items-center justify-center w-full"}>
               <ImageCarousel />

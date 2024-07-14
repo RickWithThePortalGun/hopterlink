@@ -4,17 +4,12 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import Stepper from "@keyvaluesystems/react-stepper";
 import { PhoneInput } from "./ui/phone-input";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from "./ui/input-otp";
 import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
 import { signUp } from "@/app/api/signup/signup";
 import { toast } from "./ui-hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { z } from "zod";
 
 const SignUpForm = () => {
   const router = useRouter();
@@ -23,36 +18,48 @@ const SignUpForm = () => {
     lastName: "",
     phoneNo: "",
     email: "",
-    password1: "",
-    password2: "",
+    password: "",
+    confirmPassword: "",
   });
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(true);
+
+  // Define the Zod schema
+  const signUpSchema = z.object({
+    firstName: z.string().min(1, "First name is required"),
+    lastName: z.string().min(1, "Last name is required"),
+    phoneNo: z.string().min(1, "Phone number is required"),
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(6, "Password must be at least 6 characters long"),
+    confirmPassword: z
+      .string()
+      .min(6, "Confirm password must be at least 6 characters long"),
+  }).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"], // Path to the error
+  });
 
   useEffect(() => {
     validateForm();
   }, [formData]);
 
-  const handleInputChange = (e: { target: { id: any; value: any } }) => {
+  const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };
 
   const validateForm = () => {
-    const { firstName, lastName, phoneNo, email, password, confirmPassword } =
-      formData;
-    const isValid =
-      firstName !== "" &&
-      lastName !== "" &&
-      phoneNo !== "" &&
-      email !== "" &&
-      password !== "" &&
-      password === confirmPassword;
-    setIsFormValid(isValid);
+    try {
+      signUpSchema.parse(formData);
+      setIsFormValid(true);
+    } catch (e) {
+      setIsFormValid(false);
+    }
   };
 
   const handleSignUp = async () => {
     try {
+      signUpSchema.parse(formData); // Ensure data is valid before submission
       const response = await signUp(formData);
       console.log("SignUp Response:", response);
       toast({
@@ -65,12 +72,15 @@ const SignUpForm = () => {
 
       setCurrentStepIndex(1); // Move to the next step after successful signup
     } catch (error) {
-      console.error("SignUp Error:", error);
+      if (error instanceof z.ZodError) {
+        console.error("Validation Error:", error.errors);
+      } else {
+        console.error("SignUp Error:", error);
+      }
       toast({
         title: "Error encountered",
-        description: error as string,
+        description: error.message || "An error occurred during signup",
       });
-      // Handle error (e.g., show an error message to the user)
     }
   };
 
@@ -115,6 +125,7 @@ const SignUpForm = () => {
       backgroundColor: "#028A0F",
     }),
   };
+
   return (
     <div className="rounded-lg text-card-primary shadow-sm w-full max-w-sm">
       <Stepper
@@ -315,88 +326,7 @@ const SignUpForm = () => {
               Verify Your Account
             </h3>
             <div className="flex gap-4 justify-center w-full">
-              {/* <InputOTP maxLength={6}>
-                <InputOTPGroup>
-                  <InputOTPSlot
-                    index={0}
-                    value={formData.otp[0] || ""}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        otp:
-                          formData.otp.substring(0, 0) +
-                          e.target.value +
-                          formData.otp.substring(1),
-                      });
-                    }}
-                  />
-                  <InputOTPSlot
-                    index={1}
-                    value={formData.otp[1] || ""}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        otp:
-                          formData.otp.substring(0, 1) +
-                          e.target.value +
-                          formData.otp.substring(2),
-                      });
-                    }}
-                  />
-                  <InputOTPSlot
-                    index={2}
-                    value={formData.otp[2] || ""}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        otp:
-                          formData.otp.substring(0, 2) +
-                          e.target.value +
-                          formData.otp.substring(3),
-                      });
-                    }}
-                  />
-                </InputOTPGroup>
-                <InputOTPSeparator />
-                <InputOTPGroup>
-                  <InputOTPSlot
-                    index={3}
-                    value={formData.otp[3] || ""}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        otp:
-                          formData.otp.substring(0, 3) +
-                          e.target.value +
-                          formData.otp.substring(4),
-                      });
-                    }}
-                  />
-                  <InputOTPSlot
-                    index={4}
-                    value={formData.otp[4] || ""}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        otp:
-                          formData.otp.substring(0, 4) +
-                          e.target.value +
-                          formData.otp.substring(5),
-                      });
-                    }}
-                  />
-                  <InputOTPSlot
-                    index={5}
-                    value={formData.otp[5] || ""}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        otp: formData.otp.substring(0, 5) + e.target.value,
-                      });
-                    }}
-                  />
-                </InputOTPGroup>
-              </InputOTP> */}
+              {/* Add your OTP inputs here */}
             </div>
             <div className="mt-12">
               <p className="text-grey-500 text-xs mt-12">
