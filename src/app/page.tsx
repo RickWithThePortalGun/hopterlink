@@ -54,7 +54,9 @@ export default function Home() {
                     ease-out hover:text-neutral-600 hover:duration-300
                     hover:dark:text-neutral-400"
                 >
-                  <span className="max-md:text-sm">✨ Introducing Hopterlink</span>
+                  <span className="max-md:text-sm">
+                    ✨ Introducing Hopterlink
+                  </span>
                   <ChevronRight />
                 </AnimatedShinyText>
               </div>
@@ -92,7 +94,7 @@ export default function Home() {
             </div>
             <div className={"flex items-center justify-center w-full"}>
               <ImageCarousel />
-              </div>
+            </div>
           </div>
           <div className="flex flex-col md:pt-24 md:gap-36 gap-24 items-center">
             <div className="flex flex-col gap-12 items-center">

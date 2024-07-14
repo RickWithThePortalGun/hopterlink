@@ -12,16 +12,20 @@ import {
 } from "./ui/input-otp";
 import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
+import { signUp } from "@/app/api/signup/signup";
+import { toast } from "./ui-hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
+  const router=useRouter()
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     phoneNo: "",
     email: "",
-    password: "",
-    confirmPassword: "",
-    otp: "",
+    password1: "",
+    password2: "",
+    // otp: "",
   });
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isFormValid, setIsFormValid] = useState(false);
@@ -48,11 +52,31 @@ const SignUpForm = () => {
     setIsFormValid(isValid);
   };
 
-  const handleSignUp = () => {
-    // Simulate form submission
-    console.log("Form Data:", formData);
-    setCurrentStepIndex(1); // Move to the next step after successful signup
-  };
+
+  const handleSignUp = async () => {
+    try {
+        const response = await signUp(formData);
+        console.log("SignUp Response:", response);
+        toast({
+          title: "Account Created Successfully",
+          description: "You have successfully created an account on hopterlink",
+        });
+        setTimeout(() => {
+          
+          router.push("/login");
+
+        }, 2000);
+        
+        setCurrentStepIndex(1);  // Move to the next step after successful signup
+    } catch (error) {
+        console.error("SignUp Error:", error);
+        toast({
+          title: "Error encountered",
+          description: error as string,
+        });
+        // Handle error (e.g., show an error message to the user)
+    }
+};
 
   const handleOTPSubmit = () => {
     // Simulate OTP verification
@@ -76,6 +100,7 @@ const SignUpForm = () => {
   ];
 
   const handleContinue = () => {
+    console.log("FormData: ",formData)
     if (currentStepIndex === 0 && isFormValid) {
       handleSignUp();
     } else if (currentStepIndex === 1 && formData.otp.length === 6) {
@@ -269,7 +294,7 @@ const SignUpForm = () => {
 
             <Button
               disabled={!isFormValid}
-              onClick={handleContinue}
+              onClick={handleSignUp}
               className="inline-flex items-center justify-center whitespace-nowrap
                 rounded-md text-sm font-medium ring-offset-background
                 transition-colors focus-visible:outline-none
@@ -294,7 +319,7 @@ const SignUpForm = () => {
               Verify Your Account
             </h3>
             <div className="flex gap-4 justify-center w-full">
-              <InputOTP maxLength={6}>
+              {/* <InputOTP maxLength={6}>
                 <InputOTPGroup>
                   <InputOTPSlot
                     index={0}
@@ -375,7 +400,7 @@ const SignUpForm = () => {
                     }}
                   />
                 </InputOTPGroup>
-              </InputOTP>
+              </InputOTP> */}
             </div>
             <div className="mt-12">
               <p className="text-grey-500 text-xs mt-12">
@@ -385,7 +410,7 @@ const SignUpForm = () => {
             </div>
 
             <Button
-              disabled={formData.otp.length !== 6}
+              // disabled={formData.otp.length !== 6}
               onClick={handleContinue}
               className="inline-flex items-center justify-center whitespace-nowrap
                 rounded-md text-sm font-medium ring-offset-background
