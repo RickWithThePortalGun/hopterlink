@@ -25,7 +25,6 @@ const SignUpForm = () => {
     email: "",
     password1: "",
     password2: "",
-    // otp: "",
   });
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isFormValid, setIsFormValid] = useState(false);
