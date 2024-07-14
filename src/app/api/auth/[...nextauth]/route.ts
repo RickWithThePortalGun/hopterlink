@@ -68,7 +68,7 @@ export const authOptions = {
             method: "post",
             data: credentials,
           });
-          console.log(credentials)
+          console.log(credentials);
           const data = response.data;
           if (data) return data;
         } catch (error) {

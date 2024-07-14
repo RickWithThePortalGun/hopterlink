@@ -17,7 +17,7 @@ import { toast } from "./ui-hooks/use-toast";
 import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
-  const router=useRouter()
+  const router = useRouter();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -52,31 +52,28 @@ const SignUpForm = () => {
     setIsFormValid(isValid);
   };
 
-
   const handleSignUp = async () => {
     try {
-        const response = await signUp(formData);
-        console.log("SignUp Response:", response);
-        toast({
-          title: "Account Created Successfully",
-          description: "You have successfully created an account on hopterlink",
-        });
-        setTimeout(() => {
-          
-          router.push("/login");
+      const response = await signUp(formData);
+      console.log("SignUp Response:", response);
+      toast({
+        title: "Account Created Successfully",
+        description: "You have successfully created an account on hopterlink",
+      });
+      setTimeout(() => {
+        router.push("/login");
+      }, 2000);
 
-        }, 2000);
-        
-        setCurrentStepIndex(1);  // Move to the next step after successful signup
+      setCurrentStepIndex(1); // Move to the next step after successful signup
     } catch (error) {
-        console.error("SignUp Error:", error);
-        toast({
-          title: "Error encountered",
-          description: error as string,
-        });
-        // Handle error (e.g., show an error message to the user)
+      console.error("SignUp Error:", error);
+      toast({
+        title: "Error encountered",
+        description: error as string,
+      });
+      // Handle error (e.g., show an error message to the user)
     }
-};
+  };
 
   const handleOTPSubmit = () => {
     // Simulate OTP verification
@@ -100,7 +97,7 @@ const SignUpForm = () => {
   ];
 
   const handleContinue = () => {
-    console.log("FormData: ",formData)
+    console.log("FormData: ", formData);
     if (currentStepIndex === 0 && isFormValid) {
       handleSignUp();
     } else if (currentStepIndex === 1 && formData.otp.length === 6) {

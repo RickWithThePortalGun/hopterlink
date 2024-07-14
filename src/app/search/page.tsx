@@ -183,7 +183,7 @@ const Page = ({ params }: Props) => {
               {businesses.length === 0 && categories.length === 0 ? (
                 <div className="flex flex-col h-full w-full gap-4 justify-center items-center">
                   <Typography variant="h3">
-                    No results found for <br/> ' {search} '
+                    No results found for <br /> ' {search} '
                   </Typography>
                   Try searching again{" "}
                   <div className="">
