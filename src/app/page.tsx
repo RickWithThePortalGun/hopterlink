@@ -29,10 +29,11 @@ export default function Home() {
           >
             <Particles
               className="absolute inset-0"
-              quantity={200}
-              staticity={30}
-              ease={80}
+              quantity={250}
+              staticity={80}
+              ease={50}
               refresh
+              size={1}
               color="#c55e0c"
             />
 
@@ -70,7 +71,6 @@ export default function Home() {
               <div className="flex-col flex gap-4 items-center mt-6 md:flex-row w-full">
                 <SearchComponent />
               </div>
-              
             </div>
             <div className={"flex items-center justify-center w-full"}>
               <ImageCarousel />

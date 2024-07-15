@@ -10,10 +10,11 @@ export const signUp = async (formData: {
 }) => {
   const uri = "/auth/registration/";
   try {
+    console.log(formData)
     const result = await request.post(uri, formData);
     console.log(result);
     return result.data;
   } catch (error) {
-    console.error("Error fetching categories:", error);
+    console.error("Error Signing up: ", error);
   }
 };

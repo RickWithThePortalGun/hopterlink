@@ -18,26 +18,38 @@ const SignUpForm = () => {
     lastName: "",
     phoneNo: "",
     email: "",
-    password: "",
-    confirmPassword: "",
+    password1: "",
+    password2: "",
   });
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isFormValid, setIsFormValid] = useState(true);
 
   // Define the Zod schema
-  const signUpSchema = z.object({
-    firstName: z.string().min(1, "First name is required"),
-    lastName: z.string().min(1, "Last name is required"),
-    phoneNo: z.string().min(1, "Phone number is required"),
-    email: z.string().email("Invalid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters long"),
-    confirmPassword: z
-      .string()
-      .min(6, "Confirm password must be at least 6 characters long"),
-  }).refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"], // Path to the error
-  });
+  const signUpSchema = z
+    .object({
+      firstName: z.string().min(1, "First name is required"),
+      lastName: z.string().min(1, "Last name is required"),
+      phoneNo: z.string().min(1, "Phone number is required"),
+      email: z.string().email("Invalid email address"),
+      password1: z
+    .string()
+    .min(8, "Password must be at least 8 characters long")
+    .max(64, "Password must be no longer than 64 characters")
+    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+    .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
+    .regex(/\d/, "Password must contain at least one number")
+    .regex(
+      /[^a-zA-Z0-9]/,
+      "Password must contain at least one special character",
+    ),
+      password2: z
+        .string()
+        .min(6, "Confirm password must be at least 6 characters long"),
+    })
+    .refine((data) => data.password1 === data.password2, {
+      message: "Passwords don't match",
+      path: ["password2"], // Path to the error
+    });
 
   useEffect(() => {
     validateForm();
@@ -62,13 +74,23 @@ const SignUpForm = () => {
       signUpSchema.parse(formData); // Ensure data is valid before submission
       const response = await signUp(formData);
       console.log("SignUp Response:", response);
-      toast({
-        title: "Account Created Successfully",
-        description: "You have successfully created an account on hopterlink",
-      });
-      setTimeout(() => {
-        router.push("/login");
-      }, 2000);
+      if(response){
+        toast({
+          title: "Account Created Successfully",
+          description: "You have successfully created an account on hopterlink",
+        });
+        setTimeout(() => {
+          router.push("/login");
+        }, 2000);
+      }
+      else{
+        toast({
+          title: "Account Created Successfully",
+          description: "You have successfully created an account on hopterlink",
+        });
+      }
+      
+   
 
       setCurrentStepIndex(1); // Move to the next step after successful signup
     } catch (error) {
@@ -246,7 +268,7 @@ const SignUpForm = () => {
               <Label
                 className="text-sm font-medium leading-none
                   peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                htmlFor="password"
+                htmlFor="password1"
               >
                 Password
               </Label>
@@ -259,9 +281,9 @@ const SignUpForm = () => {
                   focus-visible:outline-none focus-visible:ring-2
                   focus-visible:ring-ring focus-visible:ring-offset-2
                   disabled:cursor-not-allowed disabled:opacity-50"
-                id="password"
+                id="password1"
                 placeholder="●●●●●●●●●"
-                value={formData.password}
+                value={formData.password1}
                 onChange={handleInputChange}
                 required
                 control-id="ControlID-2"
@@ -271,7 +293,7 @@ const SignUpForm = () => {
               <Label
                 className="text-sm font-medium leading-none
                   peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                htmlFor="confirmPassword"
+                htmlFor="password2"
               >
                 Confirm Password
               </Label>
@@ -284,9 +306,9 @@ const SignUpForm = () => {
                   focus-visible:outline-none focus-visible:ring-2
                   focus-visible:ring-ring focus-visible:ring-offset-2
                   disabled:cursor-not-allowed disabled:opacity-50"
-                id="confirmPassword"
+                id="password2"
                 placeholder="●●●●●●●●●"
-                value={formData.confirmPassword}
+                value={formData.password2}
                 onChange={handleInputChange}
                 required
                 control-id="ControlID-2"
