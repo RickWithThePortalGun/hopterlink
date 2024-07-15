@@ -10,7 +10,7 @@ export const signUp = async (formData: {
 }) => {
   const uri = "/auth/registration/";
   try {
-    console.log(formData)
+    console.log(formData);
     const result = await request.post(uri, formData);
     console.log(result);
     return result.data;

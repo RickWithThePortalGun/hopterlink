@@ -32,16 +32,16 @@ const SignUpForm = () => {
       phoneNo: z.string().min(1, "Phone number is required"),
       email: z.string().email("Invalid email address"),
       password1: z
-    .string()
-    .min(8, "Password must be at least 8 characters long")
-    .max(64, "Password must be no longer than 64 characters")
-    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-    .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
-    .regex(/\d/, "Password must contain at least one number")
-    .regex(
-      /[^a-zA-Z0-9]/,
-      "Password must contain at least one special character",
-    ),
+        .string()
+        .min(8, "Password must be at least 8 characters long")
+        .max(64, "Password must be no longer than 64 characters")
+        .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+        .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+        .regex(/\d/, "Password must contain at least one number")
+        .regex(
+          /[^a-zA-Z0-9]/,
+          "Password must contain at least one special character",
+        ),
       password2: z
         .string()
         .min(6, "Confirm password must be at least 6 characters long"),
@@ -74,7 +74,7 @@ const SignUpForm = () => {
       signUpSchema.parse(formData); // Ensure data is valid before submission
       const response = await signUp(formData);
       console.log("SignUp Response:", response);
-      if(response){
+      if (response) {
         toast({
           title: "Account Created Successfully",
           description: "You have successfully created an account on hopterlink",
@@ -82,15 +82,12 @@ const SignUpForm = () => {
         setTimeout(() => {
           router.push("/login");
         }, 2000);
-      }
-      else{
+      } else {
         toast({
           title: "Account Created Successfully",
           description: "You have successfully created an account on hopterlink",
         });
       }
-      
-   
 
       setCurrentStepIndex(1); // Move to the next step after successful signup
     } catch (error) {
