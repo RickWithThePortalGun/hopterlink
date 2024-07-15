@@ -31,7 +31,6 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { type Key, useEffect, useState } from "react";
-import { RotatingLines } from "react-loader-spinner";
 import { type Session } from "next-auth";
 import Image from "next/image";
 import { MultiStepLoader } from "@/components/ui/multi-step-loader";
