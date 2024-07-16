@@ -30,18 +30,22 @@ import Typography from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 import {
   BellDot,
+  Bus,
   Car,
+  Computer,
   Home,
   LogOut,
   MenuIcon,
   MessageCircle,
   MoonIcon,
+  Pen,
   Plus,
   PlusCircle,
   Settings,
   SoupIcon,
   SunIcon,
   User,
+  Weight,
   X,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -181,7 +185,7 @@ export function Header({ className }: SidebarProps) {
             )}
           </DropdownMenuContent>
         </DropdownMenu>
-        <DropdownMenu onOpenChange={() => fetchSubcategories(3)}>
+        <DropdownMenu onOpenChange={() => fetchSubcategories(3)} modal>
           <DropdownMenuTrigger>
             <p className="text-sm"> Health and Wellness </p>
           </DropdownMenuTrigger>
@@ -258,7 +262,7 @@ export function Header({ className }: SidebarProps) {
               <DrawerTrigger asChild>
                 <MenuIcon />
               </DrawerTrigger>
-              <DrawerContent className="h-screen top-0 right-0 left-auto mt-0 w-64 rounded-none">
+              <DrawerContent className="h-screen justify-between flex items-start top-0 right-0 left-auto mt-0 w-64 rounded-none">
                 <div className="mx-auto w-full p-5">
                   <DrawerHeader>
                     <DrawerClose asChild>
@@ -267,7 +271,213 @@ export function Header({ className }: SidebarProps) {
                       </div>
                     </DrawerClose>
                   </DrawerHeader>
-                  <div className="p-4 pb-0 space-y-4">{getHeaderItems()}</div>
+                  <div className="p-4 pb-0 space-y-4 grid grid-cols-1">
+                  <DropdownMenu onOpenChange={() => fetchSubcategories(2)}>
+          <DropdownMenuTrigger onClick={() => fetchSubcategories(2)}>
+            <p className="text-md text-start"> Automotive Services</p>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {loading ? (
+              <div className="w-full h-full items-center justify-center flex">
+                <RotatingLines width="20" strokeColor="#c55e0c" />
+              </div>
+            ) : (
+              subcategories.map((subcategory, index) => (
+                <DropdownMenuItem key={index} className="flex-row flex gap-2">
+                  <Car size={16} color="#e5e5e5" />{" "}
+                  <p className="text-sm">{subcategory.name}</p>
+                </DropdownMenuItem>
+              ))
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DropdownMenu onOpenChange={() => fetchSubcategories(3)} modal>
+          <DropdownMenuTrigger>
+            <p className="text-md text-start" > Health and Wellness </p>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {loading ? (
+              <div className="w-full h-full items-center justify-center flex">
+                <RotatingLines width="20" strokeColor="#c55e0c" />
+              </div>
+            ) : (
+              subcategories.map((subcategory, index) => (
+                <DropdownMenuItem key={index} className="flex-row flex gap-2">
+                  <Plus color="#e5e5e5" size={16} /> {subcategory.name}
+                </DropdownMenuItem>
+              ))
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DropdownMenu onOpenChange={() => fetchSubcategories(10)}>
+          <DropdownMenuTrigger>
+            <p className="text-md text-start">Technology and Gadgets</p>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {loading ? (
+              <div className="w-full h-full items-center justify-center flex">
+                <RotatingLines strokeColor="#c55e0c" width="20" />
+              </div>
+            ) : (
+              subcategories.map((subcategory, index) => (
+                <DropdownMenuItem key={index} className="flex-row flex gap-2">
+                  <Computer color="#e5e5e5" size={16} /> {subcategory.name}
+                </DropdownMenuItem>
+              ))
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DropdownMenu onOpenChange={() => fetchSubcategories(11)}>
+          <DropdownMenuTrigger>
+            <p className="text-md text-start"> Transportation and Moving</p>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {loading ? (
+              <div className="w-full h-full items-center justify-center flex">
+                <RotatingLines strokeColor="#c55e0c" width="20" />
+              </div>
+            ) : (
+              subcategories.map((subcategory, index) => (
+                <DropdownMenuItem key={index} className="flex-row flex gap-2">
+                  <Bus color="#e5e5e5" size={16} /> {subcategory.name}
+                </DropdownMenuItem>
+              ))
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu> <DropdownMenu onOpenChange={() => fetchSubcategories(13)}>
+          <DropdownMenuTrigger>
+            <p className="text-md text-start"> Fitness and Recreation</p>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {loading ? (
+              <div className="w-full h-full items-center justify-center flex">
+                <RotatingLines strokeColor="#c55e0c" width="20" />
+              </div>
+            ) : (
+              subcategories.map((subcategory, index) => (
+                <DropdownMenuItem key={index} className="flex-row flex gap-2">
+                  <Weight color="#e5e5e5" size={16} /> {subcategory.name}
+                </DropdownMenuItem>
+              ))
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu> <DropdownMenu  modal={true} onOpenChange={() => fetchSubcategories(15)}>
+          <DropdownMenuTrigger>
+            <p className="text-md text-start"> Writing and Content Creation</p>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {loading ? (
+              <div className="w-full h-full items-center justify-center flex">
+                <RotatingLines strokeColor="#c55e0c" width="20" />
+              </div>
+            ) : (
+              subcategories.map((subcategory, index) => (
+                <DropdownMenuItem key={index} className="flex-row flex gap-2">
+                  <Pen color="#e5e5e5" size={16} /> {subcategory.name}
+                </DropdownMenuItem>
+              ))
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <p className="text-md text-start"> More</p>{" "}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent >
+            <DropdownMenuItem>
+              <Link href="/docs" legacyBehavior passHref>
+                <DropdownMenuItem className={navigationMenuTriggerStyle()}>
+                  More
+                </DropdownMenuItem>
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+                  </div>
+                </div>
+                <div className="mx-auto w-full p-5 flex flex-row gap-2 items-center justify-between">
+               
+      {status === "authenticated" && (
+        <>
+          <BellDot size={20} />
+          <Collection />
+        </>
+      )}
+      {status === "unauthenticated" && (
+        <>
+         <Link href="/signup" target="_blank">
+            <Button size="tiny" variant="outline">
+              Sign Up
+            </Button>
+          </Link>
+          <Link href="/login" target="_blank">
+            <Typography variant="p">Sign in</Typography>
+          </Link>
+        </>
+      )}
+      
+       <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="secondary" size="sm">
+            <SunIcon
+              className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all
+                dark:-rotate-90 dark:scale-0"
+            />
+            <MoonIcon
+              className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0
+                transition-all dark:rotate-0 dark:scale-100"
+            />
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem onClick={() => setTheme("light")}>
+            Light
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("dark")}>
+            Dark
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("system")}>
+            System
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      {status === "authenticated" && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Avatar className="border-2 border-white cursor-pointer">
+              <AvatarImage src={session?.picture} />
+              <AvatarFallback>
+                {session?.email || session?.user?.email} HU
+              </AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <Link href="/account">
+              <DropdownMenuItem className="flex flex-row items-center gap-4">
+                <User size={14} /> Account
+              </DropdownMenuItem>
+            </Link>
+            <Link href="/messages">
+              <DropdownMenuItem className="flex flex-row items-center gap-4">
+                <MessageCircle size={14} /> Messages
+              </DropdownMenuItem>
+            </Link>
+            <DropdownMenuItem
+              className="flex flex-row items-center gap-4"
+              onClick={() => setTheme("system")}
+            >
+              <Settings size={14} /> Settings
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="flex flex-row items-center gap-4"
+              onClick={() => void signOut()}
+            >
+              <LogOut size={14} /> Logout
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
                 </div>
               </DrawerContent>
             </Drawer>
