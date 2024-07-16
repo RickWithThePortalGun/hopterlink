@@ -61,6 +61,9 @@ export function Header({ className }: SidebarProps) {
   const { status, data: session } = useSession();
   const [subcategories, setSubcategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const avatarSrc =
+  session?.picture ||
+  'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250'; // Default Gravatar image
 
   const fetchSubcategories = async (categoryId: number) => {
     setSubcategories([]);
@@ -497,7 +500,7 @@ export function Header({ className }: SidebarProps) {
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Avatar className="border-2 border-white cursor-pointer">
-                          <AvatarImage src={session?.picture} />
+                          <AvatarImage src={avatarSrc} />
                           <AvatarFallback>
                             {session?.email || session?.user?.email} HU
                           </AvatarFallback>
