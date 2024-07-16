@@ -38,7 +38,7 @@ const CategoryCards = () => {
       ) : // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
       categories && categories?.length ? (
         <div
-          className="grid w-full grid-cols-2 max-md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4
+          className="grid w-full grid-cols-2 md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4
             auto-rows-auto gap-4"
         >
           {categories.map((category) => {
@@ -51,7 +51,7 @@ const CategoryCards = () => {
                   <div
                     key={category.id}
                     className="flex flex-col z-40 p-4 rounded-md bg-background border-[1px]
-                      gap-6 items-center justify-center"
+                      gap-6 items-center h-[150px] justify-center"
                   >
                     <Typography variant={"p"}>{category.name}</Typography>
                   </div>

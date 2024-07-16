@@ -86,7 +86,6 @@ const Collection = () => {
           )}
         </CredenzaBody>
         <CredenzaFooter>
-          <Button variant={"secondary"}>Send</Button>
           <CredenzaClose asChild>
             <Button variant={"destructive"}>Close</Button>
           </CredenzaClose>

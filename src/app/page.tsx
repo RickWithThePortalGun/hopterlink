@@ -100,7 +100,7 @@ export default function Home() {
                 />
                 <Feature
                   icon={<Shield size={24} />}
-                  headline="Trust in Every Click
+                  headline="Trust in Every Business Click
                 "
                   description="Top-notch security ensures your data and privacy are always protected.
 

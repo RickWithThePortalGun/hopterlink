@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useTheme } from "next-themes";
@@ -51,7 +51,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Collection from "../Collection";
 import Logo from "../Logo";
-import { getCategory } from "@/app/api/categories/categories";
+import { getCategories, getCategory } from "@/app/api/categories/categories";
 import { RotatingLines } from "react-loader-spinner";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -59,22 +59,34 @@ interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 export function Header({ className }: SidebarProps) {
   const { theme, setTheme } = useTheme();
   const { status, data: session } = useSession();
-  const [subcategories, setSubcategories] = useState([]);
-  const [loading, setLoading] = useState(false);
   const avatarSrc =
-  session?.picture ||
-  'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250'; // Default Gravatar image
+    session?.picture ||
+    "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"; // Default Gravatar image
 
-  const fetchSubcategories = async (categoryId: number) => {
-    setSubcategories([]);
-    setLoading(true);
-    const category = await getCategory(categoryId);
-    if (category) {
-      setSubcategories(category.subcategories);
-    }
-    setLoading(false);
-  };
-
+    const [categories, setCategories] = useState([]);
+    const [subcategories, setSubcategories] = useState([]);
+    const [loading, setLoading] = useState(true);
+  
+    useEffect(() => {
+      const fetchCategories = async () => {
+        const categories = await getCategories();
+        if (categories) {
+          setCategories(categories);
+          setLoading(false);
+        }
+      };
+  
+      fetchCategories();
+    }, []);
+  
+    const fetchSubcategories = (categoryId: number) => {
+      setLoading(true);
+      const category = categories.find(cat => cat.id === categoryId);
+      if (category) {
+        setSubcategories(category.subcategories);
+      }
+      setLoading(false);
+    };
   const getLogo = () => (
     <Link href="/" className="pointer flex items-center">
       <Logo />
@@ -228,15 +240,7 @@ export function Header({ className }: SidebarProps) {
           <DropdownMenuTrigger>
             <p className="text-md"> More</p>{" "}
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>
-              <Link href="/docs" legacyBehavior passHref>
-                <DropdownMenuItem className={navigationMenuTriggerStyle()}>
-                  More
-                </DropdownMenuItem>
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
+          
         </DropdownMenu>
       </div>
     );

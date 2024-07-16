@@ -37,7 +37,7 @@ export default function RootLayout({
           {" "}
           <ThemeProvider
             attribute="class"
-            enableSystem
+            defaultTheme="light"
             disableTransitionOnChange
           >
             <main className={`flex min-h-screen flex-col ${inter.className}`}>
