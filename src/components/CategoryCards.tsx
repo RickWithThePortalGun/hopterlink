@@ -4,32 +4,11 @@ import CategoriesSkeletonLoader from "./CategoriesSkeletonLoader";
 import Typography from "./ui/typography";
 import { getCategories } from "@/app/api/categories/categories";
 import Link from "next/link";
+import { useCategories } from "@/contexts/ReUsableData";
 
 const CategoryCards = () => {
-  const [categories, setCategories] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true); // Set loading to true initially
-
-  const fetchCategories = async () => {
-    try {
-      const result: any[] = await getCategories();
-      setCategories(result);
-    } catch (error) {
-      console.error("Error fetching categories:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await fetchCategories();
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-    void fetchData();
-  }, []);
+ // Set loading to true initially
+  const {categories, loading}=useCategories()
 
   return (
     <>
@@ -38,7 +17,7 @@ const CategoryCards = () => {
       ) : // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
       categories && categories?.length ? (
         <div
-          className="grid w-full grid-cols-2 md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4
+          className="grid w-full grid-cols-2 md:grid-cols-2 lg:grid-cols-4
             auto-rows-auto gap-4"
         >
           {categories.map((category) => {
@@ -46,7 +25,7 @@ const CategoryCards = () => {
               return (
                 <Link
                   key={category.id}
-                  href={`/categories/${encodeURIComponent(category?.name as string).toLowerCase()}`}
+                  href={`/categories/${category.id}`}
                 >
                   <div
                     key={category.id}

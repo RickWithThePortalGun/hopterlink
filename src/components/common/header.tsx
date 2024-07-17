@@ -53,6 +53,8 @@ import Collection from "../Collection";
 import Logo from "../Logo";
 import { getCategories, getCategory } from "@/app/api/categories/categories";
 import { RotatingLines } from "react-loader-spinner";
+import { useCategories } from "@/contexts/ReUsableData";
+import { Subcategory } from "@/constants/constants";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -62,31 +64,18 @@ export function Header({ className }: SidebarProps) {
   const avatarSrc =
     session?.picture ||
     "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"; // Default Gravatar image
+    
+  const { categories, loading } = useCategories();
+  const [subcategories, setSubcategories] = useState<Subcategory[]>();
 
-    const [categories, setCategories] = useState([]);
-    const [subcategories, setSubcategories] = useState([]);
-    const [loading, setLoading] = useState(true);
-  
-    useEffect(() => {
-      const fetchCategories = async () => {
-        const categories = await getCategories();
-        if (categories) {
-          setCategories(categories);
-          setLoading(false);
-        }
-      };
-  
-      fetchCategories();
-    }, []);
-  
-    const fetchSubcategories = (categoryId: number) => {
-      setLoading(true);
-      const category = categories.find(cat => cat.id === categoryId);
-      if (category) {
-        setSubcategories(category.subcategories);
-      }
-      setLoading(false);
-    };
+  const fetchSubcategories = (categoryId: number) => {
+    setSubcategories([]);
+    const category = categories.find((cat) => cat.id === categoryId);
+    if (category) {
+      setSubcategories(category.subcategories);
+      console.log(subcategories)
+    }
+  };
   const getLogo = () => (
     <Link href="/" className="pointer flex items-center">
       <Logo />
@@ -181,7 +170,12 @@ export function Header({ className }: SidebarProps) {
   const getHeaderItems = () => {
     return (
       <div className="flex gap-4 max-lg:hidden">
-        <DropdownMenu onOpenChange={() => fetchSubcategories(2)}>
+        <DropdownMenu
+          onOpenChange={() => {
+            setSubcategories([]);
+            fetchSubcategories(2);
+          }}
+        >
           <DropdownMenuTrigger onClick={() => fetchSubcategories(2)}>
             <p className="text-sm"> Automotive Services</p>
           </DropdownMenuTrigger>
@@ -191,7 +185,7 @@ export function Header({ className }: SidebarProps) {
                 <RotatingLines width="20" strokeColor="#c55e0c" />
               </div>
             ) : (
-              subcategories.map((subcategory, index) => (
+              subcategories?.map((subcategory, index) => (
                 <DropdownMenuItem key={index} className="flex-row flex gap-2">
                   <Car size={16} color="#e5e5e5" />{" "}
                   <p className="text-sm">{subcategory.name}</p>
@@ -210,7 +204,7 @@ export function Header({ className }: SidebarProps) {
                 <RotatingLines width="20" strokeColor="#c55e0c" />
               </div>
             ) : (
-              subcategories.map((subcategory, index) => (
+              subcategories?.map((subcategory, index) => (
                 <DropdownMenuItem key={index} className="flex-row flex gap-2">
                   <Plus color="#e5e5e5" size={16} /> {subcategory.name}
                 </DropdownMenuItem>
@@ -228,7 +222,7 @@ export function Header({ className }: SidebarProps) {
                 <RotatingLines strokeColor="#c55e0c" width="20" />
               </div>
             ) : (
-              subcategories.map((subcategory, index) => (
+              subcategories?.map((subcategory, index) => (
                 <DropdownMenuItem key={index} className="flex-row flex gap-2">
                   <Home color="#e5e5e5" size={16} /> {subcategory.name}
                 </DropdownMenuItem>
@@ -240,7 +234,6 @@ export function Header({ className }: SidebarProps) {
           <DropdownMenuTrigger>
             <p className="text-md"> More</p>{" "}
           </DropdownMenuTrigger>
-          
         </DropdownMenu>
       </div>
     );
@@ -250,7 +243,7 @@ export function Header({ className }: SidebarProps) {
     <div
       className={cn(
         `flex md:h-12 h-14 items-center justify-center w-full border-b fixed z-50 bg-secondary`,
-        className,
+        className
       )}
     >
       <div className="w-full max-w-[1440px] md:px-8 px-4">
@@ -294,7 +287,7 @@ export function Header({ className }: SidebarProps) {
                             <RotatingLines width="20" strokeColor="#c55e0c" />
                           </div>
                         ) : (
-                          subcategories.map((subcategory, index) => (
+                          subcategories?.map((subcategory, index) => (
                             <DropdownMenuItem
                               key={index}
                               className="flex-row flex gap-2"
@@ -322,7 +315,7 @@ export function Header({ className }: SidebarProps) {
                             <RotatingLines width="20" strokeColor="#c55e0c" />
                           </div>
                         ) : (
-                          subcategories.map((subcategory, index) => (
+                          subcategories?.map((subcategory, index) => (
                             <DropdownMenuItem
                               key={index}
                               className="flex-row flex gap-2"
@@ -346,7 +339,7 @@ export function Header({ className }: SidebarProps) {
                             <RotatingLines strokeColor="#c55e0c" width="20" />
                           </div>
                         ) : (
-                          subcategories.map((subcategory, index) => (
+                          subcategories?.map((subcategory, index) => (
                             <DropdownMenuItem
                               key={index}
                               className="flex-row flex gap-2"
@@ -371,7 +364,7 @@ export function Header({ className }: SidebarProps) {
                             <RotatingLines strokeColor="#c55e0c" width="20" />
                           </div>
                         ) : (
-                          subcategories.map((subcategory, index) => (
+                          subcategories?.map((subcategory, index) => (
                             <DropdownMenuItem
                               key={index}
                               className="flex-row flex gap-2"
@@ -396,7 +389,7 @@ export function Header({ className }: SidebarProps) {
                             <RotatingLines strokeColor="#c55e0c" width="20" />
                           </div>
                         ) : (
-                          subcategories.map((subcategory, index) => (
+                          subcategories?.map((subcategory, index) => (
                             <DropdownMenuItem
                               key={index}
                               className="flex-row flex gap-2"
@@ -424,7 +417,7 @@ export function Header({ className }: SidebarProps) {
                             <RotatingLines strokeColor="#c55e0c" width="20" />
                           </div>
                         ) : (
-                          subcategories.map((subcategory, index) => (
+                          subcategories?.map((subcategory, index) => (
                             <DropdownMenuItem
                               key={index}
                               className="flex-row flex gap-2"

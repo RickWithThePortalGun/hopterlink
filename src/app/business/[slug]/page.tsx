@@ -6,7 +6,7 @@
 import { getBusinessInfo } from "@/app/api/categories/categories";
 import HeaderContainer from "@/components/HeaderContainer";
 
-import { priceRangeMapping } from "@/app/categories/[slug]/page";
+import { priceRangeMapping } from "@/app/categories/[id]/page";
 import AddAReview from "@/components/AddAReview";
 import AverageReview from "@/components/AverageReview";
 import BusinessAdInfo from "@/components/BusinessAdInfo";
@@ -63,7 +63,7 @@ const Business = () => {
             description: "Failed to copy the link. Please try again.",
           });
           console.error("Could not copy text: ", err);
-        },
+        }
       );
     } else {
       toast({
@@ -91,7 +91,7 @@ const Business = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${session?.access_token}`,
           },
-        },
+        }
       );
       return response.data;
     } catch (error) {
@@ -140,7 +140,7 @@ const Business = () => {
                   width={100}
                   height={100}
                 />
-              ),
+              )
             )}
           </div>
         );

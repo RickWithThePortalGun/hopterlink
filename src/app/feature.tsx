@@ -14,8 +14,13 @@ const Feature: React.FC<FeatureProps> = ({ icon, headline, description }) => {
         gap-6 text-left max-w-72 items-center"
     >
       <div className="py-4 px-4 rounded-md border max-w-fit">{icon}</div>
-      <Typography variant="h3" className="text-center">{headline}</Typography>
-      <Typography variant="p" className="text-minor max-lg:hidden flex text-center">
+      <Typography variant="h3" className="text-center">
+        {headline}
+      </Typography>
+      <Typography
+        variant="p"
+        className="text-minor max-lg:hidden flex text-center"
+      >
         {description}
       </Typography>
     </div>

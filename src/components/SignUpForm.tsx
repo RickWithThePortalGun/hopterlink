@@ -6,16 +6,16 @@ import Stepper from "@keyvaluesystems/react-stepper";
 import { PhoneInput } from "./ui/phone-input";
 import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
-import { signUp } from "@/app/api/signup/signup";
 import { toast } from "./ui-hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
-
+import axios from "axios";
+import request from "@/utils/http-request"
 const SignUpForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     phoneNo: "",
     email: "",
     password1: "",
@@ -27,8 +27,8 @@ const SignUpForm = () => {
   // Define the Zod schema
   const signUpSchema = z
     .object({
-      firstName: z.string().min(1, "First name is required"),
-      lastName: z.string().min(1, "Last name is required"),
+      first_name: z.string().min(1, "First name is required"),
+      last_name: z.string().min(1, "Last name is required"),
       phoneNo: z.string().min(1, "Phone number is required"),
       email: z.string().email("Invalid email address"),
       password1: z
@@ -72,9 +72,11 @@ const SignUpForm = () => {
   const handleSignUp = async () => {
     try {
       signUpSchema.parse(formData); // Ensure data is valid before submission
-      const response = await signUp(formData);
+      const form=JSON.stringify(formData)
+      console.log(form)
+      const response = await  axios.post('/api/signup/',form);
       console.log("SignUp Response:", response);
-      if (response) {
+      if (response.status===201) {
         toast({
           title: "Account Created Successfully",
           description: "You have successfully created an account on hopterlink",
@@ -84,21 +86,29 @@ const SignUpForm = () => {
         }, 2000);
       } else {
         toast({
-          title: "Account Created Successfully",
-          description: "You have successfully created an account on hopterlink",
+          title: "Error encountered",
+          description: "Invalid email or phone number.",
         });
       }
 
       setCurrentStepIndex(1); // Move to the next step after successful signup
-    } catch (error) {
+    } catch (error:any) {
       if (error instanceof z.ZodError) {
-        console.error("Validation Error:", error.errors);
+        console.error("Validation Error:", error.message);
+        toast({
+          title: "Validation",
+          description: error.message,
+        });
       } else {
         console.error("SignUp Error:", error);
+        toast({
+          title: "Signup Error",
+          description: error.message as any,
+        });
       }
       toast({
         title: "Error encountered",
-        description: error.message || "An error occurred during signup",
+        description: error!.message || "An error occurred during signup",
       });
     }
   };
@@ -175,7 +185,7 @@ const SignUpForm = () => {
                 <Label
                   className="text-sm font-medium leading-none
                     peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  htmlFor="firstName"
+                  htmlFor="first_name"
                 >
                   First Name
                 </Label>
@@ -188,9 +198,9 @@ const SignUpForm = () => {
                     focus-visible:outline-none focus-visible:ring-2
                     focus-visible:ring-ring focus-visible:ring-offset-2
                     disabled:cursor-not-allowed disabled:opacity-50"
-                  id="firstName"
+                  id="first_name"
                   placeholder="John"
-                  value={formData.firstName}
+                  value={formData.first_name}
                   onChange={handleInputChange}
                   required
                   control-id="ControlID-1"
@@ -200,7 +210,7 @@ const SignUpForm = () => {
                 <Label
                   className="text-sm font-medium leading-none
                     peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  htmlFor="lastName"
+                  htmlFor="last_name"
                 >
                   Last Name
                 </Label>
@@ -213,9 +223,9 @@ const SignUpForm = () => {
                     focus-visible:outline-none focus-visible:ring-2
                     focus-visible:ring-ring focus-visible:ring-offset-2
                     disabled:cursor-not-allowed disabled:opacity-50"
-                  id="lastName"
+                  id="last_name"
                   placeholder="Doe"
-                  value={formData.lastName}
+                  value={formData.last_name}
                   onChange={handleInputChange}
                   required
                   control-id="ControlID-1"

@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import AuthProvider from "./auth/Provider";
 import "./globals.css";
+import { CategoriesProvider } from "@/contexts/ReUsableData";
 
 const inter = Montserrat({
   weight: "400",
@@ -34,17 +35,19 @@ export default function RootLayout({
       <Analytics />
       <body className={inter.className}>
         <AuthProvider>
-          {" "}
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            disableTransitionOnChange
-          >
-            <main className={`flex min-h-screen flex-col ${inter.className}`}>
-              {children}
-            </main>
-            <Toaster />
-          </ThemeProvider>
+          <CategoriesProvider>
+            {" "}
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="light"
+              disableTransitionOnChange
+            >
+              <main className={`flex min-h-screen flex-col ${inter.className}`}>
+                {children}
+              </main>
+              <Toaster />
+            </ThemeProvider>
+          </CategoriesProvider>
         </AuthProvider>
       </body>
     </html>
