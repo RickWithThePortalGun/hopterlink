@@ -68,7 +68,6 @@ export const authOptions = {
             method: "post",
             data: credentials,
           });
-          console.log(credentials);
           const data = response.data;
           if (data) return data;
         } catch (error) {
@@ -174,7 +173,6 @@ const handler = NextAuth({
       },
       async authorize(credentials, req) {
         try {
-          console.log("Credentials:", credentials);
           const response = await axios.post(
             `${process.env.NEXTAUTH_BACKEND_URL}auth/login/`,
             {
@@ -184,7 +182,6 @@ const handler = NextAuth({
           );
           const user = response.data;
           if (user) {
-            console.log("User:", user);
             // You can modify the user object here if needed
             return user;
           } else {

@@ -34,7 +34,6 @@ const AddAReview = ({ businessInfo }: Props) => {
   const router = useRouter();
 
   const handleRating = (rating: any) => {
-    console.log(rating);
     setRating(rating);
   };
 

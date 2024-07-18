@@ -64,13 +64,11 @@ const Page = () => {
   };
 
   useEffect(() => {
-    console.log("useffect ran");
     const fetchUserData = async () => {
       if (status === "authenticated") {
         try {
           const response = await getUserinfo();
           setUserInfo(response);
-          console.log(userInfo);
         } catch (error) {
           console.error("Error fetching data:", error);
         } finally {
@@ -104,7 +102,6 @@ const Page = () => {
       </div>
     );
   }
-  console.log(userInfo);
   return (
     <HeaderContainer>
       <div className="flex flex-col">

@@ -35,7 +35,6 @@ const Collection = () => {
     try {
       const response = await axiosInstance.get("favorites/");
       setBusinesses(response.data);
-      console.log(businesses);
     } catch (error) {
       console.error("Error fetching favorites:", error);
     }

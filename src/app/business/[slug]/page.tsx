@@ -106,11 +106,9 @@ const Business = () => {
       try {
         setLoading(true);
         const business = await fetchBusinessProfile(slug);
-        console.log(business.id);
         if (business.id) {
           const { is_favorite } = await checkFavorite(business.id);
-          console.log("check favorite it");
-          console.log(is_favorite);
+
           setIsFavorite(is_favorite);
         }
       } catch (error) {
@@ -168,7 +166,6 @@ const Business = () => {
       : "px-4 py-2 cursor-pointer";
   };
 
-  console.log(businessInfo);
   const priceRange = businessInfo?.price_range;
 
   const handleAddToFavorites = async () => {

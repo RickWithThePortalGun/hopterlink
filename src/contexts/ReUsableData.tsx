@@ -1,5 +1,11 @@
-"use client"
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+"use client";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 import { getCategories } from "@/app/api/categories/categories";
 import { Category } from "@/constants/constants";
 import axios from "axios";
@@ -11,7 +17,10 @@ interface CategoriesContextType {
 }
 
 // Create context with a default value
-const CategoriesContext = createContext<CategoriesContextType>({ categories: [], loading: true });
+const CategoriesContext = createContext<CategoriesContextType>({
+  categories: [],
+  loading: true,
+});
 
 interface Props {
   children: ReactNode;
@@ -23,10 +32,9 @@ export const CategoriesProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const fetchedData = await axios.get('/api/categories');
+      const fetchedData = await axios.get("/api/categories");
       if (fetchedData.data) {
         const fetchedCategories = Object.values(fetchedData.data) as Category[];
-        console.log(fetchedCategories)
         setCategories(fetchedCategories);
         setLoading(false);
       }

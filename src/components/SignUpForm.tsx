@@ -10,7 +10,7 @@ import { toast } from "./ui-hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import axios from "axios";
-import request from "@/utils/http-request"
+import request from "@/utils/http-request";
 const SignUpForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -72,11 +72,9 @@ const SignUpForm = () => {
   const handleSignUp = async () => {
     try {
       signUpSchema.parse(formData); // Ensure data is valid before submission
-      const form=JSON.stringify(formData)
-      console.log(form)
-      const response = await  axios.post('/api/signup/',form);
-      console.log("SignUp Response:", response);
-      if (response.status===201) {
+      const form = JSON.stringify(formData);
+      const response = await axios.post("/api/signup/", form);
+      if (response.status === 201) {
         toast({
           title: "Account Created Successfully",
           description: "You have successfully created an account on hopterlink",
@@ -92,7 +90,7 @@ const SignUpForm = () => {
       }
 
       setCurrentStepIndex(1); // Move to the next step after successful signup
-    } catch (error:any) {
+    } catch (error: any) {
       if (error instanceof z.ZodError) {
         console.error("Validation Error:", error.message);
         toast({
@@ -115,7 +113,6 @@ const SignUpForm = () => {
 
   const handleOTPSubmit = () => {
     // Simulate OTP verification
-    console.log("OTP:", formData.otp);
     setCurrentStepIndex(2); // Move to the next step after successful OTP verification
   };
 
@@ -135,7 +132,6 @@ const SignUpForm = () => {
   ];
 
   const handleContinue = () => {
-    console.log("FormData: ", formData);
     if (currentStepIndex === 0 && isFormValid) {
       handleSignUp();
     } else if (currentStepIndex === 1 && formData.otp.length === 6) {

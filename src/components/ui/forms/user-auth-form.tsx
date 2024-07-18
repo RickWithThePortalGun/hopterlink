@@ -51,7 +51,6 @@ export default function UserAuthForm() {
   });
 
   const onSubmit = async (data: UserFormValue) => {
-    console.log("Data:", data);
     setLoading(true); // Set loading to true when submitting
     try {
       const result = await signIn("credentials", {
@@ -62,7 +61,6 @@ export default function UserAuthForm() {
       });
 
       if (result?.error) {
-        console.log("Sign-in error:", result);
         if (result?.error === "CredentialsSignin") {
           toast({
             title: "Login Error",

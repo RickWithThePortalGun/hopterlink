@@ -7,8 +7,8 @@ import Link from "next/link";
 import { useCategories } from "@/contexts/ReUsableData";
 
 const CategoryCards = () => {
- // Set loading to true initially
-  const {categories, loading}=useCategories()
+  // Set loading to true initially
+  const { categories, loading } = useCategories();
 
   return (
     <>
@@ -23,10 +23,7 @@ const CategoryCards = () => {
           {categories.map((category) => {
             if (category) {
               return (
-                <Link
-                  key={category.id}
-                  href={`/categories/${category.id}`}
-                >
+                <Link key={category.id} href={`/categories/${category.id}`}>
                   <div
                     key={category.id}
                     className="flex flex-col z-40 p-4 rounded-md bg-background border-[1px]

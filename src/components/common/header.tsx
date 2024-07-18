@@ -64,7 +64,7 @@ export function Header({ className }: SidebarProps) {
   const avatarSrc =
     session?.picture ||
     "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"; // Default Gravatar image
-    
+
   const { categories, loading } = useCategories();
   const [subcategories, setSubcategories] = useState<Subcategory[]>();
 
@@ -73,7 +73,6 @@ export function Header({ className }: SidebarProps) {
     const category = categories.find((cat) => cat.id === categoryId);
     if (category) {
       setSubcategories(category.subcategories);
-      console.log(subcategories)
     }
   };
   const getLogo = () => (
@@ -243,7 +242,7 @@ export function Header({ className }: SidebarProps) {
     <div
       className={cn(
         `flex md:h-12 h-14 items-center justify-center w-full border-b fixed z-50 bg-secondary`,
-        className
+        className,
       )}
     >
       <div className="w-full max-w-[1440px] md:px-8 px-4">

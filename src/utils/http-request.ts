@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const uri = "https://hopterlink.up.railway.app/"
-console.log(uri)
+const uri = "https://hopterlink.up.railway.app/";
 
 const Axios = axios.create({
   baseURL: uri,

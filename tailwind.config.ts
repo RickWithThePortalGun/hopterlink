@@ -155,6 +155,7 @@ const config = {
   ],
   plugins: [
     require("tailwindcss-animate"),
+    require('tailwindcss-animated'),
     require("@headlessui/tailwindcss"),
     require("@tailwindcss/forms"),
     addVariablesForColors,
