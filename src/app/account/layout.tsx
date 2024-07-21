@@ -3,9 +3,9 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const AccountLayout = ({ children }: { children: React.ReactNode }) => {
-  const { data: session } = useSession();
+  const { status } = useSession();
   const router = useRouter();
-  if (!session?.access_token) {
+  if (status === "unauthenticated") {
     router.push("/login");
   }
   return <main>{children}</main>;
