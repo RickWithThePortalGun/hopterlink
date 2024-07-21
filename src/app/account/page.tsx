@@ -24,7 +24,8 @@ import Link from "next/link";
 import ReviewsCard from "@/components/ReviewsCard";
 import Collection from "@/components/Collection";
 import { MultiStepLoader } from "@/components/ui/multi-step-loader";
-
+import ListItem from "@/components/ListItem";
+import {AvatarComponent} from "avatar-initials"
 const Page = () => {
   const { status, data: session } = useSession() as unknown as {
     status: string;
@@ -105,32 +106,38 @@ const Page = () => {
   }
   return (
     <HeaderContainer>
-      <div className="flex flex-col">
+      <div className="flex flex-col items-center">
         <div
           className="md:py-30 md:px-1.5 pt-11 pb-24 px-6 flex flex-row max-md:flex-col w-full
             gap-12 mt-12"
         >
           <div className="w-[40%] max-md:w-full">
             <Card className="p-2 flex items-center flex-col">
-              <div className="relative items-center justify-center my-12 flex rounded-full w-40 h-40">
-                <Image
-                  className="absolute rounded-full"
-                  fill
-                  objectFit="cover"
-                  src="/Beverly-Naya.jpeg"
-                  alt={"profile picture"}
-                />
-              </div>
+            <AvatarComponent
+              classes="rounded-full border-[2px] border-primary bg-white"
+              useGravatar={false}
+              size={100}
+              primarySource={session?.user?.picture}
+              color="#000000"
+              background="#f1f1f1"
+              fontSize={50}
+              fontWeight={800}
+              offsetY={50}
+              initials={`${session?.user?.email[0]}`}
+            />
               <Typography variant={"h2"} className="text-center">
                 {userInfo?.first_name} {userInfo?.last_name}
               </Typography>
               <div className="flex justify-center items-center gap-2">
-                <Verified size={14} />
+                <Verified size={14} className="text-primary" />
                 <p className="text-center text-xs"> {session?.user.email}</p>
               </div>
               <div className="my-6 flex flex-col gap-2">
                 <p className="text-center text-xs font-bold">Abuja, Nigeria</p>
                 <p className="text-center">6 years , 1 month</p>
+              </div>
+              <div className="bg-primary text-white text-xs px-2 py-1 rounded-full">
+                Hopterlink User
               </div>
             </Card>
             <div className="w-full flex flex-row items-center gap-2 my-4">
@@ -148,15 +155,39 @@ const Page = () => {
           <div className="w-[60%] flex flex-col justify-between max-md:w-full">
             <div className="flex flex-col gap-2">
               <Card className="p-4 h-fit flex justify-between flex-col">
-                <Typography variant={"h4"} className="text-start">
-                  About You
-                </Typography>
-                <p className="mt-4 text-xs">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Delectus, quae quaerat. Sed ad, impedit maiores nobis aperiam
-                  vero obcaecati blanditiis adipisci architecto recusandae hic
-                  ab odio corporis, esse cumque velit.
-                </p>
+                <div className="">
+                  <Typography variant={"h4"} className="text-start">
+                    First Name
+                  </Typography>
+                  <p className="mt-4 text-xs">
+                    {session.user.first_name || "not available"}
+                  </p>
+                </div>
+                <div className="mt-6">
+                  <Typography variant={"h4"} className="text-start">
+                    Last Name
+                  </Typography>
+                  <p className="mt-4 text-xs">
+                    {session.user.last_name || "not available"}
+                  </p>
+                </div>
+                <div className="mt-6">
+                  <Typography variant={"h4"} className="text-start">
+                    Bio
+                  </Typography>
+                  <p className="mt-4 text-sm">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Suscipit temporibus consequatur quod, at perspiciatis nam
+                    iste voluptatibus in aut corrupti omnis tempora! Sit sequi
+                    odit, molestiae dolore dolores ratione maxime?u
+                  </p>
+                </div>
+                <div className="mt-12">
+                  <Typography variant={"h4"} className="text-start">
+                    Email Address
+                  </Typography>
+                  <p className="mt-4 text-xs">{session.user.email}</p>
+                </div>
               </Card>
             </div>
             {/* <div className="h-full mt-6 p-2 flex flex-row gap-2">
@@ -196,17 +227,23 @@ const Page = () => {
           className="md:py-30 md:px-1.5 pb-24 px-6 flex flex-row max-md:flex-col w-full
             gap-12"
         >
-          <Card className="mt-2 p-4 w-[50%] max-md:w-full h-[600px] overflow-hidden mb-4">
+          <Card className="mt-2 p-4 w-[100%] overflow-hidden mb-4">
             <Typography className="mb-4" variant={"h2"}>
               Settings
             </Typography>
             <div
               style={{
-                height: "500px",
                 overflowY: "auto",
                 paddingRight: "10px",
               }}
-            ></div>
+            >
+            <ListItem title="Notifications"/>
+            <ListItem title="Privacy Settings"/>
+            <ListItem title="Language"/>
+            <ListItem title="Change Password"/>
+            <ListItem title="Delete Account"/>
+
+            </div>
           </Card>
         </div>
       </div>
