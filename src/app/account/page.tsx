@@ -28,7 +28,7 @@ import ListItem from "@/components/ListItem";
 import { AvatarComponent } from "avatar-initials";
 import { useRouter } from "next/navigation";
 const Page = () => {
-  const router=useRouter()
+  const router = useRouter();
   const { status, data: session } = useSession() as unknown as {
     status: string;
     data: { access_token: string };
@@ -43,9 +43,6 @@ const Page = () => {
     reviews?: any[];
   } | null>(null);
 
-  if (!session) {
-    router.push("/login");
-  }
 
   const getUserinfo = async () => {
     const uri = `auth/user/`;
@@ -111,7 +108,7 @@ const Page = () => {
       </div>
     );
   }
-  
+
   return (
     <HeaderContainer>
       <div className="flex flex-col items-center">
