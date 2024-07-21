@@ -472,9 +472,8 @@ export function Header({ className }: SidebarProps) {
                     <>
                       <DropdownMenu>
                         <DropdownMenuTrigger>
-                        <Button variant="secondary" size="sm">
-
-                          <Activity size={20} />
+                          <Button variant="secondary" size="sm">
+                            <Activity size={20} />
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
@@ -493,8 +492,7 @@ export function Header({ className }: SidebarProps) {
                         </DropdownMenuContent>
                       </DropdownMenu>
                       <Button variant="secondary" size="sm">
-
-                      <Collection />
+                        <Collection />
                       </Button>
                     </>
                   )}
