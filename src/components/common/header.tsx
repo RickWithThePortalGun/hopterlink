@@ -26,10 +26,13 @@ import { Subcategory } from "@/constants/constants";
 import { useCategories } from "@/contexts/ReUsableData";
 import { cn } from "@/lib/utils";
 import {
+  Activity,
   BellDot,
   Bus,
   Car,
+  Clock,
   Computer,
+  File,
   Home,
   LogOut,
   MenuIcon,
@@ -48,6 +51,7 @@ import Collection from "../Collection";
 import Logo from "../Logo";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { AvatarComponent } from "avatar-initials";
+import { PaperPlaneIcon } from "@radix-ui/react-icons";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -103,11 +107,28 @@ export function Header({ className }: SidebarProps) {
         </DropdownMenuContent>
       </DropdownMenu>
       {status === "authenticated" && (
-        <>
-          <BellDot size={20} />
-          <Collection />
-        </>
-      )}
+                    <>
+                     <DropdownMenu>
+                      <DropdownMenuTrigger>
+                      <Activity size={20} />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                          <DropdownMenuItem className="flex flex-row items-center gap-4">
+                            <Activity size={14} /> Activity Feed
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="flex flex-row items-center gap-4">
+                            <Clock size={14} /> Recently Viewed
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="flex flex-row items-center gap-4">
+                            <File size={14} /> My Interest
+                          </DropdownMenuItem><DropdownMenuItem className="flex flex-row items-center gap-4">
+                            <PaperPlaneIcon size={14} /> Invite Friends
+                          </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                      <Collection />
+                    </>
+                  )}
       {status === "unauthenticated" && (
         <>
           <Link href="/login" target="_blank">
@@ -448,7 +469,24 @@ export function Header({ className }: SidebarProps) {
                 <div className="mx-auto w-full p-5 flex flex-row gap-2 items-center justify-between">
                   {status === "authenticated" && (
                     <>
-                      <BellDot size={20} />
+                     <DropdownMenu>
+                      <DropdownMenuTrigger>
+                      <Activity size={20} />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                          <DropdownMenuItem className="flex flex-row items-center gap-4">
+                            <Activity size={14} /> Activity Feed
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="flex flex-row items-center gap-4">
+                            <Clock size={14} /> Recently Viewed
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="flex flex-row items-center gap-4">
+                            <File size={14} /> My Interest
+                          </DropdownMenuItem><DropdownMenuItem className="flex flex-row items-center gap-4">
+                            <PaperPlaneIcon size={14} /> Invite Friends
+                          </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                       <Collection />
                     </>
                   )}

@@ -1,32 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 "use client";
+import Collection from "@/components/Collection";
 import HeaderContainer from "@/components/HeaderContainer";
+import ListItem from "@/components/ListItem";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/cards";
-import Typography from "@/components/ui/typography";
-import { Settings, Verified } from "lucide-react";
-import { useSession } from "next-auth/react";
-import Image from "next/image";
-import {
-  type AwaitedReactNode,
-  type JSXElementConstructor,
-  type Key,
-  type ReactElement,
-  type ReactNode,
-  type ReactPortal,
-  useEffect,
-  useState,
-} from "react";
-import axios from "axios";
-import NumberTicker from "@/components/magicui/number-ticker";
-import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
-import ReviewsCard from "@/components/ReviewsCard";
-import Collection from "@/components/Collection";
 import { MultiStepLoader } from "@/components/ui/multi-step-loader";
-import ListItem from "@/components/ListItem";
+import Typography from "@/components/ui/typography";
 import { AvatarComponent } from "avatar-initials";
+import axios from "axios";
+import { Verified } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import {
+  useEffect,
+  useState
+} from "react";
 const Page = () => {
   const router = useRouter();
   const { status, data: session } = useSession() as unknown as {
@@ -43,6 +32,9 @@ const Page = () => {
     reviews?: any[];
   } | null>(null);
 
+  if (!session) {
+    router.push("/login");
+  }
 
   const getUserinfo = async () => {
     const uri = `auth/user/`;
