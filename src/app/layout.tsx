@@ -2,12 +2,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Inter, Montserrat, Poppins } from "next/font/google";
 import AuthProvider from "./auth/Provider";
 import "./globals.css";
 import { CategoriesProvider } from "@/contexts/ReUsableData";
 
-const inter = Montserrat({
+const inter = Poppins({
   weight: "400",
   subsets: ["latin"],
 });

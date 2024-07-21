@@ -69,7 +69,7 @@ const Page = () => {
         try {
           const response = await getUserinfo();
           setUserInfo(response.user);
-          console.log(response)
+          console.log(response);
         } catch (error) {
           console.error("Error fetching data:", error);
         } finally {
@@ -151,7 +151,7 @@ const Page = () => {
                 <Typography variant={"h4"} className="text-start">
                   About You
                 </Typography>
-                <p className="mt-4">
+                <p className="mt-4 text-xs">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Delectus, quae quaerat. Sed ad, impedit maiores nobis aperiam
                   vero obcaecati blanditiis adipisci architecto recusandae hic
@@ -192,33 +192,13 @@ const Page = () => {
             </div> */}
           </div>
         </div>
-        <div className="md:py-30 md:px-1.5 pt-11 pb-24 px-6 flex flex-row max-md:flex-col w-full
-            gap-12">
-          <Card className="mt-2 p-2 w-[50%] max-md:w-full h-fit ">
-            <Typography className="mb-4 p-4" variant={"h2"}>
-              Businesses
-            </Typography>
-            {userInfo?.businesses.map((business, index) => (
-              <>
-                {" "}
-                <div
-                  className="my-2 justify-between flex items-center"
-                  key={index}
-                >
-                  <Link href={`/business/${business.slug}`}>
-                    <p>{business.name}</p>
-                  </Link>
-                  <Button>
-                    <Settings />
-                  </Button>
-                </div>
-                <Separator />
-              </>
-            ))}
-          </Card>
+        <div
+          className="md:py-30 md:px-1.5 pb-24 px-6 flex flex-row max-md:flex-col w-full
+            gap-12"
+        >
           <Card className="mt-2 p-4 w-[50%] max-md:w-full h-[600px] overflow-hidden mb-4">
             <Typography className="mb-4" variant={"h2"}>
-              Recent Reviews
+              Settings
             </Typography>
             <div
               style={{
@@ -227,37 +207,6 @@ const Page = () => {
                 paddingRight: "10px",
               }}
             >
-              {userInfo?.reviews?.map(
-                (
-                  review: {
-                    business_name:
-                      | string
-                      | ReactElement<any, string | JSXElementConstructor<any>>
-                      | Iterable<ReactNode>
-                      | ReactPortal
-                      | Promise<AwaitedReactNode>
-                      | null
-                      | undefined;
-                  },
-                  index: Key | null | undefined,
-                ) => (
-                  <>
-                    <div className="flex justify-end">
-                      <Link
-                        href={`/business/${review?.business_slug as string}`}
-                      >
-                        <p
-                          className="text-end text-xs px-2 py-1 rounded-full w-fit bg-[#c55e0c]
-                            my-2"
-                        >
-                          {review.business_name}
-                        </p>
-                      </Link>
-                    </div>
-                    <ReviewsCard review={review} key={index} />
-                  </>
-                ),
-              )}
             </div>
           </Card>
         </div>
