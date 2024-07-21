@@ -206,8 +206,7 @@ const Page = () => {
                 overflowY: "auto",
                 paddingRight: "10px",
               }}
-            >
-            </div>
+            ></div>
           </Card>
         </div>
       </div>
