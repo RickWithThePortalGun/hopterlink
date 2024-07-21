@@ -472,7 +472,10 @@ export function Header({ className }: SidebarProps) {
                     <>
                       <DropdownMenu>
                         <DropdownMenuTrigger>
+                        <Button variant="secondary" size="sm">
+
                           <Activity size={20} />
+                          </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuItem className="flex flex-row items-center gap-4">
@@ -489,7 +492,10 @@ export function Header({ className }: SidebarProps) {
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
+                      <Button variant="secondary" size="sm">
+
                       <Collection />
+                      </Button>
                     </>
                   )}
                   {status === "unauthenticated" && (
