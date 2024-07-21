@@ -118,7 +118,7 @@ const Page = ({ params }: Props) => {
             ) : (
               <div className="w-full">
                 <div className="flex flex-row gap-2 items-center">
-                  Sponsored Ads <Info  size={14}/>
+                  Sponsored Ads <Info size={14} />
                 </div>
                 <ScrollArea className="w-full whitespace-nowrap rounded-md border-none flex items-center scroll-smooth">
                   <div className="flex flex-row gap-2 items-center mt-4 mb-4">

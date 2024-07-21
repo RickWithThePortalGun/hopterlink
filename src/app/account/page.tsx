@@ -68,7 +68,8 @@ const Page = () => {
       if (status === "authenticated") {
         try {
           const response = await getUserinfo();
-          setUserInfo(response);
+          setUserInfo(response.user);
+          console.log(response)
         } catch (error) {
           console.error("Error fetching data:", error);
         } finally {
@@ -106,16 +107,15 @@ const Page = () => {
     <HeaderContainer>
       <div className="flex flex-col">
         <div
-          className="md:py-30 md:px-1.5 pt-11 pb-24 px-6 flex flex-row w-full
+          className="md:py-30 md:px-1.5 pt-11 pb-24 px-6 flex flex-row max-md:flex-col w-full
             gap-12 mt-12"
         >
-          <div className="w-[40%]">
-            <Card className="p-2">
-              <div className="items-center justify-center flex rounded-full">
+          <div className="w-[40%] max-md:w-full">
+            <Card className="p-2 flex items-center flex-col">
+              <div className="relative items-center justify-center my-12 flex rounded-full w-40 h-40">
                 <Image
-                  className="rounded-full my-12"
-                  width={200}
-                  height={200}
+                  className="absolute rounded-full"
+                  fill
                   objectFit="cover"
                   src="/Beverly-Naya.jpeg"
                   alt={"profile picture"}
@@ -126,7 +126,7 @@ const Page = () => {
               </Typography>
               <div className="flex justify-center items-center gap-2">
                 <Verified size={14} />
-                <p className="text-center text-xs"> {userInfo?.email}</p>
+                <p className="text-center text-xs"> {session?.user.email}</p>
               </div>
               <div className="my-6 flex flex-col gap-2">
                 <p className="text-center text-xs font-bold">Abuja, Nigeria</p>
@@ -145,7 +145,7 @@ const Page = () => {
               </Button>
             </div>
           </div>
-          <div className="w-[60%] flex flex-col justify-between">
+          <div className="w-[60%] flex flex-col justify-between max-md:w-full">
             <div className="flex flex-col gap-2">
               <Card className="p-4 h-fit flex justify-between flex-col">
                 <Typography variant={"h4"} className="text-start">
@@ -159,8 +159,8 @@ const Page = () => {
                 </p>
               </Card>
             </div>
-            <div className="h-full mt-6 p-2 flex flex-row gap-2">
-              <Card className="w-[50%] p-4 flex flex-col items-center justify-center">
+            {/* <div className="h-full mt-6 p-2 flex flex-row gap-2">
+              <Card className="w-[50%]  p-4 flex flex-col items-center justify-center">
                 <Typography variant={"h4"} className="text-start">
                   Businesses Reviewed
                 </Typography>
@@ -189,11 +189,12 @@ const Page = () => {
                   </Typography>
                 )}
               </Card>
-            </div>
+            </div> */}
           </div>
         </div>
-        <div className="flex flex-row gap-4">
-          <Card className="mt-2 p-2 w-[50%] h-fit">
+        <div className="md:py-30 md:px-1.5 pt-11 pb-24 px-6 flex flex-row max-md:flex-col w-full
+            gap-12">
+          <Card className="mt-2 p-2 w-[50%] max-md:w-full h-fit ">
             <Typography className="mb-4 p-4" variant={"h2"}>
               Businesses
             </Typography>
@@ -215,7 +216,7 @@ const Page = () => {
               </>
             ))}
           </Card>
-          <Card className="mt-2 p-4 w-[50%] h-[600px] overflow-hidden">
+          <Card className="mt-2 p-4 w-[50%] max-md:w-full h-[600px] overflow-hidden mb-4">
             <Typography className="mb-4" variant={"h2"}>
               Recent Reviews
             </Typography>

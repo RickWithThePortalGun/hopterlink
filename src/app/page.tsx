@@ -24,12 +24,12 @@ export default function Home() {
             w-full items-center text-center gap-12"
         >
           <div
-            className="flex max-md:flex-col flex-row gap-6 w-full items-center
+            className="flex max-md:flex-col flex-row gap-4 w-full items-center
               h-screen"
           >
             <Particles
               className="absolute inset-0"
-              quantity={250}
+              quantity={150}
               staticity={80}
               ease={50}
               refresh
@@ -76,7 +76,7 @@ export default function Home() {
               <ImageCarousel />
             </div>
           </div>
-          <div className="flex flex-col md:pt-24 md:gap-36 gap-24 items-center">
+          <div className="flex flex-col md:pt-24 md:gap-36 gap-24 mt-12 items-center">
             <div className="flex flex-col gap-12 items-center">
               <Typography className="max-w-2xl" variant="h1">
                 Tons of benefits!

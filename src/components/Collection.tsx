@@ -49,7 +49,7 @@ const Collection = () => {
   return (
     <Credenza>
       <CredenzaTrigger asChild>
-        <div className="flex flex-row items-center gap-4">
+        <div className="flex items-center gap-4">
           <Bookmark size={20} />
         </div>
       </CredenzaTrigger>
