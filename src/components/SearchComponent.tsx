@@ -23,6 +23,7 @@ const SearchComponent = () => {
       <div className="w-full">
         <PlaceholdersAndVanishInput
           placeholders={placeholders}
+          
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}

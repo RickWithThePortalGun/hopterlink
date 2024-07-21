@@ -134,13 +134,13 @@ const Page = () => {
               </div>
             </Card>
             <div className="w-full flex flex-row items-center gap-2 my-4">
-              <Button className="w-full" variant={"default"}>
+              <Button className="w-full" variant={"outline"}>
                 Edit your Profile
               </Button>
-              <Button>
+              {/* <Button>
                 <Settings />
-              </Button>
-              <Button>
+              </Button> */}
+              <Button variant={"outline"}>
                 <Collection />
               </Button>
             </div>
