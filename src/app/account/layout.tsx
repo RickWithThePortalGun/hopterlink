@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 const AccountLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: session } = useSession();
   const router = useRouter();
-  if (!session) {
+  if (!session?.access_token) {
     router.push("/login");
   }
   return <main>{children}</main>;
