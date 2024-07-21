@@ -14,7 +14,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 const Page = () => {
-  const router = useRouter();
   const { status, data: session } = useSession() as unknown as {
     status: string;
     data: { access_token: string };
@@ -28,10 +27,6 @@ const Page = () => {
     businesses: any[];
     reviews?: any[];
   } | null>(null);
-
-  if (!session) {
-    router.push("/login");
-  }
 
   const getUserinfo = async () => {
     const uri = `auth/user/`;
