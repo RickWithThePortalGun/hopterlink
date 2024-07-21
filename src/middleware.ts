@@ -24,7 +24,7 @@ export default withAuth(
     callbacks: {
       authorized: ({ token }) => !!token, // Use your logic to check if the user is authenticated
     },
-  }
+  },
 );
 
 export const config = {

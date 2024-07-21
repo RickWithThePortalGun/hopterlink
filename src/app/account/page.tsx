@@ -25,7 +25,7 @@ import ReviewsCard from "@/components/ReviewsCard";
 import Collection from "@/components/Collection";
 import { MultiStepLoader } from "@/components/ui/multi-step-loader";
 import ListItem from "@/components/ListItem";
-import {AvatarComponent} from "avatar-initials"
+import { AvatarComponent } from "avatar-initials";
 const Page = () => {
   const { status, data: session } = useSession() as unknown as {
     status: string;
@@ -109,22 +109,22 @@ const Page = () => {
       <div className="flex flex-col items-center">
         <div
           className="md:py-30 md:px-1.5 pt-11 pb-24 px-6 flex flex-row max-md:flex-col w-full
-            gap-12 mt-12"
+            gap-6 mx-4 mt-12"
         >
           <div className="w-[40%] max-md:w-full">
-            <Card className="p-2 flex items-center flex-col">
-            <AvatarComponent
-              classes="rounded-full border-[2px] border-primary bg-white"
-              useGravatar={false}
-              size={100}
-              primarySource={session?.user?.picture}
-              color="#000000"
-              background="#f1f1f1"
-              fontSize={50}
-              fontWeight={800}
-              offsetY={50}
-              initials={`${session?.user?.email[0]}`}
-            />
+            <Card className="p-2  flex items-center flex-col">
+              <AvatarComponent
+                classes="rounded-full border-[2px] my-4 border-primary bg-white"
+                useGravatar={false}
+                size={100}
+                primarySource={session?.user?.picture}
+                color="#000000"
+                background="#f1f1f1"
+                fontSize={50}
+                fontWeight={800}
+                offsetY={50}
+                initials={`${session?.user?.email[0]}`}
+              />
               <Typography variant={"h2"} className="text-center">
                 {userInfo?.first_name} {userInfo?.last_name}
               </Typography>
@@ -237,12 +237,11 @@ const Page = () => {
                 paddingRight: "10px",
               }}
             >
-            <ListItem title="Notifications"/>
-            <ListItem title="Privacy Settings"/>
-            <ListItem title="Language"/>
-            <ListItem title="Change Password"/>
-            <ListItem title="Delete Account"/>
-
+              <ListItem title="Notifications" />
+              <ListItem title="Privacy Settings" />
+              <ListItem title="Language" />
+              <ListItem title="Change Password" />
+              <ListItem title="Delete Account" />
             </div>
           </Card>
         </div>

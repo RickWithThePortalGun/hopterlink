@@ -47,8 +47,7 @@ import { RotatingLines } from "react-loader-spinner";
 import Collection from "../Collection";
 import Logo from "../Logo";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { AvatarComponent } from 'avatar-initials';
-
+import { AvatarComponent } from "avatar-initials";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -124,7 +123,7 @@ export function Header({ className }: SidebarProps) {
       {status === "authenticated" && (
         <DropdownMenu>
           <DropdownMenuTrigger>
-              <AvatarComponent
+            <AvatarComponent
               classes="rounded-full border-[2px] border-primary bg-white"
               useGravatar={false}
               size={30}
@@ -242,7 +241,7 @@ export function Header({ className }: SidebarProps) {
     <div
       className={cn(
         `flex md:h-12 h-14 items-center justify-center w-full border-b fixed z-50 bg-secondary`,
-        className
+        className,
       )}
     >
       <div className="w-full max-w-[1440px] md:px-8 px-4">
@@ -495,19 +494,18 @@ export function Header({ className }: SidebarProps) {
                   {status === "authenticated" && (
                     <DropdownMenu>
                       <DropdownMenuTrigger>
-                      <AvatarComponent
-              classes="rounded-full border-[2px] border-primary bg-white"
-              
-              useGravatar={false}
-              size={30}
-              primarySource={session?.user?.picture}
-              color="#000000"
-              background="#f1f1f1"
-              fontSize={25}
-              fontWeight={800}
-              offsetY={15}
-              initials={`${session?.user?.email[0]}`}
-            />
+                        <AvatarComponent
+                          classes="rounded-full border-[2px] border-primary bg-white"
+                          useGravatar={false}
+                          size={30}
+                          primarySource={session?.user?.picture}
+                          color="#000000"
+                          background="#f1f1f1"
+                          fontSize={25}
+                          fontWeight={800}
+                          offsetY={15}
+                          initials={`${session?.user?.email[0]}`}
+                        />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <Link href="/account">
