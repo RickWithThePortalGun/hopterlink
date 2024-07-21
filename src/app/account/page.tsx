@@ -12,10 +12,7 @@ import axios from "axios";
 import { Verified } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import {
-  useEffect,
-  useState
-} from "react";
+import { useEffect, useState } from "react";
 const Page = () => {
   const router = useRouter();
   const { status, data: session } = useSession() as unknown as {

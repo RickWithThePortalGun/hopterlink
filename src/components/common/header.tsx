@@ -107,28 +107,29 @@ export function Header({ className }: SidebarProps) {
         </DropdownMenuContent>
       </DropdownMenu>
       {status === "authenticated" && (
-                    <>
-                     <DropdownMenu>
-                      <DropdownMenuTrigger>
-                      <Activity size={20} />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                          <DropdownMenuItem className="flex flex-row items-center gap-4">
-                            <Activity size={14} /> Activity Feed
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="flex flex-row items-center gap-4">
-                            <Clock size={14} /> Recently Viewed
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="flex flex-row items-center gap-4">
-                            <File size={14} /> My Interest
-                          </DropdownMenuItem><DropdownMenuItem className="flex flex-row items-center gap-4">
-                            <PaperPlaneIcon size={14} /> Invite Friends
-                          </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                      <Collection />
-                    </>
-                  )}
+        <>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Activity size={20} />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem className="flex flex-row items-center gap-4">
+                <Activity size={14} /> Activity Feed
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex flex-row items-center gap-4">
+                <Clock size={14} /> Recently Viewed
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex flex-row items-center gap-4">
+                <File size={14} /> My Interest
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex flex-row items-center gap-4">
+                <PaperPlaneIcon size={14} /> Invite Friends
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <Collection />
+        </>
+      )}
       {status === "unauthenticated" && (
         <>
           <Link href="/login" target="_blank">
@@ -469,11 +470,11 @@ export function Header({ className }: SidebarProps) {
                 <div className="mx-auto w-full p-5 flex flex-row gap-2 items-center justify-between">
                   {status === "authenticated" && (
                     <>
-                     <DropdownMenu>
-                      <DropdownMenuTrigger>
-                      <Activity size={20} />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <Activity size={20} />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
                           <DropdownMenuItem className="flex flex-row items-center gap-4">
                             <Activity size={14} /> Activity Feed
                           </DropdownMenuItem>
@@ -482,11 +483,12 @@ export function Header({ className }: SidebarProps) {
                           </DropdownMenuItem>
                           <DropdownMenuItem className="flex flex-row items-center gap-4">
                             <File size={14} /> My Interest
-                          </DropdownMenuItem><DropdownMenuItem className="flex flex-row items-center gap-4">
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="flex flex-row items-center gap-4">
                             <PaperPlaneIcon size={14} /> Invite Friends
                           </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                       <Collection />
                     </>
                   )}
