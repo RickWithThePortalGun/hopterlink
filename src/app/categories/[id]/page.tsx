@@ -43,7 +43,6 @@ const Page = ({ params }: Props) => {
         setSelectedSubcategory(categoryData.subcategories[0].id);
       }
     };
-
     if (!categoriesLoading) {
       fetchCategory();
     }
@@ -58,8 +57,10 @@ const Page = ({ params }: Props) => {
     setLoading(true);
     setError(null);
     try {
-      console.log(params.id)
-      const response = await axios.get(`/api/categories/${params.id}/subcategories/${subcategoryId}`);
+      console.log(params.id);
+      const response = await axios.get(
+        `/api/categories/${params.id}/subcategories/${subcategoryId}`,
+      );
       if (!response) {
         throw new Error("Failed to fetch data");
       }
@@ -81,7 +82,10 @@ const Page = ({ params }: Props) => {
           </div>
           <Separator />
           {category ? (
-            <Typography className="w-full text-start animate-fade animate-duration-1000" variant="h2">
+            <Typography
+              className="w-full text-start animate-fade animate-duration-1000"
+              variant="h2"
+            >
               {category?.name} businesses on Hopterlink
             </Typography>
           ) : (
@@ -114,24 +118,30 @@ const Page = ({ params }: Props) => {
             ) : (
               <div className="w-full">
                 <div className="flex flex-row gap-2 items-center">
-                  Sponsored Ads <Info />
+                  Sponsored Ads <Info  size={14}/>
                 </div>
                 <ScrollArea className="w-full whitespace-nowrap rounded-md border-none flex items-center scroll-smooth">
                   <div className="flex flex-row gap-2 items-center mt-4 mb-4">
-                    {category.subcategories.map((subcategory: Subcategory, index: number) => (
-                      <motion.div
-                        key={subcategory.id}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.5, delay: index * 0.5 }}
-                        onClick={() => handleSubcategoryClick(subcategory.category)}
-                        className={`cursor-pointer p-2 border-[1px] rounded-full whitespace-nowrap ${
-                          selectedSubcategory === subcategory.id ? "border-[#c55e0c]" : "border-gray-300"
-                        }`}
-                      >
-                        <p className="text-xs">{subcategory.name}</p>
-                      </motion.div>
-                    ))}
+                    {category.subcategories.map(
+                      (subcategory: Subcategory, index: number) => (
+                        <motion.div
+                          key={subcategory.id}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.5, delay: index * 0.5 }}
+                          onClick={() =>
+                            handleSubcategoryClick(subcategory.category)
+                          }
+                          className={`cursor-pointer p-2 border-[1px] rounded-full whitespace-nowrap ${
+                            selectedSubcategory === subcategory.id
+                              ? "border-[#c55e0c]"
+                              : "border-gray-300"
+                          }`}
+                        >
+                          <p className="text-xs">{subcategory.name}</p>
+                        </motion.div>
+                      ),
+                    )}
                   </div>
                   <ScrollBar orientation="horizontal" />
                 </ScrollArea>

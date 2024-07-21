@@ -12,6 +12,8 @@ import Typography from "./ui/typography";
 import { Button } from "./ui/button";
 import { Card } from "./ui/cards";
 import RecentActivitySkeletonLoader from "./RecentActivitySkeletonLoader";
+import Marquee from "react-fast-marquee";
+import { Skeleton } from "./ui/skeleton";
 
 const Cards = () => {
   const [reviews, setReviews] = useState<any[]>([]);
@@ -107,13 +109,30 @@ const Cards = () => {
           ))}
         </div>
       ) : (
-        <RecentActivitySkeletonLoader />
+        <Marquee autoFill className="gap-6 flex items-center">
+          <Skeleton
+            className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
+          items-center justify-center mx-4"
+          />
+          <Skeleton
+            className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
+          items-center justify-center mx-4"
+          />{" "}
+          <Skeleton
+            className="flex flex-col z-40 mx-4 p-4 rounded-md gap-6 w-[200px] h-[200px]
+          items-center justify-center"
+          />{" "}
+          <Skeleton
+            className="flex flex-col mx-4 z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
+          items-center justify-center"
+          />{" "}
+        </Marquee>
       )}
-      {hasMore && (
+      {/* {hasMore && (
         <Button onClick={handleViewMore} variant="outline">
           View More
         </Button>
-      )}
+      )} */}
     </>
   );
 };

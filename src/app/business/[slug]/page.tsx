@@ -63,7 +63,7 @@ const Business = () => {
             description: "Failed to copy the link. Please try again.",
           });
           console.error("Could not copy text: ", err);
-        }
+        },
       );
     } else {
       toast({
@@ -91,7 +91,7 @@ const Business = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${session?.access_token}`,
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
@@ -138,7 +138,7 @@ const Business = () => {
                   width={100}
                   height={100}
                 />
-              )
+              ),
             )}
           </div>
         );

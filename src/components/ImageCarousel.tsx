@@ -16,7 +16,7 @@ const ImageCarousel = () => {
   return (
     <div className="flex items-center">
       {highlightSlides.map((list) => (
-        <div key={list.id} className="sm:pr-20 pr-10" id="slider">
+        <div key={list.id} className="" id="slider">
           <div
             className="image-carousel_container2 flex-center rounded-3xl
               overflow-hidden bg-black relative"
@@ -28,10 +28,10 @@ const ImageCarousel = () => {
               objectFit="cover"
             />
             <div
-              className="absolute top-12 left-[5%] z-10 glassmorphism p-4 flex gap-4
+              className="absolute max-md:hidden top-12 left-[5%] z-10 glassmorphism p-4 flex gap-4
                 flex-col"
             >
-              <div>
+              <div className="">
                 <p className="text-md text-start font-bold">Angela Yuo</p>
                 <p className="text-start font-bold text-xs">
                   Virtual Assistant

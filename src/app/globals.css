@@ -92,7 +92,7 @@
     @apply relative sm:w-[70vw] w-[70vw] md:h-[70vh] sm:h-[50vh] h-[35vh];
   }
   .image-carousel_container2 {
-    @apply relative sm:w-[40vw] w-[75vw] md:h-[70vh] sm:h-[50vh] h-[35vh];
+    @apply relative max-md:w-[90vw] md:w-[50vw] w-[75vw] md:h-[70vh] sm:h-[50vh] h-[35vh];
   }
   .flex-center {
     @apply flex items-center justify-center;

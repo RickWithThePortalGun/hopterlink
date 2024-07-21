@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const uri = "https://hopterlink.up.railway.app/";
+const uri = "http://hopterlink.us-east-1.elasticbeanstalk.com/";
 
 const Axios = axios.create({
   baseURL: uri,

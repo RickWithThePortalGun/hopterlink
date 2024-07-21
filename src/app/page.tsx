@@ -65,7 +65,7 @@ export default function Home() {
                 <FlipWords words={words} />
                 Local Gems.
               </div>
-              <p className="max-w-4xl text-xl max-md:text-sm tracking-normal">
+              <p className="max-w-4xl text-xl max-md:text-sm text-start max-md:text-center tracking-normal">
                 Every review tells a story, every story shapes a community.
               </p>
               <div className="flex-col flex gap-4 items-center mt-6 md:flex-row w-full">
@@ -111,7 +111,7 @@ export default function Home() {
           </div>
           <Separator />
 
-          <div className="flex flex-col gap-6 max-w-full items-center my-12">
+          <div className="flex flex-col gap-6 max-w-full items-center justify-center my-12">
             <Typography className="max-w-2xl" variant="h1">
               Recent Activity
             </Typography>
