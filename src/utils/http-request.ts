@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const uri = "http://hopterlink.us-east-1.elasticbeanstalk.com/";
+const uri = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const Axios = axios.create({
   baseURL: uri,

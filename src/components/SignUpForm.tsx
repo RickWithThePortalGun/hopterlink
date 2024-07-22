@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "./ui/button";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
-import Stepper from "@keyvaluesystems/react-stepper";
-import { PhoneInput } from "./ui/phone-input";
-import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
-import { toast } from "./ui-hooks/use-toast";
-import { useRouter } from "next/navigation";
-import { z } from "zod";
+import animationData from "@/constants/verify_email.json";
+import Stepper from "@keyvaluesystems/react-stepper";
 import axios from "axios";
-import request from "@/utils/http-request";
+import Lottie from "lottie-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { z } from "zod";
+import { toast } from "./ui-hooks/use-toast";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 const SignUpForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
-    phoneNo: "",
     email: "",
     password1: "",
     password2: "",
@@ -29,7 +28,6 @@ const SignUpForm = () => {
     .object({
       first_name: z.string().min(1, "First name is required"),
       last_name: z.string().min(1, "Last name is required"),
-      phoneNo: z.string().min(1, "Phone number is required"),
       email: z.string().email("Invalid email address"),
       password1: z
         .string()
@@ -40,7 +38,7 @@ const SignUpForm = () => {
         .regex(/\d/, "Password must contain at least one number")
         .regex(
           /[^a-zA-Z0-9]/,
-          "Password must contain at least one special character",
+          "Password must contain at least one special character"
         ),
       password2: z
         .string()
@@ -71,6 +69,7 @@ const SignUpForm = () => {
 
   const handleSignUp = async () => {
     try {
+      setIsFormValid(false);
       signUpSchema.parse(formData); // Ensure data is valid before submission
       const form = JSON.stringify(formData);
       const response = await axios.post("/api/signup/", form);
@@ -80,16 +79,17 @@ const SignUpForm = () => {
           description: "You have successfully created an account on hopterlink",
         });
         setTimeout(() => {
-          router.push("/login");
+          setCurrentStepIndex(1);
         }, 2000);
+        router.push("/login");
       } else {
+        setIsFormValid(false);
         toast({
           title: "Error encountered",
-          description: "Invalid email or phone number.",
+          description: "Invalid credentials provided.",
         });
       }
-
-      setCurrentStepIndex(1); // Move to the next step after successful signup
+      // setCurrentStepIndex(1); // Move to the next step after successful signup
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         console.error("Validation Error:", error.message);
@@ -126,18 +126,10 @@ const SignUpForm = () => {
       completed: currentStepIndex > 1,
     },
     {
-      stepLabel: "Success",
+      stepLabel: "Activation",
       completed: currentStepIndex > 2,
     },
   ];
-
-  const handleContinue = () => {
-    if (currentStepIndex === 0 && isFormValid) {
-      handleSignUp();
-    } else if (currentStepIndex === 1 && formData.otp.length === 6) {
-      handleOTPSubmit();
-    }
-  };
 
   const styles = {
     LineSeparator: () => ({
@@ -227,20 +219,6 @@ const SignUpForm = () => {
                   control-id="ControlID-1"
                 />
               </div>
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="phoneNo">Phone Number</Label>
-              <PhoneInput
-                id="phoneNo"
-                defaultCountry="NG"
-                value={formData.phoneNo}
-                onChange={(value) => {
-                  setFormData({
-                    ...formData,
-                    phoneNo: value,
-                  });
-                }}
-              />
             </div>
             <div className="grid gap-2">
               <Label
@@ -342,24 +320,30 @@ const SignUpForm = () => {
         </div>
       )}
       {currentStepIndex === 1 && (
-        <div className="rounded-lg text-card-primary shadow-sm w-full max-w-sm">
+        <div className="rounded-lg text-card-primary w-full max-w-sm">
           <div
             className="flex flex-col text-center justify-center items-center
               space-y-1.5 p-6 my-6"
           >
             <h3 className="font-semibold tracking-tight text-2xl mb-12">
-              Verify Your Account
+              Verification
             </h3>
             <div className="flex gap-4 justify-center w-full">
               {/* Add your OTP inputs here */}
+              <Lottie
+                animationData={animationData}
+                className="flex justify-center items-center"
+                loop={true}
+              />
             </div>
             <div className="mt-12">
-              <p className="text-grey-500 text-xs mt-12">
-                We just sent a verification code to your phone number. Please
-                enter the code below.
+              <p className="text-grey-500 text-sm mt-6">
+                We just sent a verification link to your registered email{" "}
+                {formData.email}. Please check your spam or junk folders if you
+                can't see it in your primary inbox.
               </p>
             </div>
-
+            {/* 
             <Button
               // disabled={formData.otp.length !== 6}
               onClick={handleContinue}
@@ -373,7 +357,7 @@ const SignUpForm = () => {
               control-id="ControlID-3"
             >
               Verify Account
-            </Button>
+            </Button> */}
           </div>
         </div>
       )}

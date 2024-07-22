@@ -8,7 +8,6 @@ export async function POST(req: NextRequest) {
     const result = await axios.post(uri, {
       first_name: body.first_name,
       last_name: body.last_name,
-      phoneNo: body.phoneNo,
       email: body.email,
       password1: body.password1,
       password2: body.password2,

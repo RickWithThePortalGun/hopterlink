@@ -9,7 +9,7 @@ const page = () => {
   return (
     <PathContainer>
       <div
-        className="w-screen h-screen max-md:items-center max-md:justify-center
+        className="w-screen h-dvh max-md:items-center max-md:justify-center
           flex flex-row"
       >
         <div className="bg-transparent w-1/2 max-lg:w-full">
