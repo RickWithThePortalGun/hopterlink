@@ -50,7 +50,7 @@ const VerifyEmail = (props: Props) => {
     };
     void verifyAccount();
   }, []);
-  const [currentStepIndex, setCurrentStepIndex] = useState(2);
+  const [currentStepIndex, setCurrentStepIndex] = useState(1);
   const styles = {
     LineSeparator: () => ({
       backgroundColor: "#028A0F",
