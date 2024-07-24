@@ -9,22 +9,11 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-// import Ripple from '@/components/magicui/ripple';
 
-// export const metadata: Metadata = {
-//   title: 'Authentication',
-//   description: 'Authentication forms built using the components.'
-// };
 
 export default function AuthenticationPage() {
   const { status } = useSession();
   const router = useRouter();
-
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/");
-    }
-  }, [status, router]);
   return (
     <div
       className="relative h-screen flex-col items-center justify-center

@@ -397,7 +397,7 @@ const Business = ({ params }: Props) => {
             <div className="flex flex-row max-lg:flex-col items-start gap-4">
               <div className="w-2/3 max-lg:w-full">{renderContent()}</div>
               <div className="flex flex-col gap-2">
-                {businessInfo.name ? (
+                {businessInfo.business_name ? (
                   <>
                     {" "}
                     <BusinessCTA businessInfo={businessInfo} />

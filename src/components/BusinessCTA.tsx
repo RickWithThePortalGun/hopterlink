@@ -10,13 +10,12 @@ interface Props {
 
 const BusinessCTA = ({ businessInfo }: Props) => {
   return (
-    <div className="relative">
+    <div className="relative mt-4">
       <Card>
         <GridPattern maxOpacity={0.1} numSquares={4} width={100} height={100} />
-
         <CardHeader>
           <CardTitle className="text-center">
-            Connect with {businessInfo?.name} right through Hopterlink
+            Connect with {businessInfo?.business_name} right through Hopterlink
           </CardTitle>
         </CardHeader>
         <CardContent>
