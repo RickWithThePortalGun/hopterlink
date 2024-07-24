@@ -60,7 +60,7 @@ const Page = ({ params }: Props) => {
     setError(null);
     try {
       const response = await axios.get(
-        `/api/categories/${params.id}/subcategories/${subcategoryId}`
+        `/api/categories/${params.id}/subcategories/${subcategoryId}`,
       );
       if (!response) {
         throw new Error("Failed to fetch data");
@@ -140,7 +140,7 @@ const Page = ({ params }: Props) => {
                         >
                           <p className="text-xs">{subcategory.name}</p>
                         </motion.div>
-                      )
+                      ),
                     )}
                   </div>
                   <ScrollBar orientation="horizontal" />

@@ -13,20 +13,27 @@ interface Props {
 }
 
 const Crumbs = ({ businessInfo }: Props) => {
-  console.log(businessInfo)
+  console.log(businessInfo);
   return (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/" className="max-sm:text-xs ">{businessInfo?.industry["name"]}</BreadcrumbLink>
+          <BreadcrumbLink href="/" className="max-sm:text-xs ">
+            {businessInfo?.industry["name"]}
+          </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/components" className="max-sm:text-xs ">{businessInfo?.industry_subcategory["name"]}</BreadcrumbLink>
+          <BreadcrumbLink href="/components" className="max-sm:text-xs ">
+            {businessInfo?.industry_subcategory["name"]}
+          </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage className="max-sm:text-xs"> {businessInfo?.business_name}</BreadcrumbPage>
+          <BreadcrumbPage className="max-sm:text-xs">
+            {" "}
+            {businessInfo?.business_name}
+          </BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

@@ -66,7 +66,7 @@ const Business = ({ params }: Props) => {
             description: "Failed to copy the link. Please try again.",
           });
           console.error("Could not copy text: ", err);
-        }
+        },
       );
     } else {
       toast({
@@ -137,7 +137,7 @@ const Business = ({ params }: Props) => {
                   width={100}
                   height={100}
                 />
-              )
+              ),
             )}
           </div>
         );
@@ -230,7 +230,11 @@ const Business = ({ params }: Props) => {
             w-full gap-12"
         >
           <div className="mt-10">
-            {businessInfo.business_name ? <Crumbs businessInfo={businessInfo} /> : ""}
+            {businessInfo.business_name ? (
+              <Crumbs businessInfo={businessInfo} />
+            ) : (
+              ""
+            )}
           </div>
           <div
             className="mt-12 w-full flex-row max-md:flex-col flex justify-between
@@ -263,7 +267,10 @@ const Business = ({ params }: Props) => {
             <div className="gap-2 flex flex-col">
               <div className="flex flex-row gap-2 items-center">
                 <MapPin />
-                <Typography className="max-md:text-center text-xs" variant={"p"} >
+                <Typography
+                  className="max-md:text-center text-xs"
+                  variant={"p"}
+                >
                   {businessInfo?.location}
                 </Typography>
               </div>

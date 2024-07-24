@@ -12,7 +12,7 @@ interface Props {
   hours?: string;
   stars: number;
   price_range?: string;
-  logo?:string,
+  logo?: string;
   tags?: any;
   review_count?: any;
 }

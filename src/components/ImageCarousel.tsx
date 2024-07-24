@@ -40,11 +40,10 @@ const ImageCarousel = () => {
               </div>
               {/* <AverageReview size={12} value={list.Stars} /> */}
               <div className="flex-row flex items-center gap-2">
-              <Star color="transparent"  size={12} fill="#c55e0c"/>
-              <Star color="transparent"  size={12} fill="#c55e0c"/>
-              <Star color="transparent"  size={12} fill="#c55e0c"/>
-              <Star color="transparent"  size={12} fill="#c55e0c"/>
-
+                <Star color="transparent" size={12} fill="#c55e0c" />
+                <Star color="transparent" size={12} fill="#c55e0c" />
+                <Star color="transparent" size={12} fill="#c55e0c" />
+                <Star color="transparent" size={12} fill="#c55e0c" />
               </div>
             </div>
             <div></div>

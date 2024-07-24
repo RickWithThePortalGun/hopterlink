@@ -18,7 +18,7 @@ const SignUpForm = () => {
     first_name: "",
     last_name: "",
     email: "",
-    phone:"",
+    phone: "",
     password1: "",
     password2: "",
   });
@@ -71,7 +71,7 @@ const SignUpForm = () => {
 
   const handleSignUp = async () => {
     try {
-      setIsFormValid(false)
+      setIsFormValid(false);
       signUpSchema.parse(formData); // Ensure data is valid before submission
       const form = JSON.stringify(formData);
       const response = await axios.post("/api/signup/", form);
@@ -82,10 +82,10 @@ const SignUpForm = () => {
         });
         setTimeout(() => {
           // router.push("/login");
-          setCurrentStepIndex(1)
+          setCurrentStepIndex(1);
         }, 2000);
       } else {
-        setIsFormValid(false)
+        setIsFormValid(false);
         toast({
           title: "Error encountered",
           description: "Invalid credentials provided.",
@@ -99,22 +99,20 @@ const SignUpForm = () => {
           title: "Validation",
           description: error.message,
         });
-        setIsFormValid(true)
-
+        setIsFormValid(true);
       } else {
         console.error("SignUp Error:", error);
         toast({
           title: "Signup Error",
           description: error.message as any,
         });
-        setIsFormValid(true)
-
+        setIsFormValid(true);
       }
       toast({
         title: "Error encountered",
         description: error!.message || "An error occurred during signup",
       });
-      setIsFormValid(true)
+      setIsFormValid(true);
     }
   };
 
@@ -352,19 +350,19 @@ const SignUpForm = () => {
             <div className="flex gap-4 justify-center w-full">
               {/* Add your OTP inputs here */}
               <Lottie
-        animationData={animationData}
-        className="flex justify-center items-center"
-        loop={true}
-        
-      />
-            
+                animationData={animationData}
+                className="flex justify-center items-center"
+                loop={true}
+              />
             </div>
             <div className="mt-12">
-            <p className="text-grey-500 text-sm mt-6">
-                We just sent a verification link to your registered email {formData.email}. Please check your spam or junk folders if you can't see it in your primary inbox.
+              <p className="text-grey-500 text-sm mt-6">
+                We just sent a verification link to your registered email{" "}
+                {formData.email}. Please check your spam or junk folders if you
+                can't see it in your primary inbox.
               </p>
             </div>
-{/* 
+            {/* 
             <Button
               // disabled={formData.otp.length !== 6}
               onClick={handleContinue}

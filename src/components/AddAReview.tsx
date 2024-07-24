@@ -74,7 +74,10 @@ const AddAReview = ({ businessInfo }: Props) => {
   return (
     <Credenza open={isOpen} onOpenChange={setIsOpen}>
       <CredenzaTrigger asChild>
-        <Button className="flex gap-2 items-center min-w-60" variant={"outline"}>
+        <Button
+          className="flex gap-2 items-center min-w-60"
+          variant={"outline"}
+        >
           <StarIcon /> Add a review
         </Button>
       </CredenzaTrigger>
