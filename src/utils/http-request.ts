@@ -5,9 +5,6 @@ const uri = process.env.NEXT_PUBLIC_BACKEND_URL;
 const Axios = axios.create({
   baseURL: uri,
   headers: {
-    "Cache-Control": "no-cache",
-    Pragma: "no-cache",
-    Expires: "0",
     "Content-Type": "application/json", // Set the content type header
     Accept: "application/json", // Set the accept header
     // Add any other headers you need here
