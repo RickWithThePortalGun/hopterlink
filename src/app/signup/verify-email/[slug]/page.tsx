@@ -44,7 +44,7 @@ const VerifyEmail = (props: Props) => {
       } catch (error) {
         setLoading(false);
         setError(true);
-        console.error("Error fetching categories:", error);
+        console.error("Error verifying account:", error);
       }
       setLoading(false);
     };

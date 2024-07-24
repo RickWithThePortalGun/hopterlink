@@ -6,8 +6,11 @@ export async function GET(
   { params }: { params: { id: string; subcategory_id: string } },
 ) {
   const { id, subcategory_id } = params;
-  const uri = `api/categories/${id}/subcategories/${subcategory_id}/businesses`;
+  const uri = `api/categories/${id}/subcategories/${subcategory_id}/businesses/`;
   const businesses = await request.get(uri);
+console.log(uri)
+  console.log(businesses.data)
+
   if (businesses) {
     return NextResponse.json(businesses.data);
   } else {

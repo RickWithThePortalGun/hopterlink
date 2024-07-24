@@ -35,8 +35,11 @@ import { type Session } from "next-auth";
 import Image from "next/image";
 import { MultiStepLoader } from "@/components/ui/multi-step-loader";
 
-const Business = () => {
-  const params = useParams<{ slug: string }>();
+interface Props {
+  params: { id: string }; // Use id instead of slug
+}
+
+const Business = ({ params }: Props) => {
   const {
     data: session,
   }: {
@@ -63,7 +66,7 @@ const Business = () => {
             description: "Failed to copy the link. Please try again.",
           });
           console.error("Could not copy text: ", err);
-        },
+        }
       );
     } else {
       toast({
@@ -76,48 +79,44 @@ const Business = () => {
     const businessURL = window.location.href;
     copyToClipboard(businessURL);
   };
-  const fetchBusinessProfile = async (slug: string) => {
-    const business = await getBusinessInfo(slug);
-    setBusinessInfo(business);
-    return business;
-  };
 
-  const checkFavorite = async (businessId: any) => {
-    try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/favorites/check/${businessId}/`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${session?.access_token}`,
-          },
-        },
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error checking favorite:", error);
-      throw error;
-    }
-  };
+  // const checkFavorite = async (businessId: any) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://127.0.0.1:8000/favorites/check/${businessId}/`,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${session?.access_token}`,
+  //         },
+  //       },
+  //     );
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error("Error checking favorite:", error);
+  //     throw error;
+  //   }
+  // };
 
   useEffect(() => {
-    const slug = params.slug;
+    const id = params.id as string;
     const fetchData = async () => {
       try {
         setLoading(true);
-        const business = await fetchBusinessProfile(slug);
-        if (business.id) {
-          const { is_favorite } = await checkFavorite(business.id);
-
-          setIsFavorite(is_favorite);
-        }
+        const business = await axios.get(`/api/business/${id}`);
+        setBusinessInfo(business.data);
+        console.log(businessInfo);
+        // if (business.id) {
+        //   const { is_favorite } = await checkFavorite(business.id);
+        //   setIsFavorite(is_favorite);
+        // }
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        console.error("Error fetching business detail:", error);
       }
       setLoading(false);
     };
     void fetchData();
-  }, [params.slug, session?.access_token]);
+  }, [params.id]);
 
   const [activeSection, setActiveSection] = useState("overview");
   const renderContent = () => {
@@ -138,7 +137,7 @@ const Business = () => {
                   width={100}
                   height={100}
                 />
-              ),
+              )
             )}
           </div>
         );
@@ -231,14 +230,14 @@ const Business = () => {
             w-full gap-12"
         >
           <div className="mt-10">
-            <Crumbs businessInfo={businessInfo} />
+            {businessInfo.business_name ? <Crumbs businessInfo={businessInfo} /> : ""}
           </div>
           <div
             className="mt-12 w-full flex-row max-md:flex-col flex justify-between
               items-center"
           >
             <Typography className="text-primary" variant={"h1"}>
-              {businessInfo?.name}
+              {businessInfo?.business_name}
             </Typography>
             <div>
               <div className="flex flex-col items-center gap-2">
@@ -264,9 +263,8 @@ const Business = () => {
             <div className="gap-2 flex flex-col">
               <div className="flex flex-row gap-2 items-center">
                 <MapPin />
-                <Typography className="max-md:text-center">
-                  {businessInfo?.street_address} {businessInfo?.city},{" "}
-                  {businessInfo?.state}
+                <Typography className="max-md:text-center text-xs" variant={"p"} >
+                  {businessInfo?.location}
                 </Typography>
               </div>
               <div className="flex flex-row gap-2 items-center">
@@ -284,7 +282,8 @@ const Business = () => {
               <div className="flex flex-row items-center gap-2">
                 <Timer />
                 <Typography className="max-md:text-center">
-                  Opens {businessInfo?.hours}
+                  Delivers in {businessInfo.min_delivery_time_in_days} to{" "}
+                  {businessInfo.max_delivery_time_in_days} days
                 </Typography>
               </div>
               {businessInfo.tags && businessInfo.tags.length > 0 && (
@@ -312,7 +311,7 @@ const Business = () => {
             )} */}
             </div>
           </div>
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row max-md:flex-col items-center justify-between">
             <div
               className="flex flex-row items-center max-md:w-full gap-2 mt-2
                 max-sm:flex-col"
@@ -320,7 +319,7 @@ const Business = () => {
               <AddAReview businessInfo={businessInfo} />
               <SendAMesage businessInfo={businessInfo} />
               <Button
-                className="flex gap-2 items-center"
+                className="flex gap-2 items-center min-w-60"
                 variant={"default"}
                 onClick={handleShareClick}
               >
@@ -330,7 +329,7 @@ const Business = () => {
             <div className="">
               {!isFavorite ? (
                 <Button
-                  className="flex gap-2 items-center"
+                  className="flex min-w-60 gap-2 items-center max-md:mt-2"
                   variant={"outline"}
                   onClick={handleAddToFavorites}
                 >
@@ -351,7 +350,7 @@ const Business = () => {
           </div>
           <div className="flex-col flex gap-4">
             <div
-              className="flex flex-row items-center gap-2 mt-6 w-[55%]
+              className="flex flex-row items-center gap-2 max-md:gap-0 mt-6  w-[55%]
                 justify-between"
             >
               <div

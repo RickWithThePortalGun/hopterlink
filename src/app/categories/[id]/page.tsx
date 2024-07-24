@@ -40,7 +40,9 @@ const Page = ({ params }: Props) => {
       const categoryData = categories.find((cat) => cat.id === id);
       setCategory(categoryData ?? null);
       if (categoryData && categoryData.subcategories.length > 0) {
-        setSelectedSubcategory(categoryData.subcategories[0].id);
+        const firstSubcategoryId = categoryData.subcategories[0].id;
+        setSelectedSubcategory(firstSubcategoryId);
+        handleSubcategoryClick(firstSubcategoryId);
       }
     };
     if (!categoriesLoading) {
@@ -48,8 +50,8 @@ const Page = ({ params }: Props) => {
     }
   }, [params.id, categories, categoriesLoading]);
 
-  const handleBusinessClick = (item: { slug: string }) => {
-    router.push(`/business/${item.slug}`);
+  const handleBusinessClick = (item: { id: number }) => {
+    router.push(`/business/${item.id}`);
   };
 
   const handleSubcategoryClick = async (subcategoryId: number) => {
@@ -57,9 +59,8 @@ const Page = ({ params }: Props) => {
     setLoading(true);
     setError(null);
     try {
-      console.log(params.id);
       const response = await axios.get(
-        `/api/categories/${params.id}/subcategories/${subcategoryId}`,
+        `/api/categories/${params.id}/subcategories/${subcategoryId}`
       );
       if (!response) {
         throw new Error("Failed to fetch data");
@@ -73,6 +74,7 @@ const Page = ({ params }: Props) => {
   };
 
   const displayData = selectedSubcategory ? subcategoryData : [];
+
   return (
     <HeaderContainer>
       <div className="flex flex-col h-full md:py-10 md:px-16 pt-11 pb-24 px-8 w-full text-center gap-12">
@@ -129,9 +131,7 @@ const Page = ({ params }: Props) => {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ duration: 0.5, delay: index * 0.5 }}
-                          onClick={() =>
-                            handleSubcategoryClick(subcategory.category)
-                          }
+                          onClick={() => handleSubcategoryClick(subcategory.id)}
                           className={`cursor-pointer p-2 border-[1px] rounded-full whitespace-nowrap ${
                             selectedSubcategory === subcategory.id
                               ? "border-[#c55e0c]"
@@ -140,7 +140,7 @@ const Page = ({ params }: Props) => {
                         >
                           <p className="text-xs">{subcategory.name}</p>
                         </motion.div>
-                      ),
+                      )
                     )}
                   </div>
                   <ScrollBar orientation="horizontal" />
@@ -154,17 +154,15 @@ const Page = ({ params }: Props) => {
                     displayData?.map((item: any) => (
                       <div
                         key={item.id}
-                        onClick={() => handleBusinessClick({ slug: item.name })}
+                        onClick={() => handleBusinessClick({ id: item.id })}
                         className="cursor-pointer"
                       >
                         <DetailCard
                           loading={categoriesLoading}
-                          review_count={item.id} // Adjust based on your actual data
-                          price_range={"$$"} // Adjust based on your actual data
-                          tags={["tag1", "tag2"]} // Adjust based on your actual data
-                          stars={4.5} // Adjust based on your actual data
-                          name={item.name}
-                          hours={"9am - 5pm"} // Adjust based on your actual data
+                          logo={item.logo}
+                          review_count={item.review_count} // Adjust based on your actual data
+                          stars={item.average_rating} // Adjust based on your actual data
+                          name={item.business_name}
                           description={item.display_name}
                         />
                         <Separator />

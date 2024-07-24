@@ -11,12 +11,14 @@ import { toast } from "./ui-hooks/use-toast";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { PhoneInput } from "./ui/phone-input";
 const SignUpForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
     email: "",
+    phone:"",
     password1: "",
     password2: "",
   });
@@ -69,7 +71,7 @@ const SignUpForm = () => {
 
   const handleSignUp = async () => {
     try {
-      setIsFormValid(false);
+      setIsFormValid(false)
       signUpSchema.parse(formData); // Ensure data is valid before submission
       const form = JSON.stringify(formData);
       const response = await axios.post("/api/signup/", form);
@@ -79,11 +81,11 @@ const SignUpForm = () => {
           description: "You have successfully created an account on hopterlink",
         });
         setTimeout(() => {
-          setCurrentStepIndex(1);
+          // router.push("/login");
+          setCurrentStepIndex(1)
         }, 2000);
-        router.push("/login");
       } else {
-        setIsFormValid(false);
+        setIsFormValid(false)
         toast({
           title: "Error encountered",
           description: "Invalid credentials provided.",
@@ -97,17 +99,22 @@ const SignUpForm = () => {
           title: "Validation",
           description: error.message,
         });
+        setIsFormValid(true)
+
       } else {
         console.error("SignUp Error:", error);
         toast({
           title: "Signup Error",
           description: error.message as any,
         });
+        setIsFormValid(true)
+
       }
       toast({
         title: "Error encountered",
         description: error!.message || "An error occurred during signup",
       });
+      setIsFormValid(true)
     }
   };
 
@@ -221,6 +228,20 @@ const SignUpForm = () => {
               </div>
             </div>
             <div className="grid gap-2">
+              <Label htmlFor="phone">Phone Number</Label>
+              <PhoneInput
+                id="phone"
+                defaultCountry="NG"
+                value={formData.phone}
+                onChange={(value) => {
+                  setFormData({
+                    ...formData,
+                    phone: value,
+                  });
+                }}
+              />
+            </div>
+            <div className="grid gap-2">
               <Label
                 className="text-sm font-medium leading-none
                   peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -331,19 +352,19 @@ const SignUpForm = () => {
             <div className="flex gap-4 justify-center w-full">
               {/* Add your OTP inputs here */}
               <Lottie
-                animationData={animationData}
-                className="flex justify-center items-center"
-                loop={true}
-              />
+        animationData={animationData}
+        className="flex justify-center items-center"
+        loop={true}
+        
+      />
+            
             </div>
             <div className="mt-12">
-              <p className="text-grey-500 text-sm mt-6">
-                We just sent a verification link to your registered email{" "}
-                {formData.email}. Please check your spam or junk folders if you
-                can't see it in your primary inbox.
+            <p className="text-grey-500 text-sm mt-6">
+                We just sent a verification link to your registered email {formData.email}. Please check your spam or junk folders if you can't see it in your primary inbox.
               </p>
             </div>
-            {/* 
+{/* 
             <Button
               // disabled={formData.otp.length !== 6}
               onClick={handleContinue}

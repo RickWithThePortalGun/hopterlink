@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import AverageReview from "./AverageReview";
+import { Star } from "lucide-react";
 
 const highlightSlides = [
   {
@@ -37,7 +38,14 @@ const ImageCarousel = () => {
                   Virtual Assistant
                 </p>
               </div>
-              <AverageReview size={12} value={list.Stars} />
+              {/* <AverageReview size={12} value={list.Stars} /> */}
+              <div className="flex-row flex items-center gap-2">
+              <Star color="transparent"  size={12} fill="#c55e0c"/>
+              <Star color="transparent"  size={12} fill="#c55e0c"/>
+              <Star color="transparent"  size={12} fill="#c55e0c"/>
+              <Star color="transparent"  size={12} fill="#c55e0c"/>
+
+              </div>
             </div>
             <div></div>
           </div>

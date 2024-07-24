@@ -6,17 +6,19 @@ import { BadgeInfo } from "lucide-react";
 import AverageReview from "./AverageReview";
 
 interface Props {
-  name: string;
-  loading: boolean;
-  description: string;
-  hours: string;
+  name?: string;
+  loading?: boolean;
+  description?: string;
+  hours?: string;
   stars: number;
-  price_range: string;
-  tags: any;
-  review_count: any;
+  price_range?: string;
+  logo?:string,
+  tags?: any;
+  review_count?: any;
 }
 
 const DetailCard = ({
+  logo,
   name,
   loading,
   tags,
@@ -35,7 +37,7 @@ const DetailCard = ({
   return (
     <>
       <div
-        className="h-fit w-[80] my-8 rounded-md flex flex-row items-start
+        className="h-fit w-[80] max-md:w-full my-8 rounded-md flex flex-row max-md:flex-col items-start max-md:items-center
           bg-transparent hover:border-secondary border-[1px]
           border-transparent hover:transition hover:ease-in-out
           ease-in-out p-4"
@@ -48,7 +50,7 @@ const DetailCard = ({
             height={150}
           />
         </div>
-        <div className="w-2/3 m-2 pl-4 gap-2 flex flex-col">
+        <div className="w-2/3 max-md:w-full m-2 pl-4 gap-2 flex max-md:items-center flex-col">
           <Typography variant={"h3"} className="font-bold text-start">
             {name}
           </Typography>
