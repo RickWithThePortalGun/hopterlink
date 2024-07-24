@@ -205,7 +205,7 @@ const Business = ({ params }: Props) => {
   ];
   return (
     <HeaderContainer>
-      {loading ? (
+      {loading || !businessInfo.business_name ? (
         // <div className="h-screen w-screen flex items-center justify-center">
         //   <RotatingLines
         //     visible={true}
