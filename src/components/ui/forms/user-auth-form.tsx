@@ -57,7 +57,7 @@ export default function UserAuthForm() {
         email: data.email,
         password: data.password,
         redirect: false,
-        callbackUrl: callbackUrl ?? "/",
+        callbackUrl: callbackUrl ?? "",
       });
 
       if (result?.error) {
