@@ -43,21 +43,14 @@ const DetailCard = ({
           ease-in-out p-4"
       >
         <div className="m-2 rounded-md overflow-hidden">
-          <Image
-            src={logo}
-            alt="image"
-            width={150}
-            height={150}
-          />
+          <Image src={logo} alt="image" width={150} height={150} />
         </div>
         <div className="w-2/3 max-md:w-full m-2 pl-4 gap-2 flex max-md:items-center flex-col">
           <Typography variant={"h3"} className="font-bold text-start">
             {name}
           </Typography>
           {stars < 1 ? (
-                          <p className="text-gray-400 text-xs">
-                            No reviews
-                          </p>
+            <p className="text-gray-400 text-xs">No reviews</p>
           ) : (
             <div className="flex flex-row items-center gap-4 ">
               <AverageReview size={14} value={stars} />
@@ -68,7 +61,9 @@ const DetailCard = ({
             className="rounded-[18px] bg-teal-400/10 border-none mt-[5px] w-fit
               py-2"
           >
-            <p className="text-center text-teal-300 text-xs px-2">Delivers within {hours} to {} days</p>
+            <p className="text-center text-teal-300 text-xs px-2">
+              Delivers within {hours} to {} days
+            </p>
           </div>
           {description ? (
             <div className="flex flex-row items-start gap-2 mt-6">

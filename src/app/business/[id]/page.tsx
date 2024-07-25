@@ -340,7 +340,7 @@ const Business = ({ params }: Props) => {
                   variant={"secondary"}
                   onClick={handleAddToFavorites}
                 >
-                  <Bookmark size={16}/>
+                  <Bookmark size={16} />
                   Add to Favorites
                 </Button>
               ) : (
@@ -349,7 +349,7 @@ const Business = ({ params }: Props) => {
                   variant={"ghost"}
                   disabled
                 >
-                  <BookmarkCheck size={16}/>
+                  <BookmarkCheck size={16} />
                   Added to Favorites
                 </Button>
               )}

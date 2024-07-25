@@ -78,7 +78,7 @@ const AddAReview = ({ businessInfo }: Props) => {
           className="flex gap-2 items-center min-w-60"
           variant={"secondary"}
         >
-          <StarIcon size={16}/> Add a review
+          <StarIcon size={16} /> Add a review
         </Button>
       </CredenzaTrigger>
       <CredenzaContent>
@@ -87,8 +87,8 @@ const AddAReview = ({ businessInfo }: Props) => {
             Review your experience with {businessInfo?.business_name}
           </CredenzaTitle>
           <CredenzaDescription>
-            Make sure you have had some interaction with {businessInfo?.business_name}{" "}
-            before you leave a review.
+            Make sure you have had some interaction with{" "}
+            {businessInfo?.business_name} before you leave a review.
           </CredenzaDescription>
         </CredenzaHeader>
         <CredenzaBody>
