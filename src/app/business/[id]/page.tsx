@@ -327,29 +327,29 @@ const Business = ({ params }: Props) => {
               <SendAMesage businessInfo={businessInfo} />
               <Button
                 className="flex gap-2 items-center min-w-60"
-                variant={"default"}
+                variant={"secondary"}
                 onClick={handleShareClick}
               >
-                <Share /> Share
+                <Share size={16} /> Share
               </Button>
             </div>
             <div className="">
               {!isFavorite ? (
                 <Button
                   className="flex min-w-60 gap-2 items-center max-md:mt-2"
-                  variant={"outline"}
+                  variant={"secondary"}
                   onClick={handleAddToFavorites}
                 >
-                  <Bookmark />
+                  <Bookmark size={16}/>
                   Add to Favorites
                 </Button>
               ) : (
                 <Button
                   className="flex gap-2 items-center"
-                  variant={"outline"}
+                  variant={"ghost"}
                   disabled
                 >
-                  <BookmarkCheck />
+                  <BookmarkCheck size={16}/>
                   Added to Favorites
                 </Button>
               )}

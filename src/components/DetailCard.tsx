@@ -12,7 +12,7 @@ interface Props {
   hours?: string;
   stars: number;
   price_range?: string;
-  logo?: string;
+  logo?: any;
   tags?: any;
   review_count?: any;
 }
@@ -44,7 +44,7 @@ const DetailCard = ({
       >
         <div className="m-2 rounded-md overflow-hidden">
           <Image
-            src={`https://github.com/shadcn.png`}
+            src={logo}
             alt="image"
             width={150}
             height={150}
@@ -55,7 +55,9 @@ const DetailCard = ({
             {name}
           </Typography>
           {stars < 1 ? (
-            ""
+                          <p className="text-gray-400 text-xs">
+                            No reviews
+                          </p>
           ) : (
             <div className="flex flex-row items-center gap-4 ">
               <AverageReview size={14} value={stars} />
@@ -66,7 +68,7 @@ const DetailCard = ({
             className="rounded-[18px] bg-teal-400/10 border-none mt-[5px] w-fit
               py-2"
           >
-            <p className="text-center text-teal-300 text-xs px-2">{hours}</p>
+            <p className="text-center text-teal-300 text-xs px-2">Delivers within {hours} to {} days</p>
           </div>
           {description ? (
             <div className="flex flex-row items-start gap-2 mt-6">

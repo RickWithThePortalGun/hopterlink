@@ -21,9 +21,9 @@ const SendAMesage = ({ businessInfo }: Props) => {
       <CredenzaTrigger asChild>
         <Button
           className="flex gap-2 items-center min-w-60"
-          variant={"default"}
+          variant={"secondary"}
         >
-          <MessageCircle /> Message
+          <MessageCircle size={16} /> Message
         </Button>
       </CredenzaTrigger>
       <CredenzaContent>

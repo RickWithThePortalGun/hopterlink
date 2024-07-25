@@ -74,6 +74,7 @@ const Page = ({ params }: Props) => {
   };
 
   const displayData = selectedSubcategory ? subcategoryData : [];
+  console.log(displayData)
 
   return (
     <HeaderContainer>
@@ -159,11 +160,11 @@ const Page = ({ params }: Props) => {
                       >
                         <DetailCard
                           loading={categoriesLoading}
-                          logo={item.logo}
+                          logo={item.images[0].thumbnail}
                           review_count={item.review_count} // Adjust based on your actual data
                           stars={item.average_rating} // Adjust based on your actual data
                           name={item.business_name}
-                          description={item.display_name}
+                          description={item.location}
                         />
                         <Separator />
                       </div>

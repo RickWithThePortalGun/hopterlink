@@ -76,18 +76,18 @@ const AddAReview = ({ businessInfo }: Props) => {
       <CredenzaTrigger asChild>
         <Button
           className="flex gap-2 items-center min-w-60"
-          variant={"outline"}
+          variant={"secondary"}
         >
-          <StarIcon /> Add a review
+          <StarIcon size={16}/> Add a review
         </Button>
       </CredenzaTrigger>
       <CredenzaContent>
         <CredenzaHeader>
           <CredenzaTitle>
-            Review your experience with {businessInfo?.name}
+            Review your experience with {businessInfo?.business_name}
           </CredenzaTitle>
           <CredenzaDescription>
-            Make sure you have had some interaction with {businessInfo?.name}{" "}
+            Make sure you have had some interaction with {businessInfo?.business_name}{" "}
             before you leave a review.
           </CredenzaDescription>
         </CredenzaHeader>
@@ -109,7 +109,7 @@ const AddAReview = ({ businessInfo }: Props) => {
                 padding: "5px 10px",
                 marginTop: "-10px", // Added 'px' for valid CSS unit
               }}
-              tooltipDefaultText={`Rate ${businessInfo?.name}`}
+              tooltipDefaultText={`Rate ${businessInfo?.business_name}`}
               tooltipArray={[
                 "Eww, No!",
                 "Not Quite",
@@ -147,8 +147,9 @@ const AddAReview = ({ businessInfo }: Props) => {
               </div>
             </div>
             <Textarea
-              className="border-0 h-[300px]"
-              autoFocus
+              className="border-0 h-[300px] text-[16px]"
+              // autoFocus
+              maxLength={255}
               required
               value={reviewText}
               onChange={handleReviewTextChange}
