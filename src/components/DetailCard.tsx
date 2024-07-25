@@ -54,10 +54,14 @@ const DetailCard = ({
           <Typography variant={"h3"} className="font-bold text-start">
             {name}
           </Typography>
-          <div className="flex flex-row items-center gap-4 ">
-            <AverageReview size={14} value={stars} />
-            <p className="text-gray-400 text-xs">({review_count} reviews)</p>
-          </div>
+          {stars < 1 ? (
+            ""
+          ) : (
+            <div className="flex flex-row items-center gap-4 ">
+              <AverageReview size={14} value={stars} />
+              <p className="text-gray-400 text-xs">({review_count} reviews)</p>
+            </div>
+          )}
           <div
             className="rounded-[18px] bg-teal-400/10 border-none mt-[5px] w-fit
               py-2"
@@ -105,7 +109,7 @@ const DetailCard = ({
                   >
                     {tag.name}
                   </p>
-                ),
+                )
               )}
             </div>
           )}

@@ -41,10 +41,11 @@ const Page = ({ params }: Props) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/search/?query=${search}`,
+          `api/search/${search}`,
         );
-        setCategories(response.data.categories);
-        setBusinesses(response.data.businesses);
+        console.log(response.data)
+        // setCategories(response.data.categories);
+        setBusinesses(response.data);
         setLoading(false);
 
         // If there are no businesses but there are categories, set the active tab to categories
@@ -69,7 +70,7 @@ const Page = ({ params }: Props) => {
     setActiveTab("categories");
   };
 
-  const handleBusinessClick = (item: string) => {
+  const handleBusinessClick = (item: number) => {
     router.push(`/business/${item}`);
   };
 
@@ -203,18 +204,18 @@ const Page = ({ params }: Props) => {
                           average_rating?: any;
                           review_count?: any;
                           price_range?: any;
-                          slug?: string;
+                          id?: number;
                         }) => (
                           <div
                             key={item.name}
                             onClick={() => {
-                              handleBusinessClick(item.slug!);
+                              handleBusinessClick(item.id);
                             }}
                             className="cursor-pointer"
                           >
                             <DetailCard
                               loading={loading}
-                              name={item.name}
+                              name={item.business_name}
                               tags={item.tags}
                               hours={item.hours}
                               description={item.description}
