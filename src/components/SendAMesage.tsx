@@ -37,7 +37,7 @@ const SendAMesage = ({ businessInfo }: Props) => {
           </CredenzaDescription>
         </CredenzaHeader>
         <CredenzaBody>
-          <Textarea autoFocus />
+          <Textarea autoFocus className="text-[16px]" />
         </CredenzaBody>
         <CredenzaFooter>
           <Button variant={"secondary"}>Send</Button>
