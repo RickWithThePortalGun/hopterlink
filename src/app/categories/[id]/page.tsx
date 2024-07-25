@@ -160,7 +160,7 @@ const Page = ({ params }: Props) => {
                       >
                         <DetailCard
                           loading={categoriesLoading}
-                          logo={item.images[0].thumbnail}
+                          logo={item.images[0].thumbnail||item.images[0].image}
                           review_count={item.review_count} // Adjust based on your actual data
                           stars={item.average_rating} // Adjust based on your actual data
                           name={item.business_name}

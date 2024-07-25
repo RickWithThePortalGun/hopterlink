@@ -95,7 +95,7 @@ const Page = ({ params }: Props) => {
       setSelectedCategory(categories[0]);
     }
   };
-
+console.log(businesses)
   return (
     <HeaderContainer>
       <div className="flex flex-col h-full md:py-10 md:px-32 pt-11 pb-24 px-8 w-full text-center gap-12">
@@ -216,7 +216,8 @@ const Page = ({ params }: Props) => {
                               name={item.business_name}
                               tags={item.tags}
                               hours={item.hours}
-                              description={item.description}
+                              logo={item.images[0].image}
+                              description={item.location}
                               stars={item.average_rating}
                               review_count={item.review_count}
                               price_range={item.price_range}

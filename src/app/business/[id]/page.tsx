@@ -161,7 +161,7 @@ const Business = ({ params }: Props) => {
 
   const getTabClass = (section: string) => {
     return section === activeSection
-      ? "bg-secondary rounded-full px-4 py-2 cursor-pointer"
+      ? "bg-secondary rounded-full px-4 py-2 max-md:text-sm cursor-pointer"
       : "px-4 py-2 cursor-pointer";
   };
 
@@ -245,7 +245,7 @@ const Business = ({ params }: Props) => {
             </Typography>
             <div>
               <div className="flex flex-col items-center gap-2">
-                {businessInfo?.average_rating ? (
+                {businessInfo?.average_rating >= 1 ? (
                   <>
                     <div className="flex flex-col h-auto">
                       <AverageReview
@@ -258,7 +258,9 @@ const Business = ({ params }: Props) => {
                     </Typography>
                   </>
                 ) : (
-                  ""
+                  <Typography variant={"p"}>
+                      No Reviews
+                    </Typography>
                 )}
               </div>
             </div>

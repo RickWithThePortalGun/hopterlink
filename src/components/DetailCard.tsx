@@ -42,15 +42,17 @@ const DetailCard = ({
           border-transparent hover:transition hover:ease-in-out
           ease-in-out p-4"
       >
-        <div className="m-2 rounded-md overflow-hidden">
-          <Image src={logo} alt="image" width={150} height={150} />
+        <div className="m-2 rounded-md relative overflow-hidden w-[150px] h-[150px]">
+          <Image src={logo} alt="image" fill />
         </div>
         <div className="w-2/3 max-md:w-full m-2 pl-4 gap-2 flex max-md:items-center flex-col">
           <Typography variant={"h3"} className="font-bold text-start">
             {name}
           </Typography>
           {stars < 1 ? (
-            <p className="text-gray-400 text-xs">No reviews</p>
+            <div className="flex flex-row items-center gap-4 ">
+              <p className="text-gray-400 text-xs">No reviews</p>
+            </div>
           ) : (
             <div className="flex flex-row items-center gap-4 ">
               <AverageReview size={14} value={stars} />
@@ -106,7 +108,7 @@ const DetailCard = ({
                   >
                     {tag.name}
                   </p>
-                ),
+                )
               )}
             </div>
           )}
