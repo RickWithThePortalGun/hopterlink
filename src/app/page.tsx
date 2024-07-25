@@ -1,7 +1,7 @@
 import Cards from "@/components/Cards";
 import HeaderContainer from "@/components/HeaderContainer";
 import Typography from "@/components/ui/typography";
-import { ChevronRight, Shield, Star, Timer } from "lucide-react";
+import { ChevronRight, Share2Icon, Shield, Star, Timer, Waves } from "lucide-react";
 import Feature from "./feature";
 
 import CategoryCards from "@/components/CategoryCards";
@@ -63,11 +63,10 @@ export default function Home() {
               </div>
               <div className="max-w-4xl text-6xl max-md:text-3xl font-extrabold tracking-tight text-start max-md:text-center">
                 <FlipWords words={words} />
-                Local Gems.
+                Service Providers
               </div>
               <p className="max-w-4xl text-xl max-md:text-sm text-start max-md:text-center tracking-normal">
-                Every review tells a story, every story shapes a community.
-              </p>
+              Connecting consumers and providers seamlessly and efficiently.              </p>
               <div className="flex-col flex gap-4 items-center mt-6 md:flex-row w-full">
                 <SearchComponent />
               </div>
@@ -79,30 +78,28 @@ export default function Home() {
           <div className="flex flex-col md:pt-24 md:gap-36 gap-24 mt-12 items-center">
             <div className="flex flex-col gap-12 items-center">
               <Typography className="max-w-2xl" variant="h1">
-                Tons of benefits!
+                Our Vision
               </Typography>
               <div className="flex md:flex-row flex-col gap-12">
                 <Feature
-                  icon={<Timer size={24} />}
-                  headline="Quick Decisions, Less Stress
+                  icon={<Share2Icon size={24} />}
+                  headline="Multispectrum
                 "
-                  description="Find the best places fast—save time on choosing restaurants and services with trusted reviews.
-
-                "
+                  description="HOPTERLINK offers everything from essentials to specialized services, supporting both consumers and providers on a single platform."
                 />
                 <Feature
-                  icon={<Star size={24} />}
-                  headline="Experience Excellence
+                  icon={<Waves size={24} />}
+                  headline="Effortless
                 "
-                  description="Find top-rated places and services tailored to your preferences.
+                  description="HOPTERLINK's intuitive interface allows users to easily navigate, find services, and interact with providers.
 
                 "
                 />
                 <Feature
                   icon={<Shield size={24} />}
-                  headline="Trust in Every Business Click
+                  headline="Security
                 "
-                  description="Top-notch security ensures your data and privacy are always protected.
+                  description=". HOPTERLINK uses advanced encryption and secure payment gateways to protect your data and transactions.
 
                 "
                 />

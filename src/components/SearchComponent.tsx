@@ -20,12 +20,13 @@ const SearchComponent = () => {
 
   return (
     <>
-      <div className="w-full">
+      <div className="w-full my-4">
         <PlaceholdersAndVanishInput
           placeholders={placeholders}
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}
+          
           onSubmit={handleSearch}
         />
       </div>

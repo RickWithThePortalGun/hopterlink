@@ -39,8 +39,7 @@ export default function RootLayout({
             {" "}
             <ThemeProvider
               attribute="class"
-              defaultTheme="light"
-              disableTransitionOnChange
+              defaultTheme="dark"
             >
               <main
                 className={`flex min-h-screen flex-col ${poppins.className}`}

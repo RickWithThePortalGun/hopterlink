@@ -33,6 +33,7 @@ import {
   Clock,
   Computer,
   File,
+  Globe,
   Home,
   LogOut,
   MenuIcon,
@@ -52,10 +53,15 @@ import Logo from "../Logo";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { AvatarComponent } from "avatar-initials";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
+import ListItem from "../ListItem";
+import SearchComponent from "../SearchComponent";
+import { useRouter } from "next/navigation";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function Header({ className }: SidebarProps) {
+  const router=useRouter()
   const { theme, setTheme } = useTheme();
   const { status, data: session } = useSession();
   const avatarSrc =
@@ -189,8 +195,11 @@ export function Header({ className }: SidebarProps) {
 
   const getHeaderItems = () => {
     return (
-      <div className="flex gap-4 max-lg:hidden">
-        <DropdownMenu
+      <div className="flex gap-4 my-6 max-lg:hidden py-4">
+        <div className="my-6">
+        <SearchComponent/>
+        </div>
+        {/* <DropdownMenu
           onOpenChange={() => {
             setSubcategories([]);
             fetchSubcategories(2);
@@ -254,7 +263,7 @@ export function Header({ className }: SidebarProps) {
           <DropdownMenuTrigger>
             <p className="text-md"> More</p>{" "}
           </DropdownMenuTrigger>
-        </DropdownMenu>
+        </DropdownMenu> */}
       </div>
     );
   };
@@ -262,8 +271,8 @@ export function Header({ className }: SidebarProps) {
   return (
     <div
       className={cn(
-        `flex md:h-12 h-14 items-center justify-center w-full border-b fixed z-50 bg-secondary`,
-        className,
+        `flex md:h-12 py-8 h-14 items-center justify-center w-full border-b fixed z-50 bg-secondary`,
+        className
       )}
     >
       <div className="w-full max-w-[1440px] md:px-8 px-4">
@@ -291,7 +300,84 @@ export function Header({ className }: SidebarProps) {
                       </div>
                     </DrawerClose>
                   </DrawerHeader>
-                  <div className="p-4 pb-0 space-y-4 grid grid-cols-1">
+                  <div className="mt-12">
+                    <SearchComponent />
+                  </div>
+                  {status === "unauthenticated" ? (
+                    <>
+                      <div className="w-full flex justify-between items-center my-8">
+                        <Button onClick={()=>router.push('/signup')}  className="w-full">Join Hopterlink</Button>
+                      </div>{" "}
+                      <Link href={"/login"}>
+                      <ListItem title="Sign In" />
+                      </Link>
+                    </>
+                  ) : (
+                    ""
+                  )}
+
+<DropdownMenu>
+  <DropdownMenuTrigger>
+                  <ListItem title="Browse Categories" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                  <ScrollArea className="h-96 w-48 rounded-md">
+                  {categories.map((category, index)=>(
+                      <>
+                      <DropdownMenuItem key={index} onClick={()=>router.push(`/categories/${category.id}`)}>
+                      <div className={"text-sm my-2"}>
+                      {category.name}
+                      </div>
+                      </DropdownMenuItem>
+                      </>
+                    ))}
+                    </ScrollArea>
+                  </DropdownMenuContent>
+                  </DropdownMenu>
+                  <Typography variant={"h4"} className="text-gray-500 mt-4">
+                    General
+                  </Typography>
+                  <Link href={'/'}>
+                  <ListItem title="Home" />
+                  </Link>
+                  <div className=" flex flex-row items-center justify-between">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
+                      <div className="flex flex-row gap-4 items-center">
+                        <p>English</p>
+                        <Globe size={16} />
+                      </div>
+                    </DropdownMenuTrigger>
+                  </DropdownMenu>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="secondary" size="sm">
+                        <SunIcon
+                          className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all
+                dark:-rotate-90 dark:scale-0"
+                        />
+                        <MoonIcon
+                          className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0
+                transition-all dark:rotate-0 dark:scale-100"
+                        />
+                        <span className="sr-only">Toggle theme</span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={() => setTheme("light")}>
+                        Light
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setTheme("dark")}>
+                        Dark
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setTheme("system")}>
+                        System
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                  </div>
+
+                  {/* <div className="p-4 pb-0 space-y-4 grid grid-cols-1">
                     <DropdownMenu onOpenChange={() => fetchSubcategories(2)}>
                       <DropdownMenuTrigger
                         onClick={() => fetchSubcategories(2)}
@@ -465,7 +551,7 @@ export function Header({ className }: SidebarProps) {
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="mx-auto w-full p-5 flex flex-row gap-2 items-center justify-between">
                   {status === "authenticated" && (
@@ -496,45 +582,7 @@ export function Header({ className }: SidebarProps) {
                       </Button>
                     </>
                   )}
-                  {status === "unauthenticated" && (
-                    <>
-                      <Link href="/signup" target="_blank">
-                        <Button size="tiny" variant="outline">
-                          Sign Up
-                        </Button>
-                      </Link>
-                      <Link href="/login" target="_blank">
-                        <Typography variant="p">Sign in</Typography>
-                      </Link>
-                    </>
-                  )}
-
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="secondary" size="sm">
-                        <SunIcon
-                          className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all
-                dark:-rotate-90 dark:scale-0"
-                        />
-                        <MoonIcon
-                          className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0
-                transition-all dark:rotate-0 dark:scale-100"
-                        />
-                        <span className="sr-only">Toggle theme</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => setTheme("light")}>
-                        Light
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme("dark")}>
-                        Dark
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme("system")}>
-                        System
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  
                   {status === "authenticated" && (
                     <DropdownMenu>
                       <DropdownMenuTrigger>
