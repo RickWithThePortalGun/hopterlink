@@ -26,7 +26,6 @@ const SearchComponent = () => {
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}
-          
           onSubmit={handleSearch}
         />
       </div>

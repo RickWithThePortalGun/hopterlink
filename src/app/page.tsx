@@ -1,7 +1,14 @@
 import Cards from "@/components/Cards";
 import HeaderContainer from "@/components/HeaderContainer";
 import Typography from "@/components/ui/typography";
-import { ChevronRight, Share2Icon, Shield, Star, Timer, Waves } from "lucide-react";
+import {
+  ChevronRight,
+  Share2Icon,
+  Shield,
+  Star,
+  Timer,
+  Waves,
+} from "lucide-react";
 import Feature from "./feature";
 
 import CategoryCards from "@/components/CategoryCards";
@@ -66,7 +73,8 @@ export default function Home() {
                 Service Providers
               </div>
               <p className="max-w-4xl text-xl max-md:text-sm text-start max-md:text-center tracking-normal">
-              Connecting consumers and providers seamlessly and efficiently.              </p>
+                Connecting consumers and providers seamlessly and efficiently.{" "}
+              </p>
               <div className="flex-col flex gap-4 items-center mt-6 md:flex-row w-full">
                 <SearchComponent />
               </div>

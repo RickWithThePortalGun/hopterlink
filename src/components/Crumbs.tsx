@@ -18,13 +18,19 @@ const Crumbs = ({ businessInfo }: Props) => {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-        <BreadcrumbLink href={`/categories/${businessInfo?.industry.id}`} className="max-sm:text-xs ">
-        {businessInfo?.industry["name"]}
+          <BreadcrumbLink
+            href={`/categories/${businessInfo?.industry.id}`}
+            className="max-sm:text-xs "
+          >
+            {businessInfo?.industry["name"]}
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href={`/categories/${businessInfo?.industry.id}`} className="max-sm:text-xs ">
+          <BreadcrumbLink
+            href={`/categories/${businessInfo?.industry.id}`}
+            className="max-sm:text-xs "
+          >
             {businessInfo?.industry_subcategory["name"]}
           </BreadcrumbLink>
         </BreadcrumbItem>
