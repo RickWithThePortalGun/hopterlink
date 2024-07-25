@@ -2,9 +2,12 @@ import request from "@/utils/http-request";
 import { useSearchParams } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } },
+) {
   const uri = `/api/businesses/?search=${params.id}/`;
-  console.log(uri)
+  console.log(uri);
   try {
     const result = await request.get(uri);
     const response = result.data.results;

@@ -40,10 +40,8 @@ const Page = ({ params }: Props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `api/search/${search}`,
-        );
-        console.log(response.data)
+        const response = await axios.get(`api/search/${search}`);
+        console.log(response.data);
         // setCategories(response.data.categories);
         setBusinesses(response.data);
         setLoading(false);
