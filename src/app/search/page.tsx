@@ -95,7 +95,7 @@ const Page = ({ params }: Props) => {
       setSelectedCategory(categories[0]);
     }
   };
-console.log(businesses)
+  console.log(businesses);
   return (
     <HeaderContainer>
       <div className="flex flex-col h-full md:py-10 md:px-32 pt-11 pb-24 px-8 w-full text-center gap-12">

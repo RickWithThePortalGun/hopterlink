@@ -258,9 +258,7 @@ const Business = ({ params }: Props) => {
                     </Typography>
                   </>
                 ) : (
-                  <Typography variant={"p"}>
-                      No Reviews
-                    </Typography>
+                  <Typography variant={"p"}>No Reviews</Typography>
                 )}
               </div>
             </div>

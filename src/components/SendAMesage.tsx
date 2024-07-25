@@ -28,7 +28,9 @@ const SendAMesage = ({ businessInfo }: Props) => {
       </CredenzaTrigger>
       <CredenzaContent>
         <CredenzaHeader>
-          <CredenzaTitle>Send a message to {businessInfo?.business_name}</CredenzaTitle>
+          <CredenzaTitle>
+            Send a message to {businessInfo?.business_name}
+          </CredenzaTitle>
           <CredenzaDescription>
             Let them know you&apos;re interested in doing business. Keep it
             short and precise.
