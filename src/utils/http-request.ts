@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getSession } from "next-auth/react";
 
 const uri = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -13,10 +14,11 @@ const Axios = axios.create({
 
 // If you need to add headers dynamically
 Axios.interceptors.request.use(
-  (config) => {
-    // Modify the request configuration here if needed
-    // For example, adding a token to the headers
-    // config.headers['Authorization'] = 'Bearer your_token';
+  async (config) => {
+    const session = await getSession();
+    if (session && session.access_token) {
+      config.headers['Authorization'] = `Bearer ${session.access_token}`;
+    }
     return config;
   },
   (error) => {

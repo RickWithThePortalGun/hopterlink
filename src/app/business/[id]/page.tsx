@@ -50,6 +50,7 @@ const Business = ({ params }: Props) => {
   const [businessInfo, setBusinessInfo] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [active,setActive]=useState( businessInfo.business_name ? businessInfo.images[0].image : "")
 
   const copyToClipboard = (text: any) => {
     if (navigator.clipboard) {
@@ -127,19 +128,27 @@ const Business = ({ params }: Props) => {
         return <div>{businessInfo?.services}</div>;
       case "gallery":
         return (
+          <div className="grid gap-4">
           <div>
-            {businessInfo.images?.map(
-              (image: any, index: Key | null | undefined) => (
-                <Image
-                  key={index}
-                  src={image.image}
-                  alt={businessInfo.name}
-                  width={100}
-                  height={100}
-                />
-              ),
-            )}
+            <img
+              className="h-auto w-full max-w-full rounded-lg object-cover object-center md:h-[480px]"
+              src={active}
+              alt=""
+            />
           </div>
+          <div className="grid grid-cols-5 gap-4">
+            {businessInfo.images?.map((imgelink , index) => (
+              <div key={index}>
+                <img
+                  onClick={() => setActive(imgelink.image)}
+                  src={imgelink.image}
+                  className="h-20 max-w-full cursor-pointer rounded-lg object-cover object-center"
+                  alt={businessInfo.name}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
         );
       case "reviews":
         return (

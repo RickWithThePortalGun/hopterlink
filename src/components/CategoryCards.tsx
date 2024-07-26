@@ -5,10 +5,12 @@ import Typography from "./ui/typography";
 import { getCategories } from "@/app/api/categories/categories";
 import Link from "next/link";
 import { useCategories } from "@/contexts/ReUsableData";
+import Icon from "./Icon";
 
 const CategoryCards = () => {
   // Set loading to true initially
   const { categories, loading } = useCategories();
+  console.log(categories)
 
   return (
     <>
@@ -29,6 +31,8 @@ const CategoryCards = () => {
                     className="flex flex-col z-40 p-4 rounded-md bg-background border-[1px]
                       gap-6 items-center h-[150px] justify-center"
                   >
+                   
+<Icon name={category.icon as string} />
                     <Typography variant={"p"}>{category.name}</Typography>
                   </div>
                 </Link>
