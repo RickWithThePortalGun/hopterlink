@@ -45,6 +45,6 @@ export interface Category {
   description: string;
   created_at: string;
   updated_at: string;
-  icon:string,
+  icon: string;
   subcategories: Subcategory[];
 }

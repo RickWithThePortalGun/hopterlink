@@ -3,7 +3,7 @@ import request from "@/utils/http-request";
 
 export async function POST(
   req: Request,
-  { params }: { params: { id: string} },
+  { params }: { params: { id: string } },
 ) {
   const { id } = params;
   const uri = `api/businesses/${id}/review/`;

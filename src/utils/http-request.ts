@@ -17,7 +17,7 @@ Axios.interceptors.request.use(
   async (config) => {
     const session = await getSession();
     if (session && session.access_token) {
-      config.headers['Authorization'] = `Bearer ${session.access_token}`;
+      config.headers["Authorization"] = `Bearer ${session.access_token}`;
     }
     return config;
   },
