@@ -77,7 +77,6 @@ export default function UserAuthForm() {
           title: "Login Success",
           description: "You have successfully logged in.",
         });
-        window.location.href = callbackUrl ?? "/";
       }
     } catch (error) {
       console.error("Sign-in error:", error);
