@@ -39,7 +39,7 @@ type UserFormValue = z.infer<typeof formSchema>;
 
 export default function UserAuthForm() {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl");
+  const callback = searchParams.get("callbackUrl");
   const [loading, setLoading] = useState(false);
   const defaultValues = {
     email: "",
@@ -56,8 +56,8 @@ export default function UserAuthForm() {
       const result = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        redirect: false,
-        // callbackUrl: callbackUrl ?? "",
+        redirect: true,
+        callbackUrl: callback ?? "",
       });
 
       if (result?.error) {
@@ -77,7 +77,8 @@ export default function UserAuthForm() {
           title: "Login Success",
           description: "You have successfully logged in.",
         });
-        window.location.href = callbackUrl ?? "/";
+        // router.reload()
+        // window.location.href = callbackUrl ?? "/";
       }
     } catch (error) {
       console.error("Sign-in error:", error);
