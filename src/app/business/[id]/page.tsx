@@ -44,7 +44,7 @@ const Business = ({ params }: Props) => {
     data: session,
   }: {
     status: string;
-    data: { access_token: string } 
+    data: { access_token: string };
   } = useSession();
   const accessToken = session?.access_token ?? "";
   const [businessInfo, setBusinessInfo] = useState<any>({});

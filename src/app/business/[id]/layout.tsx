@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 const BusinessLayout = ({ children }: { children: React.ReactNode }) => {
   const { status } = useSession();
   const router = useRouter();
-//   if (status === "unauthenticated") {
-//     router.push(`/login?`);
-//   }
+  //   if (status === "unauthenticated") {
+  //     router.push(`/login?`);
+  //   }
   return <main>{children}</main>;
 };
 

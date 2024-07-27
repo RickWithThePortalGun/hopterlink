@@ -128,7 +128,6 @@ export default function UserAuthForm() {
                     disabled={loading}
                     {...field}
                     className="text-[16px]"
-
                   />
                 </FormControl>
                 <FormMessage />

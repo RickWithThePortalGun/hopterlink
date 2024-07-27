@@ -45,12 +45,12 @@ const AddAReview = ({ businessInfo }: Props) => {
 
   const handleSubmitReview = async () => {
     try {
-      const review=await axios.post(`/api/reviews/${businessInfo.id}`, {
+      const review = await axios.post(`/api/reviews/${businessInfo.id}`, {
         stars: rating,
         content: reviewText,
         // business: businessInfo.id,
       });
-      console.log("Review: ",review)
+      console.log("Review: ", review);
       setIsOpen(false);
       toast({
         title: "Review Successfully Added",
