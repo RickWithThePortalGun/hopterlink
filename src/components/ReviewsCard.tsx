@@ -15,10 +15,10 @@ const ReviewsCard = ({ review }: Props) => {
           </p>
           <p className="text-xs text-secondary font-bold">{review.user_name}</p>
         </div>
-        <AverageReview size={12} value={review.stars} />
+        <AverageReview size={12} value={review.rating} />
       </div>
       <div>
-        <p className="text-xs">{review.content}</p>
+        <p className="text-xs">{review.comment}</p>
       </div>
     </Card>
   );

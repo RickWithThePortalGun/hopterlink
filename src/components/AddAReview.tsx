@@ -44,23 +44,17 @@ const AddAReview = ({ businessInfo }: Props) => {
   };
 
   const handleSubmitReview = async () => {
-    const axiosInstance = axios.create({
-      baseURL: "http://127.0.0.1:8000/",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session?.access_token}`,
-      },
-    });
     try {
-      await axiosInstance.post("reviews/", {
+      const review=await axios.post(`/api/reviews/${businessInfo.id}`, {
         stars: rating,
         content: reviewText,
-        business: businessInfo.id,
+        // business: businessInfo.id,
       });
+      console.log("Review: ",review)
       setIsOpen(false);
       toast({
         title: "Review Successfully Added",
-        description: `Thank you for reviewing ${businessInfo.name}! We hope you had a wonderful experience with them.`,
+        description: `Thank you for reviewing ${businessInfo.business_name}! We hope you had a wonderful business experience with them.`,
       });
       router.refresh();
     } catch (error) {

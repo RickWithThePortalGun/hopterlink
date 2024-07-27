@@ -16,7 +16,7 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InitialsAvatar from "react-initials-avatar";
 import "react-initials-avatar/lib/ReactInitialsAvatar.css";
 
@@ -57,6 +57,7 @@ import ListItem from "../ListItem";
 import SearchComponent from "../SearchComponent";
 import { useRouter } from "next/navigation";
 import { ScrollArea } from "../ui/scroll-area";
+import { setAuthorizationToken } from "@/utils/http-request";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -64,6 +65,13 @@ export function Header({ className }: SidebarProps) {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const { status, data: session } = useSession();
+
+  // useEffect(() => {
+  //   if (session && session.access_token) {
+  //     setAuthorizationToken(session.access_token);
+  //     console.log("token set")
+  //   }
+  // }, [session]);
   const avatarSrc =
     session?.picture ||
     "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"; // Default Gravatar image

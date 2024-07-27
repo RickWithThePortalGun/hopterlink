@@ -185,9 +185,8 @@ const SignUpForm = () => {
                 <Input
                   type="text"
                   className="flex h-10 w-full rounded-md border border-input
-                    bg-background px-3 py-2 text-sm ring-offset-background
-                    file:border-0 file:bg-transparent file:text-sm
-                    file:font-medium placeholder:text-muted-foreground
+                    bg-background px-3 py-2 text-[16px] ring-offset-background
+                   placeholder:text-muted-foreground
                     focus-visible:outline-none focus-visible:ring-2
                     focus-visible:ring-ring focus-visible:ring-offset-2
                     disabled:cursor-not-allowed disabled:opacity-50"
@@ -210,7 +209,7 @@ const SignUpForm = () => {
                 <Input
                   type="text"
                   className="flex h-10 w-full rounded-md border border-input
-                    bg-background px-3 py-2 text-sm ring-offset-background
+                    bg-background px-3 py-2 text-[16px] ring-offset-background
                     file:border-0 file:bg-transparent file:text-sm
                     file:font-medium placeholder:text-muted-foreground
                     focus-visible:outline-none focus-visible:ring-2
@@ -229,6 +228,7 @@ const SignUpForm = () => {
               <Label htmlFor="phone">Phone Number</Label>
               <PhoneInput
                 id="phone"
+                className="text-[16px]"
                 defaultCountry="NG"
                 value={formData.phone}
                 onChange={(value) => {
@@ -250,7 +250,7 @@ const SignUpForm = () => {
               <Input
                 type="email"
                 className="flex h-10 w-full rounded-md border border-input
-                  bg-background px-3 py-2 text-sm ring-offset-background
+                  bg-background px-3 py-2 text-[16px] ring-offset-background
                   file:border-0 file:bg-transparent file:text-sm
                   file:font-medium placeholder:text-muted-foreground
                   focus-visible:outline-none focus-visibe:ring-2
@@ -275,7 +275,7 @@ const SignUpForm = () => {
               <Input
                 type="password"
                 className="flex h-10 w-full rounded-md border border-input
-                  bg-background px-3 py-2 text-sm ring-offset-background
+                  bg-background px-3 py-2 text-[16px] ring-offset-background
                   file:border-0 file:bg-transparent file:text-sm
                   file:font-medium placeholder:text-muted-foreground
                   focus-visible:outline-none focus-visible:ring-2
@@ -300,7 +300,7 @@ const SignUpForm = () => {
               <Input
                 type="password"
                 className="flex h-10 w-full rounded-md border border-input
-                  bg-background px-3 py-2 text-sm ring-offset-background
+                  bg-background px-3 py-2 text-[16px] ring-offset-background
                   file:border-0 file:bg-transparent file:text-sm
                   file:font-medium placeholder:text-muted-foreground
                   focus-visible:outline-none focus-visible:ring-2

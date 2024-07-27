@@ -44,7 +44,7 @@ const Business = ({ params }: Props) => {
     data: session,
   }: {
     status: string;
-    data: { access_token: string } | Session;
+    data: { access_token: string } 
   } = useSession();
   const accessToken = session?.access_token ?? "";
   const [businessInfo, setBusinessInfo] = useState<any>({});
@@ -108,7 +108,6 @@ const Business = ({ params }: Props) => {
         setLoading(true);
         const business = await axios.get(`/api/business/${id}`);
         setBusinessInfo(business.data);
-        console.log(businessInfo);
         // if (business.id) {
         //   const { is_favorite } = await checkFavorite(business.id);
         //   setIsFavorite(is_favorite);
