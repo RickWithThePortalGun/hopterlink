@@ -246,6 +246,13 @@ const handler = NextAuth({
       }
       return token;
     },
+    async redirect({ url, baseUrl }) {
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${baseUrl}${url}`
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url
+      return baseUrl
+    },
     // Since we're using Django as the backend we have to pass the JWT
     // token to the client instead of the `session`.
     async session({ token }: { token: any }) {
