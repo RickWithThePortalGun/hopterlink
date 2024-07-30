@@ -3,10 +3,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/naming-convention */
 "use client";
-import { getBusinessInfo } from "@/app/api/categories/categories";
 import HeaderContainer from "@/components/HeaderContainer";
 
-import { priceRangeMapping } from "@/app/categories/[id]/page";
 import AddAReview from "@/components/AddAReview";
 import AverageReview from "@/components/AverageReview";
 import BusinessAdInfo from "@/components/BusinessAdInfo";
@@ -16,6 +14,7 @@ import ReviewsCard from "@/components/ReviewsCard";
 import SendAMesage from "@/components/SendAMesage";
 import { toast } from "@/components/ui-hooks/use-toast";
 import { Button } from "@/components/ui/button";
+import { MultiStepLoader } from "@/components/ui/multi-step-loader";
 import { Separator } from "@/components/ui/separator";
 import Typography from "@/components/ui/typography";
 import axios from "axios";
@@ -29,11 +28,7 @@ import {
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { type Key, useEffect, useState } from "react";
-import { type Session } from "next-auth";
-import Image from "next/image";
-import { MultiStepLoader } from "@/components/ui/multi-step-loader";
+import { useEffect, useState } from "react";
 
 interface Props {
   params: { id: string }; // Use id instead of slug

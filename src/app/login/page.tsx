@@ -5,10 +5,7 @@ import { buttonVariants } from "@/components/ui/button";
 import UserAuthForm from "@/components/ui/forms/user-auth-form";
 import Typography from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function AuthenticationPage() {
   return (

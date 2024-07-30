@@ -47,7 +47,7 @@ export default function UserAuthForm() {
         email: data.email,
         password: data.password,
         redirect: false,
-        callbackUrl: callback ?? "",
+        callbackUrl: callback ?? "/",
       });
 
       if (result?.error) {
@@ -68,6 +68,7 @@ export default function UserAuthForm() {
           description: "You have successfully logged in.",
         });
       }
+      window.location.href=callback??"/"
     } catch (error) {
       console.error("Sign-in error:", error);
       toast({

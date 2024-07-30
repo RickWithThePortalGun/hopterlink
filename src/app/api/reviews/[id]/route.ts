@@ -3,14 +3,12 @@ import { useSession } from "next-auth/react";
 import { NextResponse } from "next/server";
 import request from "@/utils/http-request";
 
-
-
 export async function POST(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   const body = await req.json();
-  console.log(body)
+  console.log(body);
   const { id } = params;
   const uri = `${process.env.NEXT_PUBLIC_BACKEND_URL}api/businesses/${id}/reviews`;
   console.log("Review endpoint hit");
@@ -25,7 +23,7 @@ export async function POST(
     console.log("Error found: ", error);
     return NextResponse.json(
       { message: "Your review was not submitted." },
-      { status: 404 }
+      { status: 404 },
     );
   }
 }
