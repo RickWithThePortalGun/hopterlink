@@ -28,19 +28,25 @@ const Gallery = ({ images }: Props) => {
         {images.map((image, index) => (
           <SwiperSlide>
             <div className="flex items-center justify-center relative w-full h-[500px] rounded-md">
-              {loading ? <RotatingLines strokeColor="#c55e0c" width="20"/>: ""}
+              {loading ? (
+                <RotatingLines strokeColor="#c55e0c" width="20" />
+              ) : (
+                ""
+              )}
               <Image
                 objectFit="cover"
                 alt="business-images"
                 fill
                 className="rounded-md"
-                
-                onLoad={() => <RotatingLines strokeColor="#c55e0c" width="20"/>}
+                onLoad={() => (
+                  <RotatingLines strokeColor="#c55e0c" width="20" />
+                )}
                 src={image.image}
               />
             </div>
           </SwiperSlide>
         ))}
+        
       </Swiper>
     </div>
   );

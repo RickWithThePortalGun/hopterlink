@@ -216,7 +216,7 @@ const Page = ({ params }: Props) => {
                               name={item.business_name}
                               tags={item.tags}
                               hours={item.hours}
-                              logo={item.images[0].image}
+                              logo={item.images[0].thumbnail}
                               description={item.location}
                               stars={item.average_rating}
                               review_count={item.review_count}

@@ -30,6 +30,8 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Gallery from "@/components/Gallery";
+import Image from "next/image";
+import { RotatingLines } from "react-loader-spinner";
 
 interface Props {
   params: { id: string }; // Use id instead of slug
@@ -151,6 +153,21 @@ const Business = ({ params }: Props) => {
           // </div>
           <>
             <Gallery images={businessInfo.images} />
+            <div className="h-fit py-4 flex flex-row items-center gap-4">
+        {businessInfo.images.map((image, index) => ( <>
+        <div className="w-[100px] relative h-[100px]">
+        <Image
+                objectFit="cover"
+                alt="business-images"
+                fill
+                className="rounded-md"
+                onLoad={() => (
+                  <RotatingLines strokeColor="#c55e0c" width="20" />
+                )}
+                src={image.thumbnail}
+              />
+        </div>
+        </> ))} </div>
           </>
         );
       case "reviews":

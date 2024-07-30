@@ -17,7 +17,6 @@ const ReviewsCard = ({ review }: Props) => {
           ) : (
             <p className="text-sm font-bold">{review.user.email}</p>
           )}
-
         </div>
         <AverageReview size={12} value={review.rating} />
       </div>

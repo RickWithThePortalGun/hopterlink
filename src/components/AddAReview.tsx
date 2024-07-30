@@ -141,7 +141,7 @@ const AddAReview = ({ businessInfo, onReviewAdded }: Props) => {
         <CredenzaFooter>
           <Button
             variant={"default"}
-            disabled={reviewText.length < 10}
+            disabled={reviewText.length < 1}
             type="submit"
             onClick={handleSubmitReview}
           >
