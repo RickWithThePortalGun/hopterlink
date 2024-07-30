@@ -191,7 +191,7 @@ export function Header({ className }: SidebarProps) {
             </DropdownMenuItem>
             <DropdownMenuItem
               className="flex flex-row items-center gap-4"
-              onClick={() => void signOut({redirect: true})}
+              onClick={() => void signOut({ redirect: true })}
             >
               <LogOut size={14} /> Logout
             </DropdownMenuItem>
@@ -636,7 +636,7 @@ export function Header({ className }: SidebarProps) {
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           className="flex flex-row items-center gap-4"
-                          onClick={() => void signOut({redirect: true})}
+                          onClick={() => void signOut({ redirect: true })}
                         >
                           <LogOut size={14} /> Logout
                         </DropdownMenuItem>

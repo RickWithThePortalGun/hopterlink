@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Credenza, CredenzaBody, CredenzaContent, CredenzaDescription, CredenzaFooter, CredenzaHeader, CredenzaTitle, CredenzaTrigger } from "@/components/ui/credenza";
+import {
+  Credenza,
+  CredenzaBody,
+  CredenzaContent,
+  CredenzaDescription,
+  CredenzaFooter,
+  CredenzaHeader,
+  CredenzaTitle,
+  CredenzaTrigger,
+} from "@/components/ui/credenza";
 import { StarIcon } from "lucide-react";
 import { Rating } from "react-simple-star-rating";
 import { Button } from "./ui/button";
@@ -26,7 +35,9 @@ const AddAReview = ({ businessInfo, onReviewAdded }: Props) => {
     setRating(rating);
   };
 
-  const handleReviewTextChange = (e: { target: { value: React.SetStateAction<string> } }) => {
+  const handleReviewTextChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setReviewText(e.target.value);
   };
 
@@ -54,7 +65,10 @@ const AddAReview = ({ businessInfo, onReviewAdded }: Props) => {
   return (
     <Credenza open={isOpen} onOpenChange={setIsOpen}>
       <CredenzaTrigger asChild>
-        <Button className="flex gap-2 items-center min-w-60" variant={"secondary"}>
+        <Button
+          className="flex gap-2 items-center min-w-60"
+          variant={"secondary"}
+        >
           <StarIcon size={16} /> Add a review
         </Button>
       </CredenzaTrigger>
@@ -64,7 +78,8 @@ const AddAReview = ({ businessInfo, onReviewAdded }: Props) => {
             Review your experience with {businessInfo?.business_name}
           </CredenzaTitle>
           <CredenzaDescription>
-            Make sure you have had some interaction with {businessInfo?.business_name} before you leave a review.
+            Make sure you have had some interaction with{" "}
+            {businessInfo?.business_name} before you leave a review.
           </CredenzaDescription>
         </CredenzaHeader>
         <CredenzaBody>

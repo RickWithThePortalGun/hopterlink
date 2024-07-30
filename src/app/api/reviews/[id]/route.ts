@@ -7,14 +7,14 @@ export async function POST(req: Request, context: { params: { id: string } }) {
   const body = await req.json();
   const { id } = context.params;
   const uri = `${process.env.NEXT_PUBLIC_BACKEND_URL}api/businesses/${id}/reviews/`;
-  
+
   try {
     const reviews = await request.post(uri, {
       rating: body.stars,
       comment: body.content,
     });
     return NextResponse.json(reviews.data);
-  } catch (error:any) {
+  } catch (error: any) {
     let errorMessage = "Your review was not submitted.";
     let errorData = {};
     if (error.response) {
@@ -28,10 +28,10 @@ export async function POST(req: Request, context: { params: { id: string } }) {
       errorMessage = error.message;
     }
     // console.log("Error config:", error.config);
-    
+
     return NextResponse.json(
       { message: errorMessage, data: errorData },
-      { status: 400 } // Using 400 as it's a bad request
+      { status: 400 }, // Using 400 as it's a bad request
     );
   }
 }
@@ -39,11 +39,11 @@ export async function POST(req: Request, context: { params: { id: string } }) {
 export async function GET(req: Request, context: { params: { id: string } }) {
   const { id } = context.params;
   const uri = `${process.env.NEXT_PUBLIC_BACKEND_URL}api/businesses/${id}/reviews/`;
-  
+
   try {
     const reviews = await request.get(uri);
     return NextResponse.json(reviews.data);
-  } catch (error:any) {
+  } catch (error: any) {
     let errorMessage = "Unable to fetch reviews.";
     let errorData = {};
     if (error.response) {
@@ -52,14 +52,13 @@ export async function GET(req: Request, context: { params: { id: string } }) {
     } else if (error.request) {
       errorMessage = "No response received from the server.";
     } else {
-   
       errorMessage = error.message;
     }
     // console.log("Error config:", error.config);
-    
+
     return NextResponse.json(
       { message: errorMessage, data: errorData },
-      { status: 400 } // Using 400 as it's a bad request
+      { status: 400 }, // Using 400 as it's a bad request
     );
   }
 }

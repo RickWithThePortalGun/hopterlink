@@ -28,7 +28,7 @@ const formSchema = z.object({
 type UserFormValue = z.infer<typeof formSchema>;
 
 export default function UserAuthForm() {
-  const router=useRouter()
+  const router = useRouter();
   const searchParams = useSearchParams();
   const callback = searchParams.get("callbackUrl");
   const [loading, setLoading] = useState(false);
@@ -57,20 +57,18 @@ export default function UserAuthForm() {
             title: "Login Error",
             description: "Username or password is incorrect. Please try again.",
           });
-        }
-        else{
+        } else {
           toast({
             title: "Login Error",
             description: "Something went wrong. Please try again later.",
           });
         }
-      }else if(result?.ok) {
+      } else if (result?.ok) {
         toast({
           title: "Login Success",
           description: "You have successfully logged in.",
         });
-        window.location.href = callback ?? "/"
-
+        window.location.href = callback ?? "/";
       }
     } catch (error) {
       console.error("Sign-in error:", error);

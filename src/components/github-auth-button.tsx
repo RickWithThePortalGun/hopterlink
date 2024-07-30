@@ -9,7 +9,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Button } from "./ui/button";
 
 export default function GoogleSignInButton() {
-  const {status}=useSession()
+  const { status } = useSession();
   const searchParams = useSearchParams();
   const callback = searchParams.get("callbackUrl");
 

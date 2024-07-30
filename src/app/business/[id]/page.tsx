@@ -47,7 +47,7 @@ const Business = ({ params }: Props) => {
   const [loading, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [active, setActive] = useState(
-    businessInfo.business_name ? businessInfo.images[0].image : ""
+    businessInfo.business_name ? businessInfo.images[0].image : "",
   );
 
   const copyToClipboard = (text: any) => {
@@ -64,7 +64,7 @@ const Business = ({ params }: Props) => {
             title: "Error",
             description: "Failed to copy the link. Please try again.",
           });
-        }
+        },
       );
     } else {
       toast({
