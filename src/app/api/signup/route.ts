@@ -5,6 +5,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   try {
     const uri = `${process.env.NEXTAUTH_BACKEND_URL}auth/registration/`;
+    console.log(uri)
     const result = await axios.post(uri, {
       first_name: body.first_name,
       last_name: body.last_name,

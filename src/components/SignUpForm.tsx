@@ -12,6 +12,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { PhoneInput } from "./ui/phone-input";
+
 const SignUpForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -24,6 +25,7 @@ const SignUpForm = () => {
   });
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isFormValid, setIsFormValid] = useState(true);
+  const [errors, setErrors] = useState({});
 
   // Define the Zod schema
   const signUpSchema = z
@@ -64,7 +66,15 @@ const SignUpForm = () => {
     try {
       signUpSchema.parse(formData);
       setIsFormValid(true);
+      setErrors({});
     } catch (e) {
+      if (e instanceof z.ZodError) {
+        const formattedErrors = e.errors.reduce((acc, error) => {
+          acc[error.path[0]] = error.message;
+          return acc;
+        }, {});
+        setErrors(formattedErrors);
+      }
       setIsFormValid(false);
     }
   };
@@ -81,7 +91,6 @@ const SignUpForm = () => {
           description: "You have successfully created an account on hopterlink",
         });
         setTimeout(() => {
-          // router.push("/login");
           setCurrentStepIndex(1);
         }, 2000);
       } else {
@@ -91,13 +100,16 @@ const SignUpForm = () => {
           description: "Invalid credentials provided.",
         });
       }
-      // setCurrentStepIndex(1); // Move to the next step after successful signup
     } catch (error: any) {
       if (error instanceof z.ZodError) {
-        console.error("Validation Error:", error.message);
+        const formattedErrors = error.errors.reduce((acc, error) => {
+          acc[error.path[0]] = error.message;
+          return acc;
+        }, {});
+        setErrors(formattedErrors);
         toast({
-          title: "Validation",
-          description: error.message,
+          title: "Validation Error",
+          description: "Please correct the highlighted errors.",
         });
         setIsFormValid(true);
       } else {
@@ -108,11 +120,6 @@ const SignUpForm = () => {
         });
         setIsFormValid(true);
       }
-      toast({
-        title: "Error encountered",
-        description: error!.message || "An error occurred during signup",
-      });
-      setIsFormValid(true);
     }
   };
 
@@ -197,6 +204,7 @@ const SignUpForm = () => {
                   required
                   control-id="ControlID-1"
                 />
+                {errors.first_name && <p className="text-red-500 text-xs">{errors.first_name}</p>}
               </div>
               <div>
                 <Label
@@ -222,6 +230,7 @@ const SignUpForm = () => {
                   required
                   control-id="ControlID-1"
                 />
+                {errors.last_name && <p className="text-red-500 text-xs">{errors.last_name}</p>}
               </div>
             </div>
             <div className="grid gap-2">
@@ -263,6 +272,7 @@ const SignUpForm = () => {
                 required
                 control-id="ControlID-2"
               />
+              {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
             </div>
             <div className="grid gap-2">
               <Label
@@ -288,6 +298,7 @@ const SignUpForm = () => {
                 required
                 control-id="ControlID-2"
               />
+              {errors.password1 && <p className="text-red-500 text-xs">{errors.password1}</p>}
             </div>
             <div className="grid gap-2">
               <Label
@@ -313,6 +324,7 @@ const SignUpForm = () => {
                 required
                 control-id="ControlID-2"
               />
+              {errors.password2 && <p className="text-red-500 text-xs">{errors.password2}</p>}
             </div>
             <div className="flex flex-row justify-between items-center">
               <p className="text-xs font-extrabold">
@@ -362,21 +374,6 @@ const SignUpForm = () => {
                 can't see it in your primary inbox.
               </p>
             </div>
-            {/* 
-            <Button
-              // disabled={formData.otp.length !== 6}
-              onClick={handleContinue}
-              className="inline-flex items-center justify-center whitespace-nowrap
-                rounded-md text-sm font-medium ring-offset-background
-                transition-colors focus-visible:outline-none
-                focus-visible:ring-2 focus-visible:ring-ring
-                focus-visible:ring-offset-2 disabled:pointer-events-none
-                disabled:opacity-50 bg-primary text-primary-foreground
-                hover:bg-primary/90 h-10 px-4 py-2 w-full"
-              control-id="ControlID-3"
-            >
-              Verify Account
-            </Button> */}
           </div>
         </div>
       )}

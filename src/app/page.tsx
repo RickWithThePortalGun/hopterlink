@@ -107,7 +107,7 @@ export default function Home() {
                   icon={<Shield size={24} />}
                   headline="Security
                 "
-                  description=". HOPTERLINK uses advanced encryption and secure payment gateways to protect your data and transactions.
+                  description="HOPTERLINK uses advanced encryption and secure payment gateways to protect your data and transactions.
 
                 "
                 />
