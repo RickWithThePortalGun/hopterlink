@@ -46,7 +46,6 @@ const Page = () => {
       const { data } = await axiosInstance.get(uri);
       return data;
     } catch (error) {
-      console.error("Error fetching user info:", error);
       throw error;
     }
   };
@@ -57,7 +56,6 @@ const Page = () => {
         try {
           const response = await getUserinfo();
           setUserInfo(response.user);
-          console.log(response);
         } catch (error) {
           console.error("Error fetching data:", error);
         } finally {

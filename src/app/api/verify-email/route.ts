@@ -8,10 +8,8 @@ export async function POST(req: NextRequest) {
     const result = await axios.post(uri, {
       key: body.key,
     });
-    console.log(result);
     return NextResponse.json(result.data, { status: 200 });
   } catch (error: any) {
-    console.log(error);
     return NextResponse.json(error, { status: 400 });
   }
 }

@@ -7,7 +7,6 @@ export async function GET(
   { params }: { params: { id: string } },
 ) {
   const uri = `/api/businesses/?search=${params.id}/`;
-  console.log(uri);
   try {
     const result = await request.get(uri);
     const response = result.data.results;

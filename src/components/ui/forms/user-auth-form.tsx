@@ -16,7 +16,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import GoogleSignInButton from "@/components/github-auth-button";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { toast } from "@/components/ui-hooks/use-toast";
 
@@ -28,6 +28,7 @@ const formSchema = z.object({
 type UserFormValue = z.infer<typeof formSchema>;
 
 export default function UserAuthForm() {
+  const router=useRouter()
   const searchParams = useSearchParams();
   const callback = searchParams.get("callbackUrl");
   const [loading, setLoading] = useState(false);
@@ -57,18 +58,20 @@ export default function UserAuthForm() {
             description: "Username or password is incorrect. Please try again.",
           });
         }
-      } else if (result?.error) {
-        toast({
-          title: "Login Error",
-          description: "Something went wrong. Please try again later.",
-        });
-      } else {
+        else{
+          toast({
+            title: "Login Error",
+            description: "Something went wrong. Please try again later.",
+          });
+        }
+      }else if(result?.ok) {
         toast({
           title: "Login Success",
           description: "You have successfully logged in.",
         });
+        window.location.href = callback ?? "/"
+
       }
-      window.location.href=callback??"/"
     } catch (error) {
       console.error("Sign-in error:", error);
       toast({

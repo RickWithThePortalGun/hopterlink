@@ -1,32 +1,21 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-"use client";
-import {
-  Credenza,
-  CredenzaBody,
-  CredenzaContent,
-  CredenzaDescription,
-  CredenzaFooter,
-  CredenzaHeader,
-  CredenzaTitle,
-  CredenzaTrigger,
-} from "@/components/ui/credenza";
+import React, { useState } from "react";
+import { Credenza, CredenzaBody, CredenzaContent, CredenzaDescription, CredenzaFooter, CredenzaHeader, CredenzaTitle, CredenzaTrigger } from "@/components/ui/credenza";
 import { StarIcon } from "lucide-react";
 import { Rating } from "react-simple-star-rating";
 import { Button } from "./ui/button";
 import { Card } from "./ui/cards";
 import { Textarea } from "./ui/textarea";
-import { type SetStateAction, useState } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { toast } from "./ui-hooks/use-toast";
 import { useRouter } from "next/navigation";
+
 interface Props {
   businessInfo: any;
+  onReviewAdded: (review: any) => void; // Add this line
 }
-const AddAReview = ({ businessInfo }: Props) => {
+
+const AddAReview = ({ businessInfo, onReviewAdded }: Props) => {
   const { data: session, status } = useSession();
   const [rating, setRating] = useState(1);
   const [reviewText, setReviewText] = useState("");
@@ -37,9 +26,7 @@ const AddAReview = ({ businessInfo }: Props) => {
     setRating(rating);
   };
 
-  const handleReviewTextChange = (e: {
-    target: { value: SetStateAction<string> };
-  }) => {
+  const handleReviewTextChange = (e: { target: { value: React.SetStateAction<string> } }) => {
     setReviewText(e.target.value);
   };
 
@@ -48,30 +35,26 @@ const AddAReview = ({ businessInfo }: Props) => {
       const review = await axios.post(`/api/reviews/${businessInfo.id}`, {
         stars: rating,
         content: reviewText,
-        // business: businessInfo.id,
       });
-      console.log("Review: ", review);
       setIsOpen(false);
+      onReviewAdded(review.data); // Call the function passed as a prop
+      router.refresh();
       toast({
         title: "Review Successfully Added",
         description: `Thank you for reviewing ${businessInfo.business_name}! We hope you had a wonderful business experience with them.`,
       });
-      router.refresh();
     } catch (error) {
-      console.error("Error submitting review:", error);
       toast({
         title: "Error Submitting Review",
-        description: `${error}`,
+        description: `${error.response.data.message}`,
       });
     }
   };
+
   return (
     <Credenza open={isOpen} onOpenChange={setIsOpen}>
       <CredenzaTrigger asChild>
-        <Button
-          className="flex gap-2 items-center min-w-60"
-          variant={"secondary"}
-        >
+        <Button className="flex gap-2 items-center min-w-60" variant={"secondary"}>
           <StarIcon size={16} /> Add a review
         </Button>
       </CredenzaTrigger>
@@ -81,8 +64,7 @@ const AddAReview = ({ businessInfo }: Props) => {
             Review your experience with {businessInfo?.business_name}
           </CredenzaTitle>
           <CredenzaDescription>
-            Make sure you have had some interaction with{" "}
-            {businessInfo?.business_name} before you leave a review.
+            Make sure you have had some interaction with {businessInfo?.business_name} before you leave a review.
           </CredenzaDescription>
         </CredenzaHeader>
         <CredenzaBody>
@@ -101,7 +83,7 @@ const AddAReview = ({ businessInfo }: Props) => {
                 borderRadius: "50px",
                 fontSize: "12px",
                 padding: "5px 10px",
-                marginTop: "-10px", // Added 'px' for valid CSS unit
+                marginTop: "-10px",
               }}
               tooltipDefaultText={`Rate ${businessInfo?.business_name}`}
               tooltipArray={[
@@ -120,29 +102,19 @@ const AddAReview = ({ businessInfo }: Props) => {
                 A few things to consider in your review
               </p>
               <div className="flex flex-row items-center gap-2 text-sm">
-                <p
-                  className="text-[#c55e0c] text-xs border-[1px] border-[#c55e0c] p-1
-                    rounded-full"
-                >
+                <p className="text-[#c55e0c] text-xs border-[1px] border-[#c55e0c] p-1 rounded-full">
                   Response
                 </p>
-                <p
-                  className="text-[#c55e0c] text-xs border-[1px] border-[#c55e0c] p-1
-                    rounded-full"
-                >
+                <p className="text-[#c55e0c] text-xs border-[1px] border-[#c55e0c] p-1 rounded-full">
                   Delivery Time
                 </p>
-                <p
-                  className="text-[#c55e0c] text-xs border-[1px] border-[#c55e0c] p-1
-                    rounded-full"
-                >
+                <p className="text-[#c55e0c] text-xs border-[1px] border-[#c55e0c] p-1 rounded-full">
                   Attitude
                 </p>
               </div>
             </div>
             <Textarea
               className="border-0 h-[300px] text-[16px]"
-              // autoFocus
               maxLength={255}
               required
               value={reviewText}

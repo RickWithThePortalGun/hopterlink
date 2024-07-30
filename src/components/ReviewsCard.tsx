@@ -10,8 +10,13 @@ const ReviewsCard = ({ review }: Props) => {
     <Card className="w-full p-2 mb-4 gap-6 flex flex-col">
       <div className="flex flex-row gap-2 items-start justify-between">
         <div className="flex flex-col gap-1 items-start">
+          {review.user.first_name?  <p className="text-sm font-bold">
+            {review.user.first_name} {review.user.last_name}
+          </p> :  <p className="text-sm font-bold">
+            {review.user.email}
+          </p>}
           <p className="text-sm font-bold">
-            {review.user_first_name} {review.user_last_name}
+            {review.user.first_name} {review.user.last_name}
           </p>
           <p className="text-xs text-secondary font-bold">{review.user_name}</p>
         </div>

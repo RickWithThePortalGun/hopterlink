@@ -29,6 +29,7 @@ import {
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Gallery from "@/components/Gallery";
 
 interface Props {
   params: { id: string }; // Use id instead of slug
@@ -41,12 +42,12 @@ const Business = ({ params }: Props) => {
     status: string;
     data: { access_token: string };
   } = useSession();
-  const accessToken = session?.access_token ?? "";
   const [businessInfo, setBusinessInfo] = useState<any>({});
+  const [reviews, setReviews] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [active, setActive] = useState(
-    businessInfo.business_name ? businessInfo.images[0].image : "",
+    businessInfo.business_name ? businessInfo.images[0].image : ""
   );
 
   const copyToClipboard = (text: any) => {
@@ -63,8 +64,7 @@ const Business = ({ params }: Props) => {
             title: "Error",
             description: "Failed to copy the link. Please try again.",
           });
-          console.error("Could not copy text: ", err);
-        },
+        }
       );
     } else {
       toast({
@@ -102,6 +102,10 @@ const Business = ({ params }: Props) => {
       try {
         setLoading(true);
         const business = await axios.get(`/api/business/${id}`);
+        const reviews = await axios.get(`/api/reviews/${id}`);
+        console.log("Fetched reviews: ", reviews.data);
+        setReviews(reviews.data);
+        console.log(reviews);
         setBusinessInfo(business.data);
         // if (business.id) {
         //   const { is_favorite } = await checkFavorite(business.id);
@@ -124,32 +128,35 @@ const Business = ({ params }: Props) => {
         return <div>{businessInfo?.services}</div>;
       case "gallery":
         return (
-          <div className="grid gap-4">
-            <div>
-              <img
-                className="h-auto w-full max-w-full rounded-lg object-cover object-center md:h-[480px]"
-                src={active}
-                alt=""
-              />
-            </div>
-            <div className="grid grid-cols-5 gap-4">
-              {businessInfo.images?.map((imgelink, index) => (
-                <div key={index}>
-                  <img
-                    onClick={() => setActive(imgelink.image)}
-                    src={imgelink.image}
-                    className="h-20 max-w-full cursor-pointer rounded-lg object-cover object-center"
-                    alt={businessInfo.name}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          // <div className="grid gap-4">
+          //   <div>
+          //     <img
+          //       className="h-auto w-full max-w-full rounded-lg object-cover object-center md:h-[480px]"
+          //       src={active}
+          //       alt=""
+          //     />
+          //   </div>
+          //   <div className="grid grid-cols-5 gap-4">
+          //     {businessInfo.images?.map((imgelink, index) => (
+          //       <div key={index}>
+          //         <img
+          //           onClick={() => setActive(imgelink.image)}
+          //           src={imgelink.image}
+          //           className="h-20 max-w-full cursor-pointer rounded-lg object-cover object-center"
+          //           alt={businessInfo.name}
+          //         />
+          //       </div>
+          //     ))}
+          //   </div>
+          // </div>
+          <>
+            <Gallery images={businessInfo.images} />
+          </>
         );
       case "reviews":
         return (
           <div>
-            {businessInfo?.reviews
+            {reviews
               .slice()
               .reverse()
               .map((review: any) => (
@@ -208,6 +215,10 @@ const Business = ({ params }: Props) => {
       text: `Rendering information..`,
     },
   ];
+  const handleAddReview = (newReview: any) => {
+    setReviews((prevReviews) => [newReview, ...prevReviews]);
+  };
+
   return (
     <HeaderContainer>
       {loading || !businessInfo.business_name ? (
@@ -328,7 +339,10 @@ const Business = ({ params }: Props) => {
               className="flex flex-row items-center max-md:w-full gap-2 mt-2
                 max-sm:flex-col"
             >
-              <AddAReview businessInfo={businessInfo} />
+              <AddAReview
+                businessInfo={businessInfo}
+                onReviewAdded={handleAddReview}
+              />{" "}
               <SendAMesage businessInfo={businessInfo} />
               <Button
                 className="flex gap-2 items-center min-w-60"

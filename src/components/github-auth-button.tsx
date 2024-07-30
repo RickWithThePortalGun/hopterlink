@@ -9,8 +9,9 @@ import { FcGoogle } from "react-icons/fc";
 import { Button } from "./ui/button";
 
 export default function GoogleSignInButton() {
-    const searchParams = useSearchParams();
-    const callback = searchParams.get('callbackUrl');
+  const {status}=useSession()
+  const searchParams = useSearchParams();
+  const callback = searchParams.get("callbackUrl");
 
   return (
     <Button
@@ -18,7 +19,7 @@ export default function GoogleSignInButton() {
       variant="secondary"
       type="button"
       onClick={() => {
-        void signIn("google", { callbackUrl: callback  ?? "/" });
+        void signIn("google", { callbackUrl: callback ?? "/" });
       }}
       // signIn('github', { callbackUrl: callbackUrl ?? '/dashboard' })
     >

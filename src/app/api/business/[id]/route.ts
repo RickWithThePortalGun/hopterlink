@@ -6,7 +6,6 @@ export async function GET(
   { params }: { params: { id: string } },
 ) {
   const uri = `/api/businesses/${parseInt(params.id)}/`;
-  console.log("endpoint hit");
   try {
     const result = await request.get(uri);
     const response = result.data;
