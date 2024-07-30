@@ -1,16 +1,16 @@
 "use client";
 import Logo from "@/components/Logo";
 import Particles from "@/components/magicui/particles";
+import { toast } from "@/components/ui-hooks/use-toast";
+import { Button } from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
+import animationData from "@/constants/verified.json";
+import Stepper from "@keyvaluesystems/react-stepper";
 import axios from "axios";
 import Lottie from "lottie-react";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import animationData from "@/constants/verified.json";
-import Stepper from "@keyvaluesystems/react-stepper";
-import { FidgetSpinner, RotatingLines } from "react-loader-spinner";
-import { toast } from "@/components/ui-hooks/use-toast";
-import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { RotatingLines } from "react-loader-spinner";
 
 type Props = {};
 

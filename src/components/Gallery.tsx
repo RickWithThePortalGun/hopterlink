@@ -9,6 +9,7 @@ import "swiper/css/pagination";
 // import required modules
 import { Pagination } from "swiper/modules";
 import Image from "next/image";
+import { RotatingLines } from "react-loader-spinner";
 
 interface Props {
   images: any;
@@ -27,13 +28,14 @@ const Gallery = ({ images }: Props) => {
         {images.map((image, index) => (
           <SwiperSlide>
             <div className="flex items-center justify-center relative w-full h-[500px] rounded-md">
-              {loading ? <p>Loading...</p> : ""}
+              {loading ? <RotatingLines strokeColor="#c55e0c" width="20"/>: ""}
               <Image
                 objectFit="cover"
                 alt="business-images"
                 fill
                 className="rounded-md"
-                onLoad={() => setLoading(false)}
+                
+                onLoad={() => <RotatingLines strokeColor="#c55e0c" width="20"/>}
                 src={image.image}
               />
             </div>
