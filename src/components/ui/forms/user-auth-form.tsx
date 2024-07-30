@@ -22,8 +22,7 @@ import { toast } from "@/components/ui-hooks/use-toast";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Enter a valid email address" }),
-  password: z
-    .string()
+  password: z.string(),
 });
 
 type UserFormValue = z.infer<typeof formSchema>;

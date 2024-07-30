@@ -204,7 +204,9 @@ const SignUpForm = () => {
                   required
                   control-id="ControlID-1"
                 />
-                {errors.first_name && <p className="text-red-500 text-xs">{errors.first_name}</p>}
+                {errors.first_name && (
+                  <p className="text-red-500 text-xs">{errors.first_name}</p>
+                )}
               </div>
               <div>
                 <Label
@@ -230,7 +232,9 @@ const SignUpForm = () => {
                   required
                   control-id="ControlID-1"
                 />
-                {errors.last_name && <p className="text-red-500 text-xs">{errors.last_name}</p>}
+                {errors.last_name && (
+                  <p className="text-red-500 text-xs">{errors.last_name}</p>
+                )}
               </div>
             </div>
             <div className="grid gap-2">
@@ -272,7 +276,9 @@ const SignUpForm = () => {
                 required
                 control-id="ControlID-2"
               />
-              {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
+              {errors.email && (
+                <p className="text-red-500 text-xs">{errors.email}</p>
+              )}
             </div>
             <div className="grid gap-2">
               <Label
@@ -298,7 +304,9 @@ const SignUpForm = () => {
                 required
                 control-id="ControlID-2"
               />
-              {errors.password1 && <p className="text-red-500 text-xs">{errors.password1}</p>}
+              {errors.password1 && (
+                <p className="text-red-500 text-xs">{errors.password1}</p>
+              )}
             </div>
             <div className="grid gap-2">
               <Label
@@ -324,7 +332,9 @@ const SignUpForm = () => {
                 required
                 control-id="ControlID-2"
               />
-              {errors.password2 && <p className="text-red-500 text-xs">{errors.password2}</p>}
+              {errors.password2 && (
+                <p className="text-red-500 text-xs">{errors.password2}</p>
+              )}
             </div>
             <div className="flex flex-row justify-between items-center">
               <p className="text-xs font-extrabold">
