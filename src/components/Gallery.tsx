@@ -46,7 +46,6 @@ const Gallery = ({ images }: Props) => {
             </div>
           </SwiperSlide>
         ))}
-        
       </Swiper>
     </div>
   );

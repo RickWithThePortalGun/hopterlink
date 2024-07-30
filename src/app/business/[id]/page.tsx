@@ -154,20 +154,23 @@ const Business = ({ params }: Props) => {
           <>
             <Gallery images={businessInfo.images} />
             <div className="h-fit py-4 flex flex-row items-center gap-4">
-        {businessInfo.images.map((image, index) => ( <>
-        <div className="w-[100px] relative h-[100px]">
-        <Image
-                objectFit="cover"
-                alt="business-images"
-                fill
-                className="rounded-md"
-                onLoad={() => (
-                  <RotatingLines strokeColor="#c55e0c" width="20" />
-                )}
-                src={image.thumbnail}
-              />
-        </div>
-        </> ))} </div>
+              {businessInfo.images.map((image, index) => (
+                <>
+                  <div className="w-[100px] relative h-[100px]">
+                    <Image
+                      objectFit="cover"
+                      alt="business-images"
+                      fill
+                      className="rounded-md"
+                      onLoad={() => (
+                        <RotatingLines strokeColor="#c55e0c" width="20" />
+                      )}
+                      src={image.thumbnail}
+                    />
+                  </div>
+                </>
+              ))}{" "}
+            </div>
           </>
         );
       case "reviews":
