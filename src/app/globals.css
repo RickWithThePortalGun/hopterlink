@@ -130,7 +130,6 @@
   display: -webkit-inline-box !important;
   vertical-align: unset !important;
 }
-
 .swiper-pagination {
-  --swiper-pagination-color: goldenrod;
+  --swiper-pagination-color: #c55e0c;
 }
