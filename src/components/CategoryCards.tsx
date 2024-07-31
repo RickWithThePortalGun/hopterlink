@@ -32,10 +32,10 @@ const CategoryCards = () => {
                       gap-6 items-center h-[150px] justify-center"
                   >
                     <div className="flex h-[50%] items-center justify-center">
-                    <Icon name={category.icon as string} size={26} />
+                      <Icon name={category.icon as string} size={26} />
                     </div>
                     <div className="h-[50%]">
-                    <Typography variant={"p"}>{category.name}</Typography>
+                      <Typography variant={"p"}>{category.name}</Typography>
                     </div>
                   </div>
                 </Link>

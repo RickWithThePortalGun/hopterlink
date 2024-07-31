@@ -118,15 +118,15 @@
   white-space: nowrap;
 }
 
-.empty-icons{
-  display:flex !important
+.empty-icons {
+  display: flex !important;
 }
-.filled-icons{
-  display: -webkit-inline-box !important
+.filled-icons {
+  display: -webkit-inline-box !important;
 }
 
 .filled-icons svg,
-.empty-icons svg{
+.empty-icons svg {
   display: -webkit-inline-box !important;
-  vertical-align:unset !important;
+  vertical-align: unset !important;
 }
