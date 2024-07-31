@@ -31,8 +31,12 @@ const CategoryCards = () => {
                     className="flex flex-col z-40 p-4 rounded-md bg-background border-[1px]
                       gap-6 items-center h-[150px] justify-center"
                   >
-                    <Icon name={category.icon as string} />
+                    <div className="flex h-[50%] items-center justify-center">
+                    <Icon name={category.icon as string} size={26} />
+                    </div>
+                    <div className="h-[50%]">
                     <Typography variant={"p"}>{category.name}</Typography>
+                    </div>
                   </div>
                 </Link>
               );

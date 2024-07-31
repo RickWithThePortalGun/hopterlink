@@ -42,7 +42,7 @@ const DetailCard = ({
           border-transparent hover:transition hover:ease-in-out
           ease-in-out p-4"
       >
-        <div className="m-2 rounded-md relative overflow-hidden w-[150px] h-[150px]">
+        <div className="m-2 rounded-md relative overflow-hidden md:w-[150px] max-sm:w-[300px] max-sm:h-[300px] md:h-[150px]">
           <Image src={logo} alt="image" fill />
         </div>
         <div className="w-2/3 max-md:w-full m-2 pl-4 gap-2 flex max-md:items-center flex-col">
