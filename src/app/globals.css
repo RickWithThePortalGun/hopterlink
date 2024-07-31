@@ -130,3 +130,7 @@
   display: -webkit-inline-box !important;
   vertical-align: unset !important;
 }
+
+.swiper-pagination {
+  --swiper-pagination-color: goldenrod;
+}
