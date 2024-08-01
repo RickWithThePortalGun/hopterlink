@@ -131,8 +131,8 @@ export function Header({ className }: SidebarProps) {
               <DropdownMenuItem className="flex flex-row items-center gap-4">
                 <Activity size={14} /> Activity Feed
               </DropdownMenuItem>
-              <DropdownMenuItem  asChild>
-                <RecentlyViewed/>
+              <DropdownMenuItem asChild>
+                <RecentlyViewed />
               </DropdownMenuItem>
               <DropdownMenuItem className="flex flex-row items-center gap-4">
                 <File size={14} /> My Interest
@@ -585,9 +585,9 @@ export function Header({ className }: SidebarProps) {
                           <DropdownMenuItem className="flex flex-row items-center gap-4">
                             <Activity size={14} /> Activity Feed
                           </DropdownMenuItem>
-                          <DropdownMenuItem  asChild>
-                <RecentlyViewed/>
-              </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <RecentlyViewed />
+                          </DropdownMenuItem>
                           <DropdownMenuItem className="flex flex-row items-center gap-4">
                             <File size={14} /> My Interest
                           </DropdownMenuItem>

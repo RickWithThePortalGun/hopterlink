@@ -28,7 +28,7 @@ const RecentlyViewed = () => {
   const fetchRecents = async () => {
     try {
       const response = await axios.get("/api/recently-viewed/");
-      console.log(response)
+      console.log(response);
       setBusinesses(response.data.results);
     } catch (error) {
       console.error("Error fetching favorites:", error);
@@ -52,42 +52,49 @@ const RecentlyViewed = () => {
         <CredenzaHeader>
           <CredenzaTitle>Recently Viewed</CredenzaTitle>
           <CredenzaDescription>
-          Businesses you have recently visited would be listed here.
+            Businesses you have recently visited would be listed here.
           </CredenzaDescription>
         </CredenzaHeader>
         <CredenzaBody>
-          <ScrollArea className="h-96" >
-          {businesses.length > 0 ? (
-            <ul className="px-4 my-2">
-              {businesses.map((business) => (
-                <>
-                  <Link href={`/business/${business.id}`} >
-                  <div className="flex gap-1 flex-col">
-                    <div className="flex flex-row items-center justify-between mt-2">
-                      <li key={business.id} className="my-2">
-                        {business.business_name}
-                      </li>
-                      { business.average_rating < 1 ? <p className="text-xs">No reviews</p>:<AverageReview
-                        size={14}
-                        value={business.average_rating}
-                      /> }
-                      {" "}
-                    </div>
-                    <div>
-                      <p className="text-xs text-secondary-foreground">
-                        {business.location}
-                      </p>
-                    </div>
-                    </div>
-                  </Link>
-                  <Separator />
-                </>
-              ))}
-            </ul>
-          ) : (
-            <div className="flex items-center justify-center h-[100%] w-full">            <p className="text-primary-foreground">Explore Hopterlink's vast resources.</p></div>
-
-          )}
+          <ScrollArea className="h-96">
+            {businesses.length > 0 ? (
+              <ul className="px-4 my-2">
+                {businesses.map((business) => (
+                  <>
+                    <Link href={`/business/${business.id}`}>
+                      <div className="flex gap-1 flex-col">
+                        <div className="flex flex-row items-center justify-between mt-2">
+                          <li key={business.id} className="my-2">
+                            {business.business_name}
+                          </li>
+                          {business.average_rating < 1 ? (
+                            <p className="text-xs">No reviews</p>
+                          ) : (
+                            <AverageReview
+                              size={14}
+                              value={business.average_rating}
+                            />
+                          )}{" "}
+                        </div>
+                        <div>
+                          <p className="text-xs text-secondary-foreground">
+                            {business.location}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                    <Separator />
+                  </>
+                ))}
+              </ul>
+            ) : (
+              <div className="flex items-center justify-center h-[100%] w-full">
+                {" "}
+                <p className="text-primary-foreground">
+                  Explore Hopterlink's vast resources.
+                </p>
+              </div>
+            )}
           </ScrollArea>
         </CredenzaBody>
         <CredenzaFooter>
