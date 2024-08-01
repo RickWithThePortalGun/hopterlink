@@ -58,6 +58,7 @@ import SearchComponent from "../SearchComponent";
 import { useRouter } from "next/navigation";
 import { ScrollArea } from "../ui/scroll-area";
 import { setAuthorizationToken } from "@/utils/http-request";
+import RecentlyViewed from "../RecentlyViewed";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -130,8 +131,8 @@ export function Header({ className }: SidebarProps) {
               <DropdownMenuItem className="flex flex-row items-center gap-4">
                 <Activity size={14} /> Activity Feed
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex flex-row items-center gap-4">
-                <Clock size={14} /> Recently Viewed
+              <DropdownMenuItem  asChild>
+                <RecentlyViewed/>
               </DropdownMenuItem>
               <DropdownMenuItem className="flex flex-row items-center gap-4">
                 <File size={14} /> My Interest
@@ -584,9 +585,9 @@ export function Header({ className }: SidebarProps) {
                           <DropdownMenuItem className="flex flex-row items-center gap-4">
                             <Activity size={14} /> Activity Feed
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="flex flex-row items-center gap-4">
-                            <Clock size={14} /> Recently Viewed
-                          </DropdownMenuItem>
+                          <DropdownMenuItem  asChild>
+                <RecentlyViewed/>
+              </DropdownMenuItem>
                           <DropdownMenuItem className="flex flex-row items-center gap-4">
                             <File size={14} /> My Interest
                           </DropdownMenuItem>
