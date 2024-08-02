@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
   try {
     const result = await request.get(uri);
     return NextResponse.json(result.data, { status: 200 });
-  } catch (error:any) {
+  } catch (error: any) {
     console.error("Error fetching collection:", error.response.data);
     return NextResponse.json(error, { status: 400 });
   }

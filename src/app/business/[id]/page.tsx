@@ -283,7 +283,9 @@ const Business = ({ params }: Props) => {
                       />
                     </div>
                     <Typography variant={"p"}>
-                      {businessInfo?.reviews.length===1 ? `${businessInfo?.reviews.length} Review` :`${businessInfo?.reviews.length} Reviews` }
+                      {businessInfo?.reviews.length === 1
+                        ? `${businessInfo?.reviews.length} Review`
+                        : `${businessInfo?.reviews.length} Reviews`}
                     </Typography>
                   </>
                 ) : (
@@ -377,8 +379,8 @@ const Business = ({ params }: Props) => {
                 </Button>
               ) : (
                 <Button
-                className="flex min-w-60 gap-2 items-center max-md:mt-2"
-                variant={"ghost"}
+                  className="flex min-w-60 gap-2 items-center max-md:mt-2"
+                  variant={"ghost"}
                   disabled
                 >
                   <BookmarkCheck size={16} />
