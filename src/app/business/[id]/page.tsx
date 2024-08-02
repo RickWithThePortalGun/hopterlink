@@ -265,9 +265,11 @@ const Business = ({ params }: Props) => {
           className="flex flex-col h-full md:py-30 md:px-28 pt-11 pb-24 px-6
             w-full gap-12"
         >
-          <div className="mt-10">
+          <div className="mt-10 z-50">
             {businessInfo.business_name ? (
+            <div className="">
               <Crumbs businessInfo={businessInfo} />
+              </div>
             ) : (
               ""
             )}

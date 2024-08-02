@@ -17,10 +17,10 @@ const Crumbs = ({ businessInfo }: Props) => {
   return (
     <Breadcrumb>
       <BreadcrumbList>
-        <BreadcrumbItem>
+        <BreadcrumbItem className="cursor-pointer">
           <BreadcrumbLink
             href={`/categories/${businessInfo?.industry.id}`}
-            className="max-sm:text-xs "
+            className="max-sm:text-xs cursor-pointer"
           >
             {businessInfo?.industry["name"]}
           </BreadcrumbLink>
@@ -29,7 +29,7 @@ const Crumbs = ({ businessInfo }: Props) => {
         <BreadcrumbItem>
           <BreadcrumbLink
             href={`/categories/${businessInfo?.industry.id}`}
-            className="max-sm:text-xs "
+            className="max-sm:text-xs cursor-pointer"
           >
             {businessInfo?.industry_subcategory["name"]}
           </BreadcrumbLink>
