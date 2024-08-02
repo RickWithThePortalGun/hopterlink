@@ -80,23 +80,23 @@ const Business = ({ params }: Props) => {
     copyToClipboard(businessURL);
   };
 
-  // const checkFavorite = async (businessId: any) => {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://127.0.0.1:8000/favorites/check/${businessId}/`,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${session?.access_token}`,
-  //         },
-  //       },
-  //     );
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error("Error checking favorite:", error);
-  //     throw error;
-  //   }
-  // };
+  const checkFavorite = async (businessId: any) => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/favorites/check/${businessId}/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session?.access_token}`,
+          },
+        },
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error checking favorite:", error);
+      throw error;
+    }
+  };
 
   useEffect(() => {
     const id = params.id as string;
@@ -200,27 +200,18 @@ const Business = ({ params }: Props) => {
   const priceRange = businessInfo?.price_range;
 
   const handleAddToFavorites = async () => {
-    const axiosInstance = axios.create({
-      baseURL: "http://127.0.0.1:8000/api/",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session?.access_token}`,
-      },
-    });
     try {
-      await axiosInstance.post("http://localhost:8000/favorites/add/", {
-        business_id: businessInfo.id,
-      });
+      await axios.post(`/api/add-to-collection/${params.id}`);
       setIsFavorite(true);
       toast({
-        title: "Added to Favorites",
-        description: `${businessInfo.name} has been added to your favorites.`,
+        title: "Added to Collections",
+        description: `${businessInfo.business_name} has been added to your collection.`,
       });
     } catch (error) {
       toast({
         title: "Something went wrong",
         description:
-          "There was an error adding this business to your favorites. Please try again later.",
+          "There was an error adding this business to your collection. Please try again later.",
       });
     }
   };
@@ -292,7 +283,7 @@ const Business = ({ params }: Props) => {
                       />
                     </div>
                     <Typography variant={"p"}>
-                      {businessInfo?.reviews.length} Reviews
+                      {businessInfo?.reviews.length===1 ? `${businessInfo?.reviews.length} Review` :`${businessInfo?.reviews.length} Reviews` }
                     </Typography>
                   </>
                 ) : (
@@ -382,12 +373,12 @@ const Business = ({ params }: Props) => {
                   onClick={handleAddToFavorites}
                 >
                   <Bookmark size={16} />
-                  Add to Favorites
+                  Add to Collections
                 </Button>
               ) : (
                 <Button
-                  className="flex gap-2 items-center"
-                  variant={"ghost"}
+                className="flex min-w-60 gap-2 items-center max-md:mt-2"
+                variant={"ghost"}
                   disabled
                 >
                   <BookmarkCheck size={16} />
