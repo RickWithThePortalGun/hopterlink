@@ -17,7 +17,11 @@ const Logo = () => {
 
   return (
     <img
-      src={currentTheme === "dark" ? "/Hopterlink png 2.png" : "/Hopterlink png 3.png"}
+      src={
+        currentTheme === "dark"
+          ? "/Hopterlink png 2.png"
+          : "/Hopterlink png 3.png"
+      }
       alt="Logo"
       className="mr-3 w-20"
     />

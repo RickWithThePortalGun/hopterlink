@@ -267,8 +267,8 @@ const Business = ({ params }: Props) => {
         >
           <div className="mt-10 z-50">
             {businessInfo.business_name ? (
-            <div className="">
-              <Crumbs businessInfo={businessInfo} />
+              <div className="">
+                <Crumbs businessInfo={businessInfo} />
               </div>
             ) : (
               ""
