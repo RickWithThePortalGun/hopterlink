@@ -43,20 +43,20 @@ const Collection = () => {
   useEffect(() => {
     void fetchCollection();
   }, []);
-  
+
   const deleteCollection = async (
     collectionId: string,
     businessName: string,
   ) => {
     try {
       await axios.post(`/api/remove-from-collection/${collectionId}`);
-      console.log(businesses)
+      console.log(businesses);
       setBusinesses((prevBusinesses) =>
         prevBusinesses.filter(
           (business) => business.business.id.toString() !== collectionId,
         ),
       );
-      console.log(businesses)
+      console.log(businesses);
       toast({
         title: "Removed from Collections",
         description: `${businessName} has been removed from your collection.`,
