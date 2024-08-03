@@ -193,8 +193,8 @@ const Business = ({ params }: Props) => {
 
   const getTabClass = (section: string) => {
     return section === activeSection
-      ? "bg-secondary rounded-full px-4 py-2 max-md:text-sm cursor-pointer"
-      : "px-4 py-2 cursor-pointer";
+      ? "bg-secondary rounded-full max-lg:px-2 px-4 mb-2 py-2 max-md:text-xs max-w-full cursor-pointer"
+      : "px-4 py-2 cursor-pointer max-md:text-xs";
   };
 
   const priceRange = businessInfo?.price_range;
@@ -349,9 +349,9 @@ const Business = ({ params }: Props) => {
             )} */}
             </div>
           </div>
-          <div className="flex flex-row max-md:flex-col items-center justify-between">
+          <div className="flex flex-row max-lg:flex-col max-lg:gap-2 items-center mt-2">
             <div
-              className="flex flex-row items-center max-md:w-full gap-2 mt-2
+              className="flex flex-row items-center max-md:w-full gap-2
                 max-sm:flex-col"
             >
               <AddAReview
@@ -389,10 +389,9 @@ const Business = ({ params }: Props) => {
               )}
             </div>
           </div>
-          <div className="flex-col flex gap-4">
+          <div className="flex-col flex max-w-full">
             <div
-              className="flex flex-row items-center gap-2 max-md:gap-0 mt-6  w-[55%]
-                justify-between"
+              className="flex flex-row items-center gap-2 max-md:gap-0 mt-6 max-w-full lg:justify-between"
             >
               <div
                 className={getTabClass("overview")}
@@ -427,7 +426,7 @@ const Business = ({ params }: Props) => {
                 Reviews
               </div>
             </div>
-            <Separator />
+            <Separator className="mb-2" />
             <div className="flex flex-row max-lg:flex-col items-start gap-4">
               <div className="w-2/3 max-lg:w-full">{renderContent()}</div>
               <div className="flex flex-col gap-2">

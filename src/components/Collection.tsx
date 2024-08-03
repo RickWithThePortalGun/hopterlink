@@ -21,12 +21,15 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import SwipeToRevealActions from "react-swipe-to-reveal-actions";
 import { toast } from "./ui-hooks/use-toast";
+import { Skeleton } from "./ui/skeleton";
 
 const Collection = () => {
   const [businesses, setBusinesses] = useState<any[]>([]);
+  const [loading, setLoading]=useState<boolean>(false)
   const { data: session } = useSession();
 
   const fetchCollection = async () => {
+    setLoading(true)
     try {
       const response = await axios.get("/api/collection/");
       setBusinesses(response.data);
@@ -34,14 +37,12 @@ const Collection = () => {
     } catch (error) {
       console.error("Error fetching favorites:", error);
     }
+    setLoading(false)
   };
 
   useEffect(() => {
-    if (session) {
       void fetchCollection();
-    }
-  }, [session, businesses]);
-  console.log(businesses);
+  }, []);
   const deleteCollection = async (
     collectionId: string,
     businessName: string,
@@ -107,7 +108,9 @@ const Collection = () => {
           </CredenzaDescription>
         </CredenzaHeader>
         <CredenzaBody>
-          {businesses.length > 0 ? (
+          {loading ? <div className={"flex flex-col gap-4 items-center"}><Skeleton className="w-full h-24 rounded-md"/><Skeleton className="w-full h-24 rounded-md"/><Skeleton className="w-full h-24 rounded-md"/></div> :<>
+
+            {businesses.length > 0 ? (
             <ul>
               {businesses.map((business) => (
                 <>
@@ -146,10 +149,11 @@ const Collection = () => {
                         <li key={business.business.id} className="my-2">
                           {business.business.business_name}
                         </li>
+                        {business.business.average_rating <1 ? <p className="text-xs">No reviews</p>:
                         <AverageReview
                           size={14}
                           value={business.business.average_rating}
-                        />{" "}
+                        />}
                       </div>
                     </Link>
                   </SwipeToRevealActions>
@@ -160,6 +164,8 @@ const Collection = () => {
           ) : (
             <p>No businesses found.</p>
           )}
+          </>}
+  
         </CredenzaBody>
         <CredenzaFooter>
           <CredenzaClose asChild>
