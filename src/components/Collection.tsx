@@ -25,11 +25,11 @@ import { Skeleton } from "./ui/skeleton";
 
 const Collection = () => {
   const [businesses, setBusinesses] = useState<any[]>([]);
-  const [loading, setLoading]=useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
   const { data: session } = useSession();
 
   const fetchCollection = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const response = await axios.get("/api/collection/");
       setBusinesses(response.data);
@@ -37,11 +37,11 @@ const Collection = () => {
     } catch (error) {
       console.error("Error fetching favorites:", error);
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   useEffect(() => {
-      void fetchCollection();
+    void fetchCollection();
   }, []);
   const deleteCollection = async (
     collectionId: string,
@@ -108,64 +108,73 @@ const Collection = () => {
           </CredenzaDescription>
         </CredenzaHeader>
         <CredenzaBody>
-          {loading ? <div className={"flex flex-col gap-4 items-center"}><Skeleton className="w-full h-24 rounded-md"/><Skeleton className="w-full h-24 rounded-md"/><Skeleton className="w-full h-24 rounded-md"/></div> :<>
-
-            {businesses.length > 0 ? (
-            <ul>
-              {businesses.map((business) => (
-                <>
-                  <SwipeToRevealActions
-                    hideDotsButton
-                    actionButtons={[
-                      {
-                        content: (
-                          <div className="flex items-center justify-center">
-                            <Trash color="#c55e0c" />
-                          </div>
-                        ),
-                        onClick: () =>
-                          deleteCollection(
-                            business.business.id.toString(),
-                            business.business.business_name,
-                          ),
-                      },
-                      {
-                        content: (
-                          <div className="flex items-center justify-center">
-                            <Link2 color="#c55e0c" />
-                          </div>
-                        ),
-                        onClick: () =>
-                          shareCollection(business.business.id.toString()),
-                      },
-                    ]}
-                    actionButtonMinWidth={70}
-                  >
-                    <Link
-                      href={`/business/${business.business.id}`}
-                      className="w-[100%] absolute top-0 right-0 left-0 bottom-0 items-center px-2 py-2 bg-background"
-                    >
-                      <div className="flex flex-row items-center gap-4 justify-between w-full">
-                        <li key={business.business.id} className="my-2">
-                          {business.business.business_name}
-                        </li>
-                        {business.business.average_rating <1 ? <p className="text-xs">No reviews</p>:
-                        <AverageReview
-                          size={14}
-                          value={business.business.average_rating}
-                        />}
-                      </div>
-                    </Link>
-                  </SwipeToRevealActions>
-                  <Separator />
-                </>
-              ))}
-            </ul>
+          {loading ? (
+            <div className={"flex flex-col gap-4 items-center"}>
+              <Skeleton className="w-full h-24 rounded-md" />
+              <Skeleton className="w-full h-24 rounded-md" />
+              <Skeleton className="w-full h-24 rounded-md" />
+            </div>
           ) : (
-            <p>No businesses found.</p>
+            <>
+              {businesses.length > 0 ? (
+                <ul>
+                  {businesses.map((business) => (
+                    <>
+                      <SwipeToRevealActions
+                        hideDotsButton
+                        actionButtons={[
+                          {
+                            content: (
+                              <div className="flex items-center justify-center">
+                                <Trash color="#c55e0c" />
+                              </div>
+                            ),
+                            onClick: () =>
+                              deleteCollection(
+                                business.business.id.toString(),
+                                business.business.business_name,
+                              ),
+                          },
+                          {
+                            content: (
+                              <div className="flex items-center justify-center">
+                                <Link2 color="#c55e0c" />
+                              </div>
+                            ),
+                            onClick: () =>
+                              shareCollection(business.business.id.toString()),
+                          },
+                        ]}
+                        actionButtonMinWidth={70}
+                      >
+                        <Link
+                          href={`/business/${business.business.id}`}
+                          className="w-[100%] absolute top-0 right-0 left-0 bottom-0 items-center px-2 py-2 bg-background"
+                        >
+                          <div className="flex flex-row items-center gap-4 justify-between w-full">
+                            <li key={business.business.id} className="my-2">
+                              {business.business.business_name}
+                            </li>
+                            {business.business.average_rating < 1 ? (
+                              <p className="text-xs">No reviews</p>
+                            ) : (
+                              <AverageReview
+                                size={14}
+                                value={business.business.average_rating}
+                              />
+                            )}
+                          </div>
+                        </Link>
+                      </SwipeToRevealActions>
+                      <Separator />
+                    </>
+                  ))}
+                </ul>
+              ) : (
+                <p>No businesses found.</p>
+              )}
+            </>
           )}
-          </>}
-  
         </CredenzaBody>
         <CredenzaFooter>
           <CredenzaClose asChild>

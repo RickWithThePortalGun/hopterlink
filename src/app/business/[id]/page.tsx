@@ -390,9 +390,7 @@ const Business = ({ params }: Props) => {
             </div>
           </div>
           <div className="flex-col flex max-w-full">
-            <div
-              className="flex flex-row items-center gap-2 max-md:gap-0 mt-6 max-w-full lg:justify-between"
-            >
+            <div className="flex flex-row items-center gap-2 max-md:gap-0 mt-6 max-w-full lg:justify-between">
               <div
                 className={getTabClass("overview")}
                 onClick={() => {
