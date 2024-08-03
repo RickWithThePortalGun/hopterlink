@@ -34,8 +34,8 @@ const CategoryCards = () => {
                     <div className="flex h-[50%] items-center justify-center">
                       <Icon name={category.icon as string} size={26} />
                     </div>
-                    <div className="h-[50%]">
-                      <Typography variant={"p"}>{category.name}</Typography>
+                    <div className="h-[50%] items-center flex justify-center">
+                      <Typography variant={"p"} className="leading-1 tracking-tighter max-lg:text-xs">{category.name}</Typography>
                     </div>
                   </div>
                 </Link>
