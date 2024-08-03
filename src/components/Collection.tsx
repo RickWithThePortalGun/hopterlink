@@ -43,17 +43,20 @@ const Collection = () => {
   useEffect(() => {
     void fetchCollection();
   }, []);
+  
   const deleteCollection = async (
     collectionId: string,
     businessName: string,
   ) => {
     try {
       await axios.post(`/api/remove-from-collection/${collectionId}`);
+      console.log(businesses)
       setBusinesses((prevBusinesses) =>
         prevBusinesses.filter(
-          (business) => business.business.id !== collectionId,
+          (business) => business.business.id.toString() !== collectionId,
         ),
       );
+      console.log(businesses)
       toast({
         title: "Removed from Collections",
         description: `${businessName} has been removed from your collection.`,
@@ -69,7 +72,7 @@ const Collection = () => {
 
   const shareCollection = (businessId: string) => {
     // TODO: Change this url at a later time
-    const businessurl = `https://hopterlink.vercel.app/businesses/${businessId}`;
+    const businessurl = `https://hopterlink.vercel.app/business/${businessId}`;
     if (navigator.clipboard) {
       navigator.clipboard.writeText(businessurl).then(
         () => {
@@ -119,7 +122,7 @@ const Collection = () => {
               {businesses.length > 0 ? (
                 <ul>
                   {businesses.map((business) => (
-                    <>
+                    <li key={business.business.id} className="my-2">
                       <SwipeToRevealActions
                         hideDotsButton
                         actionButtons={[
@@ -152,9 +155,7 @@ const Collection = () => {
                           className="w-[100%] absolute top-0 right-0 left-0 bottom-0 items-center px-2 py-2 bg-background"
                         >
                           <div className="flex flex-row items-center gap-4 justify-between w-full">
-                            <li key={business.business.id} className="my-2">
-                              {business.business.business_name}
-                            </li>
+                            {business.business.business_name}
                             {business.business.average_rating < 1 ? (
                               <p className="text-xs">No reviews</p>
                             ) : (
@@ -167,7 +168,7 @@ const Collection = () => {
                         </Link>
                       </SwipeToRevealActions>
                       <Separator />
-                    </>
+                    </li>
                   ))}
                 </ul>
               ) : (
