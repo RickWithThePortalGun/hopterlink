@@ -32,9 +32,11 @@ export const CategoriesProvider = ({ children }: Props) => {
   useEffect(() => {
     const fetchCategories = async () => {
       const fetchedData = await axios.get("/api/categories");
-      console.log(fetchedData)
+      console.log(fetchedData);
       if (fetchedData) {
-        const fetchedCategories = Object.values(fetchedData.data.results) as Category[];
+        const fetchedCategories = Object.values(
+          fetchedData.data.results,
+        ) as Category[];
         setCategories(fetchedCategories);
         setLoading(false);
       }
