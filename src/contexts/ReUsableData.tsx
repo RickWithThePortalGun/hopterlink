@@ -6,7 +6,6 @@ import {
   useState,
   ReactNode,
 } from "react";
-import { getCategories } from "@/app/api/categories/categories";
 import { Category } from "@/constants/constants";
 import axios from "axios";
 
@@ -33,8 +32,9 @@ export const CategoriesProvider = ({ children }: Props) => {
   useEffect(() => {
     const fetchCategories = async () => {
       const fetchedData = await axios.get("/api/categories");
+      console.log(fetchedData)
       if (fetchedData) {
-        const fetchedCategories = Object.values(fetchedData.data) as Category[];
+        const fetchedCategories = Object.values(fetchedData.data.results) as Category[];
         setCategories(fetchedCategories);
         setLoading(false);
       }
