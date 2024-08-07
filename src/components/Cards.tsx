@@ -94,10 +94,13 @@ const Cards = () => {
   return (
     <>
       {loading ? (
-        <Marquee gradient
-        gradientColor={"rgba(197, 94, 12, 0.03)"}
-        autoFill
-        pauseOnHover className="gap-6 flex items-center rounded-md">
+        <Marquee
+          gradient
+          gradientColor={"rgba(197, 94, 12, 0.03)"}
+          autoFill
+          pauseOnHover
+          className="gap-6 flex items-center rounded-md"
+        >
           <Skeleton
             className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
             items-center justify-center mx-4"
