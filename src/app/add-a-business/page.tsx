@@ -166,10 +166,10 @@ const App = () => {
     <HeaderContainer>
       <div className="p-20 max-md:p-6 mt-20 min-w-full">
         <div className="pb-10">
-          <Typography variant={"h1"} className="my-2">
+          <Typography variant={"h1"} className="my-2 text-center">
             Create a Business Account on Hopterlink
           </Typography>
-          <Typography variant={"h4"} className="text-[#eee]">
+          <Typography variant={"h4"} className="text-primary text-center">
             Offer services and products to fellow hopterlinkers
           </Typography>
         </div>

@@ -49,7 +49,7 @@ const Business = ({ params }: Props) => {
   const [loading, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [active, setActive] = useState(
-    businessInfo.business_name ? businessInfo.images[0].image : "",
+    businessInfo.business_name ? businessInfo.images[0].image : ""
   );
 
   const copyToClipboard = (text: any) => {
@@ -66,7 +66,7 @@ const Business = ({ params }: Props) => {
             title: "Error",
             description: "Failed to copy the link. Please try again.",
           });
-        },
+        }
       );
     } else {
       toast({
@@ -78,24 +78,6 @@ const Business = ({ params }: Props) => {
   const handleShareClick = () => {
     const businessURL = window.location.href;
     copyToClipboard(businessURL);
-  };
-
-  const checkFavorite = async (businessId: any) => {
-    try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/favorites/check/${businessId}/`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${session?.access_token}`,
-          },
-        },
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error checking favorite:", error);
-      throw error;
-    }
   };
 
   useEffect(() => {
@@ -373,16 +355,7 @@ const Business = ({ params }: Props) => {
               </Button>
             </div>
             <div className="">
-              {!isFavorite ? (
-                <Button
-                  className="flex min-w-60 gap-2 items-center max-md:mt-2"
-                  variant={"secondary"}
-                  onClick={handleAddToFavorites}
-                >
-                  <Bookmark size={16} />
-                  Add to Collections
-                </Button>
-              ) : (
+              {businessInfo.in_collection ? (
                 <Button
                   className="flex min-w-60 gap-2 items-center max-md:mt-2"
                   variant={"ghost"}
@@ -390,6 +363,15 @@ const Business = ({ params }: Props) => {
                 >
                   <BookmarkCheck size={16} />
                   Added to Favorites
+                </Button>
+              ) : (
+                <Button
+                  className="flex min-w-60 gap-2 items-center max-md:mt-2"
+                  variant={"secondary"}
+                  onClick={handleAddToFavorites}
+                >
+                  <Bookmark size={16} />
+                  Add to Collections
                 </Button>
               )}
             </div>
