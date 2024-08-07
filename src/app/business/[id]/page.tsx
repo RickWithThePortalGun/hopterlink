@@ -232,7 +232,6 @@ const Business = ({ params }: Props) => {
             className="mt-12 w-full flex-row max-md:flex-col flex justify-between
               items-center"
           >
-            
             <Typography className="text-primary" variant={"h1"}>
               {businessInfo?.business_name}
             </Typography>
@@ -313,7 +312,9 @@ const Business = ({ params }: Props) => {
             )} */}
             </div>
           </div>
-          <div className="text-center text-sm font-bold">{businessInfo?.description}</div>
+          <div className="text-center text-sm font-bold">
+            {businessInfo?.description}
+          </div>
           <div className="flex flex-row max-lg:flex-col md:justify-between max-lg:gap-2 items-center mt-2">
             <div
               className="flex flex-row items-center max-md:w-full gap-2
