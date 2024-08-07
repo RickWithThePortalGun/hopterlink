@@ -107,31 +107,8 @@ const Business = ({ params }: Props) => {
     switch (activeSection) {
       case "overview":
         return <div>{businessInfo?.description}</div>;
-      case "menu":
-        return <div>{businessInfo?.services}</div>;
       case "gallery":
         return (
-          // <div className="grid gap-4">
-          //   <div>
-          //     <img
-          //       className="h-auto w-full max-w-full rounded-lg object-cover object-center md:h-[480px]"
-          //       src={active}
-          //       alt=""
-          //     />
-          //   </div>
-          //   <div className="grid grid-cols-5 gap-4">
-          //     {businessInfo.images?.map((imgelink, index) => (
-          //       <div key={index}>
-          //         <img
-          //           onClick={() => setActive(imgelink.image)}
-          //           src={imgelink.image}
-          //           className="h-20 max-w-full cursor-pointer rounded-lg object-cover object-center"
-          //           alt={businessInfo.name}
-          //         />
-          //       </div>
-          //     ))}
-          //   </div>
-          // </div>
           <>
             <Gallery images={businessInfo.images} />
             <div className="h-fit py-4 flex flex-row items-center gap-4">
@@ -386,14 +363,7 @@ const Business = ({ params }: Props) => {
               >
                 Overview
               </div>
-              <div
-                className={getTabClass("menu")}
-                onClick={() => {
-                  setActiveSection("menu");
-                }}
-              >
-                Services
-              </div>
+              
               <div
                 className={getTabClass("gallery")}
                 onClick={() => {

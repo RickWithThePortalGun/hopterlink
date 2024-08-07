@@ -13,6 +13,7 @@ import { Card } from "./ui/cards";
 import Marquee from "react-fast-marquee";
 import { Skeleton } from "./ui/skeleton";
 import Image from "next/image";
+import colors from "tailwindcss/colors";
 
 const Cards = () => {
   const [recent, setRecents] = useState<any[]>([]);
@@ -113,6 +114,8 @@ const Cards = () => {
         </Marquee>
       ) : (
         <Marquee
+        gradient
+        gradientColor={colors.primary}
           autoFill
           pauseOnHover
           className="gap-6 flex items-center w-full"
