@@ -64,7 +64,7 @@ const RecentlyViewed = () => {
         <CredenzaBody>
           {loading ? (
             <div className="flex items-center justify-center p-10">
-            <RotatingLines height="20" width="20" strokeColor="#c55e0c" />
+              <RotatingLines height="20" width="20" strokeColor="#c55e0c" />
             </div>
           ) : (
             <>

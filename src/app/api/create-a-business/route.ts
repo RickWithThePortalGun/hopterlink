@@ -9,10 +9,10 @@ export async function POST(req: Request) {
     if (!response.ok) {
       throw new Error(`Failed to submit form: ${response.statusText}`);
     }
-    console.log(response)
-    return NextResponse.json(response.data,{status:201});
+    console.log(response);
+    return NextResponse.json(response.data, { status: 201 });
   } catch (error: any) {
-    console.log(error.response)
+    console.log(error.response);
     return NextResponse.json(error, { status: 400 });
   }
 }
