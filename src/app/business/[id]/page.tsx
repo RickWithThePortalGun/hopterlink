@@ -355,7 +355,7 @@ const Business = ({ params }: Props) => {
               </Button>
             </div>
             <div className="">
-              {businessInfo.in_collection ? (
+              {businessInfo.in_collection || isFavorite ? (
                 <Button
                   className="flex min-w-60 gap-2 items-center max-md:mt-2"
                   variant={"ghost"}
