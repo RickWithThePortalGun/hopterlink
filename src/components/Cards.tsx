@@ -34,7 +34,7 @@ const Cards = () => {
 
   const fetchRecentActivity = async (page: number) => {
     try {
-      const result = await axios.get('/api/recent-activity/');
+      const result = await axios.get("/api/recent-activity/");
       setRecents(result.data);
       setLoading(false);
     } catch (error) {
@@ -49,7 +49,7 @@ const Cards = () => {
 
   const renderContent = (activity) => {
     switch (activity.activity_type) {
-      case 'review':
+      case "review":
         return (
           <div className="flex flex-col gap-2">
             <Typography variant={"h5"} className="font-bold text-sm">
@@ -63,7 +63,7 @@ const Cards = () => {
             </Typography>
           </div>
         );
-      case 'business':
+      case "business":
         return (
           <div className="flex flex-col gap-2">
             <Typography variant={"h5"} className="font-bold text-sm">
@@ -72,7 +72,17 @@ const Cards = () => {
             <Typography variant={"p"} className="text-xs">
               {activity.content}
             </Typography>
-            <Image src={activity.content_object.logo ?activity.content_object.logo  : activity.content_object.images[0].thumbnail } width={64} height={64} alt="Business Logo"  className="w-16 h-16 object-contain rounded-md" />
+            <Image
+              src={
+                activity.content_object.logo
+                  ? activity.content_object.logo
+                  : activity.content_object.images[0].thumbnail
+              }
+              width={64}
+              height={64}
+              alt="Business Logo"
+              className="w-16 h-16 object-contain rounded-md"
+            />
           </div>
         );
       default:
@@ -102,7 +112,11 @@ const Cards = () => {
           />
         </Marquee>
       ) : (
-        <Marquee autoFill pauseOnHover className="gap-6 flex items-center w-full">
+        <Marquee
+          autoFill
+          pauseOnHover
+          className="gap-6 flex items-center w-full"
+        >
           {recent.map((activity) => (
             <div
               onClick={() => {
@@ -122,16 +136,20 @@ const Cards = () => {
                     variant={"p"}
                     className="text-sm font-semibold flex flex-col items-start gap-1"
                   >
-                    {activity.user.first_name ?? 'Anonymous'}{" "}
-                    {activity.user.last_name ?? 'User'}
-                    <p className="text-xs font-light">{activity.activity_type === "review" ? "reviewed a business" : "created a business account"}</p>
+                    {activity.user.first_name ?? "Anonymous"}{" "}
+                    {activity.user.last_name ?? "User"}
+                    <p className="text-xs font-light">
+                      {activity.activity_type === "review"
+                        ? "reviewed a business"
+                        : "created a business account"}
+                    </p>
                   </Typography>
                 </div>
               </div>
               <div className="flex flex-col flex-grow overflow-hidden">
                 {renderContent(activity)}
               </div>
-              <p  className="text-xs text-primary mt-auto text-end w-full">
+              <p className="text-xs text-primary mt-auto text-end w-full">
                 {formatTimeAgo(new Date(activity.created_at))}
               </p>
             </div>
