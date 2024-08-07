@@ -102,11 +102,9 @@ const Business = ({ params }: Props) => {
     void fetchData();
   }, []);
 
-  const [activeSection, setActiveSection] = useState("overview");
+  const [activeSection, setActiveSection] = useState("gallery");
   const renderContent = () => {
     switch (activeSection) {
-      case "overview":
-        return <div>{businessInfo?.description}</div>;
       case "gallery":
         return (
           <>
@@ -157,8 +155,8 @@ const Business = ({ params }: Props) => {
 
   const getTabClass = (section: string) => {
     return section === activeSection
-      ? "bg-secondary rounded-full max-lg:px-2 px-4 mb-2 py-2 max-md:text-xs max-w-full cursor-pointer"
-      : "px-4 py-2 cursor-pointer max-md:text-xs";
+      ? "bg-secondary rounded-full max-lg:px-2 px-4 mb-2 py-2 max-md:text-sm cursor-pointer"
+      : "px-4 py-2 cursor-pointer max-md:text-sm";
   };
 
   const priceRange = businessInfo?.price_range;
@@ -313,6 +311,7 @@ const Business = ({ params }: Props) => {
             )} */}
             </div>
           </div>
+          <div className="text-center text-sm">{businessInfo?.description}</div>
           <div className="flex flex-row max-lg:flex-col md:justify-between max-lg:gap-2 items-center mt-2">
             <div
               className="flex flex-row items-center max-md:w-full gap-2
@@ -353,17 +352,8 @@ const Business = ({ params }: Props) => {
               )}
             </div>
           </div>
-          <div className="flex-col flex max-w-full">
-            <div className="flex flex-row items-center gap-2 max-md:gap-0 mt-6 max-w-full lg:justify-between">
-              <div
-                className={getTabClass("overview")}
-                onClick={() => {
-                  setActiveSection("overview");
-                }}
-              >
-                Overview
-              </div>
-
+          <div className="flex-col flex">
+            <div className="flex flex-row items-center  max-md:gap-0 mt-6 lg:w-[1/2] gap-x-12">
               <div
                 className={getTabClass("gallery")}
                 onClick={() => {
