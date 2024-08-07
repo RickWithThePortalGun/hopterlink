@@ -363,7 +363,7 @@ const Business = ({ params }: Props) => {
               >
                 Overview
               </div>
-              
+
               <div
                 className={getTabClass("gallery")}
                 onClick={() => {
