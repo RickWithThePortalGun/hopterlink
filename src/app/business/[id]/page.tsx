@@ -49,7 +49,7 @@ const Business = ({ params }: Props) => {
   const [loading, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [active, setActive] = useState(
-    businessInfo.business_name ? businessInfo.images[0].image : "",
+    businessInfo.business_name ? businessInfo.images[0].image : ""
   );
 
   const copyToClipboard = (text: any) => {
@@ -66,7 +66,7 @@ const Business = ({ params }: Props) => {
             title: "Error",
             description: "Failed to copy the link. Please try again.",
           });
-        },
+        }
       );
     } else {
       toast({
@@ -89,7 +89,7 @@ const Business = ({ params }: Props) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${session?.access_token}`,
           },
-        },
+        }
       );
       return response.data;
     } catch (error) {
@@ -104,9 +104,8 @@ const Business = ({ params }: Props) => {
       try {
         setLoading(true);
         const business = await axios.get(`/api/business/${id}`);
-        const reviews = await axios.get(`/api/reviews/${id}`);
-        console.log("Fetched reviews: ", reviews.data);
-        setReviews(reviews.data);
+        console.log("Fetched reviews: ", business.data.reviews);
+        setReviews(business.data.reviews);
         console.log(reviews);
         setBusinessInfo(business.data);
         // if (business.id) {
@@ -119,7 +118,7 @@ const Business = ({ params }: Props) => {
       setLoading(false);
     };
     void fetchData();
-  }, [params.id]);
+  }, []);
 
   const [activeSection, setActiveSection] = useState("overview");
   const renderContent = () => {
@@ -176,14 +175,20 @@ const Business = ({ params }: Props) => {
       case "reviews":
         return (
           <div>
-            {reviews
-              .slice()
-              .reverse()
-              .map((review: any) => (
-                <div key={review.id}>
-                  <ReviewsCard review={review} />
-                </div>
-              ))}
+            {reviews?.length > 0 ? (
+              <>
+                {reviews
+                  .slice()
+                  .reverse()
+                  .map((review: any) => (
+                    <div key={review.id}>
+                      <ReviewsCard review={review} />
+                    </div>
+                  ))}
+              </>
+            ) : (
+              ""
+            )}
           </div>
         );
       default:
@@ -229,7 +234,7 @@ const Business = ({ params }: Props) => {
   const handleAddReview = (newReview: any) => {
     setReviews((prevReviews) => [newReview, ...prevReviews]);
   };
-
+  console.log(businessInfo);
   return (
     <HeaderContainer>
       {loading || !businessInfo.business_name ? (

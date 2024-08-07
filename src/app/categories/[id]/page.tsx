@@ -74,7 +74,6 @@ const Page = ({ params }: Props) => {
   };
 
   const displayData = selectedSubcategory ? subcategoryData : [];
-  console.log(displayData);
 
   return (
     <HeaderContainer>

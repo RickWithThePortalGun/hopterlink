@@ -12,7 +12,7 @@ import {
   CredenzaTrigger,
 } from "@/components/ui/credenza";
 import axios from "axios";
-import { Bookmark, Clock } from "lucide-react";
+import { Bookmark, Clock, StopCircle } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -20,19 +20,25 @@ import AverageReview from "./AverageReview";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { ScrollArea } from "./ui/scroll-area";
+import { RotatingLines } from "react-loader-spinner";
 
 const RecentlyViewed = () => {
   const [businesses, setBusinesses] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const { data: session } = useSession();
 
   const fetchRecents = async () => {
     try {
+      setLoading(true);
       const response = await axios.get("/api/recently-viewed/");
-      console.log(response);
+      setLoading(false);
+
       setBusinesses(response.data.results);
     } catch (error) {
       console.error("Error fetching favorites:", error);
+      setLoading(false);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -56,46 +62,55 @@ const RecentlyViewed = () => {
           </CredenzaDescription>
         </CredenzaHeader>
         <CredenzaBody>
-          <ScrollArea className="h-96">
-            {businesses.length > 0 ? (
-              <ul className="px-4 my-2">
-                {businesses.map((business) => (
-                  <>
-                    <Link href={`/business/${business.id}`}>
-                      <div className="flex gap-1 flex-col">
-                        <div className="flex flex-row items-center justify-between mt-2">
-                          <li key={business.id} className="my-2">
-                            {business.business_name}
-                          </li>
-                          {business.average_rating < 1 ? (
-                            <p className="text-xs">No reviews</p>
-                          ) : (
-                            <AverageReview
-                              size={14}
-                              value={business.average_rating}
-                            />
-                          )}{" "}
-                        </div>
-                        <div>
-                          <p className="text-xs text-secondary-foreground">
-                            {business.location}
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                    <Separator />
-                  </>
-                ))}
-              </ul>
-            ) : (
-              <div className="flex items-center justify-center h-[100%] w-full">
-                {" "}
-                <p className="text-primary-foreground">
-                  Explore Hopterlink's vast resources.
-                </p>
-              </div>
-            )}
-          </ScrollArea>
+          {loading ? (
+            <div className="flex items-center justify-center p-10">
+            <RotatingLines height="20" width="20" strokeColor="#c55e0c" />
+            </div>
+          ) : (
+            <>
+              {businesses.length > 0 ? (
+                <ScrollArea className="h-96">
+                  <ul className="px-4 my-2">
+                    {businesses.map((business) => (
+                      <>
+                        <Link href={`/business/${business.id}`}>
+                          <div className="flex gap-1 flex-col">
+                            <div className="flex flex-row items-center justify-between mt-2">
+                              <li key={business.id} className="my-2">
+                                {business.business_name}
+                              </li>
+                              {business.average_rating < 1 ? (
+                                <p className="text-xs">No reviews</p>
+                              ) : (
+                                <AverageReview
+                                  size={14}
+                                  value={business.average_rating}
+                                />
+                              )}{" "}
+                            </div>
+                            <div>
+                              <p className="text-xs text-secondary-foreground">
+                                {business.location}
+                              </p>
+                            </div>
+                          </div>
+                        </Link>
+                        <Separator />
+                      </>
+                    ))}
+                  </ul>
+                </ScrollArea>
+              ) : (
+                <div className="flex items-center flex-row gap-4 justify-center h-[100%] w-full">
+                  {" "}
+                  <StopCircle />
+                  <p className="text-primary-foreground">
+                    You haven't visited any businesses.
+                  </p>
+                </div>
+              )}
+            </>
+          )}
         </CredenzaBody>
         <CredenzaFooter>
           <CredenzaClose asChild>

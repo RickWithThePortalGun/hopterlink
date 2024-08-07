@@ -41,7 +41,6 @@ const Page = ({ params }: Props) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`api/search/${search}`);
-        console.log(response.data);
         // setCategories(response.data.categories);
         setBusinesses(response.data);
         setLoading(false);

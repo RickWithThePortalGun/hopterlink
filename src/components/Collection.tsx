@@ -33,7 +33,6 @@ const Collection = () => {
     try {
       const response = await axios.get("/api/collection/");
       setBusinesses(response.data);
-      console.log(response);
     } catch (error) {
       console.error("Error fetching favorites:", error);
     }
@@ -50,7 +49,6 @@ const Collection = () => {
   ) => {
     try {
       await axios.post(`/api/remove-from-collection/${collectionId}`);
-      console.log(businesses);
       setBusinesses((prevBusinesses) =>
         prevBusinesses.filter(
           (business) => business.business.id.toString() !== collectionId,
