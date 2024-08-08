@@ -14,10 +14,10 @@ export default function AuthenticationPage() {
         md:grid lg:max-w-none lg:grid-cols-2 lg:px-0"
     >
       <Link
-        href="/examples/authentication"
+        href="/"
         className={cn(
           buttonVariants({ variant: "ghost" }),
-          "absolute right-4 top-4 hidden md:right-8 md:top-8",
+          "absolute right-4 top-4 hidden md:right-8 md:top-8 cursor-pointer",
         )}
       >
         Login
@@ -33,7 +33,11 @@ export default function AuthenticationPage() {
         />
 
         <div className="relative z-20 flex items-center text-lg font-medium">
+        <Link
+        href="/"
+      >
           <Logo />
+          </Link>
         </div>
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">

@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    --swiper-theme-color: #000;
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
@@ -133,3 +134,14 @@
 .swiper-pagination {
   --swiper-pagination-color: #c55e0c;
 }
+.swiper-navigation {
+  --swiper-navigation-color: #c55e0c !important;
+}
+
+/* .swiper-button-prev {
+  color: red !important; 
+}
+
+.swiper-button-next {
+  color: #000 !important; 
+} */

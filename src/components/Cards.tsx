@@ -2,18 +2,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import axios from "axios";
 import formatTimeAgo from "@/constants/constants";
+import axios from "axios";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import Marquee from "react-fast-marquee";
 import AverageReview from "./AverageReview";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import Typography from "./ui/typography";
-import { Card } from "./ui/cards";
-import Marquee from "react-fast-marquee";
 import { Skeleton } from "./ui/skeleton";
-import Image from "next/image";
-import colors from "tailwindcss/colors";
+import Typography from "./ui/typography";
 
 const Cards = () => {
   const [recent, setRecents] = useState<any[]>([]);

@@ -44,8 +44,6 @@ const Page = ({ params }: Props) => {
         // setCategories(response.data.categories);
         setBusinesses(response.data);
         setLoading(false);
-
-        // If there are no businesses but there are categories, set the active tab to categories
         if (
           response.data.businesses.length === 0 &&
           response.data.categories.length > 0
@@ -82,7 +80,7 @@ const Page = ({ params }: Props) => {
       case "Most Rated":
         return [...list].sort((a, b) => b.average_rating - a.average_rating);
       case "Alphabetical Order":
-        return [...list].sort((a, b) => a.name.localeCompare(b.name));
+        return [...list].sort((a, b) => a.business_name.localeCompare(b.business_name));
       default:
         return list;
     }
@@ -100,15 +98,15 @@ const Page = ({ params }: Props) => {
       <div className="flex flex-col h-full md:py-10 md:px-32 pt-11 pb-24 px-8 w-full text-center gap-12">
         <div className="flex flex-col gap-6 items-start mt-12">
           <Typography className="max-w-2xl text-start" variant="h2">
-            Search Results for {search}
+            Search Results for '{search}'
           </Typography>
         </div>
         <div className="flex flex-row max-lg:flex-col w-full gap-6 items-start mt-6">
           <div className="w-1/4 flex flex-col gap-4 items-end max-lg:w-full max-md:items-end mt-6 md:flex-row">
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <div className="border-2 border-secondary flex flex-row gap-4 items-center text-xs justify-center w-fit px-4 h-10">
-                  <Typography>{filter}</Typography>
+              <div className="border-2 border-secondary flex flex-row gap-4 items-center text-xs justify-center w-fit px-4 h-10 rounded-full">
+              <Typography>{filter}</Typography>
                   <ChevronDown />
                 </div>
               </DropdownMenuTrigger>
@@ -118,7 +116,7 @@ const Page = ({ params }: Props) => {
                     handleFilterChange("Recommended");
                   }}
                 >
-                  Recommended
+                  {filter}
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onSelect={() => {

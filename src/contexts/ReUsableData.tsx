@@ -12,6 +12,10 @@ import axios from "axios";
 // Adjusted type for CategoriesContext
 interface CategoriesContextType {
   categories: Category[];
+  collections:[],
+  collectionLoading:boolean
+  setCollections:any,
+  setCollectionLoading:any,
   loading: boolean;
 }
 
@@ -19,6 +23,10 @@ interface CategoriesContextType {
 const CategoriesContext = createContext<CategoriesContextType>({
   categories: [],
   loading: true,
+  collections:[],
+  collectionLoading:true,
+  setCollections:()=>{},
+  setCollectionLoading:()=>{}
 });
 
 interface Props {
@@ -28,6 +36,8 @@ interface Props {
 export const CategoriesProvider = ({ children }: Props) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const [collectionLoading, setCollectionLoading]=useState(true)
+  const [collections,setCollections]=useState<[]>([])
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -43,8 +53,21 @@ export const CategoriesProvider = ({ children }: Props) => {
     fetchCategories();
   }, []);
 
+  useEffect(() => {
+    const fetchCollection = async () => {
+      setCollectionLoading(true);
+      try {
+        const response = await axios.get("/api/collection/");
+        setCollections(response.data);
+      } catch (error) {
+      }
+      setCollectionLoading(false);
+    };
+    void fetchCollection();
+  }, []);
+
   return (
-    <CategoriesContext.Provider value={{ categories, loading }}>
+    <CategoriesContext.Provider value={{ collections,setCollections, collectionLoading,categories, loading }}>
       {children}
     </CategoriesContext.Provider>
   );

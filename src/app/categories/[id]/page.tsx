@@ -32,6 +32,7 @@ const Page = ({ params }: Props) => {
   const [subcategoryData, setSubcategoryData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sortOption, setSortOption] = useState<string>("Recommended");
   const router = useRouter();
 
   useEffect(() => {
@@ -60,7 +61,7 @@ const Page = ({ params }: Props) => {
     setError(null);
     try {
       const response = await axios.get(
-        `/api/categories/${params.id}/subcategories/${subcategoryId}`,
+        `/api/categories/${params.id}/subcategories/${subcategoryId}`
       );
       if (!response) {
         throw new Error("Failed to fetch data");
@@ -72,6 +73,45 @@ const Page = ({ params }: Props) => {
       setLoading(false);
     }
   };
+
+  const handleSortChange = (sortOption: string) => {
+    setSortOption(sortOption);
+    console.log("Sort option selected:", sortOption);
+  };
+
+  const sortData = (data: any[], sortOption: string) => {
+    let sortedData = [...data];
+    switch (sortOption) {
+      case "Recommended":
+        // Sort by recommended logic, if available
+        console.log("Sorting by Recommended");
+        break;
+      case "Most Reviewed":
+        sortedData.sort((a, b) => b.review_count - a.review_count);
+        console.log("Sorting by Most Reviewed");
+        break;
+      case "Most Rated":
+        sortedData.sort((a, b) => b.average_rating - a.average_rating);
+        console.log("Sorting by Most Rated");
+        break;
+      case "Alphabetical Order":
+        sortedData.sort((a, b) =>
+          a.business_name.localeCompare(b.business_name)
+        );
+        console.log("Sorting by Alphabetical Order");
+        break;
+      default:
+        break;
+    }
+    return sortedData;
+  };
+
+  useEffect(() => {
+    if (subcategoryData.length > 0) {
+      const sortedData = sortData(subcategoryData, sortOption);
+      setSubcategoryData(sortedData);
+    }
+  }, [sortOption, selectedSubcategory]);
 
   const displayData = selectedSubcategory ? subcategoryData : [];
 
@@ -100,14 +140,22 @@ const Page = ({ params }: Props) => {
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <div className="border-2 border-secondary flex flex-row gap-4 items-center text-xs justify-center w-fit px-4 h-10 rounded-full">
-                    <Typography>Recommended</Typography> <ChevronDown />
+                    <Typography>{sortOption}</Typography> <ChevronDown />
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem>Recommended</DropdownMenuItem>
-                  <DropdownMenuItem>Most Reviewed</DropdownMenuItem>
-                  <DropdownMenuItem>Most Rated</DropdownMenuItem>
-                  <DropdownMenuItem>Alphabetical Order</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleSortChange("Recommended")}>
+                    Recommended
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleSortChange("Most Reviewed")}>
+                    Most Reviewed
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleSortChange("Most Rated")}>
+                    Most Rated
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleSortChange("Alphabetical Order")}>
+                    Alphabetical Order
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
@@ -140,7 +188,7 @@ const Page = ({ params }: Props) => {
                         >
                           <p className="text-xs">{subcategory.name}</p>
                         </motion.div>
-                      ),
+                      )
                     )}
                   </div>
                   <ScrollBar orientation="horizontal" />

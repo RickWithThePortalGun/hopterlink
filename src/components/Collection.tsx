@@ -22,39 +22,21 @@ import { Separator } from "./ui/separator";
 import SwipeToRevealActions from "react-swipe-to-reveal-actions";
 import { toast } from "./ui-hooks/use-toast";
 import { Skeleton } from "./ui/skeleton";
+import { useCategories } from "@/contexts/ReUsableData";
 
 const Collection = () => {
-  const [businesses, setBusinesses] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const { data: session } = useSession();
-
-  const fetchCollection = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get("/api/collection/");
-      setBusinesses(response.data);
-    } catch (error) {
-      console.error("Error fetching favorites:", error);
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    void fetchCollection();
-  }, []);
-
+  const {collections, setCollections, collectionLoading}=useCategories()
   const deleteCollection = async (
     collectionId: string,
     businessName: string,
   ) => {
     try {
       await axios.post(`/api/remove-from-collection/${collectionId}`);
-      setBusinesses((prevBusinesses) =>
+      setCollections((prevBusinesses) =>
         prevBusinesses.filter(
           (business) => business.business.id.toString() !== collectionId,
         ),
       );
-      console.log(businesses);
       toast({
         title: "Removed from Collections",
         description: `${businessName} has been removed from your collection.`,
@@ -109,7 +91,7 @@ const Collection = () => {
           </CredenzaDescription>
         </CredenzaHeader>
         <CredenzaBody>
-          {loading ? (
+          {collectionLoading ? (
             <div className={"flex flex-col gap-4 items-center"}>
               <Skeleton className="w-full h-24 rounded-md" />
               <Skeleton className="w-full h-24 rounded-md" />
@@ -117,9 +99,9 @@ const Collection = () => {
             </div>
           ) : (
             <>
-              {businesses.length > 0 ? (
+              {collections.length > 0 ? (
                 <ul>
-                  {businesses.map((business) => (
+                  {collections.map((business) => (
                     <li key={business.business.id} className="my-2">
                       <SwipeToRevealActions
                         hideDotsButton
@@ -170,7 +152,7 @@ const Collection = () => {
                   ))}
                 </ul>
               ) : (
-                <p>No businesses found.</p>
+                <p>No collections found.</p>
               )}
             </>
           )}
