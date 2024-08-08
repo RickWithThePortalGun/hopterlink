@@ -33,10 +33,8 @@ export default function AuthenticationPage() {
         />
 
         <div className="relative z-20 flex items-center text-lg font-medium">
-        <Link
-        href="/"
-      >
-          <Logo />
+          <Link href="/">
+            <Logo />
           </Link>
         </div>
         <div className="relative z-20 mt-auto">

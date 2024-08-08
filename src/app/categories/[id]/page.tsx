@@ -61,7 +61,7 @@ const Page = ({ params }: Props) => {
     setError(null);
     try {
       const response = await axios.get(
-        `/api/categories/${params.id}/subcategories/${subcategoryId}`
+        `/api/categories/${params.id}/subcategories/${subcategoryId}`,
       );
       if (!response) {
         throw new Error("Failed to fetch data");
@@ -96,7 +96,7 @@ const Page = ({ params }: Props) => {
         break;
       case "Alphabetical Order":
         sortedData.sort((a, b) =>
-          a.business_name.localeCompare(b.business_name)
+          a.business_name.localeCompare(b.business_name),
         );
         console.log("Sorting by Alphabetical Order");
         break;
@@ -144,16 +144,24 @@ const Page = ({ params }: Props) => {
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem onClick={() => handleSortChange("Recommended")}>
+                  <DropdownMenuItem
+                    onClick={() => handleSortChange("Recommended")}
+                  >
                     Recommended
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleSortChange("Most Reviewed")}>
+                  <DropdownMenuItem
+                    onClick={() => handleSortChange("Most Reviewed")}
+                  >
                     Most Reviewed
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleSortChange("Most Rated")}>
+                  <DropdownMenuItem
+                    onClick={() => handleSortChange("Most Rated")}
+                  >
                     Most Rated
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleSortChange("Alphabetical Order")}>
+                  <DropdownMenuItem
+                    onClick={() => handleSortChange("Alphabetical Order")}
+                  >
                     Alphabetical Order
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -188,7 +196,7 @@ const Page = ({ params }: Props) => {
                         >
                           <p className="text-xs">{subcategory.name}</p>
                         </motion.div>
-                      )
+                      ),
                     )}
                   </div>
                   <ScrollBar orientation="horizontal" />

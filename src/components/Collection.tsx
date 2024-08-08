@@ -25,7 +25,7 @@ import { Skeleton } from "./ui/skeleton";
 import { useCategories } from "@/contexts/ReUsableData";
 
 const Collection = () => {
-  const {collections, setCollections, collectionLoading}=useCategories()
+  const { collections, setCollections, collectionLoading } = useCategories();
   const deleteCollection = async (
     collectionId: string,
     businessName: string,

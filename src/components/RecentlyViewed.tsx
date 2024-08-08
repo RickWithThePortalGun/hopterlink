@@ -104,9 +104,7 @@ const RecentlyViewed = () => {
                 <div className="flex items-center flex-row gap-4 justify-center h-[100%] w-full">
                   {" "}
                   <StopCircle />
-                  <p className="">
-                    You haven't visited any businesses.
-                  </p>
+                  <p className="">You haven't visited any businesses.</p>
                 </div>
               )}
             </>

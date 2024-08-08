@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import 'swiper/css/navigation';
+import "swiper/css/navigation";
 
 // import required modules
 import { Navigation, Pagination } from "swiper/modules";
@@ -25,12 +25,10 @@ const Gallery = ({ images }: Props) => {
           dynamicBullets: true,
         }}
         navigation={true}
-
-        modules={[Pagination,Navigation]}
+        modules={[Pagination, Navigation]}
       >
         {images.map((image, index) => (
           <SwiperSlide>
-           
             <div className="flex items-center justify-center relative w-full h-[500px] rounded-md">
               {loading ? (
                 <RotatingLines strokeColor="#c55e0c" width="20" />

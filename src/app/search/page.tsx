@@ -80,7 +80,9 @@ const Page = ({ params }: Props) => {
       case "Most Rated":
         return [...list].sort((a, b) => b.average_rating - a.average_rating);
       case "Alphabetical Order":
-        return [...list].sort((a, b) => a.business_name.localeCompare(b.business_name));
+        return [...list].sort((a, b) =>
+          a.business_name.localeCompare(b.business_name),
+        );
       default:
         return list;
     }
@@ -105,8 +107,8 @@ const Page = ({ params }: Props) => {
           <div className="w-1/4 flex flex-col gap-4 items-end max-lg:w-full max-md:items-end mt-6 md:flex-row">
             <DropdownMenu>
               <DropdownMenuTrigger>
-              <div className="border-2 border-secondary flex flex-row gap-4 items-center text-xs justify-center w-fit px-4 h-10 rounded-full">
-              <Typography>{filter}</Typography>
+                <div className="border-2 border-secondary flex flex-row gap-4 items-center text-xs justify-center w-fit px-4 h-10 rounded-full">
+                  <Typography>{filter}</Typography>
                   <ChevronDown />
                 </div>
               </DropdownMenuTrigger>
