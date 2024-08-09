@@ -3,6 +3,7 @@ import EditAProfile from "@/components/EditAProfile";
 import HeaderContainer from "@/components/HeaderContainer";
 import ListItem from "@/components/ListItem";
 import ShinyButton from "@/components/magicui/shiny-button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/cards";
 import { MultiStepLoader } from "@/components/ui/multi-step-loader";
@@ -13,6 +14,7 @@ import { Verified, VerifiedIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { RotatingLines } from "react-loader-spinner";
 import colors from "tailwindcss/colors";
 
 const Page = () => {
@@ -84,14 +86,10 @@ const Page = () => {
             gap-12"
         >
           <div className="w-full flex items-start flex-row gap-6 max-lg:flex-col max-lg:items-center">
-            <div className="overflow-hidden  rounded-full border-4 border-separate relative w-52 h-52 border-[#7a7a7]">
-              <Image
-                alt="Your profile picture"
-                src={userInfo?.profile || "https://github.com/shadcn.png"}
-                objectFit="cover"
-                fill
-              />
-            </div>
+              <Avatar className="w-24 h-24 justify-center flex" >
+                <AvatarImage src={userInfo?.profile} onLoad={()=><RotatingLines/>} sizes="lg" />
+                <AvatarFallback>BU</AvatarFallback>
+              </Avatar>
             <div className="w-full max-lg:items-center flex flex-col max-lg:flex-col-reverse">
               <div className="flex w-full justify-between flex-row max-lg:flex-col max-lg:gap-12 items-center">
                 <Typography

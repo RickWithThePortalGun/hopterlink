@@ -15,6 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Textarea } from "./ui/textarea";
 import { toast } from "./ui-hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { RotatingLines } from "react-loader-spinner";
 
 type UserInfo = {
   first_name: string | null;
@@ -83,7 +84,9 @@ const EditAProfile = ({ userInfo }: Props) => {
         title: "Profile Updated",
         description: "Your profile has been successfully updated.",
       });
-      router.refresh();
+      setTimeout(() => {
+        window.location.reload(); 
+      }, 1000);
     } catch (error) {
       console.error(error);
       toast({
@@ -111,7 +114,7 @@ const EditAProfile = ({ userInfo }: Props) => {
           <div className="my-4 flex flex-col gap-4">
             <div className="flex items-center justify-center w-full">
               <Avatar className="w-24 h-24 justify-center flex">
-                <AvatarImage src={preview} />
+                <AvatarImage src={preview} onLoad={()=><RotatingLines/>} />
                 <AvatarFallback>BU</AvatarFallback>
               </Avatar>
             </div>
