@@ -8,8 +8,8 @@ const page = () => {
   const defaultLayout = layout ? JSON.parse(layout.value) : undefined;
   return (
     <HeaderContainer>
-      <div className="pt-20 pb-20 w-full">
-        <div className="z-10 border rounded-lg w-full h-full text-sm lg:flex">
+      <div className="pt-20 w-full h-dvh">
+        <div className="z-10 border rounded-lg w-full text-sm lg:flex">
           <ChatLayout defaultLayout={defaultLayout} navCollapsedSize={8} />
         </div>
       </div>

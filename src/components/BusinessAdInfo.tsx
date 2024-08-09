@@ -25,9 +25,9 @@ const BusinessAdInfo = ({ businessInfo }: Props) => {
         </div>
         <Separator />
         <div className="flex flex-row justify-between items-center">
-          {businessInfo?.phone ? (
-            <Link href={"tel:" + businessInfo?.phone}>
-              {businessInfo?.phone}{" "}
+          {businessInfo?.business_phone_1 ? (
+            <Link href={"tel:" + businessInfo?.business_phone_1}>
+              {businessInfo?.business_phone_1}{" "}
             </Link>
           ) : (
             ""
@@ -40,8 +40,8 @@ const BusinessAdInfo = ({ businessInfo }: Props) => {
             Get Directions
           </Typography>
           <div className="flex flex-row items-center justify-between gap-2">
-            <Typography className="" variant={"h5"}>
-              {businessInfo?.street_address}{" "}
+            <Typography className="text-xs font-bold" variant={"h5"}>
+              {businessInfo?.location}{" "}
             </Typography>
             <Map />
           </div>

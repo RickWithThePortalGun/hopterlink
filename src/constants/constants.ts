@@ -29,3 +29,22 @@ export default function formatTimeAgo(timestamp: Date) {
   // If the timestamp is less than a minute ago
   return "Just now";
 }
+
+export interface Subcategory {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  name: string;
+  display_name: string;
+  category: number;
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  description: string;
+  created_at: string;
+  updated_at: string;
+  icon: string;
+  subcategories: Subcategory[];
+}

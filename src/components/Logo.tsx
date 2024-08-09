@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 const Logo = () => {
-  const { theme } = useTheme();
+  const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   // When mounted on client, now we can show the UI
@@ -13,9 +13,15 @@ const Logo = () => {
 
   if (!mounted) return null;
 
+  const currentTheme = theme === "system" ? systemTheme : theme;
+
   return (
     <img
-      src={theme === "dark" ? "/Hopterlink png 2.png" : "/Hopterlink png 3.png"}
+      src={
+        currentTheme === "dark"
+          ? "/Hopterlink png 2.png"
+          : "/Hopterlink png 3.png"
+      }
       alt="Logo"
       className="mr-3 w-20"
     />

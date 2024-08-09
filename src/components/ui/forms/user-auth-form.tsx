@@ -16,26 +16,21 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import GoogleSignInButton from "@/components/github-auth-button";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { toast } from "@/components/ui-hooks/use-toast";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Enter a valid email address" }),
   password: z.string(),
-  // .min(8, 'Password must be at least 8 characters long')
-  // .max(64, 'Password must be no longer than 64 characters')
-  // .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
-  // .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
-  // .regex(/\d/, 'Password must contain at least one number')
-  // .regex(/[^a-zA-Z0-9]/, 'Password must contain at least one special character')
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
 
 export default function UserAuthForm() {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl");
+  const callback = searchParams.get("callbackUrl");
   const [loading, setLoading] = useState(false);
   const defaultValues = {
     email: "",
@@ -47,35 +42,33 @@ export default function UserAuthForm() {
   });
 
   const onSubmit = async (data: UserFormValue) => {
-    console.log("Data:", data);
     setLoading(true); // Set loading to true when submitting
     try {
       const result = await signIn("credentials", {
         email: data.email,
         password: data.password,
         redirect: false,
-        callbackUrl: callbackUrl ?? "/",
+        callbackUrl: callback ?? "/",
       });
 
       if (result?.error) {
-        console.log("Sign-in error:", result);
         if (result?.error === "CredentialsSignin") {
           toast({
             title: "Login Error",
             description: "Username or password is incorrect. Please try again.",
           });
+        } else {
+          toast({
+            title: "Login Error",
+            description: "Something went wrong. Please try again later.",
+          });
         }
-      } else if (result?.error) {
-        toast({
-          title: "Login Error",
-          description: "Something went wrong. Please try again later.",
-        });
-      } else {
+      } else if (result?.ok) {
         toast({
           title: "Login Success",
           description: "You have successfully logged in.",
         });
-        window.location.href = callbackUrl ?? "/";
+        window.location.href = callback ?? "/";
       }
     } catch (error) {
       console.error("Sign-in error:", error);
@@ -105,6 +98,7 @@ export default function UserAuthForm() {
                     type="email"
                     placeholder="Enter your email..."
                     disabled={loading}
+                    className="text-[16px]"
                     {...field}
                   />
                 </FormControl>
@@ -124,6 +118,7 @@ export default function UserAuthForm() {
                     placeholder="Password"
                     disabled={loading}
                     {...field}
+                    className="text-[16px]"
                   />
                 </FormControl>
                 <FormMessage />

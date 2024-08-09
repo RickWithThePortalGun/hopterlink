@@ -19,20 +19,25 @@ const SendAMesage = ({ businessInfo }: Props) => {
   return (
     <Credenza>
       <CredenzaTrigger asChild>
-        <Button className="flex gap-2 items-center" variant={"default"}>
-          <MessageCircle /> Message
+        <Button
+          className="flex gap-2 items-center min-w-60"
+          variant={"secondary"}
+        >
+          <MessageCircle size={16} /> Message
         </Button>
       </CredenzaTrigger>
       <CredenzaContent>
         <CredenzaHeader>
-          <CredenzaTitle>Send a message to {businessInfo?.name}</CredenzaTitle>
+          <CredenzaTitle>
+            Send a message to {businessInfo?.business_name}
+          </CredenzaTitle>
           <CredenzaDescription>
             Let them know you&apos;re interested in doing business. Keep it
             short and precise.
           </CredenzaDescription>
         </CredenzaHeader>
         <CredenzaBody>
-          <Textarea />
+          <Textarea autoFocus className="text-[16px]" />
         </CredenzaBody>
         <CredenzaFooter>
           <Button variant={"secondary"}>Send</Button>

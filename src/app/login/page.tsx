@@ -5,36 +5,19 @@ import { buttonVariants } from "@/components/ui/button";
 import UserAuthForm from "@/components/ui/forms/user-auth-form";
 import Typography from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-// import Ripple from '@/components/magicui/ripple';
-
-// export const metadata: Metadata = {
-//   title: 'Authentication',
-//   description: 'Authentication forms built using the components.'
-// };
 
 export default function AuthenticationPage() {
-  const { status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/");
-    }
-  }, [status, router]);
   return (
     <div
       className="relative h-screen flex-col items-center justify-center
         md:grid lg:max-w-none lg:grid-cols-2 lg:px-0"
     >
       <Link
-        href="/examples/authentication"
+        href="/"
         className={cn(
           buttonVariants({ variant: "ghost" }),
-          "absolute right-4 top-4 hidden md:right-8 md:top-8",
+          "absolute right-4 top-4 hidden md:right-8 md:top-8 cursor-pointer",
         )}
       >
         Login
@@ -50,7 +33,9 @@ export default function AuthenticationPage() {
         />
 
         <div className="relative z-20 flex items-center text-lg font-medium">
-          <Logo />
+          <Link href="/">
+            <Logo />
+          </Link>
         </div>
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">

@@ -1,62 +1,130 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "./ui/button";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
-import Stepper from "@keyvaluesystems/react-stepper";
-import { PhoneInput } from "./ui/phone-input";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from "./ui/input-otp";
-import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
+import animationData from "@/constants/verify_email.json";
+import Stepper from "@keyvaluesystems/react-stepper";
+import axios from "axios";
+import Lottie from "lottie-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { z } from "zod";
+import { toast } from "./ui-hooks/use-toast";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { PhoneInput } from "./ui/phone-input";
 
 const SignUpForm = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNo: "",
+    first_name: "",
+    last_name: "",
     email: "",
-    password: "",
-    confirmPassword: "",
-    otp: "",
+    phone: "",
+    password1: "",
+    password2: "",
   });
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(true);
+  const [errors, setErrors] = useState({});
+
+  // Define the Zod schema
+  const signUpSchema = z
+    .object({
+      first_name: z.string().min(1, "First name is required"),
+      last_name: z.string().min(1, "Last name is required"),
+      email: z.string().email("Invalid email address"),
+      password1: z
+        .string()
+        .min(8, "Password must be at least 8 characters long")
+        .max(64, "Password must be no longer than 64 characters")
+        .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+        .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+        .regex(/\d/, "Password must contain at least one number")
+        .regex(
+          /[^a-zA-Z0-9]/,
+          "Password must contain at least one special character",
+        ),
+      password2: z
+        .string()
+        .min(6, "Confirm password must be at least 6 characters long"),
+    })
+    .refine((data) => data.password1 === data.password2, {
+      message: "Passwords don't match",
+      path: ["password2"], // Path to the error
+    });
 
   useEffect(() => {
     validateForm();
   }, [formData]);
 
-  const handleInputChange = (e: { target: { id: any; value: any } }) => {
+  const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };
 
   const validateForm = () => {
-    const { firstName, lastName, phoneNo, email, password, confirmPassword } =
-      formData;
-    const isValid =
-      firstName !== "" &&
-      lastName !== "" &&
-      phoneNo !== "" &&
-      email !== "" &&
-      password !== "" &&
-      password === confirmPassword;
-    setIsFormValid(isValid);
+    try {
+      signUpSchema.parse(formData);
+      setIsFormValid(true);
+      setErrors({});
+    } catch (e) {
+      if (e instanceof z.ZodError) {
+        const formattedErrors = e.errors.reduce((acc, error) => {
+          acc[error.path[0]] = error.message;
+          return acc;
+        }, {});
+        setErrors(formattedErrors);
+      }
+      setIsFormValid(false);
+    }
   };
 
-  const handleSignUp = () => {
-    // Simulate form submission
-    console.log("Form Data:", formData);
-    setCurrentStepIndex(1); // Move to the next step after successful signup
+  const handleSignUp = async () => {
+    try {
+      setIsFormValid(false);
+      signUpSchema.parse(formData); // Ensure data is valid before submission
+      const form = JSON.stringify(formData);
+      const response = await axios.post("/api/signup/", form);
+      if (response.status === 201) {
+        toast({
+          title: "Account Created Successfully",
+          description: "You have successfully created an account on hopterlink",
+        });
+        setTimeout(() => {
+          setCurrentStepIndex(1);
+        }, 2000);
+      } else {
+        setIsFormValid(false);
+        toast({
+          title: "Error encountered",
+          description: "Invalid credentials provided.",
+        });
+      }
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        const formattedErrors = error.errors.reduce((acc, error) => {
+          acc[error.path[0]] = error.message;
+          return acc;
+        }, {});
+        setErrors(formattedErrors);
+        toast({
+          title: "Validation Error",
+          description: "Please correct the highlighted errors.",
+        });
+        setIsFormValid(true);
+      } else {
+        console.error("SignUp Error:", error);
+        toast({
+          title: "Signup Error",
+          description: error.message as any,
+        });
+        setIsFormValid(true);
+      }
+    }
   };
 
   const handleOTPSubmit = () => {
     // Simulate OTP verification
-    console.log("OTP:", formData.otp);
     setCurrentStepIndex(2); // Move to the next step after successful OTP verification
   };
 
@@ -70,18 +138,10 @@ const SignUpForm = () => {
       completed: currentStepIndex > 1,
     },
     {
-      stepLabel: "Success",
+      stepLabel: "Activation",
       completed: currentStepIndex > 2,
     },
   ];
-
-  const handleContinue = () => {
-    if (currentStepIndex === 0 && isFormValid) {
-      handleSignUp();
-    } else if (currentStepIndex === 1 && formData.otp.length === 6) {
-      handleOTPSubmit();
-    }
-  };
 
   const styles = {
     LineSeparator: () => ({
@@ -94,6 +154,7 @@ const SignUpForm = () => {
       backgroundColor: "#028A0F",
     }),
   };
+
   return (
     <div className="rounded-lg text-card-primary shadow-sm w-full max-w-sm">
       <Stepper
@@ -124,63 +185,69 @@ const SignUpForm = () => {
                 <Label
                   className="text-sm font-medium leading-none
                     peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  htmlFor="firstName"
+                  htmlFor="first_name"
                 >
                   First Name
                 </Label>
                 <Input
                   type="text"
                   className="flex h-10 w-full rounded-md border border-input
-                    bg-background px-3 py-2 text-sm ring-offset-background
-                    file:border-0 file:bg-transparent file:text-sm
-                    file:font-medium placeholder:text-muted-foreground
+                    bg-background px-3 py-2 text-[16px] ring-offset-background
+                   placeholder:text-muted-foreground
                     focus-visible:outline-none focus-visible:ring-2
                     focus-visible:ring-ring focus-visible:ring-offset-2
                     disabled:cursor-not-allowed disabled:opacity-50"
-                  id="firstName"
+                  id="first_name"
                   placeholder="John"
-                  value={formData.firstName}
+                  value={formData.first_name}
                   onChange={handleInputChange}
                   required
                   control-id="ControlID-1"
                 />
+                {errors.first_name && (
+                  <p className="text-red-500 text-xs">{errors.first_name}</p>
+                )}
               </div>
               <div>
                 <Label
                   className="text-sm font-medium leading-none
                     peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  htmlFor="lastName"
+                  htmlFor="last_name"
                 >
                   Last Name
                 </Label>
                 <Input
                   type="text"
                   className="flex h-10 w-full rounded-md border border-input
-                    bg-background px-3 py-2 text-sm ring-offset-background
+                    bg-background px-3 py-2 text-[16px] ring-offset-background
                     file:border-0 file:bg-transparent file:text-sm
                     file:font-medium placeholder:text-muted-foreground
                     focus-visible:outline-none focus-visible:ring-2
                     focus-visible:ring-ring focus-visible:ring-offset-2
                     disabled:cursor-not-allowed disabled:opacity-50"
-                  id="lastName"
+                  id="last_name"
                   placeholder="Doe"
-                  value={formData.lastName}
+                  value={formData.last_name}
                   onChange={handleInputChange}
                   required
                   control-id="ControlID-1"
                 />
+                {errors.last_name && (
+                  <p className="text-red-500 text-xs">{errors.last_name}</p>
+                )}
               </div>
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="phoneNo">Phone Number</Label>
+              <Label htmlFor="phone">Phone Number</Label>
               <PhoneInput
-                id="phoneNo"
+                id="phone"
+                className="text-[16px]"
                 defaultCountry="NG"
-                value={formData.phoneNo}
+                value={formData.phone}
                 onChange={(value) => {
                   setFormData({
                     ...formData,
-                    phoneNo: value,
+                    phone: value,
                   });
                 }}
               />
@@ -196,7 +263,7 @@ const SignUpForm = () => {
               <Input
                 type="email"
                 className="flex h-10 w-full rounded-md border border-input
-                  bg-background px-3 py-2 text-sm ring-offset-background
+                  bg-background px-3 py-2 text-[16px] ring-offset-background
                   file:border-0 file:bg-transparent file:text-sm
                   file:font-medium placeholder:text-muted-foreground
                   focus-visible:outline-none focus-visibe:ring-2
@@ -209,56 +276,65 @@ const SignUpForm = () => {
                 required
                 control-id="ControlID-2"
               />
+              {errors.email && (
+                <p className="text-red-500 text-xs">{errors.email}</p>
+              )}
             </div>
             <div className="grid gap-2">
               <Label
                 className="text-sm font-medium leading-none
                   peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                htmlFor="password"
+                htmlFor="password1"
               >
                 Password
               </Label>
               <Input
                 type="password"
                 className="flex h-10 w-full rounded-md border border-input
-                  bg-background px-3 py-2 text-sm ring-offset-background
+                  bg-background px-3 py-2 text-[16px] ring-offset-background
                   file:border-0 file:bg-transparent file:text-sm
                   file:font-medium placeholder:text-muted-foreground
                   focus-visible:outline-none focus-visible:ring-2
                   focus-visible:ring-ring focus-visible:ring-offset-2
                   disabled:cursor-not-allowed disabled:opacity-50"
-                id="password"
+                id="password1"
                 placeholder="●●●●●●●●●"
-                value={formData.password}
+                value={formData.password1}
                 onChange={handleInputChange}
                 required
                 control-id="ControlID-2"
               />
+              {errors.password1 && (
+                <p className="text-red-500 text-xs">{errors.password1}</p>
+              )}
             </div>
             <div className="grid gap-2">
               <Label
                 className="text-sm font-medium leading-none
                   peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                htmlFor="confirmPassword"
+                htmlFor="password2"
               >
                 Confirm Password
               </Label>
               <Input
                 type="password"
                 className="flex h-10 w-full rounded-md border border-input
-                  bg-background px-3 py-2 text-sm ring-offset-background
+                  bg-background px-3 py-2 text-[16px] ring-offset-background
                   file:border-0 file:bg-transparent file:text-sm
                   file:font-medium placeholder:text-muted-foreground
                   focus-visible:outline-none focus-visible:ring-2
                   focus-visible:ring-ring focus-visible:ring-offset-2
                   disabled:cursor-not-allowed disabled:opacity-50"
-                id="confirmPassword"
+                id="password2"
                 placeholder="●●●●●●●●●"
-                value={formData.confirmPassword}
+                value={formData.password2}
                 onChange={handleInputChange}
                 required
                 control-id="ControlID-2"
               />
+              {errors.password2 && (
+                <p className="text-red-500 text-xs">{errors.password2}</p>
+              )}
             </div>
             <div className="flex flex-row justify-between items-center">
               <p className="text-xs font-extrabold">
@@ -269,7 +345,7 @@ const SignUpForm = () => {
 
             <Button
               disabled={!isFormValid}
-              onClick={handleContinue}
+              onClick={handleSignUp}
               className="inline-flex items-center justify-center whitespace-nowrap
                 rounded-md text-sm font-medium ring-offset-background
                 transition-colors focus-visible:outline-none
@@ -285,119 +361,29 @@ const SignUpForm = () => {
         </div>
       )}
       {currentStepIndex === 1 && (
-        <div className="rounded-lg text-card-primary shadow-sm w-full max-w-sm">
+        <div className="rounded-lg text-card-primary w-full max-w-sm">
           <div
             className="flex flex-col text-center justify-center items-center
               space-y-1.5 p-6 my-6"
           >
             <h3 className="font-semibold tracking-tight text-2xl mb-12">
-              Verify Your Account
+              Verification
             </h3>
             <div className="flex gap-4 justify-center w-full">
-              <InputOTP maxLength={6}>
-                <InputOTPGroup>
-                  <InputOTPSlot
-                    index={0}
-                    value={formData.otp[0] || ""}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        otp:
-                          formData.otp.substring(0, 0) +
-                          e.target.value +
-                          formData.otp.substring(1),
-                      });
-                    }}
-                  />
-                  <InputOTPSlot
-                    index={1}
-                    value={formData.otp[1] || ""}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        otp:
-                          formData.otp.substring(0, 1) +
-                          e.target.value +
-                          formData.otp.substring(2),
-                      });
-                    }}
-                  />
-                  <InputOTPSlot
-                    index={2}
-                    value={formData.otp[2] || ""}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        otp:
-                          formData.otp.substring(0, 2) +
-                          e.target.value +
-                          formData.otp.substring(3),
-                      });
-                    }}
-                  />
-                </InputOTPGroup>
-                <InputOTPSeparator />
-                <InputOTPGroup>
-                  <InputOTPSlot
-                    index={3}
-                    value={formData.otp[3] || ""}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        otp:
-                          formData.otp.substring(0, 3) +
-                          e.target.value +
-                          formData.otp.substring(4),
-                      });
-                    }}
-                  />
-                  <InputOTPSlot
-                    index={4}
-                    value={formData.otp[4] || ""}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        otp:
-                          formData.otp.substring(0, 4) +
-                          e.target.value +
-                          formData.otp.substring(5),
-                      });
-                    }}
-                  />
-                  <InputOTPSlot
-                    index={5}
-                    value={formData.otp[5] || ""}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        otp: formData.otp.substring(0, 5) + e.target.value,
-                      });
-                    }}
-                  />
-                </InputOTPGroup>
-              </InputOTP>
+              {/* Add your OTP inputs here */}
+              <Lottie
+                animationData={animationData}
+                className="flex justify-center items-center"
+                loop={true}
+              />
             </div>
             <div className="mt-12">
-              <p className="text-grey-500 text-xs mt-12">
-                We just sent a verification code to your phone number. Please
-                enter the code below.
+              <p className="text-grey-500 text-sm mt-6">
+                We just sent a verification link to your registered email{" "}
+                {formData.email}. Please check your spam or junk folders if you
+                can't see it in your primary inbox.
               </p>
             </div>
-
-            <Button
-              disabled={formData.otp.length !== 6}
-              onClick={handleContinue}
-              className="inline-flex items-center justify-center whitespace-nowrap
-                rounded-md text-sm font-medium ring-offset-background
-                transition-colors focus-visible:outline-none
-                focus-visible:ring-2 focus-visible:ring-ring
-                focus-visible:ring-offset-2 disabled:pointer-events-none
-                disabled:opacity-50 bg-primary text-primary-foreground
-                hover:bg-primary/90 h-10 px-4 py-2 w-full"
-              control-id="ControlID-3"
-            >
-              Verify Account
-            </Button>
           </div>
         </div>
       )}

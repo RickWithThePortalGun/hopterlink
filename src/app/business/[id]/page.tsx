@@ -3,10 +3,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/naming-convention */
 "use client";
-import { getBusinessInfo } from "@/app/api/categories/categories";
 import HeaderContainer from "@/components/HeaderContainer";
 
-import { priceRangeMapping } from "@/app/categories/[slug]/page";
 import AddAReview from "@/components/AddAReview";
 import AverageReview from "@/components/AverageReview";
 import BusinessAdInfo from "@/components/BusinessAdInfo";
@@ -16,6 +14,7 @@ import ReviewsCard from "@/components/ReviewsCard";
 import SendAMesage from "@/components/SendAMesage";
 import { toast } from "@/components/ui-hooks/use-toast";
 import { Button } from "@/components/ui/button";
+import { MultiStepLoader } from "@/components/ui/multi-step-loader";
 import { Separator } from "@/components/ui/separator";
 import Typography from "@/components/ui/typography";
 import axios from "axios";
@@ -29,25 +28,31 @@ import {
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { type Key, useEffect, useState } from "react";
-import { RotatingLines } from "react-loader-spinner";
-import { type Session } from "next-auth";
+import { useEffect, useState } from "react";
+import Gallery from "@/components/Gallery";
 import Image from "next/image";
-import { MultiStepLoader } from "@/components/ui/multi-step-loader";
+import { RotatingLines } from "react-loader-spinner";
+import DotPattern from "@/components/magicui/dot-pattern";
+import { useCategories } from "@/contexts/ReUsableData";
 
-const Business = () => {
-  const params = useParams<{ slug: string }>();
+interface Props {
+  params: { id: string }; // Use id instead of slug
+}
+
+const Business = ({ params }: Props) => {
   const {
     data: session,
   }: {
     status: string;
-    data: { access_token: string } | Session;
+    data: { access_token: string };
   } = useSession();
-  const accessToken = session?.access_token ?? "";
   const [businessInfo, setBusinessInfo] = useState<any>({});
+  const [reviews, setReviews] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [active, setActive] = useState(
+    businessInfo.business_name ? businessInfo.images[0].image : "",
+  );
 
   const copyToClipboard = (text: any) => {
     if (navigator.clipboard) {
@@ -63,7 +68,6 @@ const Business = () => {
             title: "Error",
             description: "Failed to copy the link. Please try again.",
           });
-          console.error("Could not copy text: ", err);
         },
       );
     } else {
@@ -77,85 +81,73 @@ const Business = () => {
     const businessURL = window.location.href;
     copyToClipboard(businessURL);
   };
-  const fetchBusinessProfile = async (slug: string) => {
-    const business = await getBusinessInfo(slug);
-    setBusinessInfo(business);
-    return business;
-  };
-
-  const checkFavorite = async (businessId: any) => {
-    try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/favorites/check/${businessId}/`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${session?.access_token}`,
-          },
-        },
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error checking favorite:", error);
-      throw error;
-    }
-  };
 
   useEffect(() => {
-    const slug = params.slug;
+    const id = params.id as string;
     const fetchData = async () => {
       try {
         setLoading(true);
-        const business = await fetchBusinessProfile(slug);
-        console.log(business.id);
-        if (business.id) {
-          const { is_favorite } = await checkFavorite(business.id);
-          console.log("check favorite it");
-          console.log(is_favorite);
-          setIsFavorite(is_favorite);
-        }
+        const business = await axios.get(`/api/business/${id}`);
+        console.log("Fetched reviews: ", business.data.reviews);
+        setReviews(business.data.reviews);
+        console.log(reviews);
+        setBusinessInfo(business.data);
+        // if (business.id) {
+        //   const { is_favorite } = await checkFavorite(business.id);
+        //   setIsFavorite(is_favorite);
+        // }
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        console.error("Error fetching business detail:", error);
       }
       setLoading(false);
     };
     void fetchData();
-  }, [params.slug, session?.access_token]);
+  }, []);
 
-  const [activeSection, setActiveSection] = useState("overview");
+  const [activeSection, setActiveSection] = useState("gallery");
   const renderContent = () => {
     switch (activeSection) {
-      case "overview":
-        return <div>{businessInfo?.description}</div>;
-      case "menu":
-        return <div>{businessInfo?.services}</div>;
       case "gallery":
         return (
-          <div>
-            {businessInfo.images?.map(
-              (image: any, index: Key | null | undefined) => (
-                <Image
-                  key={index}
-                  src={image.image}
-                  alt={businessInfo.name}
-                  width={100}
-                  height={100}
-                />
-              ),
-            )}
-          </div>
+          <>
+            <Gallery images={businessInfo.images} />
+            <div className="h-fit py-4 flex flex-row items-center gap-4">
+              {businessInfo.images.map((image, index) => (
+                <>
+                  <div className="w-[100px] relative h-[100px]">
+                    <Image
+                      objectFit="cover"
+                      alt="business-images"
+                      fill
+                      className="rounded-md"
+                      onLoad={() => (
+                        <RotatingLines strokeColor="#c55e0c" width="20" />
+                      )}
+                      src={image.thumbnail}
+                    />
+                  </div>
+                </>
+              ))}{" "}
+            </div>
+          </>
         );
       case "reviews":
         return (
           <div>
-            {businessInfo?.reviews
-              .slice()
-              .reverse()
-              .map((review: any) => (
-                <div key={review.id}>
-                  <ReviewsCard review={review} />
-                </div>
-              ))}
+            {reviews?.length > 0 ? (
+              <>
+                {reviews
+                  .slice()
+                  .reverse()
+                  .map((review: any) => (
+                    <div key={review.id}>
+                      <ReviewsCard review={review} />
+                    </div>
+                  ))}
+              </>
+            ) : (
+              ""
+            )}
           </div>
         );
       default:
@@ -165,35 +157,39 @@ const Business = () => {
 
   const getTabClass = (section: string) => {
     return section === activeSection
-      ? "bg-secondary rounded-full px-4 py-2 cursor-pointer"
-      : "px-4 py-2 cursor-pointer";
+      ? "bg-secondary rounded-full max-lg:px-2 px-4 mb-2 py-2 max-md:text-sm cursor-pointer"
+      : "px-4 py-2 cursor-pointer max-md:text-sm";
   };
 
-  console.log(businessInfo);
   const priceRange = businessInfo?.price_range;
-
+  const { setCollections } = useCategories();
   const handleAddToFavorites = async () => {
-    const axiosInstance = axios.create({
-      baseURL: "http://127.0.0.1:8000/api/",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session?.access_token}`,
-      },
-    });
     try {
-      await axiosInstance.post("http://localhost:8000/favorites/add/", {
-        business_id: businessInfo.id,
-      });
+      await axios.post(`/api/add-to-collection/${params.id}`);
+      // const businessData = response.data;
+      // const newCollectionItem = {
+      //   id: businessData.id,
+      //   email: businessData.email,
+      //   logo: businessData.logo,
+      //   business_name: businessData.business_name,
+      //   location: businessData.location,
+      //   images: businessData.uploaded_images.map((image, index) => ({
+      //     id: index,
+      //     image: image,
+      //     thumbnail: image, // Assuming thumbnail is the same as the image, adjust if necessary
+      //   })),
+      //   average_rating: businessData.average_rating, // Assuming no rating available in the response
+      // };
+      // setCollections((prevCollections) => [...prevCollections, newCollectionItem]);
       setIsFavorite(true);
       toast({
-        title: "Added to Favorites",
-        description: `${businessInfo.name} has been added to your favorites.`,
+        title: "Added to Collections",
+        description: `${businessInfo.business_name} has been added to your collection.`,
       });
     } catch (error) {
       toast({
         title: "Something went wrong",
-        description:
-          "There was an error adding this business to your favorites. Please try again later.",
+        description: `${error.response.data}`,
       });
     }
   };
@@ -208,9 +204,13 @@ const Business = () => {
       text: `Rendering information..`,
     },
   ];
+  const handleAddReview = (newReview: any) => {
+    setReviews((prevReviews) => [newReview, ...prevReviews]);
+  };
+  console.log(businessInfo);
   return (
     <HeaderContainer>
-      {loading ? (
+      {loading || !businessInfo.business_name ? (
         // <div className="h-screen w-screen flex items-center justify-center">
         //   <RotatingLines
         //     visible={true}
@@ -234,19 +234,25 @@ const Business = () => {
           className="flex flex-col h-full md:py-30 md:px-28 pt-11 pb-24 px-6
             w-full gap-12"
         >
-          <div className="mt-10">
-            <Crumbs businessInfo={businessInfo} />
+          <div className="mt-10 z-48">
+            {businessInfo.business_name ? (
+              <div className="">
+                <Crumbs businessInfo={businessInfo} />
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           <div
             className="mt-12 w-full flex-row max-md:flex-col flex justify-between
               items-center"
           >
             <Typography className="text-primary" variant={"h1"}>
-              {businessInfo?.name}
+              {businessInfo?.business_name}
             </Typography>
             <div>
               <div className="flex flex-col items-center gap-2">
-                {businessInfo?.average_rating ? (
+                {businessInfo?.average_rating >= 1 ? (
                   <>
                     <div className="flex flex-col h-auto">
                       <AverageReview
@@ -255,11 +261,13 @@ const Business = () => {
                       />
                     </div>
                     <Typography variant={"p"}>
-                      {businessInfo?.reviews.length} Reviews
+                      {businessInfo?.reviews.length === 1
+                        ? `${businessInfo?.reviews.length} Review`
+                        : `${businessInfo?.reviews.length} Reviews`}
                     </Typography>
                   </>
                 ) : (
-                  ""
+                  <Typography variant={"p"}>No Reviews</Typography>
                 )}
               </div>
             </div>
@@ -268,9 +276,11 @@ const Business = () => {
             <div className="gap-2 flex flex-col">
               <div className="flex flex-row gap-2 items-center">
                 <MapPin />
-                <Typography className="max-md:text-center">
-                  {businessInfo?.street_address} {businessInfo?.city},{" "}
-                  {businessInfo?.state}
+                <Typography
+                  className="max-md:text-center text-xs"
+                  variant={"p"}
+                >
+                  {businessInfo?.location}
                 </Typography>
               </div>
               <div className="flex flex-row gap-2 items-center">
@@ -288,7 +298,8 @@ const Business = () => {
               <div className="flex flex-row items-center gap-2">
                 <Timer />
                 <Typography className="max-md:text-center">
-                  Opens {businessInfo?.hours}
+                  Delivers in {businessInfo.min_delivery_time_in_days} to{" "}
+                  {businessInfo.max_delivery_time_in_days} days
                 </Typography>
               </div>
               {businessInfo.tags && businessInfo.tags.length > 0 && (
@@ -316,64 +327,51 @@ const Business = () => {
             )} */}
             </div>
           </div>
-          <div className="flex flex-row items-center justify-between">
+          <div className="text-center text-sm font-bold">
+            {businessInfo?.description}
+          </div>
+          <div className="flex flex-row max-lg:flex-col md:justify-between max-lg:gap-2 items-center mt-2">
             <div
-              className="flex flex-row items-center max-md:w-full gap-2 mt-2
+              className="flex flex-row items-center max-md:w-full gap-2
                 max-sm:flex-col"
             >
-              <AddAReview businessInfo={businessInfo} />
+              <AddAReview
+                businessInfo={businessInfo}
+                onReviewAdded={handleAddReview}
+              />{" "}
               <SendAMesage businessInfo={businessInfo} />
               <Button
-                className="flex gap-2 items-center"
-                variant={"default"}
+                className="flex gap-2 items-center min-w-60"
+                variant={"secondary"}
                 onClick={handleShareClick}
               >
-                <Share /> Share
+                <Share size={16} /> Share
               </Button>
             </div>
             <div className="">
-              {!isFavorite ? (
+              {businessInfo.in_collection || isFavorite ? (
                 <Button
-                  className="flex gap-2 items-center"
-                  variant={"outline"}
-                  onClick={handleAddToFavorites}
+                  className="flex min-w-60 gap-2 items-center max-md:mt-2"
+                  variant={"ghost"}
+                  disabled
                 >
-                  <Bookmark />
-                  Add to Favorites
+                  <BookmarkCheck size={16} />
+                  Added to Favorites
                 </Button>
               ) : (
                 <Button
-                  className="flex gap-2 items-center"
-                  variant={"outline"}
-                  disabled
+                  className="flex min-w-60 gap-2 items-center max-md:mt-2"
+                  variant={"secondary"}
+                  onClick={handleAddToFavorites}
                 >
-                  <BookmarkCheck />
-                  Added to Favorites
+                  <Bookmark size={16} />
+                  Add to Collections
                 </Button>
               )}
             </div>
           </div>
-          <div className="flex-col flex gap-4">
-            <div
-              className="flex flex-row items-center gap-2 mt-6 w-[55%]
-                justify-between"
-            >
-              <div
-                className={getTabClass("overview")}
-                onClick={() => {
-                  setActiveSection("overview");
-                }}
-              >
-                Overview
-              </div>
-              <div
-                className={getTabClass("menu")}
-                onClick={() => {
-                  setActiveSection("menu");
-                }}
-              >
-                Services
-              </div>
+          <div className="flex-col flex">
+            <div className="flex flex-row items-center  max-md:gap-0 mt-6 lg:w-[1/2] gap-x-12">
               <div
                 className={getTabClass("gallery")}
                 onClick={() => {
@@ -391,11 +389,11 @@ const Business = () => {
                 Reviews
               </div>
             </div>
-            <Separator />
+            <Separator className="mb-2" />
             <div className="flex flex-row max-lg:flex-col items-start gap-4">
               <div className="w-2/3 max-lg:w-full">{renderContent()}</div>
               <div className="flex flex-col gap-2">
-                {businessInfo.name ? (
+                {businessInfo.business_name ? (
                   <>
                     {" "}
                     <BusinessCTA businessInfo={businessInfo} />
