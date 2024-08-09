@@ -92,7 +92,9 @@ const Page = () => {
                 onLoad={() => <RotatingLines />}
                 sizes="lg"
               />
-              <AvatarFallback>{userInfo?.first_name[0]} {userInfo?.last_name[0]}</AvatarFallback>
+              <AvatarFallback>
+                {userInfo?.first_name[0]} {userInfo?.last_name[0]}
+              </AvatarFallback>
             </Avatar>
             <div className="w-full max-lg:items-center flex flex-col max-lg:flex-col-reverse">
               <div className="flex w-full justify-between flex-row max-lg:flex-col max-lg:gap-12 items-center">

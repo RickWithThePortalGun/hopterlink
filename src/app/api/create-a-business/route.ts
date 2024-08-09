@@ -1,18 +1,30 @@
 import request from "@/utils/http-request";
-import { headers } from "next/headers";
 import { NextResponse } from "next/server";
+
 export async function POST(req: Request) {
   try {
     const uri = `${process.env.NEXTAUTH_BACKEND_URL}api/businesses/`;
     const data = await req.formData();
+
+    // Make the POST request using the Axios instance
     const response = await request.post(uri, data);
-    if (!response.ok) {
-      throw new Error(`Failed to submit form: ${response.statusText}`);
-    }
-    console.log(response);
+
+    // Assuming the request is successful, return the response data with status 201
     return NextResponse.json(response.data, { status: 201 });
   } catch (error: any) {
-    console.log(error.response);
-    return NextResponse.json(error, { status: 400 });
+    // Log the error response or message
+    console.error(
+      "Error:",
+      error.response ? error.response.data : error.message,
+    );
+
+    // Prepare a custom error response
+    const errorResponse = {
+      message: error.response?.data?.message || "An unexpected error occurred",
+      status: error.response?.status || 400,
+      details: error.response?.data || null,
+    };
+
+    return NextResponse.json(errorResponse, { status: errorResponse.status });
   }
 }

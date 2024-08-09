@@ -23,6 +23,8 @@ import HeaderContainer from "@/components/HeaderContainer";
 import Typography from "@/components/ui/typography";
 import axios from "axios";
 import { toast } from "@/components/ui-hooks/use-toast";
+import { useRouter } from "next/navigation";
+import { RotatingLines } from "react-loader-spinner";
 
 const validationSchema = z.object({
   email: z
@@ -71,11 +73,13 @@ const validationSchema = z.object({
 });
 
 const App = () => {
+  const router = useRouter();
   const { categories } = useCategories();
   const [selectedIndustry, setSelectedIndustry] = useState("");
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
   const [logo, setLogo] = useState(null); // To store the selected logo file
   const [uploadedImages, setUploadedImages] = useState([]); // To store the selected uploaded images
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -102,6 +106,27 @@ const App = () => {
   }, [selectedIndustry, categories]);
 
   const onSubmit = async (values) => {
+    // Check if logo and images are set
+    if (!logo) {
+      toast({
+        title: "Logo is required",
+        description: "Please upload a logo before submitting the form.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (uploadedImages.length === 0) {
+      toast({
+        title: "Images are required",
+        description:
+          "Please upload at least one image before submitting the form.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setLoading(true);
     const formData = new FormData();
     formData.append("email", values.email);
     formData.append("logo", logo);
@@ -124,34 +149,64 @@ const App = () => {
       "max_delivery_time_in_days",
       values.max_delivery_time_in_days.toString(),
     );
-    formData.append("is_kyc_verified", true); // Assuming these are constants
-    formData.append("is_active", true);
-    formData.append("is_deleted", true);
-    formData.append("toc_accepted", true);
     formData.append("business_reg_no", values.business_reg_no || "");
     uploadedImages.forEach((image, index) => {
       formData.append(`uploaded_images[${index}]`, image);
     });
-
     try {
       const response = await fetch("/api/create-a-business/", {
         method: "POST",
         body: formData,
       });
+
       if (response.ok) {
         toast({
           title: "Business Creation Successful",
           description: "Your business has been successfully created",
         });
-        console.log("Form submitted successfully");
+        setLoading(false);
+        const responseData = await response.json();
+        console.log(responseData);
+        router.push(`/business/${responseData.id}`);
       } else {
-        console.log(response);
-        console.error("Form submission failed");
+        const status = response.status;
+        const errorData = await response.json();
+        let errorMessage = `An unexpected error occurred. Status: ${status}.`;
+
+        if (errorData && typeof errorData === "object") {
+          if (errorData.detail) {
+            errorMessage = errorData.detail;
+          } else if (errorData.errors) {
+            // Collect all errors in a readable format
+            errorMessage = Object.entries(errorData.errors)
+              .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
+              .join("\n");
+          } else if (errorData.message) {
+            errorMessage = errorData.message;
+          } else {
+            errorMessage += " " + JSON.stringify(errorData);
+          }
+        }
+
+        toast({
+          title: "Error",
+          description: errorMessage,
+          variant: "destructive",
+        });
+
+        console.error("Form submission failed", errorData);
       }
     } catch (error) {
       console.error("An error occurred while submitting the form", error);
+      toast({
+        title: "Submission Error",
+        description:
+          "An unexpected error occurred. Please check your network and try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
     }
-    console.log("function ran");
   };
 
   const handleFileChange = (e) => {
@@ -399,7 +454,11 @@ const App = () => {
           </div>
 
           <div className="flex justify-center items-center w-full">
-            <Button type="submit">Submit</Button>
+            {loading ? (
+              <RotatingLines strokeColor="#C55e0c" width="20" />
+            ) : (
+              <Button type="submit">Create Business Account</Button>
+            )}
           </div>
         </form>
       </div>

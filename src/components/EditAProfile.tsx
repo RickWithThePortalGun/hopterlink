@@ -32,14 +32,14 @@ type Props = {
 
 const EditAProfile = ({ userInfo }: Props) => {
   const router = useRouter();
-  const [preview, setPreview] = useState(userInfo.profile || "");
-  const [firstName, setFirstName] = useState(userInfo.first_name || "");
-  const [email, setEmail] = useState(userInfo.email || "");
-  const [lastName, setLastName] = useState(userInfo.last_name || "");
-  const [phone, setPhone] = useState(userInfo.phone || "");
+  const [preview, setPreview] = useState(userInfo?.profile || "");
+  const [firstName, setFirstName] = useState(userInfo?.first_name || "");
+  const [email, setEmail] = useState(userInfo?.email || "");
+  const [lastName, setLastName] = useState(userInfo?.last_name || "");
+  const [phone, setPhone] = useState(userInfo?.phone || "");
   const [profile, setProfile] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [isBusiness, setIsBusiness] = useState(userInfo.is_business || false);
+  const [isBusiness, setIsBusiness] = useState(userInfo?.is_business || false);
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { files, displayUrl } = getImageData(event);
