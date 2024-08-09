@@ -276,7 +276,7 @@ export function Header({ className }: SidebarProps) {
       </div>
     );
   };
-
+console.log(session?.user)
   return (
     <div
       className={cn(
@@ -605,18 +605,12 @@ export function Header({ className }: SidebarProps) {
                   {status === "authenticated" && (
                     <DropdownMenu>
                       <DropdownMenuTrigger>
-                        <AvatarComponent
-                          classes="rounded-full border-[2px] border-primary bg-white"
-                          useGravatar={false}
-                          size={30}
-                          primarySource={session?.user?.picture}
-                          color="#000000"
-                          background="#f1f1f1"
-                          fontSize={25}
-                          fontWeight={800}
-                          offsetY={15}
-                          initials={`${session?.user?.email[0]}`}
-                        />
+                        <Avatar>
+                          <AvatarImage src={session?.user?.profile}/>
+                        <AvatarFallback>
+                        {session?.user?.first_name[0]||"H"} {session?.user?.last_name[0] || "U"}
+                        </AvatarFallback>
+                        </Avatar>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <Link href="/account">
