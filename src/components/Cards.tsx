@@ -23,7 +23,7 @@ const Cards = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await fetchRecentActivity(page);
+        await fetchRecentActivity();
       } catch (error) {
         console.error("Error fetching reviews:", error);
       }
@@ -31,10 +31,11 @@ const Cards = () => {
     void fetchData();
   }, [page]);
 
-  const fetchRecentActivity = async (page: number) => {
+  const fetchRecentActivity = async () => {
     try {
       const result = await axios.get("/api/recent-activity/");
       setRecents(result.data);
+      console.log(result.data)
       setLoading(false);
     } catch (error) {
       console.error("Error fetching reviews:", error);

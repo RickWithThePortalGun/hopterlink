@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-"use client";
-import Collection from "@/components/Collection";
+'use client'
+import EditAProfile from "@/components/EditAProfile";
 import HeaderContainer from "@/components/HeaderContainer";
 import ListItem from "@/components/ListItem";
 import ShinyButton from "@/components/magicui/shiny-button";
@@ -9,7 +8,6 @@ import { Card } from "@/components/ui/cards";
 import { MultiStepLoader } from "@/components/ui/multi-step-loader";
 import Typography from "@/components/ui/typography";
 import { useCategories } from "@/contexts/ReUsableData";
-import { AvatarComponent } from "avatar-initials";
 import axios from "axios";
 import { Verified, VerifiedIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
@@ -31,6 +29,10 @@ const Page = () => {
     review_count: number;
     businesses: any[];
     reviews?: any[];
+    bio?: string | null;
+    phone?: string | null;
+    profile?: string | null;
+    is_business?: boolean;
   } | null>(null);
 
   useEffect(() => {
@@ -49,6 +51,7 @@ const Page = () => {
 
     void fetchUserData();
   }, [status]);
+
   const loadingStates = [
     {
       text: `Getting your account information..`,
@@ -64,7 +67,6 @@ const Page = () => {
   if (loading) {
     return (
       <div className="w-full h-[60vh] flex items-center justify-center">
-        {/* Core Loader Modal */}
         <MultiStepLoader
           loadingStates={loadingStates}
           loading={loading}
@@ -82,13 +84,15 @@ const Page = () => {
             gap-12"
         >
           <div className="w-full flex items-start flex-row gap-6 max-lg:flex-col max-lg:items-center">
+            <div  className="overflow-hidden  rounded-full border-4 border-separate relative w-52 h-52 border-[#7a7a7]">
             <Image
               alt="Your profile picture"
-              src={"https://github.com/shadcn.png"}
-              className="rounded-full border-4 border-separate border-[#7a7a7]"
-              width={200}
-              height={200}
+              src={userInfo?.profile || "https://github.com/shadcn.png"}
+              
+              objectFit="cover"
+            fill
             />
+            </div>
             <div className="w-full max-lg:items-center flex flex-col max-lg:flex-col-reverse">
               <div className="flex w-full justify-between flex-row max-lg:flex-col max-lg:gap-12 items-center">
                 <Typography
@@ -100,31 +104,29 @@ const Page = () => {
                   <VerifiedIcon color={"rgba(122, 122, 122, 1)"} />
                 </Typography>
                 <div className="flex flex-row max-lg:flex-col items-center gap-4">
-                  <div className="flex flex-row items-center gap-4">
-                    <div className="flex flex-col gap-2 items-center">
-                      <Typography className="font-bold" variant={"h2"}>
-                        7
-                      </Typography>
-                      <p className="text-primary font-bold text-sm text-center">
-                        Businesses Reviewed
-                      </p>
-                    </div>
-                    <div className="flex flex-col gap-2 items-center">
-                      <Typography className="font-bold" variant={"h2"}>
-                        1
-                      </Typography>
-                      <p className="text-primary font-bold text-sm text-center">
-                        Business owned
-                      </p>
-                    </div>
-                    <div className="flex flex-col gap-2 items-center">
-                      <Typography className="font-bold" variant={"h2"}>
-                        {collections?.length}
-                      </Typography>
-                      <p className="text-primary font-bold text-sm text-center">
-                        Saved Businesses
-                      </p>
-                    </div>
+                  <div className="flex flex-col gap-2 items-center">
+                    <Typography className="font-bold" variant={"h2"}>
+                      {userInfo?.review_count || 0}
+                    </Typography>
+                    <p className="text-primary font-bold text-sm text-center">
+                      Businesses Reviewed
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2 items-center">
+                    <Typography className="font-bold" variant={"h2"}>
+                      {userInfo?.is_business ? "1" : "0"}
+                    </Typography>
+                    <p className="text-primary font-bold text-sm text-center">
+                      Businesses owned
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2 items-center">
+                    <Typography className="font-bold" variant={"h2"}>
+                      {collections?.length}
+                    </Typography>
+                    <p className="text-primary font-bold text-sm text-center">
+                      Saved Businesses
+                    </p>
                   </div>
                 </div>
               </div>
@@ -146,7 +148,7 @@ const Page = () => {
             </div>
           </div>
           <div className="flex w-full items-end justify-end max-lg:justify-center">
-            <ShinyButton text="Edit your Profile" />
+            <EditAProfile userInfo={userInfo} />
           </div>
         </div>
         <div

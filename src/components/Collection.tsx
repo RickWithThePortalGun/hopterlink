@@ -101,8 +101,8 @@ const Collection = () => {
             <>
               {collections.length > 0 ? (
                 <ul>
-                  {collections.map((business) => (
-                    <li key={business.business.id} className="my-2">
+                  {collections.map((business,index) => (
+                    <li key={index} className="my-2">
                       <SwipeToRevealActions
                         hideDotsButton
                         actionButtons={[

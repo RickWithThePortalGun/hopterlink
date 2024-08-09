@@ -33,6 +33,7 @@ import Gallery from "@/components/Gallery";
 import Image from "next/image";
 import { RotatingLines } from "react-loader-spinner";
 import DotPattern from "@/components/magicui/dot-pattern";
+import { useCategories } from "@/contexts/ReUsableData";
 
 interface Props {
   params: { id: string }; // Use id instead of slug
@@ -161,10 +162,25 @@ const Business = ({ params }: Props) => {
   };
 
   const priceRange = businessInfo?.price_range;
-
+ const {setCollections}=useCategories()
   const handleAddToFavorites = async () => {
     try {
       await axios.post(`/api/add-to-collection/${params.id}`);
+      // const businessData = response.data;
+      // const newCollectionItem = {
+      //   id: businessData.id,
+      //   email: businessData.email,
+      //   logo: businessData.logo,
+      //   business_name: businessData.business_name,
+      //   location: businessData.location,
+      //   images: businessData.uploaded_images.map((image, index) => ({
+      //     id: index,
+      //     image: image,
+      //     thumbnail: image, // Assuming thumbnail is the same as the image, adjust if necessary
+      //   })),
+      //   average_rating: businessData.average_rating, // Assuming no rating available in the response
+      // };
+      // setCollections((prevCollections) => [...prevCollections, newCollectionItem]);
       setIsFavorite(true);
       toast({
         title: "Added to Collections",
@@ -174,7 +190,7 @@ const Business = ({ params }: Props) => {
       toast({
         title: "Something went wrong",
         description:
-          "There was an error adding this business to your collection. Please try again later.",
+          `${error.response.data}`,
       });
     }
   };
