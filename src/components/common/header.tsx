@@ -163,7 +163,7 @@ export function Header({ className }: SidebarProps) {
             <Avatar className="bg-primary">
               <AvatarImage src={session?.user?.profile} />
               <AvatarFallback>
-                {session?.user?.first_name[0] || "H"}{" "}
+                {session?.user?.first_name[0] || "H"}
                 {session?.user?.last_name[0] || "U"}
               </AvatarFallback>
             </Avatar>
