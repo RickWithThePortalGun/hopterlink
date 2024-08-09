@@ -86,10 +86,14 @@ const Page = () => {
             gap-12"
         >
           <div className="w-full flex items-start flex-row gap-6 max-lg:flex-col max-lg:items-center">
-              <Avatar className="w-24 h-24 justify-center flex" >
-                <AvatarImage src={userInfo?.profile} onLoad={()=><RotatingLines/>} sizes="lg" />
-                <AvatarFallback>BU</AvatarFallback>
-              </Avatar>
+            <Avatar className="w-24 h-24 justify-center flex">
+              <AvatarImage
+                src={userInfo?.profile}
+                onLoad={() => <RotatingLines />}
+                sizes="lg"
+              />
+              <AvatarFallback>BU</AvatarFallback>
+            </Avatar>
             <div className="w-full max-lg:items-center flex flex-col max-lg:flex-col-reverse">
               <div className="flex w-full justify-between flex-row max-lg:flex-col max-lg:gap-12 items-center">
                 <Typography

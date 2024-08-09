@@ -85,7 +85,7 @@ const EditAProfile = ({ userInfo }: Props) => {
         description: "Your profile has been successfully updated.",
       });
       setTimeout(() => {
-        window.location.reload(); 
+        window.location.reload();
       }, 1000);
     } catch (error) {
       console.error(error);
@@ -114,7 +114,7 @@ const EditAProfile = ({ userInfo }: Props) => {
           <div className="my-4 flex flex-col gap-4">
             <div className="flex items-center justify-center w-full">
               <Avatar className="w-24 h-24 justify-center flex">
-                <AvatarImage src={preview} onLoad={()=><RotatingLines/>} />
+                <AvatarImage src={preview} onLoad={() => <RotatingLines />} />
                 <AvatarFallback>BU</AvatarFallback>
               </Avatar>
             </div>
