@@ -162,7 +162,7 @@ const Business = ({ params }: Props) => {
   };
 
   const priceRange = businessInfo?.price_range;
- const {setCollections}=useCategories()
+  const { setCollections } = useCategories();
   const handleAddToFavorites = async () => {
     try {
       await axios.post(`/api/add-to-collection/${params.id}`);
@@ -189,8 +189,7 @@ const Business = ({ params }: Props) => {
     } catch (error) {
       toast({
         title: "Something went wrong",
-        description:
-          `${error.response.data}`,
+        description: `${error.response.data}`,
       });
     }
   };

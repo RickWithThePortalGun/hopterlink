@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { ChangeEvent, useState } from "react";
 import {
   Credenza,
@@ -30,7 +30,7 @@ type Props = {
 };
 
 const EditAProfile = ({ userInfo }: Props) => {
-  const router=useRouter()
+  const router = useRouter();
   const [preview, setPreview] = useState(userInfo.profile || "");
   const [firstName, setFirstName] = useState(userInfo.first_name || "");
   const [email, setEmail] = useState(userInfo.email || "");
@@ -49,7 +49,7 @@ const EditAProfile = ({ userInfo }: Props) => {
   const getImageData = (event: ChangeEvent<HTMLInputElement>) => {
     const dataTransfer = new DataTransfer();
     Array.from(event.target.files!).forEach((image) =>
-      dataTransfer.items.add(image)
+      dataTransfer.items.add(image),
     );
 
     const files = dataTransfer.files;
@@ -83,13 +83,14 @@ const EditAProfile = ({ userInfo }: Props) => {
         title: "Profile Updated",
         description: "Your profile has been successfully updated.",
       });
-      router.refresh()
+      router.refresh();
     } catch (error) {
       console.error(error);
       toast({
         title: "Error Occured",
         description: "Your profile could not be updated. Try again later.",
-      });    }
+      });
+    }
   };
 
   return (
@@ -138,7 +139,7 @@ const EditAProfile = ({ userInfo }: Props) => {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
-             <Input
+            <Input
               type="email"
               placeholder="Email"
               disabled
@@ -151,8 +152,12 @@ const EditAProfile = ({ userInfo }: Props) => {
               onChange={(e) => setProfile(e.target.value)}
               className="border-2 border-border"
             />
-            <div onClick={handleSubmit} className="w-full justify-center flex" asChild>
-            <ShinyButton text="Save Changes" className="w-full" />
+            <div
+              onClick={handleSubmit}
+              className="w-full justify-center flex"
+              asChild
+            >
+              <ShinyButton text="Save Changes" className="w-full" />
             </div>
           </div>
         </CredenzaBody>

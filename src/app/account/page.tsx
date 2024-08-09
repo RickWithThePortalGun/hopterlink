@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import EditAProfile from "@/components/EditAProfile";
 import HeaderContainer from "@/components/HeaderContainer";
 import ListItem from "@/components/ListItem";
@@ -84,14 +84,13 @@ const Page = () => {
             gap-12"
         >
           <div className="w-full flex items-start flex-row gap-6 max-lg:flex-col max-lg:items-center">
-            <div  className="overflow-hidden  rounded-full border-4 border-separate relative w-52 h-52 border-[#7a7a7]">
-            <Image
-              alt="Your profile picture"
-              src={userInfo?.profile || "https://github.com/shadcn.png"}
-              
-              objectFit="cover"
-            fill
-            />
+            <div className="overflow-hidden  rounded-full border-4 border-separate relative w-52 h-52 border-[#7a7a7]">
+              <Image
+                alt="Your profile picture"
+                src={userInfo?.profile || "https://github.com/shadcn.png"}
+                objectFit="cover"
+                fill
+              />
             </div>
             <div className="w-full max-lg:items-center flex flex-col max-lg:flex-col-reverse">
               <div className="flex w-full justify-between flex-row max-lg:flex-col max-lg:gap-12 items-center">

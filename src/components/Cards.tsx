@@ -35,7 +35,7 @@ const Cards = () => {
     try {
       const result = await axios.get("/api/recent-activity/");
       setRecents(result.data);
-      console.log(result.data)
+      console.log(result.data);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching reviews:", error);
