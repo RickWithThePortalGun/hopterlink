@@ -161,10 +161,10 @@ export function Header({ className }: SidebarProps) {
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Avatar className="bg-primary">
-              <AvatarImage src={session?.user?.profile} />
+              <AvatarImage src={session?.user?.profile || ""} />
               <AvatarFallback>
-                {session?.user?.first_name[0] || "H"}
-                {session?.user?.last_name[0] || "U"}
+                {session?.user?.first_name?.[0] || "H"}
+                {session?.user?.last_name?.[0] || "U"}
               </AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
@@ -601,10 +601,10 @@ export function Header({ className }: SidebarProps) {
                     <DropdownMenu>
                       <DropdownMenuTrigger>
                         <Avatar>
-                          <AvatarImage src={session?.user?.profile} />
+                          <AvatarImage src={session?.user?.profile || ""} />
                           <AvatarFallback>
-                            {session?.user?.first_name[0] || "H"}{" "}
-                            {session?.user?.last_name[0] || "U"}
+                            {session?.user?.first_name?.[0] || "H"}
+                            {session?.user?.last_name?.[0] || "U"}
                           </AvatarFallback>
                         </Avatar>
                       </DropdownMenuTrigger>

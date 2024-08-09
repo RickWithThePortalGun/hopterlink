@@ -8,6 +8,7 @@ import {
 } from "react";
 import { Category } from "@/constants/constants";
 import axios from "axios";
+import { toast } from "@/components/ui-hooks/use-toast";
 
 // Adjusted type for CategoriesContext
 interface CategoriesContextType {
@@ -41,13 +42,23 @@ export const CategoriesProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const fetchedData = await axios.get("/api/categories");
-      if (fetchedData) {
-        const fetchedCategories = Object.values(
-          fetchedData.data.results,
-        ) as Category[];
-        setCategories(fetchedCategories);
-        setLoading(false);
+      try {
+        const fetchedData = await axios.get("/api/categories");
+        if (fetchedData) {
+          const fetchedCategories = Object.values(
+            fetchedData.data.results,
+          ) as Category[];
+          setCategories(fetchedCategories);
+          setLoading(false);
+        } else {
+          setCategories([]);
+        }
+      } catch (error) {
+        setCategories([]);
+        toast({
+          title: "Network error",
+          description: "Ensure you have an internet connection.",
+        });
       }
     };
     fetchCategories();

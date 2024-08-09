@@ -115,7 +115,9 @@ const EditAProfile = ({ userInfo }: Props) => {
             <div className="flex items-center justify-center w-full">
               <Avatar className="w-24 h-24 justify-center flex">
                 <AvatarImage src={preview} onLoad={() => <RotatingLines />} />
-                <AvatarFallback>BU</AvatarFallback>
+                <AvatarFallback>
+                  {userInfo?.first_name?.[0]} {userInfo?.last_name?.[0]}
+                </AvatarFallback>{" "}
               </Avatar>
             </div>
             <Input

@@ -93,7 +93,7 @@ const Page = () => {
                 sizes="lg"
               />
               <AvatarFallback>
-                {userInfo?.first_name[0]} {userInfo?.last_name[0]}
+                {userInfo?.first_name?.[0]} {userInfo?.last_name?.[0]}
               </AvatarFallback>
             </Avatar>
             <div className="w-full max-lg:items-center flex flex-col max-lg:flex-col-reverse">
