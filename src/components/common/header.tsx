@@ -35,7 +35,7 @@ import {
   Settings,
   SunIcon,
   User,
-  X
+  X,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Collection from "../Collection";
@@ -143,7 +143,8 @@ export function Header({ className }: SidebarProps) {
             </Button>
           </Link>
         </>
-      )}      {status === "authenticated" && (
+      )}{" "}
+      {status === "authenticated" && (
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Avatar className="bg-primary">
@@ -343,7 +344,7 @@ export function Header({ className }: SidebarProps) {
                   <div className=" flex flex-row items-center justify-between">
                     <DropdownMenu>
                       <DropdownMenuTrigger>
-                      <LanguageSwitcher/>
+                        <LanguageSwitcher />
                       </DropdownMenuTrigger>
                     </DropdownMenu>
                     <DropdownMenu>

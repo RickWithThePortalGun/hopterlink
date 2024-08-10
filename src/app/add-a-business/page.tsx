@@ -220,7 +220,7 @@ const App = () => {
 
   return (
     <HeaderContainer>
-      <div className="p-20 max-md:p-6 mt-20 min-w-full relative" >
+      <div className="p-20 max-md:p-6 mt-20 min-w-full relative">
         <div className="pb-10">
           <Typography variant={"h1"} className="my-2 text-center">
             Create a Business Account on Hopterlink
@@ -462,8 +462,10 @@ const App = () => {
             )}
           </div>
         </form>
-        <Particles className="absolute top-0 right-0 left-0 bottom-0 z-auto" color="#c55e0c"/>
-
+        <Particles
+          className="absolute top-0 right-0 left-0 bottom-0 z-auto"
+          color="#c55e0c"
+        />
       </div>
     </HeaderContainer>
   );

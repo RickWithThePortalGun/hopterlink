@@ -105,7 +105,13 @@ const Page = () => {
                 >
                   {userInfo?.first_name || "New"}{" "}
                   {userInfo?.last_name || "User"}
-                  <VerifiedIcon color={userInfo?.is_business ?"#c55e0c":"rgba(122, 122, 122, 1)"} />
+                  <VerifiedIcon
+                    color={
+                      userInfo?.is_business
+                        ? "#c55e0c"
+                        : "rgba(122, 122, 122, 1)"
+                    }
+                  />
                 </Typography>
                 <div className="flex flex-row max-lg:flex-col items-center gap-4">
                   <div className="flex flex-col gap-2 items-center">
@@ -172,7 +178,7 @@ const Page = () => {
               <ListItem title="Notifications" />
               <ListItem title="Privacy Settings" />
               <ListItem title="Language" />
-              <ChangePassword/>
+              <ChangePassword />
               <ListItem title="Delete Account" />
             </div>
           </Card>

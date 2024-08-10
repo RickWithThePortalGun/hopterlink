@@ -115,7 +115,8 @@ const EditAProfile = ({ userInfo }: Props) => {
     }
   };
 
-  const isFormValid = firstName && lastName && email && phone && (profile || "") !== ""; // Check if all required fields are filled
+  const isFormValid =
+    firstName && lastName && email && phone && (profile || "") !== ""; // Check if all required fields are filled
 
   return (
     <Credenza>

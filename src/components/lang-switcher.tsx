@@ -1,13 +1,16 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 const LanguageSwitcher = () => {
   useEffect(() => {
     const addGoogleTranslate = () => {
       new window.google.translate.TranslateElement(
-        { pageLanguage: 'en', layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE },
-        'google_translate_element'
+        {
+          pageLanguage: "en",
+          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+        },
+        "google_translate_element",
       );
     };
 

@@ -126,9 +126,11 @@ export default function UserAuthForm() {
               </FormItem>
             )}
           />
-         <ForgotPassword/>
+          <ForgotPassword />
           <Button disabled={loading} className="ml-auto w-full" type="submit">
-            <p className="">{loading?"Logging you in...":"Continue With Email"}</p>
+            <p className="">
+              {loading ? "Logging you in..." : "Continue With Email"}
+            </p>
           </Button>
         </form>
       </Form>

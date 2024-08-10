@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import { useEffect, useState } from "react";
 import { SelectPicker } from "rsuite";
@@ -15,7 +15,7 @@ const GoogleTranslate = () => {
     var addScript = document.createElement("script");
     addScript.setAttribute(
       "src",
-      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit",
     );
     document.body.appendChild(addScript);
     window.googleTranslateElementInit = googleTranslateElementInit;
@@ -34,7 +34,7 @@ const GoogleTranslate = () => {
         includedLanguages: "ru,en,pl", // If you remove it, by default all google supported language will be included
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
       },
-      "google_translate_element"
+      "google_translate_element",
     );
   };
 

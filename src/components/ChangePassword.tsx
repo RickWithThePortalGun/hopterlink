@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Credenza,
   CredenzaBody,
@@ -16,10 +16,10 @@ import {
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import { Eye, EyeOff } from 'lucide-react'; // Assuming you're using lucide-react for icons
-import axios from 'axios';
-import { toast } from './ui-hooks/use-toast';
-import ListItem from './ListItem';
+import { Eye, EyeOff } from "lucide-react"; // Assuming you're using lucide-react for icons
+import axios from "axios";
+import { toast } from "./ui-hooks/use-toast";
+import ListItem from "./ListItem";
 
 // Validation schema using zod
 const schema = z
@@ -49,7 +49,13 @@ type FormData = z.infer<typeof schema>;
 const ChangePassword = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { register, handleSubmit, setError, reset, formState: { errors } } = useForm<FormData>({
+  const {
+    register,
+    handleSubmit,
+    setError,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
@@ -66,7 +72,7 @@ const ChangePassword = () => {
           title: "Password Change",
           description: `Your password has been changed successfully.`,
         });
-        reset();  // Reset the form fields after a successful password change
+        reset(); // Reset the form fields after a successful password change
       }
     } catch (error) {
       if (error.response && error.response.data) {
@@ -81,7 +87,8 @@ const ChangePassword = () => {
         }
         toast({
           title: "Password Change failed",
-          description: "Ensure your new password is not similar to your names for security.",
+          description:
+            "Ensure your new password is not similar to your names for security.",
         });
       } else {
         // Handle unexpected errors
@@ -152,13 +159,19 @@ const ChangePassword = () => {
                 </div>
               )}
             </div>
-            <Button type="submit" variant={"default"} className="w-full" disabled={loading}>
-              <div className='text-white'>{loading ? 'Changing...' : 'Change Password'}</div>
+            <Button
+              type="submit"
+              variant={"default"}
+              className="w-full"
+              disabled={loading}
+            >
+              <div className="text-white">
+                {loading ? "Changing..." : "Change Password"}
+              </div>
             </Button>
           </form>
         </CredenzaBody>
-        <CredenzaFooter className='justify-center flex w-full'>
-        </CredenzaFooter>
+        <CredenzaFooter className="justify-center flex w-full"></CredenzaFooter>
       </CredenzaContent>
     </Credenza>
   );

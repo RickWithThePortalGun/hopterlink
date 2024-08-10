@@ -7,12 +7,11 @@ export async function POST(req: NextRequest) {
   try {
     const result = await axios.post(uri, {
       email: body.email,
-
     });
-    console.log(result.data)
+    console.log(result.data);
     return NextResponse.json(result.data, { status: 201 });
   } catch (error: any) {
-    console.log(error.response.data)
+    console.log(error.response.data);
     return NextResponse.json(error, { status: 400 });
   }
 }
