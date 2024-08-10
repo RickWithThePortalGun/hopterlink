@@ -13,16 +13,16 @@ import { Separator } from "@/components/ui/separator";
 import Typography from "@/components/ui/typography";
 import { ChevronDown, Info } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Key, useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useCategories } from "@/contexts/ReUsableData";
 import { Subcategory } from "@/constants/constants";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import axios from "axios";
 
 interface Props {
-  params: { id: string }; // Use id instead of slug
+  params: { id: string };
 }
 
 const Page = ({ params }: Props) => {
@@ -34,6 +34,9 @@ const Page = ({ params }: Props) => {
   const [error, setError] = useState<string | null>(null);
   const [sortOption, setSortOption] = useState<string>("Recommended");
   const router = useRouter();
+
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
     const fetchCategory = () => {
@@ -184,13 +187,13 @@ const Page = ({ params }: Props) => {
                       (subcategory: Subcategory, index: number) => (
                         <motion.div
                           key={subcategory.id}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.5, delay: index * 0.5 }}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.2 }}
                           onClick={() => handleSubcategoryClick(subcategory.id)}
                           className={`cursor-pointer p-2 border-[1px] rounded-full whitespace-nowrap ${
                             selectedSubcategory === subcategory.id
-                              ? "border-[#c55e0c]"
+                              ? "border-[#c55e0c] bg-primary text-white shadow-md"
                               : "border-gray-300"
                           }`}
                         >
@@ -201,31 +204,45 @@ const Page = ({ params }: Props) => {
                   </div>
                   <ScrollBar orientation="horizontal" />
                 </ScrollArea>
-                <div className="mt-6">
+                <div ref={ref} className="mt-6">
                   {loading ? (
                     <SearchLoaders />
                   ) : error ? (
                     <Typography className="text-red-500">{error}</Typography>
                   ) : (
-                    displayData?.map((item: any) => (
-                      <div
-                        key={item.id}
-                        onClick={() => handleBusinessClick({ id: item.id })}
-                        className="cursor-pointer"
-                      >
-                        <DetailCard
-                          loading={categoriesLoading}
-                          logo={
-                            item.images[0].thumbnail || item.images[0].image
+                    <div>
+                      {displayData?.map((item: any, index: number) => (
+                        <motion.div
+                          key={item.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={
+                            { opacity: 1, y: 0 }
                           }
-                          review_count={item.review_count} // Adjust based on your actual data
-                          stars={item.average_rating} // Adjust based on your actual data
-                          name={item.business_name}
-                          description={item.location}
-                        />
-                        <Separator />
-                      </div>
-                    ))
+                          transition={{
+                            duration: 0.5,
+                            ease: "easeOut",
+                            delay: index * 0.1,
+                          }}
+                          onClick={() =>
+                            handleBusinessClick({ id: item.id })
+                          }
+                          className="cursor-pointer"
+                        >
+                          <DetailCard
+                            loading={categoriesLoading}
+                            logo={
+                              item.images[0]?.thumbnail ||
+                              item.images[0]?.image
+                            }
+                            review_count={item.review_count} // Adjust based on your actual data
+                            stars={item.average_rating} // Adjust based on your actual data
+                            name={item.business_name}
+                            description={item.location}
+                          />
+                          <Separator />
+                        </motion.div>
+                      ))}
+                    </div>
                   )}
                 </div>
               </div>
@@ -238,26 +255,3 @@ const Page = ({ params }: Props) => {
 };
 
 export default Page;
-
-export const priceRangeMapping = {
-  $: {
-    text: "Very Affordable",
-    className: "text-green-500 text-xs",
-  },
-  $$: {
-    text: "Affordable",
-    className: "text-blue-500 text-xs",
-  },
-  $$$: {
-    text: "Fair Price",
-    className: "text-yellow-500 text-xs",
-  },
-  $$$$: {
-    text: "Expensive",
-    className: "text-orange-500 text-xs",
-  },
-  $$$$$: {
-    text: "Very Expensive",
-    className: "text-red-500 text-xs",
-  },
-};
