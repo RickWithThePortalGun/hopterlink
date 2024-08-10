@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import HeaderContainer from "@/components/HeaderContainer";
 import AddAReview from "@/components/AddAReview";
 import AverageReview from "@/components/AverageReview";
@@ -161,7 +161,9 @@ const Business = ({ params }: Props) => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {businessInfo.business_name && <Crumbs businessInfo={businessInfo} />}
+            {businessInfo.business_name && (
+              <Crumbs businessInfo={businessInfo} />
+            )}
           </motion.div>
           <motion.div
             className="mt-12 w-full flex-row max-md:flex-col flex justify-between items-center"
@@ -299,9 +301,10 @@ const Business = ({ params }: Props) => {
                       () => {
                         toast({
                           title: "Error",
-                          description: "Failed to copy the link. Please try again.",
+                          description:
+                            "Failed to copy the link. Please try again.",
                         });
-                      }
+                      },
                     );
                   } else {
                     toast({
