@@ -35,8 +35,6 @@ export default function Home() {
             className="flex max-md:flex-col flex-row gap-4 w-full items-center
               h-screen"
           >
-           
-
             <div
               className="w-1/2 max-md:w-full items-start max-md:items-center flex-col p-2 gap-6 justify-center h-screen
                 flex"
@@ -125,14 +123,14 @@ export default function Home() {
           </div>
         </div>
         <Particles
-              className="absolute inset-0 top-0 bottom-0 left-0 right-0" 
-              quantity={150}
-              staticity={80}
-              ease={50}
-              refresh
-              size={1}
-              color="#c55e0c"
-            />
+          className="absolute inset-0 top-0 bottom-0 left-0 right-0"
+          quantity={150}
+          staticity={80}
+          ease={50}
+          refresh
+          size={1}
+          color="#c55e0c"
+        />
       </HeaderContainer>
     </>
   );

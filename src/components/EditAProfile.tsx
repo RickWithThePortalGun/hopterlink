@@ -40,24 +40,7 @@ const EditAProfile = ({ userInfo }: Props) => {
   const [profile, setProfile] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [isBusiness, setIsBusiness] = useState(userInfo?.is_business || false);
-  const [isDirty, setIsDirty] = useState(false); // Track if the form is dirty
-
-  useEffect(() => {
-    // Check if the form is dirty
-    if (
-      firstName !== userInfo?.first_name ||
-      lastName !== userInfo?.last_name ||
-      phone !== userInfo?.phone ||
-      email !== userInfo?.email ||
-      profile !== userInfo?.profile ||
-      imageFile !== null
-    ) {
-      setIsDirty(true);
-    } else {
-      setIsDirty(false);
-    }
-  }, [firstName, lastName, phone, email, profile, imageFile, userInfo]);
-
+  const [loading, setLoading] = useState(false);
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { files, displayUrl } = getImageData(event);
     setPreview(displayUrl);
@@ -77,14 +60,11 @@ const EditAProfile = ({ userInfo }: Props) => {
   };
 
   const handleSubmit = async () => {
-    if (!isDirty) return; // Prevent submission if no changes
-
+    setLoading(true);
     const formData = new FormData();
 
     formData.append("first_name", firstName);
     formData.append("last_name", lastName);
-    // formData.append("phone", phone || ""); // Handle if phone is null or undefined
-    // formData.append("email", email || ""); // Handle if email is null or undefined
 
     if (imageFile) {
       formData.append("profile", imageFile); // Append the actual file
@@ -97,12 +77,17 @@ const EditAProfile = ({ userInfo }: Props) => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to update profile");
+        toast({
+          title: "Error Occurred",
+          description:
+            "Your profile could not be updated. Check if you have a stable internet connection.",
+        });
       }
       toast({
         title: "Profile Updated",
         description: "Your profile has been successfully updated.",
       });
+      setLoading(false);
       setTimeout(() => {
         window.location.reload();
       }, 1000);
@@ -112,6 +97,7 @@ const EditAProfile = ({ userInfo }: Props) => {
         title: "Error Occurred",
         description: "Your profile could not be updated. Try again later.",
       });
+      setLoading(false);
     }
   };
 
@@ -152,12 +138,14 @@ const EditAProfile = ({ userInfo }: Props) => {
               placeholder="First Name"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
+              className="text-[16px]"
             />
             <Input
               type="text"
               placeholder="Last Name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+              className="text-[16px]"
             />
             <Input
               type="tel"
@@ -165,6 +153,7 @@ const EditAProfile = ({ userInfo }: Props) => {
               disabled
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
+              className="text-[16px]"
             />
             <Input
               type="email"
@@ -172,24 +161,23 @@ const EditAProfile = ({ userInfo }: Props) => {
               disabled
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="text-[16px]"
             />
             <Textarea
               placeholder="Your Bio"
               value={profile || ""}
               onChange={(e) => setProfile(e.target.value)}
-              className="border-2 border-border"
+              className="border-2 border-border text-[16px]"
             />
             <div
-              onClick={isFormValid && isDirty ? handleSubmit : undefined} // Disable if the form is not valid or dirty
-              className={`w-full justify-center flex ${
-                isFormValid && isDirty ? "cursor-pointer" : "cursor-not-allowed"
-              }`}
+              onClick={handleSubmit} // Disable if the form is not valid or dirty
+              className={`w-full justify-center flex "cursor-pointer`}
             >
-              <ShinyButton
-                text="Save Changes"
-                className="w-full"
-                disabled={!isFormValid || !isDirty}
-              />
+              {loading ? (
+                <RotatingLines strokeColor="#c55e0c" width="20" />
+              ) : (
+                <ShinyButton text="Save Changes" className="w-full" />
+              )}
             </div>
           </div>
         </CredenzaBody>

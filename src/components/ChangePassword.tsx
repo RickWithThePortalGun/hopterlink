@@ -124,6 +124,7 @@ const ChangePassword = () => {
                   {...register("newpassword1")}
                   type={showPassword ? "text" : "password"}
                   placeholder="New Password"
+                  className="text-[16px]"
                 />
                 <div
                   className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
@@ -145,6 +146,7 @@ const ChangePassword = () => {
                   {...register("newpassword2")}
                   type={showPassword ? "text" : "password"}
                   placeholder="Confirm New Password"
+                  className="text-[16px]"
                 />
                 <div
                   className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"

@@ -229,7 +229,10 @@ const App = () => {
             Offer services and products to fellow hopterlinkers
           </Typography>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 z-50">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-5 z-50 text-[16px]"
+        >
           <div>
             <Label>Business Email</Label>
             <Input {...register("email")} placeholder="Email" />
@@ -462,10 +465,6 @@ const App = () => {
             )}
           </div>
         </form>
-        <Particles
-          className="absolute top-0 right-0 left-0 bottom-0 z-auto"
-          color="#c55e0c"
-        />
       </div>
     </HeaderContainer>
   );
