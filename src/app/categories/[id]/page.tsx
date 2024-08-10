@@ -122,11 +122,7 @@ const Page = ({ params }: Props) => {
     <HeaderContainer>
       <div className="flex flex-col h-full md:py-10 md:px-16 pt-11 pb-24 px-8 w-full text-center gap-12">
         <div className="flex flex-col gap-6 items-start mt-12">
-          <div className="flex-col flex gap-4 items-center mt-6 md:flex-row w-full">
-            <SearchComponent />
-          </div>
-          <Separator />
-          {category ? (
+                 {category ? (
             <Typography
               className="w-full text-start animate-fade animate-duration-1000"
               variant="h2"
@@ -191,10 +187,10 @@ const Page = ({ params }: Props) => {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ duration: 0.5, delay: index * 0.2 }}
                           onClick={() => handleSubcategoryClick(subcategory.id)}
-                          className={`cursor-pointer p-2 border-[1px] rounded-full whitespace-nowrap ${
+                          className={`cursor-pointer p-2  rounded-full whitespace-nowrap ${
                             selectedSubcategory === subcategory.id
-                              ? "border-[#c55e0c] bg-primary text-white shadow-md"
-                              : "border-gray-300"
+                              ? "border-[#c55e0c] bg-primary text-white shadow-md font-bold border-0 border-transparent"
+                              : "border-gray-300 border-[1px]"
                           }`}
                         >
                           <p className="text-xs">{subcategory.name}</p>
@@ -215,24 +211,19 @@ const Page = ({ params }: Props) => {
                         <motion.div
                           key={item.id}
                           initial={{ opacity: 0, y: 20 }}
-                          animate={
-                            { opacity: 1, y: 0 }
-                          }
+                          animate={{ opacity: 1, y: 0 }}
                           transition={{
                             duration: 0.5,
                             ease: "easeOut",
                             delay: index * 0.1,
                           }}
-                          onClick={() =>
-                            handleBusinessClick({ id: item.id })
-                          }
+                          onClick={() => handleBusinessClick({ id: item.id })}
                           className="cursor-pointer"
                         >
                           <DetailCard
                             loading={categoriesLoading}
                             logo={
-                              item.images[0]?.thumbnail ||
-                              item.images[0]?.image
+                              item.images[0]?.thumbnail || item.images[0]?.image
                             }
                             review_count={item.review_count} // Adjust based on your actual data
                             stars={item.average_rating} // Adjust based on your actual data

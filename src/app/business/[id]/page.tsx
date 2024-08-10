@@ -119,7 +119,11 @@ const Business = ({ params }: Props) => {
                   </motion.div>
                 ))
             ) : (
-              <Typography variant={"p"}>No Reviews</Typography>
+              <div className="w-full h-full items-center justify-center">
+                              <Typography variant={"p"}>No reviews yet for {businessInfo.business_name}</Typography>
+                              
+              </div>
+
             )}
           </motion.div>
         );
