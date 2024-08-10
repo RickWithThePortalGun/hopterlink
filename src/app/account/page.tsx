@@ -96,22 +96,21 @@ const Page = () => {
           className="md:py-30 md:px-1.5 pb-24 px-6 flex flex-col w-full mt-24 gap-12"
         >
           <div className="w-full flex items-start flex-row gap-6 max-lg:flex-col max-lg:items-center">
-          <motion.div
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-            <Avatar className="w-24 h-24 justify-center flex">
-            
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Avatar className="w-24 h-24 justify-center flex">
                 <AvatarImage
                   src={userInfo?.profile}
                   onLoad={() => <RotatingLines />}
                   sizes="lg"
                 />
-              <AvatarFallback>
-                {userInfo?.first_name?.[0]} {userInfo?.last_name?.[0]}
-              </AvatarFallback>
-            </Avatar>
+                <AvatarFallback>
+                  {userInfo?.first_name?.[0]} {userInfo?.last_name?.[0]}
+                </AvatarFallback>
+              </Avatar>
             </motion.div>
 
             <motion.div
@@ -147,8 +146,7 @@ const Page = () => {
                   </div>
                   <div className="flex flex-col gap-2 items-center">
                     <Typography className="font-bold" variant={"h2"}>
-                      <NumberTicker value={userInfo?.is_business ?1 : 0}/>
-                      
+                      <NumberTicker value={userInfo?.is_business ? 1 : 0} />
                     </Typography>
                     <p className="text-primary font-bold text-sm text-center">
                       Businesses owned
@@ -156,8 +154,7 @@ const Page = () => {
                   </div>
                   <div className="flex flex-col gap-2 items-center">
                     <Typography className="font-bold" variant={"h2"}>
-                    <NumberTicker value={collections?.length} />
-
+                      <NumberTicker value={collections?.length} />
                     </Typography>
                     <p className="text-primary font-bold text-sm text-center">
                       Saved Businesses
