@@ -1,10 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/naming-convention */
-"use client";
+'use client'
 import HeaderContainer from "@/components/HeaderContainer";
-
 import AddAReview from "@/components/AddAReview";
 import AverageReview from "@/components/AverageReview";
 import BusinessAdInfo from "@/components/BusinessAdInfo";
@@ -29,6 +24,7 @@ import {
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Gallery from "@/components/Gallery";
 import Image from "next/image";
 import { RotatingLines } from "react-loader-spinner";
@@ -36,7 +32,7 @@ import DotPattern from "@/components/magicui/dot-pattern";
 import { useCategories } from "@/contexts/ReUsableData";
 
 interface Props {
-  params: { id: string }; // Use id instead of slug
+  params: { id: string };
 }
 
 const Business = ({ params }: Props) => {
@@ -50,37 +46,7 @@ const Business = ({ params }: Props) => {
   const [reviews, setReviews] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [active, setActive] = useState(
-    businessInfo.business_name ? businessInfo.images[0].image : "",
-  );
-
-  const copyToClipboard = (text: any) => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(
-        () => {
-          toast({
-            title: "Link Copied",
-            description: "The business URL has been copied to your clipboard.",
-          });
-        },
-        (err) => {
-          toast({
-            title: "Error",
-            description: "Failed to copy the link. Please try again.",
-          });
-        },
-      );
-    } else {
-      toast({
-        title: "Unsupported Browser",
-        description: "Your browser does not support the clipboard feature.",
-      });
-    }
-  };
-  const handleShareClick = () => {
-    const businessURL = window.location.href;
-    copyToClipboard(businessURL);
-  };
+  const [activeSection, setActiveSection] = useState("gallery");
 
   useEffect(() => {
     const id = params.id as string;
@@ -88,67 +54,74 @@ const Business = ({ params }: Props) => {
       try {
         setLoading(true);
         const business = await axios.get(`/api/business/${id}`);
-        console.log("Fetched reviews: ", business.data.reviews);
         setReviews(business.data.reviews);
-        console.log(reviews);
         setBusinessInfo(business.data);
-        // if (business.id) {
-        //   const { is_favorite } = await checkFavorite(business.id);
-        //   setIsFavorite(is_favorite);
-        // }
       } catch (error) {
         console.error("Error fetching business detail:", error);
       }
       setLoading(false);
     };
     void fetchData();
-  }, []);
+  }, [params.id]);
 
-  const [activeSection, setActiveSection] = useState("gallery");
   const renderContent = () => {
     switch (activeSection) {
       case "gallery":
         return (
-          <>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
             <Gallery images={businessInfo.images} />
             <div className="h-fit py-4 flex flex-row items-center gap-4">
               {businessInfo.images.map((image, index) => (
-                <>
-                  <div className="w-[100px] relative h-[100px]">
-                    <Image
-                      objectFit="cover"
-                      alt="business-images"
-                      fill
-                      className="rounded-md"
-                      onLoad={() => (
-                        <RotatingLines strokeColor="#c55e0c" width="20" />
-                      )}
-                      src={image.thumbnail}
-                    />
-                  </div>
-                </>
-              ))}{" "}
+                <motion.div
+                  key={index}
+                  className="w-[100px] relative h-[100px]"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <Image
+                    objectFit="cover"
+                    alt="business-images"
+                    fill
+                    className="rounded-md"
+                    onLoad={() => (
+                      <RotatingLines strokeColor="#c55e0c" width="20" />
+                    )}
+                    src={image.thumbnail}
+                  />
+                </motion.div>
+              ))}
             </div>
-          </>
+          </motion.div>
         );
       case "reviews":
         return (
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.5 }}
+          >
             {reviews?.length > 0 ? (
-              <>
-                {reviews
-                  .slice()
-                  .reverse()
-                  .map((review: any) => (
-                    <div key={review.id}>
-                      <ReviewsCard review={review} />
-                    </div>
-                  ))}
-              </>
+              reviews
+                .slice()
+                .reverse()
+                .map((review: any) => (
+                  <motion.div
+                    key={review.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ReviewsCard review={review} />
+                  </motion.div>
+                ))
             ) : (
-              ""
+              <Typography variant={"p"}>No Reviews</Typography>
             )}
-          </div>
+          </motion.div>
         );
       default:
         return null;
@@ -161,96 +134,49 @@ const Business = ({ params }: Props) => {
       : "px-4 py-2 cursor-pointer max-md:text-sm";
   };
 
-  const priceRange = businessInfo?.price_range;
-  const { setCollections } = useCategories();
-  const handleAddToFavorites = async () => {
-    try {
-      await axios.post(`/api/add-to-collection/${params.id}`);
-      // const businessData = response.data;
-      // const newCollectionItem = {
-      //   id: businessData.id,
-      //   email: businessData.email,
-      //   logo: businessData.logo,
-      //   business_name: businessData.business_name,
-      //   location: businessData.location,
-      //   images: businessData.uploaded_images.map((image, index) => ({
-      //     id: index,
-      //     image: image,
-      //     thumbnail: image, // Assuming thumbnail is the same as the image, adjust if necessary
-      //   })),
-      //   average_rating: businessData.average_rating, // Assuming no rating available in the response
-      // };
-      // setCollections((prevCollections) => [...prevCollections, newCollectionItem]);
-      setIsFavorite(true);
-      toast({
-        title: "Added to Collections",
-        description: `${businessInfo.business_name} has been added to your collection.`,
-      });
-    } catch (error) {
-      toast({
-        title: "Something went wrong",
-        description: `${error.response.data}`,
-      });
-    }
-  };
-  const loadingStates = [
-    {
-      text: `Asking for information..`,
-    },
-    {
-      text: `Recieving information..`,
-    },
-    {
-      text: `Rendering information..`,
-    },
-  ];
-  const handleAddReview = (newReview: any) => {
-    setReviews((prevReviews) => [newReview, ...prevReviews]);
-  };
-  console.log(businessInfo);
   return (
     <HeaderContainer>
       {loading || !businessInfo.business_name ? (
-        // <div className="h-screen w-screen flex items-center justify-center">
-        //   <RotatingLines
-        //     visible={true}
-        //     width="35"
-        //     strokeColor="#C55E0C"
-        //     strokeWidth="5"
-        //     animationDuration="0.75"
-        //     ariaLabel="rotating-lines-loading"
-        //   />
-        // </div>
         <div className="w-full h-[60vh] flex items-center justify-center">
-          {/* Core Loader Modal */}
           <MultiStepLoader
-            loadingStates={loadingStates}
+            loadingStates={[
+              { text: "Asking for information.." },
+              { text: "Receiving information.." },
+              { text: "Rendering information.." },
+            ]}
             loading={loading}
             duration={1000}
           />
         </div>
       ) : (
-        <div
-          className="flex flex-col h-full md:py-30 md:px-28 pt-11 pb-24 px-6
-            w-full gap-12"
+        <motion.div
+          className="flex flex-col h-full md:py-30 md:px-28 pt-11 pb-24 px-6 w-full gap-12"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          <div className="mt-10 z-48">
-            {businessInfo.business_name ? (
-              <div className="">
-                <Crumbs businessInfo={businessInfo} />
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
-          <div
-            className="mt-12 w-full flex-row max-md:flex-col flex justify-between
-              items-center"
+          <motion.div
+            className="mt-10 z-48"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {businessInfo.business_name && <Crumbs businessInfo={businessInfo} />}
+          </motion.div>
+          <motion.div
+            className="mt-12 w-full flex-row max-md:flex-col flex justify-between items-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7 }}
           >
             <Typography className="text-primary" variant={"h1"}>
               {businessInfo?.business_name}
             </Typography>
-            <div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
               <div className="flex flex-col items-center gap-2">
                 {businessInfo?.average_rating >= 1 ? (
                   <>
@@ -270,11 +196,21 @@ const Business = ({ params }: Props) => {
                   <Typography variant={"p"}>No Reviews</Typography>
                 )}
               </div>
-            </div>
-          </div>
-          <div className="flex flex-row justify-between">
+            </motion.div>
+          </motion.div>
+          <motion.div
+            className="flex flex-row justify-between"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7 }}
+          >
             <div className="gap-2 flex flex-col">
-              <div className="flex flex-row gap-2 items-center">
+              <motion.div
+                className="flex flex-row gap-2 items-center"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7 }}
+              >
                 <MapPin />
                 <Typography
                   className="max-md:text-center text-xs"
@@ -282,78 +218,112 @@ const Business = ({ params }: Props) => {
                 >
                   {businessInfo?.location}
                 </Typography>
-              </div>
-              <div className="flex flex-row gap-2 items-center">
+              </motion.div>
+              <motion.div
+                className="flex flex-row gap-2 items-center"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+              >
                 <Link2 />
                 <Typography className="max-md:text-center">
                   {businessInfo.website ? (
                     <Link href={businessInfo?.website}>
-                      {businessInfo?.website}{" "}
+                      {businessInfo?.website}
                     </Link>
                   ) : (
                     ""
                   )}
                 </Typography>
-              </div>
-              <div className="flex flex-row items-center gap-2">
+              </motion.div>
+              <motion.div
+                className="flex flex-row items-center gap-2"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.9 }}
+              >
                 <Timer />
                 <Typography className="max-md:text-center">
                   Delivers in {businessInfo.min_delivery_time_in_days} to{" "}
                   {businessInfo.max_delivery_time_in_days} days
                 </Typography>
-              </div>
+              </motion.div>
               {businessInfo.tags && businessInfo.tags.length > 0 && (
                 <div className="w-full flex gap-2 flex-wrap">
                   {businessInfo.tags.map((tag: any) => (
-                    <p
+                    <motion.p
                       key={tag.slug}
-                      className="max-w-[100px] truncate bg-teal-400/10 border-none mt-[5px]
-                          text-[10px] px-2 py-1 rounded-[18px]"
+                      className="max-w-[100px] truncate bg-teal-400/10 border-none mt-[5px] text-[10px] px-2 py-1 rounded-[18px]"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: tag.index * 0.1 }}
                     >
                       {tag.name}
-                    </p>
+                    </motion.p>
                   ))}
                 </div>
               )}
             </div>
-            <div className="flex flex-row gap-2 items-center">
-              {/* <DollarSign size={14} />
-            {priceRange ? (
-              <span className={className}>{text}</span>
-            ) : (
-              <span className="text-gray-500">
-                Price range not available
-              </span>
-            )} */}
-            </div>
-          </div>
-          <div className="text-center text-sm font-bold">
+          </motion.div>
+          <motion.div
+            className="text-center text-sm font-bold"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             {businessInfo?.description}
-          </div>
-          <div className="flex flex-row max-lg:flex-col md:justify-between max-lg:gap-2 items-center mt-2">
-            <div
-              className="flex flex-row items-center max-md:w-full gap-2
-                max-sm:flex-col"
-            >
-              <AddAReview
-                businessInfo={businessInfo}
-                onReviewAdded={handleAddReview}
-              />{" "}
+          </motion.div>
+          <motion.div
+            className="flex flex-row max-lg:flex-col md:justify-between max-lg:gap-2 items-center mt-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="flex flex-row items-center max-md:w-full gap-2 max-sm:flex-col">
+              <AddAReview businessInfo={businessInfo} />
               <SendAMesage businessInfo={businessInfo} />
               <Button
                 className="flex gap-2 items-center min-w-60"
                 variant={"secondary"}
-                onClick={handleShareClick}
+                onClick={() => {
+                  const businessURL = window.location.href;
+                  if (navigator.clipboard) {
+                    navigator.clipboard.writeText(businessURL).then(
+                      () => {
+                        toast({
+                          title: "Link Copied",
+                          description:
+                            "The business URL has been copied to your clipboard.",
+                        });
+                      },
+                      () => {
+                        toast({
+                          title: "Error",
+                          description: "Failed to copy the link. Please try again.",
+                        });
+                      }
+                    );
+                  } else {
+                    toast({
+                      title: "Unsupported Browser",
+                      description:
+                        "Your browser does not support the clipboard feature.",
+                    });
+                  }
+                }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <Share size={16} /> Share
               </Button>
             </div>
-            <div className="">
+            <div>
               {businessInfo.in_collection || isFavorite ? (
                 <Button
                   className="flex min-w-60 gap-2 items-center max-md:mt-2"
                   variant={"ghost"}
                   disabled
+                  whileHover={{ scale: 1.05 }}
                 >
                   <BookmarkCheck size={16} />
                   Added to Favorites
@@ -362,16 +332,37 @@ const Business = ({ params }: Props) => {
                 <Button
                   className="flex min-w-60 gap-2 items-center max-md:mt-2"
                   variant={"secondary"}
-                  onClick={handleAddToFavorites}
+                  onClick={async () => {
+                    try {
+                      await axios.post(`/api/add-to-collection/${params.id}`);
+                      setIsFavorite(true);
+                      toast({
+                        title: "Added to Collections",
+                        description: `${businessInfo.business_name} has been added to your collection.`,
+                      });
+                    } catch (error) {
+                      toast({
+                        title: "Something went wrong",
+                        description: `${error.response.data}`,
+                      });
+                    }
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <Bookmark size={16} />
                   Add to Collections
                 </Button>
               )}
             </div>
-          </div>
-          <div className="flex-col flex">
-            <div className="flex flex-row items-center  max-md:gap-0 mt-6 lg:w-[1/2] gap-x-12">
+          </motion.div>
+          <motion.div className="flex-col flex">
+            <motion.div
+              className="flex flex-row items-center max-md:gap-0 mt-6 lg:w-[1/2] gap-x-12"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
               <div
                 className={getTabClass("gallery")}
                 onClick={() => {
@@ -388,24 +379,37 @@ const Business = ({ params }: Props) => {
               >
                 Reviews
               </div>
-            </div>
+            </motion.div>
             <Separator className="mb-2" />
             <div className="flex flex-row max-lg:flex-col items-start gap-4">
-              <div className="w-2/3 max-lg:w-full">{renderContent()}</div>
-              <div className="flex flex-col gap-2">
-                {businessInfo.business_name ? (
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeSection}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-2/3 max-lg:w-full"
+                >
+                  {renderContent()}
+                </motion.div>
+              </AnimatePresence>
+              <motion.div
+                className="flex flex-col gap-2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.7 }}
+              >
+                {businessInfo.business_name && (
                   <>
-                    {" "}
                     <BusinessCTA businessInfo={businessInfo} />
                     <BusinessAdInfo businessInfo={businessInfo} />
                   </>
-                ) : (
-                  ""
                 )}
-              </div>
+              </motion.div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
     </HeaderContainer>
   );
