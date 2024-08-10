@@ -48,10 +48,10 @@ export default function Home() {
         >
           <div
             className="flex max-md:flex-col flex-row gap-4 w-full items-center
-              h-screen"
+              h-fit mt-12"
           >
             <div
-              className="w-full max-md:w-full items-start max-md:items-center flex-col p-2 gap-6 justify-center h-screen
+              className="w-full max-md:w-full items-start max-md:items-center flex-col p-2 gap-6 justify-center h-fit
                 flex"
             >
               <div
