@@ -1,4 +1,5 @@
 "use client";
+import ChangePassword from "@/components/ChangePassword";
 import EditAProfile from "@/components/EditAProfile";
 import HeaderContainer from "@/components/HeaderContainer";
 import ListItem from "@/components/ListItem";
@@ -102,9 +103,9 @@ const Page = () => {
                   variant={"h1"}
                   className="flex flex-row gap-2 items-center text-center"
                 >
-                  {userInfo?.first_name || "John"}{" "}
-                  {userInfo?.last_name || "Doe"}
-                  <VerifiedIcon color={"rgba(122, 122, 122, 1)"} />
+                  {userInfo?.first_name || "New"}{" "}
+                  {userInfo?.last_name || "User"}
+                  <VerifiedIcon color={userInfo?.is_business ?"#c55e0c":"rgba(122, 122, 122, 1)"} />
                 </Typography>
                 <div className="flex flex-row max-lg:flex-col items-center gap-4">
                   <div className="flex flex-col gap-2 items-center">
@@ -171,7 +172,7 @@ const Page = () => {
               <ListItem title="Notifications" />
               <ListItem title="Privacy Settings" />
               <ListItem title="Language" />
-              <ListItem title="Change Password" />
+              <ChangePassword/>
               <ListItem title="Delete Account" />
             </div>
           </Card>

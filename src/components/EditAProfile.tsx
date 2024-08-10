@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, useEffect } from "react";
 import {
   Credenza,
   CredenzaBody,
@@ -40,6 +40,23 @@ const EditAProfile = ({ userInfo }: Props) => {
   const [profile, setProfile] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [isBusiness, setIsBusiness] = useState(userInfo?.is_business || false);
+  const [isDirty, setIsDirty] = useState(false); // Track if the form is dirty
+
+  useEffect(() => {
+    // Check if the form is dirty
+    if (
+      firstName !== userInfo?.first_name ||
+      lastName !== userInfo?.last_name ||
+      phone !== userInfo?.phone ||
+      email !== userInfo?.email ||
+      profile !== userInfo?.profile ||
+      imageFile !== null
+    ) {
+      setIsDirty(true);
+    } else {
+      setIsDirty(false);
+    }
+  }, [firstName, lastName, phone, email, profile, imageFile, userInfo]);
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { files, displayUrl } = getImageData(event);
@@ -60,6 +77,8 @@ const EditAProfile = ({ userInfo }: Props) => {
   };
 
   const handleSubmit = async () => {
+    if (!isDirty) return; // Prevent submission if no changes
+
     const formData = new FormData();
 
     formData.append("first_name", firstName);
@@ -90,11 +109,13 @@ const EditAProfile = ({ userInfo }: Props) => {
     } catch (error) {
       console.error(error);
       toast({
-        title: "Error Occured",
+        title: "Error Occurred",
         description: "Your profile could not be updated. Try again later.",
       });
     }
   };
+
+  const isFormValid = firstName && lastName && email && phone && (profile || "") !== ""; // Check if all required fields are filled
 
   return (
     <Credenza>
@@ -117,7 +138,7 @@ const EditAProfile = ({ userInfo }: Props) => {
                 <AvatarImage src={preview} onLoad={() => <RotatingLines />} />
                 <AvatarFallback>
                   {userInfo?.first_name?.[0]} {userInfo?.last_name?.[0]}
-                </AvatarFallback>{" "}
+                </AvatarFallback>
               </Avatar>
             </div>
             <Input
@@ -158,11 +179,16 @@ const EditAProfile = ({ userInfo }: Props) => {
               className="border-2 border-border"
             />
             <div
-              onClick={handleSubmit}
-              className="w-full justify-center flex"
-              asChild
+              onClick={isFormValid && isDirty ? handleSubmit : undefined} // Disable if the form is not valid or dirty
+              className={`w-full justify-center flex ${
+                isFormValid && isDirty ? "cursor-pointer" : "cursor-not-allowed"
+              }`}
             >
-              <ShinyButton text="Save Changes" className="w-full" />
+              <ShinyButton
+                text="Save Changes"
+                className="w-full"
+                disabled={!isFormValid || !isDirty}
+              />
             </div>
           </div>
         </CredenzaBody>

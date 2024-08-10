@@ -16,49 +16,36 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import InitialsAvatar from "react-initials-avatar";
+import { useState } from "react";
 import "react-initials-avatar/lib/ReactInitialsAvatar.css";
 
-import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import Typography from "@/components/ui/typography";
 import { Subcategory } from "@/constants/constants";
 import { useCategories } from "@/contexts/ReUsableData";
 import { cn } from "@/lib/utils";
+import { PaperPlaneIcon } from "@radix-ui/react-icons";
 import {
   Activity,
-  BellDot,
-  Bus,
-  Car,
-  Clock,
-  Computer,
   File,
   Globe,
-  Home,
   LogOut,
   MenuIcon,
   MessageCircle,
   MoonIcon,
-  Pen,
-  Plus,
   Settings,
   SunIcon,
   User,
-  Weight,
-  X,
+  X
 } from "lucide-react";
-import { RotatingLines } from "react-loader-spinner";
-import Collection from "../Collection";
-import Logo from "../Logo";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { AvatarComponent } from "avatar-initials";
-import { PaperPlaneIcon } from "@radix-ui/react-icons";
-import ListItem from "../ListItem";
-import SearchComponent from "../SearchComponent";
 import { useRouter } from "next/navigation";
-import { ScrollArea } from "../ui/scroll-area";
-import { setAuthorizationToken } from "@/utils/http-request";
+import Collection from "../Collection";
+import ListItem from "../ListItem";
+import Logo from "../Logo";
 import RecentlyViewed from "../RecentlyViewed";
+import SearchComponent from "../SearchComponent";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { ScrollArea } from "../ui/scroll-area";
+import LanguageSwitcher from "../lang-switcher";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -156,8 +143,7 @@ export function Header({ className }: SidebarProps) {
             </Button>
           </Link>
         </>
-      )}
-      {status === "authenticated" && (
+      )}      {status === "authenticated" && (
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Avatar className="bg-primary">
@@ -357,10 +343,7 @@ export function Header({ className }: SidebarProps) {
                   <div className=" flex flex-row items-center justify-between">
                     <DropdownMenu>
                       <DropdownMenuTrigger>
-                        <div className="flex flex-row gap-4 items-center">
-                          <p>English</p>
-                          <Globe size={16} />
-                        </div>
+                      <LanguageSwitcher/>
                       </DropdownMenuTrigger>
                     </DropdownMenu>
                     <DropdownMenu>

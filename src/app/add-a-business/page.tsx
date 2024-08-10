@@ -25,6 +25,7 @@ import axios from "axios";
 import { toast } from "@/components/ui-hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { RotatingLines } from "react-loader-spinner";
+import Particles from "@/components/magicui/particles";
 
 const validationSchema = z.object({
   email: z
@@ -219,7 +220,7 @@ const App = () => {
 
   return (
     <HeaderContainer>
-      <div className="p-20 max-md:p-6 mt-20 min-w-full">
+      <div className="p-20 max-md:p-6 mt-20 min-w-full relative" >
         <div className="pb-10">
           <Typography variant={"h1"} className="my-2 text-center">
             Create a Business Account on Hopterlink
@@ -228,7 +229,7 @@ const App = () => {
             Offer services and products to fellow hopterlinkers
           </Typography>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 z-50">
           <div>
             <Label>Business Email</Label>
             <Input {...register("email")} placeholder="Email" />
@@ -461,6 +462,8 @@ const App = () => {
             )}
           </div>
         </form>
+        <Particles className="absolute top-0 right-0 left-0 bottom-0 z-auto" color="#c55e0c"/>
+
       </div>
     </HeaderContainer>
   );

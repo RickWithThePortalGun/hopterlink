@@ -19,6 +19,7 @@ import SearchComponent from "@/components/SearchComponent";
 import { FlipWords } from "@/components/ui/flip-words";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import GoogleTranslate from "@/GoogleTranslate";
 
 export default function Home() {
   const words = ["Find", "Review", "Hire"];

@@ -19,6 +19,7 @@ import GoogleSignInButton from "@/components/github-auth-button";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { toast } from "@/components/ui-hooks/use-toast";
+import ForgotPassword from "@/components/ForgotPassword";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Enter a valid email address" }),
@@ -125,8 +126,9 @@ export default function UserAuthForm() {
               </FormItem>
             )}
           />
+         <ForgotPassword/>
           <Button disabled={loading} className="ml-auto w-full" type="submit">
-            <p className="">Continue With Email</p>
+            <p className="">{loading?"Logging you in...":"Continue With Email"}</p>
           </Button>
         </form>
       </Form>

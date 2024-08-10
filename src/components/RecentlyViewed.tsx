@@ -51,12 +51,12 @@ const RecentlyViewed = () => {
     <Credenza>
       <CredenzaTrigger asChild>
         <div className="flex cursor-pointer flex-row items-center gap-2 pl-2 text-sm">
-          <Clock size={14} /> Recently Viewed
+          <Clock size={14} /> Recents
         </div>
       </CredenzaTrigger>
       <CredenzaContent>
         <CredenzaHeader>
-          <CredenzaTitle>Recently Viewed</CredenzaTitle>
+          <CredenzaTitle>Recents</CredenzaTitle>
           <CredenzaDescription>
             Businesses you have recently visited would be listed here.
           </CredenzaDescription>
