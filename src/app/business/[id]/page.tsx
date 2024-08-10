@@ -47,7 +47,7 @@ const Business = ({ params }: Props) => {
   const [loading, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [activeSection, setActiveSection] = useState("gallery");
-  const [favoriteLoading, setFavoriteLoading]=useState(false)
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
 
   useEffect(() => {
     const id = params.id as string;
@@ -337,34 +337,39 @@ const Business = ({ params }: Props) => {
                   Added to Favorites
                 </Button>
               ) : (
-                <motion.div        whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}>
-                <Button
-                  className="flex min-w-60 gap-2 items-center max-md:mt-2"
-                  variant={"secondary"}
-                  onClick={async () => {
-                    setFavoriteLoading(true)
-                    try {
-                      await axios.post(`/api/add-to-collection/${params.id}`);
-                      toast({
-                        title: "Added to Collections",
-                        description: `${businessInfo.business_name} has been added to your collection.`,
-                      });
-                      setIsFavorite(true)
-                      setFavoriteLoading(false)
-                    } catch (error) {
-                      toast({
-                        title: "Something went wrong",
-                        description: `${error.response.data}`,
-                      });
-                      setFavoriteLoading(false)
-                    }
-                  }}
-           
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <Bookmark size={16} />
-                  {favoriteLoading? <RotatingLines width="20" strokeColor="#c55e0c" /> :"Add to Collections"}
-                </Button>
+                  <Button
+                    className="flex min-w-60 gap-2 items-center max-md:mt-2"
+                    variant={"secondary"}
+                    onClick={async () => {
+                      setFavoriteLoading(true);
+                      try {
+                        await axios.post(`/api/add-to-collection/${params.id}`);
+                        toast({
+                          title: "Added to Collections",
+                          description: `${businessInfo.business_name} has been added to your collection.`,
+                        });
+                        setIsFavorite(true);
+                        setFavoriteLoading(false);
+                      } catch (error) {
+                        toast({
+                          title: "Something went wrong",
+                          description: `${error.response.data}`,
+                        });
+                        setFavoriteLoading(false);
+                      }
+                    }}
+                  >
+                    <Bookmark size={16} />
+                    {favoriteLoading ? (
+                      <RotatingLines width="20" strokeColor="#c55e0c" />
+                    ) : (
+                      "Add to Collections"
+                    )}
+                  </Button>
                 </motion.div>
               )}
             </div>
