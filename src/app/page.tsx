@@ -20,9 +20,23 @@ import { FlipWords } from "@/components/ui/flip-words";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import GoogleTranslate from "@/GoogleTranslate";
+import Gallery from "@/components/Gallery";
 
 export default function Home() {
   const words = ["Find", "Review", "Hire"];
+  const images = [
+    {
+      image: "/IMG_0929.JPG",
+    },
+    {
+      image: "/IMG_0933.JPG",
+    },{
+      image: "/IMG_0934.JPG",
+    },
+    {
+      image: "/IMG_0937.JPG",
+    },
+  ];
 
   return (
     <>
@@ -36,7 +50,7 @@ export default function Home() {
               h-screen"
           >
             <div
-              className="w-1/2 max-md:w-full items-start max-md:items-center flex-col p-2 gap-6 justify-center h-screen
+              className="w-full max-md:w-full items-start max-md:items-center flex-col p-2 gap-6 justify-center h-screen
                 flex"
             >
               <div
@@ -45,7 +59,7 @@ export default function Home() {
                     text-base text-white transition-all ease-in
                     hover:cursor-pointer hover:bg-neutral-200
                     dark:border-white/5 dark:bg-neutral-900
-                    dark:hover:bg-neutral-800`,
+                    dark:hover:bg-neutral-800`
                 )}
               >
                 <AnimatedShinyText
@@ -70,8 +84,8 @@ export default function Home() {
                 <SearchComponent />
               </div>
             </div>
-            <div className={"flex items-center justify-center w-full"}>
-              <ImageCarousel />
+            <div className="flex items-center justify-center w-full max-w-[500px]">
+              <Gallery noNavigation images={images} autoplayDelay={5000}  />
             </div>
           </div>
           <div className="flex flex-col md:pt-24 md:gap-36 gap-24 mt-12 items-center">

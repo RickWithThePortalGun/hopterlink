@@ -9,40 +9,44 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 // import required modules
-import { Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import Image from "next/image";
 import { RotatingLines } from "react-loader-spinner";
 
 interface Props {
   images: any;
+  noNavigation: boolean;
+  autoplayDelay?: number; // Optional prop for setting autoplay delay
 }
-const Gallery = ({ images }: Props) => {
+
+const Gallery = ({ images, noNavigation, autoplayDelay = 3000 }: Props) => {
   const [loading, setLoading] = useState(true);
+
   return (
-    <div>
+    <div className="w-full max-w-[500px]">
       <Swiper
         pagination={{
           dynamicBullets: true,
         }}
-        navigation={true}
-        modules={[Pagination, Navigation]}
+        navigation={!noNavigation} // Use the prop to enable/disable navigation
+        modules={[Pagination, Autoplay, ...(noNavigation ? [] : [Navigation])]} // Conditional inclusion of Navigation and Autoplay
+        autoplay={{
+          delay: autoplayDelay, // Set delay for autoplay
+          disableOnInteraction: false, // Continue autoplay even after user interaction
+        }}
       >
         {images.map((image, index) => (
-          <SwiperSlide>
-            <div className="flex items-center justify-center relative w-full h-[500px] rounded-md">
+          <SwiperSlide key={index}>
+            <div className="flex items-center justify-center relative h-[500px] w-full rounded-md">
               {loading ? (
                 <RotatingLines strokeColor="#c55e0c" width="20" />
-              ) : (
-                ""
-              )}
+              ) : null}
               <Image
                 objectFit="cover"
                 alt="business-images"
                 fill
                 className="rounded-md"
-                onLoad={() => (
-                  <RotatingLines strokeColor="#c55e0c" width="20" />
-                )}
+                onLoad={() => setLoading(false)}
                 src={image.image}
               />
             </div>

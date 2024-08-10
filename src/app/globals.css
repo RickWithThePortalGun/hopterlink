@@ -132,10 +132,10 @@
   vertical-align: unset !important;
 }
 .swiper-pagination {
-  --swiper-pagination-color: #c55e0c;
+  --swiper-pagination-color: #fff;
 }
 .swiper-navigation {
-  --swiper-navigation-color: #c55e0c !important;
+  --swiper-navigation-color: #fff !important;
 }
 
 /* .swiper-button-prev {
