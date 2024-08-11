@@ -6,17 +6,19 @@ import { BadgeInfo } from "lucide-react";
 import AverageReview from "./AverageReview";
 
 interface Props {
-  name: string;
-  loading: boolean;
-  description: string;
-  hours: string;
+  name?: string;
+  loading?: boolean;
+  description?: string;
+  hours?: string;
   stars: number;
-  price_range: string;
-  tags: any;
-  review_count: any;
+  price_range?: string;
+  logo?: any;
+  tags?: any;
+  review_count?: any;
 }
 
 const DetailCard = ({
+  logo,
   name,
   loading,
   tags,
@@ -35,32 +37,35 @@ const DetailCard = ({
   return (
     <>
       <div
-        className="h-fit w-[80] my-8 rounded-md flex flex-row items-start
+        className="h-fit w-[80] max-md:w-full my-8 rounded-md flex flex-row max-md:flex-col items-start max-md:items-center
           bg-transparent hover:border-secondary border-[1px]
           border-transparent hover:transition hover:ease-in-out
           ease-in-out p-4"
       >
-        <div className="m-2 rounded-md overflow-hidden">
-          <Image
-            src={`https://github.com/shadcn.png`}
-            alt="image"
-            width={150}
-            height={150}
-          />
+        <div className="m-2 rounded-md relative overflow-hidden md:w-[150px] max-sm:w-[300px] max-sm:h-[300px] md:h-[150px]">
+          <Image src={logo} alt="image" fill />
         </div>
-        <div className="w-2/3 m-2 pl-4 gap-2 flex flex-col">
+        <div className="w-2/3 max-md:w-full m-2 pl-4 gap-2 flex max-md:items-center flex-col">
           <Typography variant={"h3"} className="font-bold text-start">
             {name}
           </Typography>
-          <div className="flex flex-row items-center gap-4 ">
-            <AverageReview size={14} value={stars} />
-            <p className="text-gray-400 text-xs">({review_count} reviews)</p>
-          </div>
+          {stars < 1 ? (
+            <div className="flex flex-row items-center gap-4 ">
+              <p className="text-gray-400 text-xs">No reviews</p>
+            </div>
+          ) : (
+            <div className="flex flex-row items-center gap-4 ">
+              <AverageReview size={14} value={stars} />
+              <p className="text-gray-400 text-xs">({review_count} reviews)</p>
+            </div>
+          )}
           <div
             className="rounded-[18px] bg-teal-400/10 border-none mt-[5px] w-fit
               py-2"
           >
-            <p className="text-center text-teal-300 text-xs px-2">{hours}</p>
+            <p className="text-center text-teal-300 text-xs px-2">
+              Delivers within {hours} to {} days
+            </p>
           </div>
           {description ? (
             <div className="flex flex-row items-start gap-2 mt-6">

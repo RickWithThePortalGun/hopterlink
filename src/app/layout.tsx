@@ -2,13 +2,14 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Inter, Montserrat, Poppins } from "next/font/google";
 import AuthProvider from "./auth/Provider";
 import "./globals.css";
+import { CategoriesProvider } from "@/contexts/ReUsableData";
 
-const inter = Montserrat({
-  weight: "400",
+const poppins = Poppins({
   subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -30,22 +31,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="antialiased">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="text/javascript"
+          src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+        ></script>
+      </head>
       <Analytics />
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <AuthProvider>
-          {" "}
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <main className={`flex min-h-screen flex-col ${inter.className}`}>
-              {children}
-            </main>
-            <Toaster />
-          </ThemeProvider>
+          <CategoriesProvider>
+            {" "}
+            <ThemeProvider attribute="class" enableSystem>
+              <main
+                className={`flex min-h-screen flex-col ${poppins.className}`}
+              >
+                {children}
+              </main>
+              <Toaster />
+            </ThemeProvider>
+          </CategoriesProvider>
         </AuthProvider>
       </body>
     </html>

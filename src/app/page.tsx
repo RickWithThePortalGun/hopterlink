@@ -1,7 +1,14 @@
 import Cards from "@/components/Cards";
 import HeaderContainer from "@/components/HeaderContainer";
 import Typography from "@/components/ui/typography";
-import { ChevronRight, Shield, Star, Timer } from "lucide-react";
+import {
+  ChevronRight,
+  Share2Icon,
+  Shield,
+  Star,
+  Timer,
+  Waves,
+} from "lucide-react";
 import Feature from "./feature";
 
 import CategoryCards from "@/components/CategoryCards";
@@ -12,9 +19,25 @@ import SearchComponent from "@/components/SearchComponent";
 import { FlipWords } from "@/components/ui/flip-words";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import GoogleTranslate from "@/GoogleTranslate";
+import Gallery from "@/components/Gallery";
 
 export default function Home() {
   const words = ["Find", "Review", "Hire"];
+  const images = [
+    {
+      image: "/IMG_0929.JPG",
+    },
+    {
+      image: "/IMG_0933.JPG",
+    },
+    {
+      image: "/IMG_0934.JPG",
+    },
+    {
+      image: "/IMG_0937.JPG",
+    },
+  ];
 
   return (
     <>
@@ -24,20 +47,11 @@ export default function Home() {
             w-full items-center text-center gap-12"
         >
           <div
-            className="flex max-md:flex-col flex-row gap-6 w-full items-center
-              h-screen"
+            className="flex max-lg:flex-col flex-row gap-4 w-full items-center
+              h-fit mt-12"
           >
-            <Particles
-              className="absolute inset-0"
-              quantity={200}
-              staticity={30}
-              ease={80}
-              refresh
-              color="#c55e0c"
-            />
-
             <div
-              className="w-1/2 items-start flex-col p-2 gap-6 justify-center h-screen
+              className="w-full max-md:w-full items-start max-lg:items-center flex-col p-2 gap-6 justify-center h-fit
                 flex"
             >
               <div
@@ -54,73 +68,52 @@ export default function Home() {
                     ease-out hover:text-neutral-600 hover:duration-300
                     hover:dark:text-neutral-400"
                 >
-                  <span>✨ Introducing Hopterlink</span>
+                  <span className="max-md:text-sm">
+                    ✨ Introducing Hopterlink
+                  </span>
                   <ChevronRight />
                 </AnimatedShinyText>
               </div>
-              <div className="max-w-4xl text-6xl font-extrabold tracking-tight text-start">
+              <div className="max-w-4xl text-6xl max-md:text-3xl font-extrabold tracking-tight text-start max-md:text-center">
                 <FlipWords words={words} />
-                Local Gems.
+                Service Providers
               </div>
-              <p className="max-w-4xl text-xl tracking-normal">
-                Every review tells a story, every story shapes a community.
+              <p className="max-w-4xl text-xl max-md:text-sm text-start max-md:text-center tracking-normal">
+                Connecting consumers and providers seamlessly and efficiently.{" "}
               </p>
-              <div className="flex-col flex gap-4 items-center mt-6 md:flex-row w-full">
+              <div className="flex gap-4 items-center max-lg:justify-center mt-6 w-full">
                 <SearchComponent />
               </div>
-              <div className="flex flex-row gap-4 items-center w-full">
-                Popular Searches
-                <p
-                  className="px-2 py-1 bg-transparent border-primary border-[1px]
-                    rounded-full text-xs"
-                >
-                  Website Designer
-                </p>
-                <p
-                  className="px-2 py-1 bg-transparent border-primary border-[1px]
-                    rounded-full text-xs"
-                >
-                  Software Developer
-                </p>
-                <p
-                  className="px-2 py-1 bg-transparent border-primary border-[1px]
-                    rounded-full text-xs"
-                >
-                  Cake
-                </p>
-              </div>
             </div>
-            <div className="w-1/2 p-2 gap-6 h-screen flex">
-              <ImageCarousel />
+            <div className="flex items-center justify-center w-full max-w-[500px]">
+              <Gallery noNavigation images={images} autoplayDelay={5000} />
             </div>
           </div>
-          <div className="flex flex-col md:pt-24 md:gap-36 gap-24 items-center">
+          <div className="flex flex-col md:pt-24 md:gap-36 gap-24 mt-12 items-center">
             <div className="flex flex-col gap-12 items-center">
               <Typography className="max-w-2xl" variant="h1">
-                Tons of benefits!
+                Our Vision
               </Typography>
               <div className="flex md:flex-row flex-col gap-12">
                 <Feature
-                  icon={<Timer size={24} />}
-                  headline="Quick Decisions, Less Stress
+                  icon={<Share2Icon size={24} />}
+                  headline="Multispectrum
                 "
-                  description="Find the best places fast—save time on choosing restaurants and services with trusted reviews.
-
-                "
+                  description="HOPTERLINK offers everything from essentials to specialized services, supporting both consumers and providers on a single platform."
                 />
                 <Feature
-                  icon={<Star size={24} />}
-                  headline="Experience Excellence
+                  icon={<Waves size={24} />}
+                  headline="Effortless
                 "
-                  description="Find top-rated places and services tailored to your preferences.
+                  description="HOPTERLINK's intuitive interface allows users to easily navigate, find services, and interact with providers.
 
                 "
                 />
                 <Feature
                   icon={<Shield size={24} />}
-                  headline="Trust in Every Click
+                  headline="Security
                 "
-                  description="Top-notch security ensures your data and privacy are always protected.
+                  description="HOPTERLINK uses advanced encryption and secure payment gateways to protect your data and transactions.
 
                 "
                 />
@@ -129,7 +122,7 @@ export default function Home() {
           </div>
           <Separator />
 
-          <div className="flex flex-col gap-6 max-w-full items-center my-12">
+          <div className="flex flex-col gap-6 max-w-full items-center justify-center my-12">
             <Typography className="max-w-2xl" variant="h1">
               Recent Activity
             </Typography>
@@ -144,6 +137,15 @@ export default function Home() {
             <CategoryCards />
           </div>
         </div>
+        <Particles
+          className="absolute inset-0 top-0 bottom-0 left-0 right-0"
+          quantity={150}
+          staticity={80}
+          ease={50}
+          refresh
+          size={1}
+          color="#c55e0c"
+        />
       </HeaderContainer>
     </>
   );

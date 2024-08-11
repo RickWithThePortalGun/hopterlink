@@ -4,28 +4,22 @@ import { signIn, useSession } from "next-auth/react";
 // import { useSearchParams } from 'next/navigation';
 // import { signIn } from 'next-auth/react';
 import { Loader } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "./ui/button";
 
 export default function GoogleSignInButton() {
-  //   const searchParams = useSearchParams();
-  //   const callbackUrl = searchParams.get('callbackUrl');
-  const router = useRouter();
-  const { data: session, status } = useSession();
+  const { status } = useSession();
+  const searchParams = useSearchParams();
+  const callback = searchParams.get("callbackUrl");
 
-  // If the user is authenticated redirect to `/profile`
-  if (session) {
-    router.push("/");
-    return;
-  }
   return (
     <Button
       className="w-full"
       variant="secondary"
       type="button"
       onClick={() => {
-        void signIn("google", { callbackUrl: "/" });
+        void signIn("google", { callbackUrl: callback ?? "/" });
       }}
       // signIn('github', { callbackUrl: callbackUrl ?? '/dashboard' })
     >

@@ -2,46 +2,43 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { getRecentReviews } from "@/app/api/categories/categories";
 import formatTimeAgo from "@/constants/constants";
+import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Marquee from "react-fast-marquee";
 import AverageReview from "./AverageReview";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Skeleton } from "./ui/skeleton";
 import Typography from "./ui/typography";
-import { Button } from "./ui/button";
-import { Card } from "./ui/cards";
-import RecentActivitySkeletonLoader from "./RecentActivitySkeletonLoader";
 
 const Cards = () => {
-  const [reviews, setReviews] = useState<any[]>([]);
+  const [recent, setRecents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1); // Current page number
-  const [hasMore, setHasMore] = useState(true); // Whether there are more reviews to load
+  const [hasMore, setHasMore] = useState(true); // Whether there are more recent to load
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await fetchRecentActivity(page);
+        await fetchRecentActivity();
       } catch (error) {
         console.error("Error fetching reviews:", error);
       }
     };
-    void fetchData(); // Removed void because it's unnecessary here
-  }, [page]); // Fetch data when page changes
+    void fetchData();
+  }, [page]);
 
-  const fetchRecentActivity = async (page: number) => {
+  const fetchRecentActivity = async () => {
     try {
-      const result = await getRecentReviews(Number(page));
-      if (result.results.length === 0) {
-        setHasMore(false); // No more reviews to load
-      } else {
-        setReviews((prevReviews) => [...prevReviews, ...result.results]);
-      }
+      const result = await axios.get("/api/recent-activity/");
+      setRecents(result.data);
+      console.log(result.data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching reviews:", error);
-    } finally {
       setLoading(false);
     }
   };
@@ -50,69 +47,122 @@ const Cards = () => {
     router.push(`/business/${item.slug}`);
   };
 
-  const handleViewMore = () => {
-    setPage((prevPage) => prevPage + 1); // Load next page of reviews
+  const renderContent = (activity) => {
+    switch (activity.activity_type) {
+      case "review":
+        return (
+          <div className="flex flex-col gap-2">
+            <Typography variant={"h5"} className="font-bold text-sm">
+              {activity.content_object.user.email}
+            </Typography>
+            <div className="flex flex-row gap-2">
+              <AverageReview value={activity.content_object.rating} size={14} />
+            </div>
+            <Typography variant={"p"} className="text-xs">
+              {activity.content}
+            </Typography>
+          </div>
+        );
+      case "business":
+        return (
+          <div className="flex flex-col gap-2">
+            <Typography variant={"h5"} className="font-bold text-sm">
+              {activity.content_object.business_name}
+            </Typography>
+            <Typography variant={"p"} className="text-xs">
+              {activity.content}
+            </Typography>
+            <Image
+              src={
+                activity.content_object.logo
+                  ? activity.content_object.logo
+                  : activity.content_object.images[0].thumbnail
+              }
+              width={64}
+              height={64}
+              alt="Business Logo"
+              className="w-16 h-16 object-contain rounded-md"
+            />
+          </div>
+        );
+      default:
+        return null;
+    }
   };
 
   return (
     <>
-      {reviews.length > 0 ? (
-        <div
-          className="grid w-full max-sm:grid-cols-1 max-md:grid-cols-2
-            lg:grid-cols-4 auto-rows-auto gap-4"
+      {loading ? (
+        <Marquee
+          gradient
+          gradientColor={"rgba(197, 94, 12, 0.03)"}
+          autoFill
+          pauseOnHover
+          className="gap-6 flex items-center rounded-md"
         >
-          {reviews.map((review) => (
+          <Skeleton
+            className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
+            items-center justify-center mx-4"
+          />
+          <Skeleton
+            className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
+            items-center justify-center mx-4"
+          />
+          <Skeleton
+            className="flex flex-col z-40 mx-4 p-4 rounded-md gap-6 w-[200px] h-[200px]
+            items-center justify-center"
+          />
+          <Skeleton
+            className="flex flex-col mx-4 z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
+            items-center justify-center"
+          />
+        </Marquee>
+      ) : (
+        <Marquee
+          gradient
+          gradientColor={"rgba(197, 94, 12, 0.05)"}
+          autoFill
+          pauseOnHover
+          className="gap-6 flex items-center w-full rounded-md"
+        >
+          {recent.map((activity) => (
             <div
               onClick={() => {
-                handleRoute({ slug: review.business_slug });
+                handleRoute({ slug: activity.content_object.id });
               }}
-              key={review.id}
+              key={activity.content_object.id}
               className="flex flex-col z-40 p-4 rounded-md bg-background border-[1px]
-                gap-6 text-left md:items-start w-full items-center
-                max-lg:items-start cursor-pointer"
+              gap-4 text-left w-[250px] h-[250px] items-start cursor-pointer mx-4"
             >
-              <div className="flex flex-row gap-4 items-center">
-                <Avatar>
+              <div className="flex flex-row gap-2 items-center">
+                <Avatar className="rounded-md">
                   <AvatarImage src="https://github.com/shadcn.png" />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col gap-0 leading-tight">
                   <Typography
                     variant={"p"}
-                    className="text-sm font-semibold flex flex-row gap-1"
+                    className="text-sm font-semibold flex flex-col items-start gap-1"
                   >
-                    {review.user_first_name} {review.user_last_name}{" "}
-                    <p className="text-medium font-light">wrote a review</p>
-                  </Typography>
-                  <Typography variant={"p"} className="text-xs">
-                    {formatTimeAgo(new Date(review.date))}
+                    {activity.user.first_name ?? "Anonymous"}{" "}
+                    {activity.user.last_name ?? "User"}
+                    <p className="text-xs font-light">
+                      {activity.activity_type === "review"
+                        ? "reviewed a business"
+                        : "created a business account"}
+                    </p>
                   </Typography>
                 </div>
               </div>
-              <div>
-                <Card /> {/* Placeholder for your Card component */}
+              <div className="flex flex-col flex-grow overflow-hidden">
+                {renderContent(activity)}
               </div>
-              <div className="justify-start flex flex-col gap-4">
-                <Typography variant={"h5"} className="font-bold">
-                  {review.business_name}
-                </Typography>
-                <div className="flex flex-row gap-2">
-                  <AverageReview value={review.stars} size={14} />
-                </div>
-                <Typography variant={"p"} className="text-md">
-                  {review.content}
-                </Typography>
-              </div>
+              <p className="text-xs text-primary mt-auto text-end w-full">
+                {formatTimeAgo(new Date(activity.created_at))}
+              </p>
             </div>
           ))}
-        </div>
-      ) : (
-        <RecentActivitySkeletonLoader />
-      )}
-      {hasMore && (
-        <Button onClick={handleViewMore} variant="outline">
-          View More
-        </Button>
+        </Marquee>
       )}
     </>
   );

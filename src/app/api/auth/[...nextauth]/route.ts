@@ -182,7 +182,6 @@ const handler = NextAuth({
           );
           const user = response.data;
           if (user) {
-            console.log("User:", user);
             // You can modify the user object here if needed
             return user;
           } else {

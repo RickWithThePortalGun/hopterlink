@@ -29,7 +29,6 @@ export const TokenProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     if (session) {
       setAccessToken(session.access_token as string | null); // Ensure the correct property access
-      console.log(session.user);
     }
   }, [session]);
 

@@ -12,35 +12,35 @@ const AverageReview = ({ value, size }: Props) => {
         bg-secondary w-fit"
     >
       {value >= 1 ? (
-        <Star className="text-primary" size={size} />
+        <Star fill="#c55e0c" color="transparent" size={size} />
       ) : value >= 0.5 ? (
         <StarHalf className="text-primary" size={size} />
       ) : (
         ""
       )}
       {value >= 2 ? (
-        <Star className="text-primary" size={size} />
+        <Star fill="#c55e0c" color="transparent" size={size} />
       ) : value >= 1.5 ? (
         <StarHalf className="text-primary" size={size} />
       ) : (
         ""
       )}
       {value >= 3 ? (
-        <Star className="text-primary" size={size} />
+        <Star fill="#c55e0c" color="transparent" size={size} />
       ) : value >= 2.5 ? (
         <StarHalf className="text-primary" size={size} />
       ) : (
         ""
       )}
       {value >= 4 ? (
-        <Star className="text-primary" size={size} />
+        <Star fill="#c55e0c" color="transparent" size={size} />
       ) : value >= 3.5 ? (
         <StarHalf className="text-primary" size={size} />
       ) : (
         ""
       )}
       {value >= 5 ? (
-        <Star className="text-primary" size={size} />
+        <Star fill="#c55e0c" color="transparent" size={size} />
       ) : value >= 4.5 ? (
         <StarHalf className="text-primary" size={size} />
       ) : (

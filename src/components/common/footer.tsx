@@ -13,7 +13,11 @@ export function Footer() {
           </Link>
         </div>
         <div className="flex max-w-fit items-center gap-x-4">
-          <Link href="/" target="_blank" className="pointer block w-fit flex-1">
+          <Link
+            href="/add-a-business"
+            target="_blank"
+            className="pointer block w-fit flex-1"
+          >
             <Typography variant="p" className="w-max">
               Add a business
             </Typography>

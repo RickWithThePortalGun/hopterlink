@@ -1,35 +1,31 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 "use client";
+import ChangePassword from "@/components/ChangePassword";
+import EditAProfile from "@/components/EditAProfile";
 import HeaderContainer from "@/components/HeaderContainer";
+import ListItem from "@/components/ListItem";
+import ShinyButton from "@/components/magicui/shiny-button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/cards";
+import { MultiStepLoader } from "@/components/ui/multi-step-loader";
 import Typography from "@/components/ui/typography";
-import { Settings, Verified } from "lucide-react";
+import { useCategories } from "@/contexts/ReUsableData";
+import axios from "axios";
+import { VerifiedIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import {
-  type AwaitedReactNode,
-  type JSXElementConstructor,
-  type Key,
-  type ReactElement,
-  type ReactNode,
-  type ReactPortal,
-  useEffect,
-  useState,
-} from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { RotatingLines } from "react-loader-spinner";
+import colors from "tailwindcss/colors";
+import { motion } from "framer-motion";
 import NumberTicker from "@/components/magicui/number-ticker";
-import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
-import ReviewsCard from "@/components/ReviewsCard";
-import Collection from "@/components/Collection";
-import { MultiStepLoader } from "@/components/ui/multi-step-loader";
 
 const Page = () => {
   const { status, data: session } = useSession() as unknown as {
     status: string;
     data: { access_token: string };
   };
+  const { collections } = useCategories();
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState<{
     first_name: string | null;
@@ -38,39 +34,18 @@ const Page = () => {
     review_count: number;
     businesses: any[];
     reviews?: any[];
+    bio?: string | null;
+    phone?: string | null;
+    profile?: string | null;
+    is_business?: boolean;
   } | null>(null);
 
-  const getUserinfo = async () => {
-    const uri = `auth/user/`;
-    if (!session?.access_token) {
-      throw new Error("User not authenticated or access token not found");
-    }
-
-    const axiosInstance = axios.create({
-      baseURL: "http://127.0.0.1:8000/api/",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session?.access_token}`,
-      },
-    });
-
-    try {
-      const { data } = await axiosInstance.get(uri);
-      return data;
-    } catch (error) {
-      console.error("Error fetching user info:", error);
-      throw error;
-    }
-  };
-
   useEffect(() => {
-    console.log("useffect ran");
     const fetchUserData = async () => {
       if (status === "authenticated") {
         try {
-          const response = await getUserinfo();
-          setUserInfo(response);
-          console.log(userInfo);
+          const response = await axios.get("/api/account/");
+          setUserInfo(response.data);
         } catch (error) {
           console.error("Error fetching data:", error);
         } finally {
@@ -81,6 +56,7 @@ const Page = () => {
 
     void fetchUserData();
   }, [status]);
+
   const loadingStates = [
     {
       text: `Getting your account information..`,
@@ -92,10 +68,10 @@ const Page = () => {
       text: `Rendering information..`,
     },
   ];
+
   if (loading) {
     return (
       <div className="w-full h-[60vh] flex items-center justify-center">
-        {/* Core Loader Modal */}
         <MultiStepLoader
           loadingStates={loadingStates}
           loading={loading}
@@ -104,166 +80,142 @@ const Page = () => {
       </div>
     );
   }
-  console.log(userInfo);
+
   return (
     <HeaderContainer>
-      <div className="flex flex-col">
-        <div
-          className="md:py-30 md:px-1.5 pt-11 pb-24 px-6 flex flex-row w-full
-            gap-12 mt-12"
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col items-center w-full h-fit justify-between"
+      >
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="md:py-30 md:px-1.5 pb-24 px-6 flex flex-col w-full mt-24 gap-12"
         >
-          <div className="w-[40%]">
-            <Card className="p-2">
-              <div className="items-center justify-center flex rounded-full">
-                <Image
-                  className="rounded-full my-12"
-                  width={200}
-                  height={200}
-                  objectFit="cover"
-                  src="/Beverly-Naya.jpeg"
-                  alt={"profile picture"}
+          <div className="w-full flex items-start flex-row gap-6 max-lg:flex-col max-lg:items-center">
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Avatar className="w-24 h-24 justify-center flex">
+                <AvatarImage
+                  src={userInfo?.profile}
+                  onLoad={() => <RotatingLines />}
+                  sizes="lg"
                 />
-              </div>
-              <Typography variant={"h2"} className="text-center">
-                {userInfo?.first_name} {userInfo?.last_name}
-              </Typography>
-              <div className="flex justify-center items-center gap-2">
-                <Verified size={14} />
-                <p className="text-center text-xs"> {userInfo?.email}</p>
-              </div>
-              <div className="my-6 flex flex-col gap-2">
-                <p className="text-center text-xs font-bold">Abuja, Nigeria</p>
-                <p className="text-center">6 years , 1 month</p>
-              </div>
-            </Card>
-            <div className="w-full flex flex-row items-center gap-2 my-4">
-              <Button className="w-full" variant={"default"}>
-                Edit your Profile
-              </Button>
-              <Button>
-                <Settings />
-              </Button>
-              <Button>
-                <Collection />
-              </Button>
-            </div>
-          </div>
-          <div className="w-[60%] flex flex-col justify-between">
-            <div className="flex flex-col gap-2">
-              <Card className="p-4 h-fit flex justify-between flex-col">
-                <Typography variant={"h4"} className="text-start">
-                  About You
-                </Typography>
-                <p className="mt-4">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Delectus, quae quaerat. Sed ad, impedit maiores nobis aperiam
-                  vero obcaecati blanditiis adipisci architecto recusandae hic
-                  ab odio corporis, esse cumque velit.
-                </p>
-              </Card>
-            </div>
-            <div className="h-full mt-6 p-2 flex flex-row gap-2">
-              <Card className="w-[50%] p-4 flex flex-col items-center justify-center">
-                <Typography variant={"h4"} className="text-start">
-                  Businesses Reviewed
-                </Typography>
+                <AvatarFallback>
+                  {userInfo?.first_name?.[0]} {userInfo?.last_name?.[0]}
+                </AvatarFallback>
+              </Avatar>
+            </motion.div>
 
-                {userInfo?.review_count === 0 ? (
-                  <Typography variant={"h2"} className="text-center mt-6">
-                    0
-                  </Typography>
-                ) : (
-                  <Typography variant={"h2"} className="text-center mt-6">
-                    <NumberTicker value={userInfo?.review_count ?? 0} />
-                  </Typography>
-                )}
-              </Card>
-              <Card className="w-[50%] flex flex-col items-center justify-center p-4">
-                <Typography variant={"h4"} className="text-start">
-                  Businesses Owned
-                </Typography>
-                {userInfo?.businesses.length > 0 ? (
-                  <Typography variant={"h2"} className="text-center mt-6">
-                    <NumberTicker value={userInfo?.businesses?.length ?? 0} />
-                  </Typography>
-                ) : (
-                  <Typography variant={"h2"} className="text-center mt-6">
-                    0
-                  </Typography>
-                )}
-              </Card>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-row gap-4">
-          <Card className="mt-2 p-2 w-[50%] h-fit">
-            <Typography className="mb-4 p-4" variant={"h2"}>
-              Businesses
-            </Typography>
-            {userInfo?.businesses.map((business, index) => (
-              <>
-                {" "}
-                <div
-                  className="my-2 justify-between flex items-center"
-                  key={index}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="w-full max-lg:items-center flex flex-col max-lg:flex-col-reverse"
+            >
+              <div className="flex w-full justify-between flex-row max-lg:flex-col max-lg:gap-12 items-center">
+                <Typography
+                  variant={"h1"}
+                  className="flex flex-row gap-2 items-center text-center"
                 >
-                  <Link href={`/business/${business.slug}`}>
-                    <p>{business.name}</p>
-                  </Link>
-                  <Button>
-                    <Settings />
-                  </Button>
+                  {userInfo?.first_name || "New"}{" "}
+                  {userInfo?.last_name || "User"}
+                  <VerifiedIcon
+                    color={
+                      userInfo?.is_business
+                        ? "#c55e0c"
+                        : "rgba(122, 122, 122, 1)"
+                    }
+                  />
+                </Typography>
+                <div className="flex flex-row max-lg:flex-col items-center gap-4">
+                  <div className="flex flex-col gap-2 items-center">
+                    <Typography className="font-bold" variant={"h2"}>
+                      {/* <NumberTicker value={userInfo?.review_count ? userInfo?.review_count : 0}/> */}
+                      0
+                    </Typography>
+                    <p className="text-primary font-bold text-sm text-center">
+                      Businesses Reviewed
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2 items-center">
+                    <Typography className="font-bold" variant={"h2"}>
+                      <NumberTicker value={userInfo?.is_business ? 1 : 0} />
+                    </Typography>
+                    <p className="text-primary font-bold text-sm text-center">
+                      Businesses owned
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2 items-center">
+                    <Typography className="font-bold" variant={"h2"}>
+                      <NumberTicker value={collections?.length} />
+                    </Typography>
+                    <p className="text-primary font-bold text-sm text-center">
+                      Saved Businesses
+                    </p>
+                  </div>
                 </div>
-                <Separator />
-              </>
-            ))}
-          </Card>
-          <Card className="mt-2 p-4 w-[50%] h-[600px] overflow-hidden">
+              </div>
+
+              <div className="flex items-start max-lg:items-center mb-6 flex-col gap-2">
+                <Typography
+                  variant={"p"}
+                  className="text-[#7a7a7a] text-center"
+                >
+                  {userInfo?.email}
+                </Typography>
+                <Typography
+                  variant={"h5"}
+                  className="text-center text-[#7a7a7a]"
+                >
+                  {userInfo?.bio || "Hey there, I'm a Hopterlinker!"}
+                </Typography>
+              </div>
+            </motion.div>
+          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.5 }}
+            className="flex w-full items-end justify-end max-lg:justify-center"
+          >
+            <EditAProfile userInfo={userInfo} />
+          </motion.div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="md:py-30 md:px-1.5 pb-24 px-6 flex flex-row max-md:flex-col w-full gap-12"
+        >
+          <Card className="mt-2 p-4 w-[100%] overflow-hidden mb-4">
             <Typography className="mb-4" variant={"h2"}>
-              Recent Reviews
+              Settings
             </Typography>
-            <div
+            <motion.div
               style={{
-                height: "500px",
                 overflowY: "auto",
                 paddingRight: "10px",
               }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.75 }}
             >
-              {userInfo?.reviews?.map(
-                (
-                  review: {
-                    business_name:
-                      | string
-                      | ReactElement<any, string | JSXElementConstructor<any>>
-                      | Iterable<ReactNode>
-                      | ReactPortal
-                      | Promise<AwaitedReactNode>
-                      | null
-                      | undefined;
-                  },
-                  index: Key | null | undefined,
-                ) => (
-                  <>
-                    <div className="flex justify-end">
-                      <Link
-                        href={`/business/${review?.business_slug as string}`}
-                      >
-                        <p
-                          className="text-end text-xs px-2 py-1 rounded-full w-fit bg-[#c55e0c]
-                            my-2"
-                        >
-                          {review.business_name}
-                        </p>
-                      </Link>
-                    </div>
-                    <ReviewsCard review={review} key={index} />
-                  </>
-                ),
-              )}
-            </div>
+              <ListItem title="Notifications" />
+              <ListItem title="Privacy Settings" />
+              <ListItem title="Language" />
+              <ChangePassword />
+              <ListItem title="Delete Account" />
+            </motion.div>
           </Card>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </HeaderContainer>
   );
 };
