@@ -28,8 +28,7 @@ const Gallery = ({ images, noNavigation, autoplayDelay = 3000 }: Props) => {
         pagination={{
           dynamicBullets: true,
         }}
-        navigation={!noNavigation} // Use the prop to enable/disable navigation
-        modules={[Pagination, Autoplay, ...(noNavigation ? [] : [Navigation])]} // Conditional inclusion of Navigation and Autoplay
+        modules={[Pagination, Autoplay]} // Conditional inclusion of Navigation and Autoplay
         autoplay={{
           delay: autoplayDelay, // Set delay for autoplay
           disableOnInteraction: false, // Continue autoplay even after user interaction

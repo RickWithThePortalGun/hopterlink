@@ -47,11 +47,11 @@ export default function Home() {
             w-full items-center text-center gap-12"
         >
           <div
-            className="flex max-md:flex-col flex-row gap-4 w-full items-center
+            className="flex max-lg:flex-col flex-row gap-4 w-full items-center
               h-fit mt-12"
           >
             <div
-              className="w-full max-md:w-full items-start max-md:items-center flex-col p-2 gap-6 justify-center h-fit
+              className="w-full max-md:w-full items-start max-lg:items-center flex-col p-2 gap-6 justify-center h-fit
                 flex"
             >
               <div
@@ -81,7 +81,7 @@ export default function Home() {
               <p className="max-w-4xl text-xl max-md:text-sm text-start max-md:text-center tracking-normal">
                 Connecting consumers and providers seamlessly and efficiently.{" "}
               </p>
-              <div className="flex-col flex gap-4 items-center mt-6 md:flex-row w-full">
+              <div className="flex gap-4 items-center max-lg:justify-center mt-6 w-full">
                 <SearchComponent />
               </div>
             </div>

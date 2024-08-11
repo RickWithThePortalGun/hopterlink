@@ -30,6 +30,7 @@ import Image from "next/image";
 import { RotatingLines } from "react-loader-spinner";
 import DotPattern from "@/components/magicui/dot-pattern";
 import { useCategories } from "@/contexts/ReUsableData";
+import BusinessOwner from "@/components/BusinessOwner";
 
 interface Props {
   params: { id: string };
@@ -171,7 +172,7 @@ const Business = ({ params }: Props) => {
             )}
           </motion.div>
           <motion.div
-            className="mt-12 w-full flex-row max-md:flex-col flex justify-between items-center"
+            className="mt-12 w-full flex-row max-md:flex-col gap-4 flex justify-between items-center"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7 }}
@@ -184,7 +185,7 @@ const Business = ({ params }: Props) => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex flex-col items-center gap-2 max-md:mt-2">
                 {businessInfo?.average_rating >= 1 ? (
                   <>
                     <div className="flex flex-col h-auto">
@@ -420,6 +421,7 @@ const Business = ({ params }: Props) => {
               >
                 {businessInfo.business_name && (
                   <>
+                  <BusinessOwner businessOwner={businessInfo?.owner}/>
                     <BusinessCTA businessInfo={businessInfo} />
                     <BusinessAdInfo businessInfo={businessInfo} />
                   </>
