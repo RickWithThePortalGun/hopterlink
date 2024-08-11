@@ -166,7 +166,7 @@ export function Header({ className }: SidebarProps) {
                 <MessageCircle size={14} /> Messages
               </DropdownMenuItem>
             </Link>
-          
+
             <DropdownMenuItem
               className="flex flex-row items-center gap-4"
               onClick={() => void signOut({ redirect: true })}
@@ -598,7 +598,7 @@ export function Header({ className }: SidebarProps) {
                             <MessageCircle size={14} /> Messages
                           </DropdownMenuItem>
                         </Link>
-                       
+
                         <DropdownMenuItem
                           className="flex flex-row items-center gap-4"
                           onClick={() => void signOut({ redirect: true })}

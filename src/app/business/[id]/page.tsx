@@ -421,7 +421,7 @@ const Business = ({ params }: Props) => {
               >
                 {businessInfo.business_name && (
                   <>
-                  <BusinessOwner businessOwner={businessInfo?.owner}/>
+                    <BusinessOwner businessOwner={businessInfo?.owner} />
                     <BusinessCTA businessInfo={businessInfo} />
                     <BusinessAdInfo businessInfo={businessInfo} />
                   </>
