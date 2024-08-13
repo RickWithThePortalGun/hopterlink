@@ -15,14 +15,7 @@ const Logo = () => {
 
   // const currentTheme = theme === "system" ? systemTheme : theme;
 
-  return (
-    <img
-      src="/Hopterlink png.png"
-
-      alt="Logo"
-      className="mr-3 w-20"
-    />
-  );
+  return <img src="/Hopterlink png.png" alt="Logo" className="mr-3 w-20" />;
 };
 
 export default Logo;

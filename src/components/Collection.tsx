@@ -1,5 +1,15 @@
 import { useEffect, useState } from "react";
-import { Credenza, CredenzaBody, CredenzaClose, CredenzaContent, CredenzaDescription, CredenzaFooter, CredenzaHeader, CredenzaTitle, CredenzaTrigger } from "./ui/credenza";
+import {
+  Credenza,
+  CredenzaBody,
+  CredenzaClose,
+  CredenzaContent,
+  CredenzaDescription,
+  CredenzaFooter,
+  CredenzaHeader,
+  CredenzaTitle,
+  CredenzaTrigger,
+} from "./ui/credenza";
 import { Bookmark, Link2, Trash } from "lucide-react";
 import { Skeleton } from "./ui/skeleton";
 import { Button } from "./ui/button";
@@ -72,7 +82,9 @@ const Collection = () => {
     };
 
     const checkTouchDevice = () => {
-      setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
+      setIsTouchDevice(
+        "ontouchstart" in window || navigator.maxTouchPoints > 0,
+      );
     };
 
     checkScreenSize();
@@ -136,7 +148,9 @@ const Collection = () => {
                                 </div>
                               ),
                               onClick: () =>
-                                shareCollection(business.business.id.toString()),
+                                shareCollection(
+                                  business.business.id.toString(),
+                                ),
                             },
                           ]}
                           actionButtonMinWidth={70}

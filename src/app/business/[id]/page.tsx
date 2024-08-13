@@ -42,7 +42,7 @@ const Business = ({ params }: Props) => {
   const [reviews, setReviews] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [favoriteLoading, setFavoriteLoading]=useState(false)
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
 
   useEffect(() => {
     const id = params.id as string;
@@ -210,7 +210,10 @@ const Business = ({ params }: Props) => {
             transition={{ duration: 0.6 }}
           >
             <div className="flex flex-row items-center max-md:w-full gap-2 max-sm:flex-col">
-              <AddAReview onReviewAdded={handleReviewAdded} businessInfo={businessInfo} />
+              <AddAReview
+                onReviewAdded={handleReviewAdded}
+                businessInfo={businessInfo}
+              />
               <SendAMesage businessInfo={businessInfo} />
               <Button
                 className="flex gap-2 items-center min-w-60"
@@ -301,108 +304,110 @@ const Business = ({ params }: Props) => {
           {/* Tab section */}
           <div className="flex flex-row max-md:flex-col gap-2 w-full">
             <div className="flex-col flex max-md:w-full w-1/2">
-          <Tabs defaultValue="gallery">
-            <TabsList variant="solid"
-            >
-              <TabsTrigger value="gallery">Gallery</TabsTrigger>
-              <TabsTrigger value="reviews">Reviews</TabsTrigger>
-            </TabsList>
-            <div className="ml-2 mt-4">
-              <TabsContent
-                value="gallery"
-                className="space-y-2 text-sm leading-7 text-gray-600 dark:text-gray-500"
-              >
+              <Tabs defaultValue="gallery">
+                <TabsList variant="solid">
+                  <TabsTrigger value="gallery">Gallery</TabsTrigger>
+                  <TabsTrigger value="reviews">Reviews</TabsTrigger>
+                </TabsList>
+                <div className="ml-2 mt-4">
+                  <TabsContent
+                    value="gallery"
+                    className="space-y-2 text-sm leading-7 text-gray-600 dark:text-gray-500"
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <Gallery images={businessInfo.images} />
+                      <div className="h-fit py-4 flex flex-row items-center gap-4">
+                        {businessInfo.images.map((image, index) => (
+                          <motion.div
+                            key={index}
+                            className="w-[100px] relative h-[100px]"
+                            whileHover={{ scale: 1.05 }}
+                          >
+                            <Image
+                              objectFit="cover"
+                              alt="business-images"
+                              fill
+                              className="rounded-md"
+                              onLoad={() => (
+                                <RotatingLines
+                                  strokeColor="#c55e0c"
+                                  width="20"
+                                />
+                              )}
+                              src={image.thumbnail}
+                            />
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  </TabsContent>
+                  <TabsContent
+                    value="reviews"
+                    className="space-y-2 text-sm leading-7 text-gray-600 dark:text-gray-500"
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -50 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {reviews?.length > 0 ? (
+                        reviews
+                          .slice()
+                          .reverse()
+                          .map((review: any) => (
+                            <motion.div
+                              key={review.id}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <ReviewsCard review={review} />
+                            </motion.div>
+                          ))
+                      ) : (
+                        <div className="w-full h-full items-center justify-center">
+                          <Typography variant={"p"}>
+                            No reviews yet for {businessInfo.business_name}
+                          </Typography>
+                        </div>
+                      )}
+                    </motion.div>
+                  </TabsContent>
+                </div>
+              </Tabs>
+            </div>
+            {/* End of Tab section */}
+
+            <motion.div className="flex-col flex max-md:w-full w-1/2">
+              <motion.div
+                className="flex flex-row items-center max-md:gap-0 mt-6 lg:w-[1/2] gap-x-12"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              ></motion.div>
+              <Separator className="mb-2 max-lg:flex hidden" />
+              <div className="flex flex-row max-lg:flex-col items-start gap-4">
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
+                  className="flex flex-col gap-2"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.7 }}
                 >
-                  <Gallery images={businessInfo.images} />
-                  <div className="h-fit py-4 flex flex-row items-center gap-4">
-                    {businessInfo.images.map((image, index) => (
-                      <motion.div
-                        key={index}
-                        className="w-[100px] relative h-[100px]"
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        <Image
-                          objectFit="cover"
-                          alt="business-images"
-                          fill
-                          className="rounded-md"
-                          onLoad={() => (
-                            <RotatingLines strokeColor="#c55e0c" width="20" />
-                          )}
-                          src={image.thumbnail}
-                        />
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              </TabsContent>
-              <TabsContent
-                value="reviews"
-                className="space-y-2 text-sm leading-7 text-gray-600 dark:text-gray-500"
-              >
-                <motion.div
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -50 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {reviews?.length > 0 ? (
-                    reviews
-                      .slice()
-                      .reverse()
-                      .map((review: any) => (
-                        <motion.div
-                          key={review.id}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <ReviewsCard review={review} />
-                        </motion.div>
-                      ))
-                  ) : (
-                    <div className="w-full h-full items-center justify-center">
-                      <Typography variant={"p"}>
-                        No reviews yet for {businessInfo.business_name}
-                      </Typography>
-                    </div>
+                  {businessInfo.business_name && (
+                    <>
+                      <BusinessOwner businessOwner={businessInfo?.owner} />
+                      <BusinessCTA businessInfo={businessInfo} />
+                      <BusinessAdInfo businessInfo={businessInfo} />
+                    </>
                   )}
                 </motion.div>
-              </TabsContent>
-            </div>
-          </Tabs>
-          </div>
-          {/* End of Tab section */}
-
-          <motion.div className="flex-col flex max-md:w-full w-1/2">
-            <motion.div
-              className="flex flex-row items-center max-md:gap-0 mt-6 lg:w-[1/2] gap-x-12"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            ></motion.div>
-            <Separator className="mb-2 max-lg:flex hidden" />
-            <div className="flex flex-row max-lg:flex-col items-start gap-4">
-              <motion.div
-                className="flex flex-col gap-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.7 }}
-              >
-                {businessInfo.business_name && (
-                  <>
-                    <BusinessOwner businessOwner={businessInfo?.owner} />
-                    <BusinessCTA businessInfo={businessInfo} />
-                    <BusinessAdInfo businessInfo={businessInfo} />
-                  </>
-                )}
-              </motion.div>
-            </div>
-          </motion.div>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
       )}

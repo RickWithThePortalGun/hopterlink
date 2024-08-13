@@ -34,7 +34,7 @@ const CategoryCards = () => {
     hover: {
       backgroundColor: "rgba(197, 94, 12, 1)", // Slight transparent shade of #c55e0c
       color: "#FFFFFF", // Text fades to white
-      fontSize:20,
+      fontSize: 20,
       transition: {
         duration: 0.3, // Smooth transition
       },

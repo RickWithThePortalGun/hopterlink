@@ -127,7 +127,7 @@ const SignUpForm = () => {
               acc[key] = Array.isArray(value) ? value.join(" ") : value;
               return acc;
             },
-            {}
+            {},
           );
           setErrors(formattedErrors);
           toast({

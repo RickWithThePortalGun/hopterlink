@@ -75,11 +75,15 @@ export function Header({ className }: SidebarProps) {
 
   const getAuthButtons = () => (
     <div className="flex gap-3 items-center">
-          <>
-          <Button variant={"default"} className="text-white" onClick={()=>router.replace("/add-a-business")}>
-            Add a Business
-          </Button>
-        </>
+      <>
+        <Button
+          variant={"default"}
+          className="text-white"
+          onClick={() => router.replace("/add-a-business")}
+        >
+          Add a Business
+        </Button>
+      </>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="secondary" size="sm">
@@ -168,7 +172,7 @@ export function Header({ className }: SidebarProps) {
             <DropdownMenuItem
               className="flex flex-row items-center gap-4"
               onClick={() => {
-                signOut({callbackUrl:"/login" });
+                signOut({ callbackUrl: "/login" });
                 router.push("/login");
               }}
             >
@@ -194,7 +198,7 @@ export function Header({ className }: SidebarProps) {
     <div
       className={cn(
         `flex md:h-12 py-8 h-14 items-center justify-center w-full border-b fixed z-50 bg-secondary`,
-        className
+        className,
       )}
     >
       <div className="w-full max-w-[1440px] md:px-8 px-4">
@@ -305,7 +309,6 @@ export function Header({ className }: SidebarProps) {
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
-
                 </div>
                 <div className="mx-auto w-full p-5 flex flex-row gap-2 items-center justify-between">
                   {status === "authenticated" && (
@@ -363,7 +366,7 @@ export function Header({ className }: SidebarProps) {
                         <DropdownMenuItem
                           className="flex flex-row items-center gap-4"
                           onClick={() => {
-                            signOut({ callbackUrl:"/login" });
+                            signOut({ callbackUrl: "/login" });
                             router.push("/login");
                           }}
                         >
