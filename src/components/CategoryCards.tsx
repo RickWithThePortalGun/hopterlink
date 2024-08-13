@@ -27,8 +27,29 @@ const CategoryCards = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.3,
         ease: "easeOut",
+      },
+    },
+    hover: {
+      backgroundColor: "rgba(197, 94, 12, 1)", // Slight transparent shade of #c55e0c
+      color: "#FFFFFF", // Text fades to white
+      fontSize:20,
+      transition: {
+        duration: 0.3, // Smooth transition
+      },
+    },
+  };
+
+  const iconJiggle = {
+    rest: { x: 0 }, // Initial state
+    hover: {
+      x: [0, -5, 5, -5, 5, 0], // Jiggle animation
+      transition: {
+        duration: 1,
+        repeat: Infinity,
+        repeatType: "loop",
+        ease: "easeInOut",
       },
     },
   };
@@ -47,13 +68,20 @@ const CategoryCards = () => {
           {categories.map((category) => (
             <motion.div key={category.id} variants={cardVariants}>
               <Link href={`/categories/${category.id}`}>
-                <div
+                <motion.div
                   className="flex flex-col z-40 p-4 rounded-md bg-background border-[1px]
-                  gap-6 items-center h-[150px] justify-center"
+                  gap-6 items-center h-[150px] justify-center transition-all duration-300"
+                  variants={cardVariants}
+                  initial="rest"
+                  animate="rest"
+                  whileHover="hover"
                 >
-                  <div className="flex h-[50%] items-center justify-center">
+                  <motion.div
+                    className="flex h-[50%] items-center justify-center"
+                    variants={iconJiggle}
+                  >
                     <Icon name={category.icon as string} size={26} />
-                  </div>
+                  </motion.div>
                   <div className="h-[50%] items-center flex justify-center">
                     <Typography
                       variant={"p"}
@@ -62,7 +90,7 @@ const CategoryCards = () => {
                       {category.name}
                     </Typography>
                   </div>
-                </div>
+                </motion.div>
               </Link>
             </motion.div>
           ))}

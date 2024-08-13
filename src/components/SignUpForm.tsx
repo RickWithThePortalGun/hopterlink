@@ -112,11 +112,35 @@ const SignUpForm = () => {
           description: "Please correct the highlighted errors.",
         });
         setIsFormValid(true);
+      } else if (error.response && error.response.data) {
+        // Backend error handling
+        const backendErrors = error.response.data;
+        if (backendErrors.non_field_errors) {
+          toast({
+            title: "Signup Error",
+            description: backendErrors.non_field_errors.join(" "),
+          });
+        } else {
+          // Handle other specific error fields if necessary
+          const formattedErrors = Object.entries(backendErrors).reduce(
+            (acc, [key, value]) => {
+              acc[key] = Array.isArray(value) ? value.join(" ") : value;
+              return acc;
+            },
+            {}
+          );
+          setErrors(formattedErrors);
+          toast({
+            title: "Signup Error",
+            description: "Please correct the errors and try again.",
+          });
+        }
+        setIsFormValid(true);
       } else {
         console.error("SignUp Error:", error);
         toast({
           title: "Signup Error",
-          description: error.message as any,
+          description: "An unexpected error occurred. Please try again later.",
         });
         setIsFormValid(true);
       }

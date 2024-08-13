@@ -138,6 +138,22 @@
   --swiper-navigation-color: #fff !important;
 }
 
+@media (min-width: 1024px) {
+  .swipe-to-reveal-actions {
+    display: none; /* Hide swipe actions on wider screens */
+  }
+
+  .collection-item:hover .action-buttons {
+    display: flex; /* Show action buttons on hover */
+  }
+
+  .action-buttons {
+    display: none;
+    gap: 10px;
+  }
+
+
+}
 /* .swiper-button-prev {
   color: red !important; 
 }

@@ -53,13 +53,6 @@ export function Header({ className }: SidebarProps) {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const { status, data: session } = useSession();
-
-  // useEffect(() => {
-  //   if (session && session.access_token) {
-  //     setAuthorizationToken(session.access_token);
-  //     console.log("token set")
-  //   }
-  // }, [session]);
   const avatarSrc =
     session?.picture ||
     "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"; // Default Gravatar image
@@ -82,6 +75,11 @@ export function Header({ className }: SidebarProps) {
 
   const getAuthButtons = () => (
     <div className="flex gap-3 items-center">
+          <>
+          <Button variant={"default"} className="text-white" onClick={()=>router.replace("/add-a-business")}>
+            Add a Business
+          </Button>
+        </>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="secondary" size="sm">
@@ -169,7 +167,10 @@ export function Header({ className }: SidebarProps) {
 
             <DropdownMenuItem
               className="flex flex-row items-center gap-4"
-              onClick={() => void signOut({ redirect: true })}
+              onClick={() => {
+                signOut({callbackUrl:"/login" });
+                router.push("/login");
+              }}
             >
               <LogOut size={14} /> Logout
             </DropdownMenuItem>
@@ -185,71 +186,6 @@ export function Header({ className }: SidebarProps) {
         <div className="my-6">
           <SearchComponent />
         </div>
-        {/* <DropdownMenu
-          onOpenChange={() => {
-            setSubcategories([]);
-            fetchSubcategories(2);
-          }}
-        >
-          <DropdownMenuTrigger onClick={() => fetchSubcategories(2)}>
-            <p className="text-sm"> Automotive Services</p>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            {loading ? (
-              <div className="w-full h-full items-center justify-center flex">
-                <RotatingLines width="20" strokeColor="#c55e0c" />
-              </div>
-            ) : (
-              subcategories?.map((subcategory, index) => (
-                <DropdownMenuItem key={index} className="flex-row flex gap-2">
-                  <Car size={16} color="#e5e5e5" />{" "}
-                  <p className="text-sm">{subcategory.name}</p>
-                </DropdownMenuItem>
-              ))
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <DropdownMenu onOpenChange={() => fetchSubcategories(3)} modal>
-          <DropdownMenuTrigger>
-            <p className="text-sm"> Health and Wellness </p>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            {loading ? (
-              <div className="w-full h-full items-center justify-center flex">
-                <RotatingLines width="20" strokeColor="#c55e0c" />
-              </div>
-            ) : (
-              subcategories?.map((subcategory, index) => (
-                <DropdownMenuItem key={index} className="flex-row flex gap-2">
-                  <Plus color="#e5e5e5" size={16} /> {subcategory.name}
-                </DropdownMenuItem>
-              ))
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <DropdownMenu onOpenChange={() => fetchSubcategories(9)}>
-          <DropdownMenuTrigger>
-            <p className="text-sm"> Real Estate Services</p>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            {loading ? (
-              <div className="w-full h-full items-center justify-center flex">
-                <RotatingLines strokeColor="#c55e0c" width="20" />
-              </div>
-            ) : (
-              subcategories?.map((subcategory, index) => (
-                <DropdownMenuItem key={index} className="flex-row flex gap-2">
-                  <Home color="#e5e5e5" size={16} /> {subcategory.name}
-                </DropdownMenuItem>
-              ))
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <p className="text-md"> More</p>{" "}
-          </DropdownMenuTrigger>
-        </DropdownMenu> */}
       </div>
     );
   };
@@ -258,7 +194,7 @@ export function Header({ className }: SidebarProps) {
     <div
       className={cn(
         `flex md:h-12 py-8 h-14 items-center justify-center w-full border-b fixed z-50 bg-secondary`,
-        className,
+        className
       )}
     >
       <div className="w-full max-w-[1440px] md:px-8 px-4">
@@ -370,181 +306,6 @@ export function Header({ className }: SidebarProps) {
                     </DropdownMenu>
                   </div>
 
-                  {/* <div className="p-4 pb-0 space-y-4 grid grid-cols-1">
-                    <DropdownMenu onOpenChange={() => fetchSubcategories(2)}>
-                      <DropdownMenuTrigger
-                        onClick={() => fetchSubcategories(2)}
-                      >
-                        <p className="text-md text-start">
-                          {" "}
-                          Automotive Services
-                        </p>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        {loading ? (
-                          <div className="w-full h-full items-center justify-center flex">
-                            <RotatingLines width="20" strokeColor="#c55e0c" />
-                          </div>
-                        ) : (
-                          subcategories?.map((subcategory, index) => (
-                            <DropdownMenuItem
-                              key={index}
-                              className="flex-row flex gap-2"
-                            >
-                              <Car size={16} color="#e5e5e5" />{" "}
-                              <p className="text-sm">{subcategory.name}</p>
-                            </DropdownMenuItem>
-                          ))
-                        )}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                    <DropdownMenu
-                      onOpenChange={() => fetchSubcategories(3)}
-                      modal
-                    >
-                      <DropdownMenuTrigger>
-                        <p className="text-md text-start">
-                          {" "}
-                          Health and Wellness{" "}
-                        </p>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        {loading ? (
-                          <div className="w-full h-full items-center justify-center flex">
-                            <RotatingLines width="20" strokeColor="#c55e0c" />
-                          </div>
-                        ) : (
-                          subcategories?.map((subcategory, index) => (
-                            <DropdownMenuItem
-                              key={index}
-                              className="flex-row flex gap-2"
-                            >
-                              <Plus color="#e5e5e5" size={16} />{" "}
-                              {subcategory.name}
-                            </DropdownMenuItem>
-                          ))
-                        )}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                    <DropdownMenu onOpenChange={() => fetchSubcategories(10)}>
-                      <DropdownMenuTrigger>
-                        <p className="text-md text-start">
-                          Technology and Gadgets
-                        </p>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        {loading ? (
-                          <div className="w-full h-full items-center justify-center flex">
-                            <RotatingLines strokeColor="#c55e0c" width="20" />
-                          </div>
-                        ) : (
-                          subcategories?.map((subcategory, index) => (
-                            <DropdownMenuItem
-                              key={index}
-                              className="flex-row flex gap-2"
-                            >
-                              <Computer color="#e5e5e5" size={16} />{" "}
-                              {subcategory.name}
-                            </DropdownMenuItem>
-                          ))
-                        )}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                    <DropdownMenu onOpenChange={() => fetchSubcategories(11)}>
-                      <DropdownMenuTrigger>
-                        <p className="text-md text-start">
-                          {" "}
-                          Transportation and Moving
-                        </p>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        {loading ? (
-                          <div className="w-full h-full items-center justify-center flex">
-                            <RotatingLines strokeColor="#c55e0c" width="20" />
-                          </div>
-                        ) : (
-                          subcategories?.map((subcategory, index) => (
-                            <DropdownMenuItem
-                              key={index}
-                              className="flex-row flex gap-2"
-                            >
-                              <Bus color="#e5e5e5" size={16} />{" "}
-                              {subcategory.name}
-                            </DropdownMenuItem>
-                          ))
-                        )}
-                      </DropdownMenuContent>
-                    </DropdownMenu>{" "}
-                    <DropdownMenu onOpenChange={() => fetchSubcategories(13)}>
-                      <DropdownMenuTrigger>
-                        <p className="text-md text-start">
-                          {" "}
-                          Fitness and Recreation
-                        </p>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        {loading ? (
-                          <div className="w-full h-full items-center justify-center flex">
-                            <RotatingLines strokeColor="#c55e0c" width="20" />
-                          </div>
-                        ) : (
-                          subcategories?.map((subcategory, index) => (
-                            <DropdownMenuItem
-                              key={index}
-                              className="flex-row flex gap-2"
-                            >
-                              <Weight color="#e5e5e5" size={16} />{" "}
-                              {subcategory.name}
-                            </DropdownMenuItem>
-                          ))
-                        )}
-                      </DropdownMenuContent>
-                    </DropdownMenu>{" "}
-                    <DropdownMenu
-                      modal={true}
-                      onOpenChange={() => fetchSubcategories(15)}
-                    >
-                      <DropdownMenuTrigger>
-                        <p className="text-md text-start">
-                          {" "}
-                          Writing and Content Creation
-                        </p>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        {loading ? (
-                          <div className="w-full h-full items-center justify-center flex">
-                            <RotatingLines strokeColor="#c55e0c" width="20" />
-                          </div>
-                        ) : (
-                          subcategories?.map((subcategory, index) => (
-                            <DropdownMenuItem
-                              key={index}
-                              className="flex-row flex gap-2"
-                            >
-                              <Pen color="#e5e5e5" size={16} />{" "}
-                              {subcategory.name}
-                            </DropdownMenuItem>
-                          ))
-                        )}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <p className="text-md text-start"> More</p>{" "}
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuItem>
-                          <Link href="/docs" legacyBehavior passHref>
-                            <DropdownMenuItem
-                              className={navigationMenuTriggerStyle()}
-                            >
-                              More
-                            </DropdownMenuItem>
-                          </Link>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div> */}
                 </div>
                 <div className="mx-auto w-full p-5 flex flex-row gap-2 items-center justify-between">
                   {status === "authenticated" && (
@@ -601,7 +362,10 @@ export function Header({ className }: SidebarProps) {
 
                         <DropdownMenuItem
                           className="flex flex-row items-center gap-4"
-                          onClick={() => void signOut({ redirect: true })}
+                          onClick={() => {
+                            signOut({ callbackUrl:"/login" });
+                            router.push("/login");
+                          }}
                         >
                           <LogOut size={14} /> Logout
                         </DropdownMenuItem>

@@ -1,5 +1,4 @@
 import request from "@/utils/http-request";
-import { useSearchParams } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
