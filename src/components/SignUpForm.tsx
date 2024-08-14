@@ -33,7 +33,10 @@ const SignUpForm = () => {
       first_name: z.string().min(1, "First name is required"),
       last_name: z.string().min(1, "Last name is required"),
       email: z.string().email("Invalid email address"),
-      phone:z.string().min(6,"Phone Number must be at least 6 numbers").max(15, "Phone Number cannot be more than 15 numbers"),
+      phone: z
+        .string()
+        .min(6, "Phone Number must be at least 6 numbers")
+        .max(15, "Phone Number cannot be more than 15 numbers"),
       password1: z
         .string()
         .min(8, "Password must be at least 8 characters long")
@@ -277,8 +280,8 @@ const SignUpForm = () => {
                 }}
               />
               {errors.phone && (
-                  <p className="text-red-500 text-xs">{errors.phone}</p>
-                )}
+                <p className="text-red-500 text-xs">{errors.phone}</p>
+              )}
             </div>
             <div className="grid gap-2">
               <Label

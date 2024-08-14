@@ -46,7 +46,11 @@ const Business = ({ params }: Props) => {
   const { collections, setCollections, collectionLoading } = useCategories();
 
   useEffect(() => {
-    if (collections?.some((business) => business.business.id.toString() === params.id)) {
+    if (
+      collections?.some(
+        (business) => business.business.id.toString() === params.id,
+      )
+    ) {
       setIsFavorite(true);
     } else {
       setIsFavorite(false);
@@ -71,18 +75,18 @@ const Business = ({ params }: Props) => {
   const handleReviewAdded = (newReview: any) => {
     setReviews((prevReviews) => {
       const updatedReviews = [newReview, ...prevReviews];
-  
+
       // Update the businessInfo state to reflect the new review count
       setBusinessInfo((prevBusinessInfo) => ({
         ...prevBusinessInfo,
         reviews: updatedReviews,
         average_rating: calculateNewAverageRating(updatedReviews), // Optional: Update average rating if necessary
       }));
-  
+
       return updatedReviews;
     });
   };
-  
+
   // Function to calculate new average rating (if you want to update it dynamically)
   const calculateNewAverageRating = (reviews) => {
     const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
@@ -327,8 +331,11 @@ const Business = ({ params }: Props) => {
                     }}
                   >
                     <Bookmark size={16} />
-                    {favoriteLoading ? (<>
-                      Adding to collections... <RotatingLines width="20" strokeColor="#c55e0c" /></>
+                    {favoriteLoading ? (
+                      <>
+                        Adding to collections...{" "}
+                        <RotatingLines width="20" strokeColor="#c55e0c" />
+                      </>
                     ) : (
                       "Add to Collections"
                     )}

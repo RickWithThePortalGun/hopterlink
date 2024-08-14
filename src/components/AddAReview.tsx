@@ -29,7 +29,7 @@ const AddAReview = ({ businessInfo, onReviewAdded }: Props) => {
   const [rating, setRating] = useState(1);
   const [reviewText, setReviewText] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleRating = (rating: any) => {
@@ -43,7 +43,7 @@ const AddAReview = ({ businessInfo, onReviewAdded }: Props) => {
   };
 
   const handleSubmitReview = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const review = await axios.post(`/api/reviews/${businessInfo.id}`, {
         stars: rating,
@@ -61,10 +61,9 @@ const AddAReview = ({ businessInfo, onReviewAdded }: Props) => {
         title: "Error Submitting Review",
         description: `${error.response.data.message}`,
       });
-      setLoading(false)
+      setLoading(false);
     }
-    setLoading(false)
-
+    setLoading(false);
   };
 
   return (
@@ -150,11 +149,14 @@ const AddAReview = ({ businessInfo, onReviewAdded }: Props) => {
             type="submit"
             onClick={handleSubmitReview}
           >
-            {
-              loading?<>Posting your review...{" "}<RotatingLines width="20" strokeColor="white" /></>
-              :"Post Review"
-
-            }
+            {loading ? (
+              <>
+                Posting your review...{" "}
+                <RotatingLines width="20" strokeColor="white" />
+              </>
+            ) : (
+              "Post Review"
+            )}
           </Button>
         </CredenzaFooter>
       </CredenzaContent>

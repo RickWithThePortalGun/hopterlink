@@ -73,11 +73,11 @@ export const CategoriesProvider = ({ children }: Props) => {
       } catch (error) {
         toast({
           title: "Network error",
-          description: "Ensure you have a stable internet connection for smoother experience.",
+          description:
+            "Ensure you have a stable internet connection for smoother experience.",
         });
       }
       setCollectionLoading(false);
-    
     };
     void fetchCollection();
   }, []);
