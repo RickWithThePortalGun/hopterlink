@@ -146,7 +146,7 @@ const Page = () => {
                   </div>
                   <div className="flex flex-col gap-2 items-center">
                     <Typography className="font-bold" variant={"h2"}>
-                      <NumberTicker value={userInfo?.is_business ? 1 : 0} />
+                      {userInfo?.is_business ? <NumberTicker value={1} /> : "0"}
                     </Typography>
                     <p className="text-primary font-bold text-sm text-center">
                       Businesses owned
