@@ -20,7 +20,7 @@ import { useCategories } from "@/contexts/ReUsableData";
 import Link from "next/link";
 import AverageReview from "./AverageReview";
 import axios from "axios";
-
+import { motion } from "framer-motion";
 const Collection = () => {
   const { collections, setCollections, collectionLoading } = useCategories();
   const [isWideScreen, setIsWideScreen] = useState(false);
@@ -28,14 +28,14 @@ const Collection = () => {
 
   const deleteCollection = async (
     collectionId: string,
-    businessName: string,
+    businessName: string
   ) => {
     try {
-      await axios.post(`api/remove-from-collection/${collectionId}`);
+      await axios.post(`/api/remove-from-collection/${collectionId}`);
       setCollections((prevBusinesses) =>
         prevBusinesses.filter(
-          (business) => business.business.id.toString() !== collectionId,
-        ),
+          (business) => business.business.id.toString() !== collectionId
+        )
       );
       toast({
         title: "Removed from Collections",
@@ -66,7 +66,7 @@ const Collection = () => {
             title: "Error",
             description: "Failed to copy the link. Please try again.",
           });
-        },
+        }
       );
     } else {
       toast({
@@ -83,7 +83,7 @@ const Collection = () => {
 
     const checkTouchDevice = () => {
       setIsTouchDevice(
-        "ontouchstart" in window || navigator.maxTouchPoints > 0,
+        "ontouchstart" in window || navigator.maxTouchPoints > 0
       );
     };
 
@@ -95,6 +95,17 @@ const Collection = () => {
       window.removeEventListener("resize", checkScreenSize);
     };
   }, []);
+  const staggerVariants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: (i) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: i * 0.1, // Stagger by 0.1s
+        duration: 0.3,
+      },
+    }),
+  };
 
   return (
     <Credenza>
@@ -138,7 +149,7 @@ const Collection = () => {
                               onClick: () =>
                                 deleteCollection(
                                   business.business.id.toString(),
-                                  business.business.business_name,
+                                  business.business.business_name
                                 ),
                             },
                             {
@@ -149,7 +160,7 @@ const Collection = () => {
                               ),
                               onClick: () =>
                                 shareCollection(
-                                  business.business.id.toString(),
+                                  business.business.id.toString()
                                 ),
                             },
                           ]}
@@ -190,17 +201,23 @@ const Collection = () => {
                               )}
                             </div>
                           </Link>
-                          <div className="action-buttons py-2 px-2">
+                          <motion.div
+                            className="action-buttons py-2 px-2"
+                            initial="hidden"
+                            animate="visible"
+                            custom={index}
+                            variants={staggerVariants}
+                          >
                             <Button
                               variant="secondary"
                               onClick={() =>
                                 deleteCollection(
                                   business.business.id.toString(),
-                                  business.business.business_name,
+                                  business.business.business_name
                                 )
                               }
                             >
-                              <Trash color="#c55e0c" />
+                              <Trash color="#c55e0c" size={16} />
                             </Button>
                             <Button
                               variant="secondary"
@@ -208,9 +225,9 @@ const Collection = () => {
                                 shareCollection(business.business.id.toString())
                               }
                             >
-                              <Link2 color="#c55e0c" />
+                              <Link2 color="#c55e0c" size={16} />
                             </Button>
-                          </div>
+                          </motion.div>
                         </div>
                       )}
                       <Separator />

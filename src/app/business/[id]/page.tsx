@@ -43,6 +43,15 @@ const Business = ({ params }: Props) => {
   const [loading, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
+  const { collections, setCollections, collectionLoading } = useCategories();
+
+  useEffect(() => {
+    if (collections?.some((business) => business.business.id.toString() === params.id)) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  }, [collections, params.id]);
 
   useEffect(() => {
     const id = params.id as string;
@@ -60,7 +69,24 @@ const Business = ({ params }: Props) => {
     void fetchData();
   }, [params.id]);
   const handleReviewAdded = (newReview: any) => {
-    setReviews((prevReviews) => [newReview, ...prevReviews]);
+    setReviews((prevReviews) => {
+      const updatedReviews = [newReview, ...prevReviews];
+  
+      // Update the businessInfo state to reflect the new review count
+      setBusinessInfo((prevBusinessInfo) => ({
+        ...prevBusinessInfo,
+        reviews: updatedReviews,
+        average_rating: calculateNewAverageRating(updatedReviews), // Optional: Update average rating if necessary
+      }));
+  
+      return updatedReviews;
+    });
+  };
+  
+  // Function to calculate new average rating (if you want to update it dynamically)
+  const calculateNewAverageRating = (reviews) => {
+    const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+    return totalRating / reviews.length;
   };
   return (
     <HeaderContainer>
@@ -245,19 +271,17 @@ const Business = ({ params }: Props) => {
                     });
                   }
                 }}
-                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Share size={16} /> Share
               </Button>
             </div>
             <div>
-              {businessInfo.in_collection || isFavorite ? (
+              {isFavorite ? (
                 <Button
                   className="flex min-w-60 gap-2 items-center max-md:mt-2"
                   variant={"ghost"}
                   disabled
-                  whileHover={{ scale: 1.05 }}
                 >
                   <BookmarkCheck size={16} />
                   Added to Favorites
@@ -274,6 +298,19 @@ const Business = ({ params }: Props) => {
                       setFavoriteLoading(true);
                       try {
                         await axios.post(`/api/add-to-collection/${params.id}`);
+                        const newCollectionItem = {
+                          business: {
+                            id: businessInfo.id,
+                            business_name: businessInfo.business_name,
+                            average_rating: businessInfo.average_rating,
+                            // Include other relevant fields from businessInfo as needed
+                          },
+                        };
+                        // Add the new item to the global collections state
+                        setCollections((prevCollections) => [
+                          ...prevCollections,
+                          newCollectionItem,
+                        ]);
                         toast({
                           title: "Added to Collections",
                           description: `${businessInfo.business_name} has been added to your collection.`,
@@ -290,8 +327,8 @@ const Business = ({ params }: Props) => {
                     }}
                   >
                     <Bookmark size={16} />
-                    {favoriteLoading ? (
-                      <RotatingLines width="20" strokeColor="#c55e0c" />
+                    {favoriteLoading ? (<>
+                      Adding to collections... <RotatingLines width="20" strokeColor="#c55e0c" /></>
                     ) : (
                       "Add to Collections"
                     )}

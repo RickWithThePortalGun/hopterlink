@@ -70,8 +70,14 @@ export const CategoriesProvider = ({ children }: Props) => {
       try {
         const response = await axios.get("/api/collection/");
         setCollections(response.data);
-      } catch (error) {}
+      } catch (error) {
+        toast({
+          title: "Network error",
+          description: "Ensure you have a stable internet connection for smoother experience.",
+        });
+      }
       setCollectionLoading(false);
+    
     };
     void fetchCollection();
   }, []);
