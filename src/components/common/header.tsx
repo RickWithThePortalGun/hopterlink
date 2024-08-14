@@ -42,7 +42,7 @@ import {
   Search,
   SunIcon,
   User,
-  X
+  X,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Collection from "../Collection";
@@ -269,7 +269,6 @@ export function Header({ className }: SidebarProps) {
                     >
                       {component.description}
                     </ListItem>
-                 
                   ))}
                 </ul>
               </NavigationMenuContent>
