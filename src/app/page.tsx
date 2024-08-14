@@ -26,16 +26,19 @@ export default function Home() {
   const words = ["Find", "Review", "Hire"];
   const images = [
     {
-      image: "/IMG_0929.JPG",
+      image: "/tutor.jpg",
     },
     {
-      image: "/IMG_0933.JPG",
+      image: "/mechanic.jpg",
     },
     {
-      image: "/IMG_0934.JPG",
+      image: "/cook.jpg",
     },
     {
-      image: "/IMG_0937.JPG",
+      image: "/babysitter.jpg",
+    },
+    {
+      image: "/financial.jpg",
     },
   ];
 
@@ -137,7 +140,7 @@ export default function Home() {
             <CategoryCards />
           </div>
         </div>
-        <Particles
+        {/* <Particles
           className="absolute inset-0 top-0 bottom-0 left-0 right-0"
           quantity={150}
           staticity={80}
@@ -145,7 +148,7 @@ export default function Home() {
           refresh
           size={1}
           color="#c55e0c"
-        />
+        /> */}
       </HeaderContainer>
     </>
   );

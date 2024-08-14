@@ -21,6 +21,7 @@ import Link from "next/link";
 import AverageReview from "./AverageReview";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { ScrollArea } from "./ui/scroll-area";
 const Collection = () => {
   const { collections, setCollections, collectionLoading } = useCategories();
   const [isWideScreen, setIsWideScreen] = useState(false);
@@ -132,111 +133,115 @@ const Collection = () => {
             </div>
           ) : (
             <>
-              {collections.length > 0 ? (
-                <ul>
-                  {collections.map((business, index) => (
-                    <li key={index} className="my-2 collection-item">
-                      {isTouchDevice ? (
-                        <SwipeToRevealActions
-                          hideDotsButton
-                          actionButtons={[
-                            {
-                              content: (
-                                <div className="flex items-center justify-center">
-                                  <Trash color="#c55e0c" />
-                                </div>
-                              ),
-                              onClick: () =>
-                                deleteCollection(
-                                  business.business.id.toString(),
-                                  business.business.business_name,
+              <ScrollArea className="h-60 px-2 py-2">
+                {collections.length > 0 ? (
+                  <ul>
+                    {collections.map((business, index) => (
+                      <li key={index} className="my-2 collection-item">
+                        {isTouchDevice ? (
+                          <SwipeToRevealActions
+                            hideDotsButton
+                            actionButtons={[
+                              {
+                                content: (
+                                  <div className="flex items-center justify-center">
+                                    <Trash color="#c55e0c" />
+                                  </div>
                                 ),
-                            },
-                            {
-                              content: (
-                                <div className="flex items-center justify-center">
-                                  <Link2 color="#c55e0c" />
-                                </div>
-                              ),
-                              onClick: () =>
-                                shareCollection(
-                                  business.business.id.toString(),
+                                onClick: () =>
+                                  deleteCollection(
+                                    business.business.id.toString(),
+                                    business.business.business_name,
+                                  ),
+                              },
+                              {
+                                content: (
+                                  <div className="flex items-center justify-center">
+                                    <Link2 color="#c55e0c" />
+                                  </div>
                                 ),
-                            },
-                          ]}
-                          actionButtonMinWidth={70}
-                        >
-                          <Link
-                            href={`/business/${business.business.id}`}
-                            className="w-[100%] absolute top-0 right-0 left-0 bottom-0 items-center px-2 py-2 bg-background"
+                                onClick: () =>
+                                  shareCollection(
+                                    business.business.id.toString(),
+                                  ),
+                              },
+                            ]}
+                            actionButtonMinWidth={70}
                           >
-                            <div className="flex flex-row items-center gap-4 justify-between w-full">
-                              {business.business.business_name}
-                              {business.business.average_rating < 1 ? (
-                                <p className="text-xs">No reviews</p>
-                              ) : (
-                                <AverageReview
-                                  size={14}
-                                  value={business.business.average_rating}
-                                />
-                              )}
-                            </div>
-                          </Link>
-                        </SwipeToRevealActions>
-                      ) : (
-                        <div className="flex justify-between items-center w-full">
-                          <Link
-                            href={`/business/${business.business.id}`}
-                            className="w-full items-center px-2 py-2 bg-background"
-                          >
-                            <div className="flex flex-row items-center gap-4 justify-between w-full">
-                              {business.business.business_name}
-                              {business.business.average_rating < 1 ? (
-                                <p className="text-xs">No reviews</p>
-                              ) : (
-                                <AverageReview
-                                  size={14}
-                                  value={business.business.average_rating}
-                                />
-                              )}
-                            </div>
-                          </Link>
-                          <motion.div
-                            className="action-buttons py-2 px-2"
-                            initial="hidden"
-                            animate="visible"
-                            custom={index}
-                            variants={staggerVariants}
-                          >
-                            <Button
-                              variant="secondary"
-                              onClick={() =>
-                                deleteCollection(
-                                  business.business.id.toString(),
-                                  business.business.business_name,
-                                )
-                              }
+                            <Link
+                              href={`/business/${business.business.id}`}
+                              className="w-[100%] absolute top-0 right-0 left-0 bottom-0 items-center px-2 py-2 bg-background"
                             >
-                              <Trash color="#c55e0c" size={16} />
-                            </Button>
-                            <Button
-                              variant="secondary"
-                              onClick={() =>
-                                shareCollection(business.business.id.toString())
-                              }
+                              <div className="flex flex-row items-center gap-4 justify-between w-full">
+                                {business.business.business_name}
+                                {business.business.average_rating < 1 ? (
+                                  <p className="text-xs">No reviews</p>
+                                ) : (
+                                  <AverageReview
+                                    size={14}
+                                    value={business.business.average_rating}
+                                  />
+                                )}
+                              </div>
+                            </Link>
+                          </SwipeToRevealActions>
+                        ) : (
+                          <div className="flex justify-between items-center w-full">
+                            <Link
+                              href={`/business/${business.business.id}`}
+                              className="w-full items-center px-2 py-2 bg-background"
                             >
-                              <Link2 color="#c55e0c" size={16} />
-                            </Button>
-                          </motion.div>
-                        </div>
-                      )}
-                      <Separator />
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>No collections found.</p>
-              )}
+                              <div className="flex flex-row items-center gap-4 justify-between w-full">
+                                {business.business.business_name}
+                                {business.business.average_rating < 1 ? (
+                                  <p className="text-xs">No reviews</p>
+                                ) : (
+                                  <AverageReview
+                                    size={14}
+                                    value={business.business.average_rating}
+                                  />
+                                )}
+                              </div>
+                            </Link>
+                            <motion.div
+                              className="action-buttons py-2 px-2"
+                              initial="hidden"
+                              animate="visible"
+                              custom={index}
+                              variants={staggerVariants}
+                            >
+                              <Button
+                                variant="secondary"
+                                onClick={() =>
+                                  deleteCollection(
+                                    business.business.id.toString(),
+                                    business.business.business_name,
+                                  )
+                                }
+                              >
+                                <Trash color="#c55e0c" size={16} />
+                              </Button>
+                              <Button
+                                variant="secondary"
+                                onClick={() =>
+                                  shareCollection(
+                                    business.business.id.toString(),
+                                  )
+                                }
+                              >
+                                <Link2 color="#c55e0c" size={16} />
+                              </Button>
+                            </motion.div>
+                          </div>
+                        )}
+                        <Separator />
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No collections found.</p>
+                )}
+              </ScrollArea>
             </>
           )}
         </CredenzaBody>
