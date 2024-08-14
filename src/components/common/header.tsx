@@ -19,34 +19,6 @@ import Link from "next/link";
 import React, { useState } from "react";
 import "react-initials-avatar/lib/ReactInitialsAvatar.css";
 
-import Typography from "@/components/ui/typography";
-import { Subcategory } from "@/constants/constants";
-import { useCategories } from "@/contexts/ReUsableData";
-import { cn } from "@/lib/utils";
-import { PaperPlaneIcon } from "@radix-ui/react-icons";
-import {
-  Activity,
-  File,
-  Globe,
-  LogOut,
-  MenuIcon,
-  MessageCircle,
-  MoonIcon,
-  Search,
-  Settings,
-  SunIcon,
-  User,
-  X,
-} from "lucide-react";
-import { useRouter } from "next/navigation";
-import Collection from "../Collection";
-import ListItem from "../ListItem";
-import Logo from "../Logo";
-import RecentlyViewed from "../RecentlyViewed";
-import SearchComponent from "../SearchComponent";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { ScrollArea } from "../ui/scroll-area";
-import LanguageSwitcher from "../lang-switcher";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -56,6 +28,31 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import Typography from "@/components/ui/typography";
+import { useCategories } from "@/contexts/ReUsableData";
+import { cn } from "@/lib/utils";
+import { PaperPlaneIcon } from "@radix-ui/react-icons";
+import {
+  Activity,
+  File,
+  LogOut,
+  MenuIcon,
+  MessageCircle,
+  MoonIcon,
+  Search,
+  SunIcon,
+  User,
+  X
+} from "lucide-react";
+import { useRouter } from "next/navigation";
+import Collection from "../Collection";
+import LanguageSwitcher from "../lang-switcher";
+import Logo from "../Logo";
+import RecentlyViewed from "../RecentlyViewed";
+import SearchComponent from "../SearchComponent";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { ScrollArea } from "../ui/scroll-area";
+import ListItem2 from "../ListItem";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -68,15 +65,6 @@ export function Header({ className }: SidebarProps) {
     "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"; // Default Gravatar image
 
   const { categories, loading } = useCategories();
-  const [subcategories, setSubcategories] = useState<Subcategory[]>();
-
-  const fetchSubcategories = (categoryId: number) => {
-    setSubcategories([]);
-    const category = categories.find((cat) => cat.id === categoryId);
-    if (category) {
-      setSubcategories(category.subcategories);
-    }
-  };
   const getLogo = () => (
     <Link href="/" className="pointer flex items-center">
       <Logo />
@@ -218,6 +206,7 @@ export function Header({ className }: SidebarProps) {
     );
   });
   ListItem.displayName = "ListItem";
+
   const getHeaderItems = () => {
     // Step 1: State management for search component visibility
     const [isSearchVisible, setSearchVisible] = useState(false);
@@ -280,6 +269,7 @@ export function Header({ className }: SidebarProps) {
                     >
                       {component.description}
                     </ListItem>
+                 
                   ))}
                 </ul>
               </NavigationMenuContent>
@@ -345,7 +335,7 @@ export function Header({ className }: SidebarProps) {
                         </Button>
                       </div>{" "}
                       <Link href={"/login"}>
-                        <ListItem title="Sign In" />
+                        <ListItem2 title="Sign In" />
                       </Link>
                     </>
                   ) : (
@@ -354,7 +344,7 @@ export function Header({ className }: SidebarProps) {
 
                   <DropdownMenu>
                     <DropdownMenuTrigger>
-                      <ListItem title="Browse Categories" />
+                      <ListItem2 title="Browse Categories" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                       <ScrollArea className="h-96 w-48 rounded-md">
@@ -379,7 +369,7 @@ export function Header({ className }: SidebarProps) {
                     General
                   </Typography>
                   <Link href={"/"}>
-                    <ListItem title="Home" />
+                    <ListItem2 title="Home" />
                   </Link>
                   <div className=" flex flex-row items-center justify-between">
                     <DropdownMenu>
