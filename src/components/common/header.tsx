@@ -260,7 +260,8 @@ export function Header({ className }: SidebarProps) {
             <NavigationMenuItem>
               <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                <ScrollArea className="h-96"> 
+                <ul className="grid w-[300px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] ">
                   {categories.map((component) => (
                     <ListItem
                       key={component.id}
@@ -271,6 +272,7 @@ export function Header({ className }: SidebarProps) {
                     </ListItem>
                   ))}
                 </ul>
+                </ScrollArea>
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem className="flex flex-row gap-4 items-center cursor-pointer">

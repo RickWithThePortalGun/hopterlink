@@ -231,7 +231,7 @@ const Business = ({ params }: Props) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="flex flex-row items-center max-md:w-full gap-2 max-sm:flex-col">
+            <div className="flex flex-row items-center max-md:w-full gap-2 max-lg:flex-col">
               <AddAReview
                 onReviewAdded={handleReviewAdded}
                 businessInfo={businessInfo}

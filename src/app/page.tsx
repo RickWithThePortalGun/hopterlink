@@ -82,7 +82,7 @@ export default function Home() {
                 Service Providers
               </div>
               <p className="max-w-4xl text-xl max-md:text-sm text-start max-md:text-center tracking-normal">
-                Connecting consumers and providers seamlessly and efficiently.{" "}
+              Connecting You to Quality Services, One Click at a Time{" "}
               </p>
               <div className="flex gap-4 items-center max-lg:justify-center mt-6 w-full">
                 <SearchComponent />
