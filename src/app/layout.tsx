@@ -6,7 +6,7 @@ import { Inter, Montserrat, Poppins } from "next/font/google";
 import AuthProvider from "./auth/Provider";
 import "./globals.css";
 import { CategoriesProvider } from "@/contexts/ReUsableData";
-import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
+import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 import Providers from "@/providers/loaderProvider";
 
 const poppins = Poppins({
@@ -49,10 +49,9 @@ export default function RootLayout({
               <main
                 className={`flex min-h-screen flex-col ${poppins.className}`}
               >
-        <Providers>{children}</Providers>
-        </main>
+                <Providers>{children}</Providers>
+              </main>
               <Toaster />
-        
             </ThemeProvider>
           </CategoriesProvider>
         </AuthProvider>

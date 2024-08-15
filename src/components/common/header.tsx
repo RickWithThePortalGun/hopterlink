@@ -260,18 +260,18 @@ export function Header({ className }: SidebarProps) {
             <NavigationMenuItem>
               <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ScrollArea className="h-96"> 
-                <ul className="grid w-[300px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] ">
-                  {categories.map((component) => (
-                    <ListItem
-                      key={component.id}
-                      title={component.name}
-                      href={`/categories/${component.id}`}
-                    >
-                      {component.description}
-                    </ListItem>
-                  ))}
-                </ul>
+                <ScrollArea className="h-96">
+                  <ul className="grid w-[300px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] ">
+                    {categories.map((component) => (
+                      <ListItem
+                        key={component.id}
+                        title={component.name}
+                        href={`/categories/${component.id}`}
+                      >
+                        {component.description}
+                      </ListItem>
+                    ))}
+                  </ul>
                 </ScrollArea>
               </NavigationMenuContent>
             </NavigationMenuItem>

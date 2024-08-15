@@ -26,19 +26,19 @@ export default function Home() {
   const words = ["Find", "Review", "Hire"];
   const images = [
     {
-      image: "/tutor.jpg",
+      image: "/Electrician Photos Emmages.jpg",
     },
     {
-      image: "/mechanic.jpg",
+      image: "/side-view-man-working-as-plumber.jpg",
     },
     {
-      image: "/cook.jpg",
+      image: "/IMG_0933.JPG",
     },
     {
-      image: "/babysitter.jpg",
+      image: "/Mechanic Photos Olly.jpg",
     },
     {
-      image: "/financial.jpg",
+      image: "/Electrician Photos Cristian Rojas.jpg",
     },
   ];
 
@@ -82,7 +82,7 @@ export default function Home() {
                 Service Providers
               </div>
               <p className="max-w-4xl text-xl max-md:text-sm text-start max-md:text-center tracking-normal">
-              Connecting You to Quality Services, One Click at a Time{" "}
+                Connecting You to Quality Services, One Click at a Time{" "}
               </p>
               <div className="flex gap-4 items-center max-lg:justify-center mt-6 w-full">
                 <SearchComponent />
