@@ -175,19 +175,24 @@ const App = () => {
         let errorMessage = `An unexpected error occurred. Status: ${status}.`;
 
         if (errorData && typeof errorData === "object") {
-          Object.entries(errorData.details || {}).forEach(([field, messages]) => {
-            const errorMessage = Array.isArray(messages) ? messages.join(", ") : messages;
-            setError(field, {
-              type: "manual",
-              message: errorMessage,
-            });
-          });
+          Object.entries(errorData.details || {}).forEach(
+            ([field, messages]) => {
+              const errorMessage = Array.isArray(messages)
+                ? messages.join(", ")
+                : messages;
+              setError(field, {
+                type: "manual",
+                message: errorMessage,
+              });
+            },
+          );
 
           toast({
             title: "Error",
-            description: errorData?.details?.error || "An unexpected error occurred",
+            description:
+              errorData?.details?.error || "An unexpected error occurred",
             variant: "destructive",
-          });          
+          });
 
           console.error("Form submission failed", errorData);
         } else {
@@ -203,8 +208,7 @@ const App = () => {
       console.error("An error occurred while submitting the form", error);
       toast({
         title: "Submission Error",
-        description:
-          `${error}`,
+        description: `${error}`,
         variant: "destructive",
       });
     } finally {
