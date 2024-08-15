@@ -78,14 +78,15 @@ const App = () => {
   const { categories } = useCategories();
   const [selectedIndustry, setSelectedIndustry] = useState("");
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
-  const [logo, setLogo] = useState(null); // To store the selected logo file
-  const [uploadedImages, setUploadedImages] = useState([]); // To store the selected uploaded images
+  const [logo, setLogo] = useState(null);
+  const [uploadedImages, setUploadedImages] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const {
     register,
     handleSubmit,
     setValue,
+    setError,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(validationSchema),
@@ -107,7 +108,6 @@ const App = () => {
   }, [selectedIndustry, categories]);
 
   const onSubmit = async (values) => {
-    // Check if logo and images are set
     if (!logo) {
       toast({
         title: "Logo is required",
@@ -175,27 +175,30 @@ const App = () => {
         let errorMessage = `An unexpected error occurred. Status: ${status}.`;
 
         if (errorData && typeof errorData === "object") {
-          if (errorData.detail) {
-            errorMessage = errorData.detail;
-          } else if (errorData.errors) {
-            // Collect all errors in a readable format
-            errorMessage = Object.entries(errorData.errors)
-              .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
-              .join("\n");
-          } else if (errorData.message) {
-            errorMessage = errorData.message;
-          } else {
-            errorMessage += " " + JSON.stringify(errorData);
-          }
+          // Display errors under the relevant fields
+          Object.entries(errorData.details || {}).forEach(([field, messages]) => {
+            setError(field, {
+              type: "manual",
+              message: messages.join(", "),
+            });
+          });
+
+          // Show a toast with a general error message
+          toast({
+            title: "Error",
+            description: "There were some issues with your submission.",
+            variant: "destructive",
+          });
+
+          console.error("Form submission failed", errorData);
+        } else {
+          errorMessage += " " + JSON.stringify(errorData);
+          toast({
+            title: "Error",
+            description: errorMessage,
+            variant: "destructive",
+          });
         }
-
-        toast({
-          title: "Error",
-          description: errorMessage,
-          variant: "destructive",
-        });
-
-        console.error("Form submission failed", errorData);
       }
     } catch (error) {
       console.error("An error occurred while submitting the form", error);
@@ -333,7 +336,6 @@ const App = () => {
             </Select>
             {errors.industry_subcategory && (
               <div className="w-full justify-end flex mt-2 text-xs text-primary">
-                {" "}
                 {errors.industry_subcategory.message}
               </div>
             )}
@@ -344,7 +346,6 @@ const App = () => {
             <Input {...register("website")} placeholder="Website" />
             {errors.website && (
               <div className="w-full justify-end flex mt-2 text-xs text-primary">
-                {" "}
                 {errors.website.message}
               </div>
             )}
@@ -358,7 +359,6 @@ const App = () => {
             />
             {errors.business_phone_1 && (
               <div className="w-full justify-end flex mt-2 text-xs text-primary">
-                {" "}
                 {errors.business_phone_1.message}
               </div>
             )}
@@ -372,7 +372,6 @@ const App = () => {
             />
             {errors.business_phone_2 && (
               <div className="w-full justify-end flex mt-2 text-xs text-primary">
-                {" "}
                 {errors.business_phone_2.message}
               </div>
             )}
@@ -389,7 +388,6 @@ const App = () => {
             />
             {errors.min_delivery_time_in_days && (
               <div className="w-full justify-end flex mt-2 text-xs text-primary">
-                {" "}
                 {errors.min_delivery_time_in_days.message}
               </div>
             )}
@@ -406,7 +404,6 @@ const App = () => {
             />
             {errors.max_delivery_time_in_days && (
               <div className="w-full justify-end flex mt-2 text-xs text-primary">
-                {" "}
                 {errors.max_delivery_time_in_days.message}
               </div>
             )}
@@ -420,7 +417,6 @@ const App = () => {
             />
             {errors.business_reg_no && (
               <div className="w-full justify-end flex mt-2 text-xs text-primary">
-                {" "}
                 {errors.business_reg_no.message}
               </div>
             )}
@@ -429,11 +425,21 @@ const App = () => {
           <div>
             <Label>Logo</Label>
             <Input type="file" onChange={handleFileChange} />
+            {errors.logo && (
+              <div className="w-full justify-end flex mt-2 text-xs text-primary">
+                {errors.logo.message}
+              </div>
+            )}
           </div>
 
           <div>
             <Label>Uploaded Images</Label>
             <Input type="file" multiple onChange={handleImagesChange} />
+            {errors.uploaded_images && (
+              <div className="w-full justify-end flex mt-2 text-xs text-primary">
+                {errors.uploaded_images.message}
+              </div>
+            )}
           </div>
 
           <div>
@@ -451,7 +457,6 @@ const App = () => {
             </Label>
             {errors.acceptTerms && (
               <div className="w-full justify-end flex mt-2 text-xs text-primary">
-                {" "}
                 {errors.acceptTerms.message}
               </div>
             )}

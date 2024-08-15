@@ -370,12 +370,15 @@ export function Header({ className }: SidebarProps) {
                   <Link href={"/"}>
                     <ListItem2 title="Home" />
                   </Link>
+                  <Link href={"/add-a-business"}>
+                    <ListItem2 title="Add a business" />
+                  </Link>
                   <div className=" flex flex-row items-center justify-between">
-                    <DropdownMenu>
+                    {/* <DropdownMenu>
                       <DropdownMenuTrigger>
                         <LanguageSwitcher />
                       </DropdownMenuTrigger>
-                    </DropdownMenu>
+                    </DropdownMenu> */}
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="secondary" size="sm">

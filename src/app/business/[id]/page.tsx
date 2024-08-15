@@ -32,6 +32,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
 import DotPattern from "@/components/magicui/dot-pattern";
 import { useCategories } from "@/contexts/ReUsableData";
 import BusinessOwner from "@/components/BusinessOwner";
+import ReadMoreText from "@/components/ReadMore";
 
 interface Props {
   params: { id: string };
@@ -124,12 +125,12 @@ const Business = ({ params }: Props) => {
             )}
           </motion.div>
           <motion.div
-            className="mt-12 w-full flex-row max-md:flex-col gap-4 flex justify-between items-center"
+            className="mt-12 w-full flex-row max-lg:flex-col gap-4 flex justify-between items-center"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7 }}
           >
-            <Typography className="text-primary" variant={"h1"}>
+            <Typography className="text-primary text-center" variant={"h1"}>
               {businessInfo?.business_name}
             </Typography>
             <motion.div
@@ -159,19 +160,19 @@ const Business = ({ params }: Props) => {
             </motion.div>
           </motion.div>
           <motion.div
-            className="flex flex-row justify-between"
+            className="flex flex-row max-lg:justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7 }}
           >
-            <div className="gap-2 flex flex-col">
+            <div className="gap-2 flex flex-col max-lg:justify-center max-lg:items-center">
               <motion.div
                 className="flex flex-row gap-2 items-center"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7 }}
               >
-                <MapPin />
+                <MapPin className="max-lg:hidden" color="#c55e0c" size={15}/>
                 <Typography
                   className="max-md:text-center text-xs"
                   variant={"p"}
@@ -185,8 +186,9 @@ const Business = ({ params }: Props) => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                <Link2 />
-                <Typography className="max-md:text-center">
+                <Link2 className="max-lg:hidden" size={15} color="#c55e0c" />
+                <Typography className="max-md:text-center"                   variant={"p"}
+                >
                   {businessInfo.website ? (
                     <Link href={businessInfo?.website}>
                       {businessInfo?.website}
@@ -202,37 +204,29 @@ const Business = ({ params }: Props) => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.9 }}
               >
-                <Timer />
-                <Typography className="max-md:text-center">
+                <Timer className="max-lg:hidden" size={15} color="#c55e0c"/>
+                <Typography className="max-md:text-center"                   variant={"p"}
+                >
                   Delivers in {businessInfo.min_delivery_time_in_days} to{" "}
                   {businessInfo.max_delivery_time_in_days} days
                 </Typography>
               </motion.div>
-              {businessInfo.tags && businessInfo.tags.length > 0 && (
-                <div className="w-full flex gap-2 flex-wrap">
-                  {businessInfo.tags.map((tag: any) => (
+              {businessInfo.industry_subcategory &&  (
+                <div className="w-full flex gap-2 flex-wrap max-lg:justify-center">
                     <motion.p
-                      key={tag.slug}
-                      className="max-w-[100px] truncate bg-teal-400/10 border-none mt-[5px] text-[10px] px-2 py-1 rounded-[18px]"
+                      className="max-w-[200px] truncate bg-teal-400/10 border-none mt-[5px] text-[14px] px-2 py-1 rounded-[18px]"
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: tag.index * 0.1 }}
+                      transition={{ duration: 0.4, delay:0.1 }}
                     >
-                      {tag.name}
+                      {businessInfo.industry_subcategory.name}
                     </motion.p>
-                  ))}
                 </div>
               )}
             </div>
           </motion.div>
-          <motion.div
-            className="text-center text-sm font-bold"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            {businessInfo?.description}
-          </motion.div>
+          <ReadMoreText text={businessInfo?.description} />
+
           <motion.div
             className="flex flex-row max-lg:flex-col md:justify-between max-lg:gap-2 items-center mt-2"
             initial={{ opacity: 0, y: 20 }}
@@ -346,8 +340,8 @@ const Business = ({ params }: Props) => {
           </motion.div>
 
           {/* Tab section */}
-          <div className="flex flex-row max-md:flex-col gap-2 w-full">
-            <div className="flex-col flex max-md:w-full w-1/2">
+          <div className="flex flex-row max-lg:flex-col gap-2 w-full">
+            <div className="flex-col flex max-lg:w-full w-1/2">
               <Tabs defaultValue="gallery">
                 <TabsList variant="solid">
                   <TabsTrigger value="gallery">Gallery</TabsTrigger>
@@ -427,7 +421,7 @@ const Business = ({ params }: Props) => {
             </div>
             {/* End of Tab section */}
 
-            <motion.div className="flex-col flex max-md:w-full w-1/2">
+            <motion.div className="flex-col flex max-md:w-full w-auto">
               <motion.div
                 className="flex flex-row items-center max-md:gap-0 mt-6 lg:w-[1/2] gap-x-12"
                 initial={{ opacity: 0, y: -20 }}
