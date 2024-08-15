@@ -172,7 +172,7 @@ const Business = ({ params }: Props) => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7 }}
               >
-                <MapPin className="max-lg:hidden" color="#c55e0c" size={15}/>
+                <MapPin className="max-lg:hidden" color="#c55e0c" size={15} />
                 <Typography
                   className="max-md:text-center text-xs"
                   variant={"p"}
@@ -187,8 +187,7 @@ const Business = ({ params }: Props) => {
                 transition={{ duration: 0.8 }}
               >
                 <Link2 className="max-lg:hidden" size={15} color="#c55e0c" />
-                <Typography className="max-md:text-center"                   variant={"p"}
-                >
+                <Typography className="max-md:text-center" variant={"p"}>
                   {businessInfo.website ? (
                     <Link href={businessInfo?.website}>
                       {businessInfo?.website}
@@ -204,23 +203,22 @@ const Business = ({ params }: Props) => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.9 }}
               >
-                <Timer className="max-lg:hidden" size={15} color="#c55e0c"/>
-                <Typography className="max-md:text-center"                   variant={"p"}
-                >
+                <Timer className="max-lg:hidden" size={15} color="#c55e0c" />
+                <Typography className="max-md:text-center" variant={"p"}>
                   Delivers in {businessInfo.min_delivery_time_in_days} to{" "}
                   {businessInfo.max_delivery_time_in_days} days
                 </Typography>
               </motion.div>
-              {businessInfo.industry_subcategory &&  (
+              {businessInfo.industry_subcategory && (
                 <div className="w-full flex gap-2 flex-wrap max-lg:justify-center">
-                    <motion.p
-                      className="max-w-[200px] truncate bg-teal-400/10 border-none mt-[5px] text-[14px] px-2 py-1 rounded-[18px]"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay:0.1 }}
-                    >
-                      {businessInfo.industry_subcategory.name}
-                    </motion.p>
+                  <motion.p
+                    className="max-w-[200px] truncate bg-teal-400/10 border-none mt-[5px] text-[14px] px-2 py-1 rounded-[18px]"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                  >
+                    {businessInfo.industry_subcategory.name}
+                  </motion.p>
                 </div>
               )}
             </div>

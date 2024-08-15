@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const ReadMoreText = ({ text }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -9,12 +9,12 @@ const ReadMoreText = ({ text }) => {
   };
 
   const style = {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    display: '-webkit-box',
-    WebkitLineClamp: isExpanded ? 'none' : '2', // Show all lines when expanded
-    WebkitBoxOrient: 'vertical',
-    cursor: 'pointer'
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "-webkit-box",
+    WebkitLineClamp: isExpanded ? "none" : "2", // Show all lines when expanded
+    WebkitBoxOrient: "vertical",
+    cursor: "pointer",
   };
 
   return (

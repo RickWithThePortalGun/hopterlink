@@ -46,7 +46,10 @@ const DetailCard = ({
           <Image src={logo} alt="image" fill />
         </div>
         <div className="w-2/3 max-md:w-full m-2 pl-4 gap-2 flex max-md:items-center flex-col">
-          <Typography variant={"h3"} className="font-bold md:text-start text-center">
+          <Typography
+            variant={"h3"}
+            className="font-bold md:text-start text-center"
+          >
             {name}
           </Typography>
           {stars < 1 ? (

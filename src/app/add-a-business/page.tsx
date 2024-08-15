@@ -176,12 +176,14 @@ const App = () => {
 
         if (errorData && typeof errorData === "object") {
           // Display errors under the relevant fields
-          Object.entries(errorData.details || {}).forEach(([field, messages]) => {
-            setError(field, {
-              type: "manual",
-              message: messages.join(", "),
-            });
-          });
+          Object.entries(errorData.details || {}).forEach(
+            ([field, messages]) => {
+              setError(field, {
+                type: "manual",
+                message: messages.join(", "),
+              });
+            },
+          );
 
           // Show a toast with a general error message
           toast({
