@@ -99,13 +99,13 @@ export default function Home() {
               </Typography>
               <div className="flex md:flex-row flex-col gap-12">
                 <Feature
-                  icon={<Share2Icon size={24} />}
+                  icon={<Share2Icon fill="#c55e0c" color="#c55e0c" size={24} />}
                   headline="Multispectrum
                 "
                   description="HOPTERLINK offers everything from essentials to specialized services, supporting both consumers and providers on a single platform."
                 />
                 <Feature
-                  icon={<Waves size={24} />}
+                  icon={<Waves size={24} fill="#c55e0c" color="#c55e0c" />}
                   headline="Effortless
                 "
                   description="HOPTERLINK's intuitive interface allows users to easily navigate, find services, and interact with providers.
@@ -113,7 +113,7 @@ export default function Home() {
                 "
                 />
                 <Feature
-                  icon={<Shield size={24} />}
+                  icon={<Shield size={24} fill="#c55e0c" color="#c55e0c" />}
                   headline="Security
                 "
                   description="HOPTERLINK uses advanced encryption and secure payment gateways to protect your data and transactions.
