@@ -9,6 +9,7 @@ import {
 import { Category } from "@/constants/constants";
 import axios from "axios";
 import { toast } from "@/components/ui-hooks/use-toast";
+import { useSession, type SessionContextValue } from "next-auth/react";
 
 interface CategoriesContextType {
   categories: Category[];
@@ -37,7 +38,8 @@ export const CategoriesProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState(true);
   const [collectionLoading, setCollectionLoading] = useState(true);
   const [collections, setCollections] = useState<[]>([]);
-
+  const {data:session}=useSession()
+  console.log(session)
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -65,12 +67,12 @@ export const CategoriesProvider = ({ children }: Props) => {
   useEffect(() => {
     const fetchCollection = async () => {
       setCollectionLoading(true);
-      try {
-        const response = await axios.get("/api/collection/");
-        setCollections(response.data);
-      } catch (error) {}
-      setCollectionLoading(false);
-    };
+        try {
+          const response = await axios.get("/api/collection/");
+          setCollections(response.data);
+        } catch (error) {}
+        setCollectionLoading(false);
+      }
     void fetchCollection();
   }, []);
 
