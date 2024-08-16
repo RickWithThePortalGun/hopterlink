@@ -73,9 +73,9 @@ const validationSchema = z.object({
     .string()
     .optional()
     .describe("Business Registration Number"),
-    acceptTerms: z.literal(true, {
-      errorMap: () => ({ message: "You must accept the terms and conditions" }),
-    }),
+  acceptTerms: z.literal(true, {
+    errorMap: () => ({ message: "You must accept the terms and conditions" }),
+  }),
 });
 
 const App = () => {
@@ -232,7 +232,7 @@ const App = () => {
     return { files, displayUrl };
   };
 
-  const [preview, setPreview]=useState("")
+  const [preview, setPreview] = useState("");
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { files, displayUrl } = getImageData(event);
@@ -246,10 +246,10 @@ const App = () => {
       ...newFiles,
     ]);
   };
-  const [checked, setChecked] = useState(false); 
-   function handleCheckBoxChange(e) {
-      setChecked(e.target.checked);
-   }
+  const [checked, setChecked] = useState(false);
+  function handleCheckBoxChange(e) {
+    setChecked(e.target.checked);
+  }
   useEffect(() => {
     console.log(uploadedImages);
   }, [uploadedImages]);
@@ -308,71 +308,71 @@ const App = () => {
               </div>
             )}
           </div>
-            <div className="lg:flex lg:items-center lg:flex-row gap-8 lg:w-full flex-grow">
-          <div className="lg:w-1/2">
-            <Label>Industry</Label>
-            <Select
-              onValueChange={(value) => {
-                setSelectedIndustry(value);
-                setValue("industry", parseInt(value));
-              }}
-            >
-              <SelectTrigger className="w-full mt-4">
-                <SelectValue
-                  placeholder="Select an Industry"
-                  className="text-xs"
-                />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Industries on Hopterlink</SelectLabel>
-                  {categories.map((category) => (
-                    <SelectItem key={category.name} value={`${category.id}`}>
-                      {category.name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            {errors.industry && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
-                {errors.industry.message}
-              </div>
-            )}
-          </div>
+          <div className="lg:flex lg:items-center lg:flex-row gap-8 lg:w-full flex-grow">
+            <div className="lg:w-1/2">
+              <Label>Industry</Label>
+              <Select
+                onValueChange={(value) => {
+                  setSelectedIndustry(value);
+                  setValue("industry", parseInt(value));
+                }}
+              >
+                <SelectTrigger className="w-full mt-4">
+                  <SelectValue
+                    placeholder="Select an Industry"
+                    className="text-xs"
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Industries on Hopterlink</SelectLabel>
+                    {categories.map((category) => (
+                      <SelectItem key={category.name} value={`${category.id}`}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              {errors.industry && (
+                <div className="w-full justify-end flex mt-2 text-xs text-primary">
+                  {errors.industry.message}
+                </div>
+              )}
+            </div>
 
-          <div className="max-lg:mt-4 lg:w-1/2">
-            <Label>Industry Subcategory</Label>
-            <Select
-              onValueChange={(value) =>
-                setValue("industry_subcategory", parseInt(value))
-              }
-            >
-              <SelectTrigger className="w-full mt-4">
-                <SelectValue
-                  placeholder="Select a subcategory"
-                  className="text-xs"
-                />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {subcategories.map((subcategory) => (
-                    <SelectItem
-                      key={subcategory.name}
-                      value={`${subcategory.id}`}
-                    >
-                      {subcategory.name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            {errors.industry_subcategory && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
-                {errors.industry_subcategory.message}
-              </div>
-            )}
-          </div>
+            <div className="max-lg:mt-4 lg:w-1/2">
+              <Label>Industry Subcategory</Label>
+              <Select
+                onValueChange={(value) =>
+                  setValue("industry_subcategory", parseInt(value))
+                }
+              >
+                <SelectTrigger className="w-full mt-4">
+                  <SelectValue
+                    placeholder="Select a subcategory"
+                    className="text-xs"
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {subcategories.map((subcategory) => (
+                      <SelectItem
+                        key={subcategory.name}
+                        value={`${subcategory.id}`}
+                      >
+                        {subcategory.name}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              {errors.industry_subcategory && (
+                <div className="w-full justify-end flex mt-2 text-xs text-primary">
+                  {errors.industry_subcategory.message}
+                </div>
+              )}
+            </div>
           </div>
 
           <div>
@@ -385,66 +385,64 @@ const App = () => {
             )}
           </div>
           <div className="lg:flex lg:items-center lg:flex-row gap-8 lg:w-full flex-grow">
+            <div className="lg:w-1/2">
+              <Label>Primary Business Phone</Label>
+              <Input
+                {...register("business_phone_1")}
+                placeholder="Primary Business Phone"
+              />
+              {errors.business_phone_1 && (
+                <div className="w-full justify-end flex mt-2 text-xs text-primary">
+                  {errors.business_phone_1.message}
+                </div>
+              )}
+            </div>
 
-          <div className="lg:w-1/2">
-            <Label>Primary Business Phone</Label>
-            <Input
-              {...register("business_phone_1")}
-              placeholder="Primary Business Phone"
-            />
-            {errors.business_phone_1 && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
-                {errors.business_phone_1.message}
-              </div>
-            )}
-          </div>
-
-          <div className="max-lg:mt-4 lg:w-1/2">
-            <Label>Secondary Business Phone</Label>
-            <Input
-              {...register("business_phone_2")}
-              placeholder="Secondary Business Phone"
-            />
-            {errors.business_phone_2 && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
-                {errors.business_phone_2.message}
-              </div>
-            )}
-          </div>
+            <div className="max-lg:mt-4 lg:w-1/2">
+              <Label>Secondary Business Phone</Label>
+              <Input
+                {...register("business_phone_2")}
+                placeholder="Secondary Business Phone"
+              />
+              {errors.business_phone_2 && (
+                <div className="w-full justify-end flex mt-2 text-xs text-primary">
+                  {errors.business_phone_2.message}
+                </div>
+              )}
+            </div>
           </div>
           <div className="lg:flex lg:items-center lg:flex-row gap-8 lg:w-full flex-grow">
+            <div className="lg:w-1/2">
+              <Label>Minimum Delivery Time (in days)</Label>
+              <Input
+                type="number"
+                {...register("min_delivery_time_in_days", {
+                  valueAsNumber: true,
+                })}
+                placeholder="Min Delivery Time"
+              />
+              {errors.min_delivery_time_in_days && (
+                <div className="w-full justify-end flex mt-2 text-xs text-primary">
+                  {errors.min_delivery_time_in_days.message}
+                </div>
+              )}
+            </div>
 
-          <div className="lg:w-1/2">
-            <Label>Minimum Delivery Time (in days)</Label>
-            <Input
-              type="number"
-              {...register("min_delivery_time_in_days", {
-                valueAsNumber: true,
-              })}
-              placeholder="Min Delivery Time"
-            />
-            {errors.min_delivery_time_in_days && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
-                {errors.min_delivery_time_in_days.message}
-              </div>
-            )}
-          </div>
-
-          <div className="max-lg:mt-4 lg:w-1/2">
-            <Label>Maximum Delivery Time (in days)</Label>
-            <Input
-              type="number"
-              {...register("max_delivery_time_in_days", {
-                valueAsNumber: true,
-              })}
-              placeholder="Max Delivery Time"
-            />
-            {errors.max_delivery_time_in_days && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
-                {errors.max_delivery_time_in_days.message}
-              </div>
-            )}
-          </div>
+            <div className="max-lg:mt-4 lg:w-1/2">
+              <Label>Maximum Delivery Time (in days)</Label>
+              <Input
+                type="number"
+                {...register("max_delivery_time_in_days", {
+                  valueAsNumber: true,
+                })}
+                placeholder="Max Delivery Time"
+              />
+              {errors.max_delivery_time_in_days && (
+                <div className="w-full justify-end flex mt-2 text-xs text-primary">
+                  {errors.max_delivery_time_in_days.message}
+                </div>
+              )}
+            </div>
           </div>
 
           <div>
@@ -463,11 +461,9 @@ const App = () => {
           <div>
             <Label>Logo</Label>
             <Avatar className="w-24 h-24 my-4 justify-center flex">
-                <AvatarImage src={preview} onLoad={() => <RotatingLines />} />
-                <AvatarFallback>
-                  Logo
-                </AvatarFallback>
-              </Avatar>
+              <AvatarImage src={preview} onLoad={() => <RotatingLines />} />
+              <AvatarFallback>Logo</AvatarFallback>
+            </Avatar>
             <Input type="file" onChange={handleFileChange} />
             {errors.logo && (
               <div className="w-full justify-end flex mt-2 text-xs text-primary">
@@ -478,7 +474,10 @@ const App = () => {
 
           <div>
             <Label>Uploaded Images</Label>
-            <FileUpload filetype="business images" onChange={handleImagesChange} />
+            <FileUpload
+              filetype="business images"
+              onChange={handleImagesChange}
+            />
             {errors.uploaded_images && (
               <div className="w-full justify-end flex mt-2 text-xs text-primary">
                 {errors.uploaded_images.message}
@@ -488,7 +487,11 @@ const App = () => {
 
           <div>
             <Label className="flex items-center gap-4">
-            <input type = "checkbox" {...register("acceptTerms")} className="text-primary"/>
+              <input
+                type="checkbox"
+                {...register("acceptTerms")}
+                className="text-primary"
+              />
               Accept terms and conditions
             </Label>
             {errors.acceptTerms && (

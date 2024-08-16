@@ -125,23 +125,22 @@ const Business = ({ params }: Props) => {
             )}
           </motion.div>
           <div className="w-full flex justify-center">
-          {businessInfo?.logo && (
-      <Image
-        src={businessInfo.logo}
-        alt={`${businessInfo?.business_name} logo`}
-        width={150}  // Adjust based on your design preferences
-        height={150}  // Adjust based on your design preferences
-        className="rounded-full"
-      />
-    )}
-    </div>
+            {businessInfo?.logo && (
+              <Image
+                src={businessInfo.logo}
+                alt={`${businessInfo?.business_name} logo`}
+                width={150} // Adjust based on your design preferences
+                height={150} // Adjust based on your design preferences
+                className="rounded-full"
+              />
+            )}
+          </div>
           <motion.div
             className="mt-12 w-full flex-row max-lg:flex-col gap-4 flex justify-between items-center"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7 }}
           >
-              
             <Typography className="text-primary text-center" variant={"h1"}>
               {businessInfo?.business_name}
             </Typography>

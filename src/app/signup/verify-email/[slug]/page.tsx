@@ -23,7 +23,7 @@ const VerifyEmail = (props: Props) => {
     key: params.slug,
   });
   useEffect(() => {
-    setError(false)
+    setError(false);
     const verifyAccount = async () => {
       try {
         setLoading(true);
@@ -110,10 +110,7 @@ const VerifyEmail = (props: Props) => {
                     className="flex justify-center items-center"
                     loop={true}
                   /> */}
-                    <RotatingLines
-                      width="25"
-                      strokeColor="#c55e0c"
-                    />
+                    <RotatingLines width="25" strokeColor="#c55e0c" />
                   </div>
                   <div className="mt-12">
                     {error ? (
