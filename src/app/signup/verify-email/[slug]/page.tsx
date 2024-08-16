@@ -110,11 +110,11 @@ const VerifyEmail = (props: Props) => {
                     Verification
                   </h3>
                   <div className="flex gap-4 justify-center w-full py-10">
-                    {
-                      loading?
+                    {loading ? (
                       <RotatingLines width="25" strokeColor="#c55e0c" />
-                      :""
-                    }
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <div className="mt-12">
                     {loading ? (
@@ -124,12 +124,11 @@ const VerifyEmail = (props: Props) => {
                     ) : errorDetail ? (
                       <div className="flex flex-col items-center ">
                         <p className="text-sm mt-6">
-                          Verification Invalid: {errorDetail} 
+                          Verification Invalid: {errorDetail}
                         </p>
                       </div>
                     ) : (
-                      <>
-                      </>
+                      <></>
                     )}
                   </div>
                 </div>
