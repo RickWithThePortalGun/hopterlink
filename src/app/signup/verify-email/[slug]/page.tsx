@@ -23,6 +23,7 @@ const VerifyEmail = (props: Props) => {
     key: params.slug,
   });
   useEffect(() => {
+    setError(false)
     const verifyAccount = async () => {
       try {
         setLoading(true);
@@ -110,14 +111,13 @@ const VerifyEmail = (props: Props) => {
                     loop={true}
                   /> */}
                     <RotatingLines
-                      height="40"
-                      width="40"
+                      width="25"
                       strokeColor="#c55e0c"
                     />
                   </div>
                   <div className="mt-12">
                     {error ? (
-                      <p className="text-grey-500 text-md mt-6">
+                      <p className="text-grey-500 text-sm mt-6">
                         Verifying your account...
                       </p>
                     ) : (

@@ -102,13 +102,13 @@ export default function Home() {
                   icon={<Share2Icon fill="#c55e0c" color="#c55e0c" size={24} />}
                   headline="Multispectrum
                 "
-                  description="HOPTERLINK offers everything from essentials to specialized services, supporting both consumers and providers on a single platform."
+                  description="We offers everything from essentials to specialized services, supporting both consumers and providers on a single platform."
                 />
                 <Feature
                   icon={<Waves size={24} fill="#c55e0c" color="#c55e0c" />}
                   headline="Effortless
                 "
-                  description="HOPTERLINK's intuitive interface allows users to easily navigate, find services, and interact with providers.
+                  description="Our intuitive interface allows users to easily navigate, find services, and interact with providers.
 
                 "
                 />
@@ -116,7 +116,7 @@ export default function Home() {
                   icon={<Shield size={24} fill="#c55e0c" color="#c55e0c" />}
                   headline="Security
                 "
-                  description="HOPTERLINK uses advanced encryption and secure payment gateways to protect your data and transactions.
+                  description="Our platform uses advanced encryption and secure payment gateways to protect your data and transactions.
 
                 "
                 />

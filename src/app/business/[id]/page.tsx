@@ -109,7 +109,7 @@ const Business = ({ params }: Props) => {
         </div>
       ) : (
         <motion.div
-          className="flex flex-col h-full md:py-30 md:px-28 pt-11 pb-24 px-6 w-full gap-12"
+          className="flex flex-col h-full md:py-30 md:px-20 pt-11 pb-24 px-4 w-full gap-6"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -124,12 +124,24 @@ const Business = ({ params }: Props) => {
               <Crumbs businessInfo={businessInfo} />
             )}
           </motion.div>
+          <div className="w-full flex justify-center">
+          {businessInfo?.logo && (
+      <Image
+        src={businessInfo.logo}
+        alt={`${businessInfo?.business_name} logo`}
+        width={150}  // Adjust based on your design preferences
+        height={150}  // Adjust based on your design preferences
+        className="rounded-full"
+      />
+    )}
+    </div>
           <motion.div
             className="mt-12 w-full flex-row max-lg:flex-col gap-4 flex justify-between items-center"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7 }}
           >
+              
             <Typography className="text-primary text-center" variant={"h1"}>
               {businessInfo?.business_name}
             </Typography>

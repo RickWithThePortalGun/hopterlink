@@ -197,7 +197,7 @@ const SignUpForm = () => {
         <div className="rounded-lg text-card-primary shadow-sm w-full max-w-sm">
           <div
             className="flex flex-col text-center justify-center items-center
-              space-y-1.5 p-6 my-6"
+              space-y-1.5 p-6"
           >
             <h3 className="font-semibold tracking-tight text-2xl">Sign Up</h3>
             <p className="text-sm text-muted-foreground">

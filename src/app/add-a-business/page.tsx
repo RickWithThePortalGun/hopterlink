@@ -16,7 +16,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useCategories } from "@/contexts/ReUsableData";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Subcategory } from "@/constants/constants";
 import HeaderContainer from "@/components/HeaderContainer";
@@ -26,6 +26,8 @@ import { toast } from "@/components/ui-hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { RotatingLines } from "react-loader-spinner";
 import Particles from "@/components/magicui/particles";
+import { FileUpload } from "@/components/ui/file-upload";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const validationSchema = z.object({
   email: z
@@ -71,6 +73,9 @@ const validationSchema = z.object({
     .string()
     .optional()
     .describe("Business Registration Number"),
+    acceptTerms: z.literal(true, {
+      errorMap: () => ({ message: "You must accept the terms and conditions" }),
+    }),
 });
 
 const App = () => {
@@ -215,14 +220,39 @@ const App = () => {
       setLoading(false);
     }
   };
+  const getImageData = (event: ChangeEvent<HTMLInputElement>) => {
+    const dataTransfer = new DataTransfer();
+    Array.from(event.target.files!).forEach((image) =>
+      dataTransfer.items.add(image),
+    );
 
-  const handleFileChange = (e) => {
-    setLogo(e.target.files[0]);
+    const files = dataTransfer.files;
+    const displayUrl = URL.createObjectURL(files[0]);
+
+    return { files, displayUrl };
   };
 
-  const handleImagesChange = (e) => {
-    setUploadedImages(Array.from(e.target.files));
+  const [preview, setPreview]=useState("")
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { files, displayUrl } = getImageData(event);
+    setPreview(displayUrl);
+    setLogo(event?.target?.files[0]);
   };
+
+  const handleImagesChange = (newFiles) => {
+    setUploadedImages((prevUploadedImages) => [
+      ...prevUploadedImages,
+      ...newFiles,
+    ]);
+  };
+  const [checked, setChecked] = useState(false); 
+   function handleCheckBoxChange(e) {
+      setChecked(e.target.checked);
+   }
+  useEffect(() => {
+    console.log(uploadedImages);
+  }, [uploadedImages]);
 
   return (
     <HeaderContainer>
@@ -278,8 +308,8 @@ const App = () => {
               </div>
             )}
           </div>
-
-          <div>
+            <div className="lg:flex lg:items-center lg:flex-row gap-8 lg:w-full flex-grow">
+          <div className="lg:w-1/2">
             <Label>Industry</Label>
             <Select
               onValueChange={(value) => {
@@ -311,7 +341,7 @@ const App = () => {
             )}
           </div>
 
-          <div>
+          <div className="max-lg:mt-4 lg:w-1/2">
             <Label>Industry Subcategory</Label>
             <Select
               onValueChange={(value) =>
@@ -343,6 +373,7 @@ const App = () => {
               </div>
             )}
           </div>
+          </div>
 
           <div>
             <Label>Website</Label>
@@ -353,8 +384,9 @@ const App = () => {
               </div>
             )}
           </div>
+          <div className="lg:flex lg:items-center lg:flex-row gap-8 lg:w-full flex-grow">
 
-          <div>
+          <div className="lg:w-1/2">
             <Label>Primary Business Phone</Label>
             <Input
               {...register("business_phone_1")}
@@ -367,7 +399,7 @@ const App = () => {
             )}
           </div>
 
-          <div>
+          <div className="max-lg:mt-4 lg:w-1/2">
             <Label>Secondary Business Phone</Label>
             <Input
               {...register("business_phone_2")}
@@ -379,9 +411,11 @@ const App = () => {
               </div>
             )}
           </div>
+          </div>
+          <div className="lg:flex lg:items-center lg:flex-row gap-8 lg:w-full flex-grow">
 
-          <div>
-            <Label>Min Delivery Time (in days)</Label>
+          <div className="lg:w-1/2">
+            <Label>Minimum Delivery Time (in days)</Label>
             <Input
               type="number"
               {...register("min_delivery_time_in_days", {
@@ -396,8 +430,8 @@ const App = () => {
             )}
           </div>
 
-          <div>
-            <Label>Max Delivery Time (in days)</Label>
+          <div className="max-lg:mt-4 lg:w-1/2">
+            <Label>Maximum Delivery Time (in days)</Label>
             <Input
               type="number"
               {...register("max_delivery_time_in_days", {
@@ -410,6 +444,7 @@ const App = () => {
                 {errors.max_delivery_time_in_days.message}
               </div>
             )}
+          </div>
           </div>
 
           <div>
@@ -427,6 +462,12 @@ const App = () => {
 
           <div>
             <Label>Logo</Label>
+            <Avatar className="w-24 h-24 my-4 justify-center flex">
+                <AvatarImage src={preview} onLoad={() => <RotatingLines />} />
+                <AvatarFallback>
+                  Logo
+                </AvatarFallback>
+              </Avatar>
             <Input type="file" onChange={handleFileChange} />
             {errors.logo && (
               <div className="w-full justify-end flex mt-2 text-xs text-primary">
@@ -437,7 +478,7 @@ const App = () => {
 
           <div>
             <Label>Uploaded Images</Label>
-            <Input type="file" multiple onChange={handleImagesChange} />
+            <FileUpload filetype="business images" onChange={handleImagesChange} />
             {errors.uploaded_images && (
               <div className="w-full justify-end flex mt-2 text-xs text-primary">
                 {errors.uploaded_images.message}
@@ -447,15 +488,7 @@ const App = () => {
 
           <div>
             <Label className="flex items-center gap-4">
-              <Checkbox
-                {...register("acceptTerms")}
-                onChange={(e) =>
-                  setValue(
-                    "acceptTerms",
-                    (e.target as HTMLInputElement).checked,
-                  )
-                }
-              />
+            <input type = "checkbox" {...register("acceptTerms")} className="text-primary"/>
               Accept terms and conditions
             </Label>
             {errors.acceptTerms && (

@@ -120,7 +120,7 @@ const Page = ({ params }: Props) => {
 
   return (
     <HeaderContainer>
-      <div className="flex flex-col h-full md:py-10 md:px-16 pt-11 pb-24 px-8 w-full text-center gap-12">
+      <div className="flex flex-col h-full md:py-10 md:px-16 pt-11 pb-24 px-4 w-full text-center gap-12">
         <div className="flex flex-col gap-6 items-start mt-12">
           {category ? (
             <Typography

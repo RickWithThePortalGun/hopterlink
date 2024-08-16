@@ -21,7 +21,7 @@ const Feature: React.FC<FeatureProps> = ({ icon, headline, description }) => {
       </Typography>
       <Typography
         variant="p"
-        className="text-minor max-lg:hidden flex text-center"
+        className="text-[#c55e0c] max-lg:hidden flex text-center"
       >
         {description}
       </Typography>

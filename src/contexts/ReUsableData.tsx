@@ -10,7 +10,6 @@ import { Category } from "@/constants/constants";
 import axios from "axios";
 import { toast } from "@/components/ui-hooks/use-toast";
 
-// Adjusted type for CategoriesContext
 interface CategoriesContextType {
   categories: Category[];
   collections: [];
@@ -20,7 +19,6 @@ interface CategoriesContextType {
   loading: boolean;
 }
 
-// Create context with a default value
 const CategoriesContext = createContext<CategoriesContextType>({
   categories: [],
   loading: true,
@@ -57,7 +55,7 @@ export const CategoriesProvider = ({ children }: Props) => {
         setCategories([]);
         toast({
           title: "Network error",
-          description: "Ensure you have an internet connection.",
+          description: "Ensure you have a stable internet connection.",
         });
       }
     };
