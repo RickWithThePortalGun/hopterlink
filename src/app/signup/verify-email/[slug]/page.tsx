@@ -17,16 +17,16 @@ type Props = {};
 const VerifyEmail = (props: Props) => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [errorDetail, setErrorDetail] = useState<string | null>(null);
   const params = useParams<{ slug: string }>();
   const [token, setToken] = useState({
-    key: params.slug,
+    key: decodeURIComponent(params.slug),
   });
+
   useEffect(() => {
-    setError(false);
+    setErrorDetail(null); // Reset error on each verification attempt
     const verifyAccount = async () => {
       try {
-        setLoading(true);
         const verification = await axios.post("/api/verify-email/", {
           token,
         });
@@ -42,16 +42,21 @@ const VerifyEmail = (props: Props) => {
             router.push("/login");
           }, 3000);
         }
-      } catch (error) {
+      } catch (err) {
         setLoading(false);
-        setError(true);
-        console.error("Error verifying account:", error);
+        // Extracting detail field from the error response
+        const errorDetail =
+          err.response?.data?.details?.detail || "An unexpected error occurred";
+        setErrorDetail(errorDetail); // Set the detail message as errorDetail
+        console.error("Error verifying account:", err);
       }
       setLoading(false);
     };
     void verifyAccount();
-  }, []);
+  }, [token, router]);
+
   const [currentStepIndex, setCurrentStepIndex] = useState(1);
+
   const styles = {
     LineSeparator: () => ({
       backgroundColor: "#028A0F",
@@ -63,6 +68,7 @@ const VerifyEmail = (props: Props) => {
       backgroundColor: "#028A0F",
     }),
   };
+
   const steps = [
     {
       stepLabel: "Sign Up",
@@ -104,24 +110,26 @@ const VerifyEmail = (props: Props) => {
                     Verification
                   </h3>
                   <div className="flex gap-4 justify-center w-full py-10">
-                    {/* Add your OTP inputs here */}
-                    {/* <Lottie
-                    animationData={animationData}
-                    className="flex justify-center items-center"
-                    loop={true}
-                  /> */}
-                    <RotatingLines width="25" strokeColor="#c55e0c" />
+                    {
+                      loading?
+                      <RotatingLines width="25" strokeColor="#c55e0c" />
+                      :""
+                    }
                   </div>
                   <div className="mt-12">
-                    {error ? (
+                    {loading ? (
                       <p className="text-grey-500 text-sm mt-6">
                         Verifying your account...
                       </p>
-                    ) : (
+                    ) : errorDetail ? (
                       <div className="flex flex-col items-center ">
-                        <p>The verification link has expired.</p>
-                        <Button>Resend Email</Button>
+                        <p className="text-sm mt-6">
+                          Verification Invalid: {errorDetail} 
+                        </p>
                       </div>
+                    ) : (
+                      <>
+                      </>
                     )}
                   </div>
                 </div>

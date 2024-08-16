@@ -124,19 +124,20 @@ const Business = ({ params }: Props) => {
               <Crumbs businessInfo={businessInfo} />
             )}
           </motion.div>
-          <div className="w-full flex justify-center">
+          <div className="w-full flex justify-center rounded-full">
             {businessInfo?.logo && (
               <Image
                 src={businessInfo.logo}
                 alt={`${businessInfo?.business_name} logo`}
                 width={150} // Adjust based on your design preferences
                 height={150} // Adjust based on your design preferences
+                objectFit="cover"
                 className="rounded-full"
               />
             )}
           </div>
           <motion.div
-            className="mt-12 w-full flex-row max-lg:flex-col gap-4 flex justify-between items-center"
+            className="mt-6 w-full flex-row max-lg:flex-col gap-4 flex justify-between items-center"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7 }}
@@ -349,7 +350,7 @@ const Business = ({ params }: Props) => {
           </motion.div>
 
           {/* Tab section */}
-          <div className="flex flex-row max-lg:flex-col gap-2 w-full">
+          <div className="flex flex-row max-lg:flex-col gap-2 w-full mt-8">
             <div className="flex-col flex max-lg:w-full w-1/2">
               <Tabs defaultValue="gallery">
                 <TabsList variant="solid">
