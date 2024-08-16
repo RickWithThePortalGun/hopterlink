@@ -38,8 +38,7 @@ export const CategoriesProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState(true);
   const [collectionLoading, setCollectionLoading] = useState(true);
   const [collections, setCollections] = useState<[]>([]);
-  const { data: session } = useSession();
-  console.log(session);
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -67,6 +66,7 @@ export const CategoriesProvider = ({ children }: Props) => {
   useEffect(() => {
     const fetchCollection = async () => {
       setCollectionLoading(true);
+      
       try {
         const response = await axios.get("/api/collection/");
         setCollections(response.data);

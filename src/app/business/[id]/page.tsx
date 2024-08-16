@@ -367,7 +367,7 @@ const Business = ({ params }: Props) => {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <Gallery images={businessInfo.images} />
+                      <Gallery noNavigation images={businessInfo.images} />
                       <div className="h-fit py-4 flex flex-row items-center gap-4">
                         {businessInfo.images.map((image, index) => (
                           <motion.div

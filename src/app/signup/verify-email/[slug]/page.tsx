@@ -42,7 +42,7 @@ const VerifyEmail = (props: Props) => {
             router.push("/login");
           }, 3000);
         }
-      } catch (err) {
+      } catch (err:any) {
         setLoading(false);
         // Extracting detail field from the error response
         const errorDetail =
@@ -152,7 +152,7 @@ const VerifyEmail = (props: Props) => {
                       />
                     </div>
                     <div className="mt-12">
-                      <p className="text-grey-500 text-md mt-6">
+                      <p className="text-grey-500 text-sm mt-6">
                         Your account has been activated! <br />
                         You can now log in on the Hopterlink app or stay on this
                         page and you will be redirected to the login page.
