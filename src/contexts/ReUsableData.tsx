@@ -66,7 +66,7 @@ export const CategoriesProvider = ({ children }: Props) => {
   useEffect(() => {
     const fetchCollection = async () => {
       setCollectionLoading(true);
-      
+
       try {
         const response = await axios.get("/api/collection/");
         setCollections(response.data);

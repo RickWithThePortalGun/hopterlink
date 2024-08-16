@@ -42,7 +42,7 @@ const VerifyEmail = (props: Props) => {
             router.push("/login");
           }, 3000);
         }
-      } catch (err:any) {
+      } catch (err: any) {
         setLoading(false);
         // Extracting detail field from the error response
         const errorDetail =
