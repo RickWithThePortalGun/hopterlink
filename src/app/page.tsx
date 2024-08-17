@@ -22,7 +22,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import GoogleTranslate from "@/GoogleTranslate";
 import Gallery from "@/components/Gallery";
-import { ShootingStars} from "@/components/magicui/shooting-stars";
+import { ShootingStars } from "@/components/magicui/shooting-stars";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { StarsBackground } from "@/components/magicui/stars-background";
 
@@ -32,20 +32,20 @@ export default function Home() {
       title: "Multi Spectrum",
       description:
         "We offers everything from essentials to specialized services, supporting both consumers and providers on a single platform.",
-      icon:<Share2Icon/>
+      icon: <Share2Icon />,
     },
     {
       title: "Effortless",
       description:
         "Our intuitive interface allows users to easily navigate, find services, and interact with providers.",
-      icon:<Waves/>
+      icon: <Waves />,
     },
     {
       title: "Security",
       description:
         "Our platform uses advanced encryption and secure payment gateways to protect your data and transactions.",
-      icon:<Shield/>
-    }
+      icon: <Shield />,
+    },
   ];
   const words = ["Find", "Review", "Hire"];
   const images = [
@@ -122,8 +122,8 @@ export default function Home() {
                 Our Vision
               </Typography>
               <div className="max-w-5xl mx-auto px-8">
-      <HoverEffect items={projects} />
-    </div>
+                <HoverEffect items={projects} />
+              </div>
             </div>
           </div>
           <div className="flex flex-col gap-6 max-w-full items-center justify-center my-12">
@@ -141,8 +141,8 @@ export default function Home() {
             <CategoryCards />
           </div>
         </div>
-              <ShootingStars />
-              <StarsBackground />
+        <ShootingStars />
+        <StarsBackground />
       </HeaderContainer>
     </>
   );
