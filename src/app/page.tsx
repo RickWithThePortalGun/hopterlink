@@ -3,6 +3,7 @@ import HeaderContainer from "@/components/HeaderContainer";
 import Typography from "@/components/ui/typography";
 import {
   ChevronRight,
+  Share,
   Share2Icon,
   Shield,
   Star,
@@ -21,8 +22,31 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import GoogleTranslate from "@/GoogleTranslate";
 import Gallery from "@/components/Gallery";
+import { ShootingStars} from "@/components/magicui/shooting-stars";
+import { HoverEffect } from "@/components/ui/card-hover-effect";
+import { StarsBackground } from "@/components/magicui/stars-background";
 
 export default function Home() {
+  const projects = [
+    {
+      title: "Multi Spectrum",
+      description:
+        "We offers everything from essentials to specialized services, supporting both consumers and providers on a single platform.",
+      icon:<Share2Icon/>
+    },
+    {
+      title: "Effortless",
+      description:
+        "Our intuitive interface allows users to easily navigate, find services, and interact with providers.",
+      icon:<Waves/>
+    },
+    {
+      title: "Security",
+      description:
+        "Our platform uses advanced encryption and secure payment gateways to protect your data and transactions.",
+      icon:<Shield/>
+    }
+  ];
   const words = ["Find", "Review", "Hire"];
   const images = [
     {
@@ -77,11 +101,11 @@ export default function Home() {
                   <ChevronRight />
                 </AnimatedShinyText>
               </div>
-              <div className="max-w-4xl text-6xl max-md:text-3xl font-extrabold tracking-tight text-start max-md:text-center">
+              <div className="max-w-4xl text-6xl max-md:text-3xl text-primary font-extrabold tracking-tight text-start max-md:text-center">
                 <FlipWords words={words} />
                 Service Providers
               </div>
-              <p className="max-w-4xl text-xl max-md:text-sm text-start max-md:text-center tracking-normal">
+              <p className="max-w-4xl text-xl max-md:text-sm text-start max-md:text-center tracking-normal text-neutral-400">
                 Connecting You to Quality Services, One Click at a Time{" "}
               </p>
               <div className="flex gap-4 items-center max-lg:justify-center mt-6 w-full">
@@ -94,39 +118,16 @@ export default function Home() {
           </div>
           <div className="flex flex-col md:pt-24 md:gap-36 gap-24 mt-12 items-center">
             <div className="flex flex-col gap-12 items-center">
-              <Typography className="max-w-2xl" variant="h1">
+              <Typography className="max-w-2xl text-primary" variant="h1">
                 Our Vision
               </Typography>
-              <div className="flex md:flex-row flex-col gap-12">
-                <Feature
-                  icon={<Share2Icon fill="#c55e0c" color="#c55e0c" size={24} />}
-                  headline="Multispectrum
-                "
-                  description="We offers everything from essentials to specialized services, supporting both consumers and providers on a single platform."
-                />
-                <Feature
-                  icon={<Waves size={24} fill="#c55e0c" color="#c55e0c" />}
-                  headline="Effortless
-                "
-                  description="Our intuitive interface allows users to easily navigate, find services, and interact with providers.
-
-                "
-                />
-                <Feature
-                  icon={<Shield size={24} fill="#c55e0c" color="#c55e0c" />}
-                  headline="Security
-                "
-                  description="Our platform uses advanced encryption and secure payment gateways to protect your data and transactions.
-
-                "
-                />
-              </div>
+              <div className="max-w-5xl mx-auto px-8">
+      <HoverEffect items={projects} />
+    </div>
             </div>
           </div>
-          <Separator />
-
           <div className="flex flex-col gap-6 max-w-full items-center justify-center my-12">
-            <Typography className="max-w-2xl" variant="h1">
+            <Typography className="max-w-2xl text-primary" variant="h1">
               Recent Activity
             </Typography>
             {/* //Cards */}
@@ -134,21 +135,14 @@ export default function Home() {
           </div>
           <Separator />
           <div className="flex flex-col max-w-full gap-6 items-center">
-            <Typography className="max-w-2xl" variant="h1">
+            <Typography className="max-w-2xl text-primary" variant="h1">
               Categories
             </Typography>
             <CategoryCards />
           </div>
         </div>
-        {/* <Particles
-          className="absolute inset-0 top-0 bottom-0 left-0 right-0"
-          quantity={150}
-          staticity={80}
-          ease={50}
-          refresh
-          size={1}
-          color="#c55e0c"
-        /> */}
+              <ShootingStars />
+              <StarsBackground />
       </HeaderContainer>
     </>
   );

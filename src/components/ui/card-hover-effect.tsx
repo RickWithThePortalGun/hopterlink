@@ -11,7 +11,8 @@ export const HoverEffect = ({
   items: Array<{
     title: string;
     description: string;
-    link: string;
+    link?: string;
+    icon?:any
   }>;
   className?: string;
 }) => {
@@ -25,8 +26,7 @@ export const HoverEffect = ({
       )}
     >
       {items.map((item, idx) => (
-        <Link
-          href={item?.link}
+        <div
           key={item?.link}
           className="relative group block p-2 h-full w-full"
           onMouseEnter={() => {
@@ -55,10 +55,10 @@ export const HoverEffect = ({
             )}
           </AnimatePresence>
           <Card>
-            <CardTitle className="text-primary">{item.title}</CardTitle>
+            <CardTitle className="text-primary flex flex-row gap-2 items-center">{item.title}{item.icon}</CardTitle>
             <CardDescription>{item.description}</CardDescription>
           </Card>
-        </Link>
+        </div>
       ))}
     </div>
   );
