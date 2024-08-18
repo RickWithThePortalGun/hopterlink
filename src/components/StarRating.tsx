@@ -41,7 +41,7 @@ const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
           stroke="#FFD700"
           strokeWidth="2"
         />
-      </svg>,
+      </svg>
     );
   }
 

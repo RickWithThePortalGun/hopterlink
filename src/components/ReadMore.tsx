@@ -12,7 +12,7 @@ const ReadMoreText = ({ text }) => {
       // Check if the height of the content is greater than twice the line height (approximation for two lines of text)
       if (element) {
         const lineHeight = parseFloat(
-          window.getComputedStyle(element).lineHeight,
+          window.getComputedStyle(element).lineHeight
         );
         setIsClippable(element.scrollHeight > 2 * lineHeight);
       }
@@ -54,7 +54,7 @@ const ReadMoreText = ({ text }) => {
       </motion.div>
       {isClippable && !isExpanded && (
         <p
-          className="text-primary text-center text-sm font-bold cursor-pointer"
+          className="text-[#c55e0c] text-center text-sm font-bold cursor-pointer"
           onClick={toggleExpanded}
         >
           Read More

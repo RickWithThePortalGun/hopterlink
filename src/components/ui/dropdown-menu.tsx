@@ -35,7 +35,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
         py-1.5 text-sm outline-none focus:bg-accent
         data-[state=open]:bg-accent`,
       inset && "pl-8",
-      className,
+      className
     )}
     {...props}
   >
@@ -62,7 +62,7 @@ const DropdownMenuSubContent = React.forwardRef<
         data-[side=left]:slide-in-from-right-2
         data-[side=right]:slide-in-from-left-2
         data-[side=top]:slide-in-from-bottom-2`,
-      className,
+      className
     )}
     {...props}
   />
@@ -88,7 +88,7 @@ const DropdownMenuContent = React.forwardRef<
           data-[side=left]:slide-in-from-right-2
           data-[side=right]:slide-in-from-left-2
           data-[side=top]:slide-in-from-bottom-2`,
-        className,
+        className
       )}
       {...props}
     />
@@ -111,7 +111,7 @@ const DropdownMenuItem = React.forwardRef<
         data-[disabled]:pointer-events-none
         data-[disabled]:opacity-50`,
       inset && "pl-8",
-      className,
+      className
     )}
     {...props}
   />
@@ -131,7 +131,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
         focus:text-accent-foreground
         data-[disabled]:pointer-events-none
         data-[disabled]:opacity-50`,
-      className,
+      className
     )}
     checked={checked}
     {...props}
@@ -160,7 +160,7 @@ const DropdownMenuRadioItem = React.forwardRef<
         focus:text-accent-foreground
         data-[disabled]:pointer-events-none
         data-[disabled]:opacity-50`,
-      className,
+      className
     )}
     {...props}
   >
@@ -185,7 +185,7 @@ const DropdownMenuLabel = React.forwardRef<
     className={cn(
       "px-2 py-1.5 text-sm font-semibold",
       inset && "pl-8",
-      className,
+      className
     )}
     {...props}
   />

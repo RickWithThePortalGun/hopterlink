@@ -157,7 +157,7 @@ const Cards = () => {
               <div className="flex flex-col flex-grow overflow-hidden">
                 {renderContent(activity)}
               </div>
-              <p className="text-xs text-primary mt-auto text-end w-full">
+              <p className="text-xs text-[#c55e0c] mt-auto text-end w-full">
                 {formatTimeAgo(new Date(activity.created_at))}
               </p>
             </div>

@@ -152,6 +152,10 @@
     gap: 10px;
   }
 }
+.cc-conversations__menus {
+  display: none !important;
+  background: #fff;
+}
 /* .swiper-button-prev {
   color: red !important; 
 }

@@ -88,7 +88,7 @@ export default function ChatBottombar({
                 }),
                 "h-9 w-9",
                 `dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted
-                dark:hover:text-white`,
+                dark:hover:text-white`
               )}
             >
               <PlusCircle size={20} className="text-muted-foreground" />
@@ -106,7 +106,7 @@ export default function ChatBottombar({
                     }),
                     "h-9 w-9",
                     `dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted
-                    dark:hover:text-white`,
+                    dark:hover:text-white`
                   )}
                 >
                   <Mic size={20} className="text-muted-foreground" />
@@ -122,7 +122,7 @@ export default function ChatBottombar({
                       }),
                       "h-9 w-9",
                       `dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted
-                      dark:hover:text-white`,
+                      dark:hover:text-white`
                     )}
                   >
                     <icon.icon size={20} className="text-muted-foreground" />
@@ -139,7 +139,7 @@ export default function ChatBottombar({
                   }),
                   "h-9 w-9",
                   `dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted
-                  dark:hover:text-white`,
+                  dark:hover:text-white`
                 )}
               >
                 <Mic size={20} className="text-muted-foreground" />
@@ -160,7 +160,7 @@ export default function ChatBottombar({
                   }),
                   "h-9 w-9",
                   `dark:bg-muted dark:text-muted-foreground mx-1
-                  dark:hover:bg-muted dark:hover:text-white`,
+                  dark:hover:bg-muted dark:hover:text-white`
                 )}
               >
                 <icon.icon size={20} className="text-muted-foreground" />
@@ -219,7 +219,7 @@ export default function ChatBottombar({
               }),
               "h-9 w-9",
               `dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted
-              dark:hover:text-white shrink-0`,
+              dark:hover:text-white shrink-0`
             )}
             onClick={handleSend}
           >
@@ -235,7 +235,7 @@ export default function ChatBottombar({
               }),
               "h-9 w-9",
               `dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted
-              dark:hover:text-white shrink-0`,
+              dark:hover:text-white shrink-0`
             )}
             onClick={handleThumbsUp}
           >

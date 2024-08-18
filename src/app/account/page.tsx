@@ -140,7 +140,7 @@ const Page = () => {
                       {/* <NumberTicker value={userInfo?.review_count ? userInfo?.review_count : 0}/> */}
                       0
                     </Typography>
-                    <p className="text-primary font-bold text-sm text-center">
+                    <p className="text-[#c55e0c] font-bold text-sm text-center">
                       Businesses Reviewed
                     </p>
                   </div>
@@ -148,7 +148,7 @@ const Page = () => {
                     <Typography className="font-bold" variant={"h2"}>
                       {userInfo?.is_business ? <NumberTicker value={1} /> : "0"}
                     </Typography>
-                    <p className="text-primary font-bold text-sm text-center">
+                    <p className="text-[#c55e0c] font-bold text-sm text-center">
                       Businesses owned
                     </p>
                   </div>
@@ -156,7 +156,7 @@ const Page = () => {
                     <Typography className="font-bold" variant={"h2"}>
                       <NumberTicker value={collections?.length} />
                     </Typography>
-                    <p className="text-primary font-bold text-sm text-center">
+                    <p className="text-[#c55e0c] font-bold text-sm text-center">
                       Saved Businesses
                     </p>
                   </div>

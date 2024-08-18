@@ -6,27 +6,35 @@ import {
   useState,
   ReactNode,
 } from "react";
-import { Category } from "@/constants/constants";
+import { Category, COMETCHAT_CONSTANTS } from "@/constants/constants";
 import axios from "axios";
 import { toast } from "@/components/ui-hooks/use-toast";
-import { useSession, type SessionContextValue } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import {
+  CometChatUIKit,
+  UIKitSettingsBuilder,
+} from "@cometchat/chat-uikit-react";
 
 interface CategoriesContextType {
   categories: Category[];
   collections: [];
   collectionLoading: boolean;
-  setCollections: any;
-  setCollectionLoading: any;
+  setCollections: React.Dispatch<any>;
+  setCollectionLoading: React.Dispatch<any>;
   loading: boolean;
+  initialized: boolean;
+  user: any | undefined;
 }
 
 const CategoriesContext = createContext<CategoriesContextType>({
   categories: [],
-  loading: true,
   collections: [],
   collectionLoading: true,
   setCollections: () => {},
   setCollectionLoading: () => {},
+  loading: true,
+  initialized: false,
+  user: undefined,
 });
 
 interface Props {
@@ -38,6 +46,9 @@ export const CategoriesProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState(true);
   const [collectionLoading, setCollectionLoading] = useState(true);
   const [collections, setCollections] = useState<[]>([]);
+  const [user, setUser] = useState<any>(undefined);
+  const { data: session, status } = useSession();
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -45,7 +56,7 @@ export const CategoriesProvider = ({ children }: Props) => {
         const fetchedData = await axios.get("/api/categories");
         if (fetchedData) {
           const fetchedCategories = Object.values(
-            fetchedData.data.results,
+            fetchedData.data.results
           ) as Category[];
           setCategories(fetchedCategories);
           setLoading(false);
@@ -53,6 +64,7 @@ export const CategoriesProvider = ({ children }: Props) => {
           setCategories([]);
         }
       } catch (error) {
+        console.error("Failed to fetch categories:", error);
         setCategories([]);
         toast({
           title: "Network error",
@@ -70,7 +82,9 @@ export const CategoriesProvider = ({ children }: Props) => {
       try {
         const response = await axios.get("/api/collection/");
         setCollections(response.data);
-      } catch (error) {}
+      } catch (error) {
+        console.error("Failed to fetch collection:", error);
+      }
       setCollectionLoading(false);
     };
     void fetchCollection();
@@ -84,6 +98,9 @@ export const CategoriesProvider = ({ children }: Props) => {
         collectionLoading,
         categories,
         loading,
+        initialized,
+        user,
+        setCollectionLoading,
       }}
     >
       {children}

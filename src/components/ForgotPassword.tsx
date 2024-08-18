@@ -66,7 +66,7 @@ const ForgotPassword = () => {
   return (
     <Credenza>
       <CredenzaTrigger asChild>
-        <div className="flex justify-end w-full text-xs text-primary my-4 cursor-pointer">
+        <div className="flex justify-end w-full text-xs text-[#c55e0c] my-4 cursor-pointer">
           Forgot your password
         </div>
       </CredenzaTrigger>

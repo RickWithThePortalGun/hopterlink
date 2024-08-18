@@ -49,7 +49,7 @@ const Business = ({ params }: Props) => {
   useEffect(() => {
     if (
       collections?.some(
-        (business) => business.business.id.toString() === params.id,
+        (business) => business.business.id.toString() === params.id
       )
     ) {
       setIsFavorite(true);
@@ -142,7 +142,7 @@ const Business = ({ params }: Props) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7 }}
           >
-            <Typography className="text-primary text-center" variant={"h1"}>
+            <Typography className="text-[#c55e0c] text-center" variant={"h1"}>
               {businessInfo?.business_name}
             </Typography>
             <motion.div
@@ -269,7 +269,7 @@ const Business = ({ params }: Props) => {
                           description:
                             "Failed to copy the link. Please try again.",
                         });
-                      },
+                      }
                     );
                   } else {
                     toast({

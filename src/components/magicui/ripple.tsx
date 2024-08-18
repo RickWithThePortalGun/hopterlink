@@ -35,7 +35,7 @@ const Ripple = React.memo(
         ))}
       </div>
     );
-  }),
+  })
 );
 
 Ripple.displayName = "Ripple";

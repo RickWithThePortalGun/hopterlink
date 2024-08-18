@@ -13,7 +13,7 @@ const ResizablePanelGroup = ({
     className={cn(
       `flex h-full w-full
       data-[panel-group-direction=vertical]:flex-col`,
-      className,
+      className
     )}
     {...props}
   />
@@ -43,7 +43,7 @@ const ResizableHandle = ({
       data-[panel-group-direction=vertical]:after:-translate-y-1/2
       data-[panel-group-direction=vertical]:after:translate-x-0
       [&[data-panel-group-direction=vertical]>div]:rotate-90`,
-      className,
+      className
     )}
     {...props}
   >

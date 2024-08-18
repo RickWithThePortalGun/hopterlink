@@ -31,7 +31,7 @@ export async function POST(req: Request, context: { params: { id: string } }) {
 
     return NextResponse.json(
       { message: errorMessage, data: errorData },
-      { status: 400 }, // Using 400 as it's a bad request
+      { status: 400 } // Using 400 as it's a bad request
     );
   }
 }
@@ -57,7 +57,7 @@ export async function GET(req: Request, context: { params: { id: string } }) {
     // console.log("Error config:", error.config);
     return NextResponse.json(
       { message: errorMessage, data: errorData },
-      { status: 400 }, // Using 400 as it's a bad request
+      { status: 400 } // Using 400 as it's a bad request
     );
   }
 }

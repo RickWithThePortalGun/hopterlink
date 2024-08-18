@@ -30,7 +30,7 @@ const Page = ({ params }: Props) => {
   const [selectedCategory, setSelectedCategory] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<"businesses" | "categories">(
-    "businesses",
+    "businesses"
   );
   const [filter, setFilter] = useState("Recommended");
   const searchParams = useSearchParams();
@@ -81,7 +81,7 @@ const Page = ({ params }: Props) => {
         return [...list].sort((a, b) => b.average_rating - a.average_rating);
       case "Alphabetical Order":
         return [...list].sort((a, b) =>
-          a.business_name.localeCompare(b.business_name),
+          a.business_name.localeCompare(b.business_name)
         );
       default:
         return list;
@@ -151,7 +151,11 @@ const Page = ({ params }: Props) => {
                   onClick={() => {
                     handleTabClick("businesses");
                   }}
-                  className={`cursor-pointer p-2 border-2 rounded-full ${activeTab === "businesses" ? "border-primary" : "border-transparent"}`}
+                  className={`cursor-pointer p-2 border-2 rounded-full ${
+                    activeTab === "businesses"
+                      ? "border-[#c55e0c]"
+                      : "border-transparent"
+                  }`}
                 >
                   <Typography>Businesses</Typography>
                 </div>
@@ -163,7 +167,11 @@ const Page = ({ params }: Props) => {
                   onClick={() => {
                     handleTabClick("categories");
                   }}
-                  className={`cursor-pointer p-2 border-2 rounded-full ${activeTab === "categories" ? "border-primary" : "border-transparent"}`}
+                  className={`cursor-pointer p-2 border-2 rounded-full ${
+                    activeTab === "categories"
+                      ? "border-[#c55e0c]"
+                      : "border-transparent"
+                  }`}
                 >
                   <Typography>Categories</Typography>
                 </div>
@@ -223,7 +231,7 @@ const Page = ({ params }: Props) => {
                             />
                             <Separator />
                           </div>
-                        ),
+                        )
                       )}
                     </div>
                   )}
@@ -236,7 +244,12 @@ const Page = ({ params }: Props) => {
                             onClick={() => {
                               handleCategoryClick(category);
                             }}
-                            className={`cursor-pointer p-2 flex-shrink-0 ${selectedCategory && selectedCategory.name === category.name ? "bg-secondary rounded-full px-4 py-2" : "px-4 py-2"}`}
+                            className={`cursor-pointer p-2 flex-shrink-0 ${
+                              selectedCategory &&
+                              selectedCategory.name === category.name
+                                ? "bg-secondary rounded-full px-4 py-2"
+                                : "px-4 py-2"
+                            }`}
                           >
                             <p className="whitespace-nowrap text-sm">
                               {category.name}
@@ -248,7 +261,7 @@ const Page = ({ params }: Props) => {
                         selectedCategory.businesses.length > 0 && (
                           <div className="mt-6">
                             {filteredBusinesses(
-                              selectedCategory.businesses,
+                              selectedCategory.businesses
                             ).map(
                               (item: {
                                 name?: any;
@@ -279,7 +292,7 @@ const Page = ({ params }: Props) => {
                                   />
                                   <Separator />
                                 </div>
-                              ),
+                              )
                             )}
                           </div>
                         )}

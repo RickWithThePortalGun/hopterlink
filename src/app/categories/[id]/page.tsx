@@ -64,7 +64,7 @@ const Page = ({ params }: Props) => {
     setError(null);
     try {
       const response = await axios.get(
-        `/api/categories/${params.id}/subcategories/${subcategoryId}`,
+        `/api/categories/${params.id}/subcategories/${subcategoryId}`
       );
       if (!response) {
         throw new Error("Failed to fetch data");
@@ -99,7 +99,7 @@ const Page = ({ params }: Props) => {
         break;
       case "Alphabetical Order":
         sortedData.sort((a, b) =>
-          a.business_name.localeCompare(b.business_name),
+          a.business_name.localeCompare(b.business_name)
         );
         console.log("Sorting by Alphabetical Order");
         break;
@@ -189,13 +189,13 @@ const Page = ({ params }: Props) => {
                           onClick={() => handleSubcategoryClick(subcategory.id)}
                           className={`cursor-pointer p-2  rounded-full whitespace-nowrap ${
                             selectedSubcategory === subcategory.id
-                              ? "border-[#c55e0c] bg-primary text-white shadow-md font-bold border-0 border-transparent"
+                              ? "border-[#c55e0c] bg-[#c55e0c] text-white shadow-md font-bold border-0 border-transparent"
                               : "border-gray-300 border-[1px]"
                           }`}
                         >
                           <p className="text-xs">{subcategory.name}</p>
                         </motion.div>
-                      ),
+                      )
                     )}
                   </div>
                   <ScrollBar orientation="horizontal" />

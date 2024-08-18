@@ -41,7 +41,7 @@ const Typography = React.forwardRef<HTMLHeadingElement, TypographyProps>(
         className={cn(typographyVariants({ variant, affects }), className)}
       />
     );
-  },
+  }
 );
 Typography.displayName = "Typography";
 

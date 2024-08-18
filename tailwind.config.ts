@@ -22,7 +22,8 @@ const addVariablesForColors = ({
     ":root": newVars,
   });
 };
-const config = {
+
+const config: Config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -41,7 +42,7 @@ const config = {
     },
     extend: {
       ringColor: {
-        "custom-color": "#FF5733", // Change this to your desired color
+        "custom-color": "#FF5733",
       },
       boxShadow: {
         input: `0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)`,
@@ -163,6 +164,6 @@ const config = {
     require("@tailwindcss/forms"),
     addVariablesForColors,
   ],
-} satisfies Config;
+};
 
 export default config;

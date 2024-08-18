@@ -11,7 +11,7 @@ interface ChatProps {
 
 export function Chat({ messages, selectedUser, isMobile }: ChatProps) {
   const [messagesState, setMessages] = React.useState<Message[]>(
-    messages ?? [],
+    messages ?? []
   );
 
   const sendMessage = (newMessage: Message) => {

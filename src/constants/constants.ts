@@ -48,3 +48,9 @@ export interface Category {
   icon: string;
   subcategories: Subcategory[];
 }
+
+export const COMETCHAT_CONSTANTS = {
+  APP_ID: "262533ed0bcf1706",
+  REGION: "eu",
+  AUTH_KEY: "dd1f895acc33ab5ee09b5cf962f121b761019590",
+};

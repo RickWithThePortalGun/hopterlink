@@ -34,7 +34,7 @@ const AnimatedShinyText: FC<AnimatedShinyTextProps> = ({
         `bg-gradient-to-r from-transparent via-black/80 via-50%
           to-transparent dark:via-white/80`,
 
-        className,
+        className
       )}
     >
       {children}

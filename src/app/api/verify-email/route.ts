@@ -19,14 +19,14 @@ export async function POST(req: NextRequest) {
           message: error.message,
           details: error.response?.data || "No additional error information",
         },
-        { status: error.response?.status || 500 },
+        { status: error.response?.status || 500 }
       );
     } else {
       return NextResponse.json(
         {
           message: "An unexpected error occurred",
         },
-        { status: 500 },
+        { status: 500 }
       );
     }
   }

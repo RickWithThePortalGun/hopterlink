@@ -150,7 +150,7 @@ export function PlaceholdersAndVanishInput({
     if (value && inputRef.current) {
       const maxX = newDataRef.current.reduce(
         (prev, current) => (current.x > prev ? current.x : prev),
-        0,
+        0
       );
       animate(maxX);
     }
@@ -168,7 +168,7 @@ export function PlaceholdersAndVanishInput({
         rounded-full overflow-hidden
         shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),_0px_1px_0px_0px_rgba(25,28,33,0.02),_0px_0px_0px_1px_rgba(25,28,33,0.08)]
         transition duration-200`,
-        value && "bg-gray-50",
+        value && "bg-gray-50"
       )}
       onSubmit={handleSubmit}
     >
@@ -177,7 +177,7 @@ export function PlaceholdersAndVanishInput({
           `absolute pointer-events-none text-base transform scale-50
           top-[20%] left-2 sm:left-8 origin-top-left filter invert
           dark:invert-0 pr-20`,
-          !animating ? "opacity-0" : "opacity-100",
+          !animating ? "opacity-0" : "opacity-100"
         )}
         ref={canvasRef}
       />
@@ -197,7 +197,7 @@ export function PlaceholdersAndVanishInput({
           dark:text-white bg-transparent text-black h-full
           rounded-full focus:outline-none focus:ring-0 pl-4 sm:pl-10
           pr-20`,
-          animating && "text-transparent dark:text-transparent",
+          animating && "text-transparent dark:text-transparent"
         )}
       />
 

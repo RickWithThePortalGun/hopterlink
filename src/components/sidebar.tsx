@@ -47,7 +47,7 @@ export function Sidebar({ links, isCollapsed, isMobile }: SidebarProps) {
                   variant: "ghost",
                   size: "icon",
                 }),
-                "h-9 w-9 mx-1",
+                "h-9 w-9 mx-1"
               )}
             >
               <MoreHorizontal size={20} />
@@ -60,7 +60,7 @@ export function Sidebar({ links, isCollapsed, isMobile }: SidebarProps) {
                   variant: "ghost",
                   size: "icon",
                 }),
-                "h-9 w-9 mx-1",
+                "h-9 w-9 mx-1"
               )}
             >
               <SquarePen size={20} />
@@ -87,7 +87,7 @@ export function Sidebar({ links, isCollapsed, isMobile }: SidebarProps) {
                       "h-11 w-11 md:h-16 md:w-16",
                       link.variant === "grey" &&
                         `dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted
-                        dark:hover:text-white`,
+                        dark:hover:text-white`
                     )}
                   >
                     <Avatar className="flex justify-center items-center">
@@ -122,7 +122,7 @@ export function Sidebar({ links, isCollapsed, isMobile }: SidebarProps) {
                 link.variant === "grey" &&
                   `dark:bg-muted dark:text-white dark:hover:bg-muted
                   dark:hover:text-white shrink`,
-                "justify-start gap-4",
+                "justify-start gap-4"
               )}
             >
               <Avatar className="flex justify-center items-center">
@@ -144,7 +144,7 @@ export function Sidebar({ links, isCollapsed, isMobile }: SidebarProps) {
                 )}
               </div>
             </Link>
-          ),
+          )
         )}
       </nav>
     </div>

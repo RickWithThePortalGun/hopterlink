@@ -87,7 +87,7 @@ export default function Home() {
                     text-base text-white transition-all ease-in
                     hover:cursor-pointer hover:bg-neutral-200
                     dark:border-white/5 dark:bg-neutral-900
-                    dark:hover:bg-neutral-800`,
+                    dark:hover:bg-neutral-800`
                 )}
               >
                 <AnimatedShinyText
@@ -101,7 +101,7 @@ export default function Home() {
                   <ChevronRight />
                 </AnimatedShinyText>
               </div>
-              <div className="max-w-4xl text-6xl max-md:text-3xl text-primary font-extrabold tracking-tight text-start max-md:text-center">
+              <div className="max-w-4xl text-6xl max-md:text-3xl text-[#c55e0c] font-extrabold tracking-tight text-start max-md:text-center">
                 <FlipWords words={words} />
                 Service Providers
               </div>
@@ -118,7 +118,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col md:pt-24 md:gap-36 gap-24 mt-12 items-center">
             <div className="flex flex-col gap-12 items-center">
-              <Typography className="max-w-2xl text-primary" variant="h1">
+              <Typography className="max-w-2xl text-[#c55e0c]" variant="h1">
                 Our Vision
               </Typography>
               <div className="max-w-5xl mx-auto px-8">
@@ -127,7 +127,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col gap-6 max-w-full items-center justify-center my-12">
-            <Typography className="max-w-2xl text-primary" variant="h1">
+            <Typography className="max-w-2xl text-[#c55e0c]" variant="h1">
               Recent Activity
             </Typography>
             {/* //Cards */}
@@ -135,7 +135,7 @@ export default function Home() {
           </div>
           <Separator />
           <div className="flex flex-col max-w-full gap-6 items-center">
-            <Typography className="max-w-2xl text-primary" variant="h1">
+            <Typography className="max-w-2xl text-[#c55e0c]" variant="h1">
               Categories
             </Typography>
             <CategoryCards />

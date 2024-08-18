@@ -3,7 +3,7 @@ import request from "@/utils/http-request";
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string; subcategory_id: string } },
+  { params }: { params: { id: string; subcategory_id: string } }
 ) {
   const { id, subcategory_id } = params;
   const uri = `api/categories/${id}/subcategories/${subcategory_id}/businesses/`;
@@ -13,7 +13,7 @@ export async function GET(
   } else {
     return NextResponse.json(
       { message: "Businesses not found" },
-      { status: 404 },
+      { status: 404 }
     );
   }
 }

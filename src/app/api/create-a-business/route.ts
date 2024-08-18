@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     // Log the error response or message
     console.error(
       "Error:",
-      error.response ? error.response.data : error.message,
+      error.response ? error.response.data : error.message
     );
 
     // Prepare a custom error response

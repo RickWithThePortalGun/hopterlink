@@ -111,7 +111,7 @@ const DetailCard = ({
                   >
                     {tag.name}
                   </p>
-                ),
+                )
               )}
             </div>
           )}

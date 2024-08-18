@@ -7,7 +7,7 @@ const Tabs = (
   props: Omit<
     React.ComponentPropsWithoutRef<typeof TabsPrimitives.Root>,
     "orientation"
-  >,
+  >
 ) => {
   return <TabsPrimitives.Root {...props} />;
 };
@@ -28,7 +28,7 @@ const variantStyles: Record<TabsListVariant, string> = {
     // base
     "flex items-center justify-start border-b",
     // border color
-    "border-gray-200 dark:border-gray-800",
+    "border-gray-200 dark:border-gray-800"
   ),
   solid: cn(
     // base
@@ -36,7 +36,7 @@ const variantStyles: Record<TabsListVariant, string> = {
     // border color
     // "border-gray-200 dark:border-gray-800",
     // background color
-    "bg-gray-100 dark:bg-accent",
+    "bg-gray-100 dark:bg-accent"
   ),
 };
 
@@ -74,7 +74,7 @@ function getVariantStyles(tabVariant: TabsListVariant) {
         "data-[state=active]:dark:border-gray-50 data-[state=active]:dark:text-gray-50",
         // disabled
         "disabled:pointer-events-none",
-        "disabled:text-gray-300 disabled:dark:text-gray-700",
+        "disabled:text-gray-300 disabled:dark:text-gray-700"
       );
     case "solid":
       return cn(
@@ -88,7 +88,7 @@ function getVariantStyles(tabVariant: TabsListVariant) {
         " data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow",
         "data-[state=active]:dark:bg-background data-[state=active]:dark:text-gray-50",
         // disabled
-        "disabled:pointer-events-none disabled:text-gray-400 disabled:dark:text-gray-600 disabled:opacity-50",
+        "disabled:pointer-events-none disabled:text-gray-400 disabled:dark:text-gray-600 disabled:opacity-50"
       );
   }
 }

@@ -1,20 +1,10 @@
-import HeaderContainer from "@/components/HeaderContainer";
-import { ChatLayout } from "@/components/chat/chat-layout";
-import { cookies } from "next/headers";
 import React from "react";
+import Chat from "./chat";
 
-const page = () => {
-  const layout = cookies().get("react-resizable-panels:layout");
-  const defaultLayout = layout ? JSON.parse(layout.value) : undefined;
-  return (
-    <HeaderContainer>
-      <div className="pt-20 w-full h-dvh">
-        <div className="z-10 border rounded-lg w-full text-sm lg:flex">
-          <ChatLayout defaultLayout={defaultLayout} navCollapsedSize={8} />
-        </div>
-      </div>
-    </HeaderContainer>
-  );
+type Props = {};
+
+const page = (props: Props) => {
+  return <Chat />;
 };
 
 export default page;

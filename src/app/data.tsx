@@ -78,7 +78,7 @@ export const userData = [
   },
 ];
 
-export type UserData = (typeof userData)[number];
+export type UserData = typeof userData[number];
 
 export const loggedInUserData = {
   id: 5,

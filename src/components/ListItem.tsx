@@ -10,7 +10,7 @@ const ListItem = ({ title }: Props) => {
   return (
     <div className="w-full flex justify-between items-center my-8">
       <Typography variant={"h4"}>{title}</Typography>
-      <ChevronRight className="text-primary" />
+      <ChevronRight className="text-[#c55e0c]" />
     </div>
   );
 };

@@ -17,7 +17,7 @@ const SIGN_IN_HANDLERS = {
     account: any,
     profile: any,
     email: any,
-    credentials: any,
+    credentials: any
   ) => {
     return true;
   },
@@ -26,7 +26,7 @@ const SIGN_IN_HANDLERS = {
     account: any,
     profile: any,
     email: any,
-    credentials: any,
+    credentials: any
   ) => {
     try {
       const response = await axios({
@@ -111,7 +111,7 @@ export const authOptions = {
             account: any,
             profile: any,
             email: any,
-            credentials: any,
+            credentials: any
           ) => Promise<boolean>
         >
       )[account.provider as string](user, account, profile, email, credentials);
@@ -178,7 +178,7 @@ const handler = NextAuth({
             {
               email: credentials?.email,
               password: credentials?.password,
-            },
+            }
           );
           const user = response.data;
           if (user) {
@@ -192,7 +192,7 @@ const handler = NextAuth({
           console.error(
             "Error during authentication:",
             error?.code,
-            error?.message,
+            error?.message
           );
           return null;
         }

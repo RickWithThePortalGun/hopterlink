@@ -53,9 +53,9 @@ const validationSchema = z.object({
     .describe("Website"),
   business_phone_1: z
     .string()
-    .min(1, "Primary Business Phone is required")
+    .min(1, "[#c55e0c] Business Phone is required")
     .regex(/^[0-9]{10,15}$/, "Phone number is not valid")
-    .describe("Primary Business Phone"),
+    .describe("[#c55e0c] Business Phone"),
   business_phone_2: z
     .string()
     .regex(/^[0-9]{10,15}$/, "Phone number is not valid")
@@ -100,7 +100,7 @@ const App = () => {
   useEffect(() => {
     if (selectedIndustry) {
       const industry = categories.find(
-        (category) => category.id.toString() === selectedIndustry,
+        (category) => category.id.toString() === selectedIndustry
       );
       if (industry && industry.subcategories) {
         setSubcategories(industry.subcategories);
@@ -142,18 +142,18 @@ const App = () => {
     formData.append("industry", values.industry?.toString() || "");
     formData.append(
       "industry_subcategory",
-      values.industry_subcategory?.toString() || "",
+      values.industry_subcategory?.toString() || ""
     );
     formData.append("website", values.website);
     formData.append("business_phone_1", values.business_phone_1);
     formData.append("business_phone_2", values.business_phone_2 || "");
     formData.append(
       "min_delivery_time_in_days",
-      values.min_delivery_time_in_days.toString(),
+      values.min_delivery_time_in_days.toString()
     );
     formData.append(
       "max_delivery_time_in_days",
-      values.max_delivery_time_in_days.toString(),
+      values.max_delivery_time_in_days.toString()
     );
     formData.append("business_reg_no", values.business_reg_no || "");
     uploadedImages.forEach((image, index) => {
@@ -189,7 +189,7 @@ const App = () => {
                 type: "manual",
                 message: errorMessage,
               });
-            },
+            }
           );
 
           toast({
@@ -223,7 +223,7 @@ const App = () => {
   const getImageData = (event: ChangeEvent<HTMLInputElement>) => {
     const dataTransfer = new DataTransfer();
     Array.from(event.target.files!).forEach((image) =>
-      dataTransfer.items.add(image),
+      dataTransfer.items.add(image)
     );
 
     const files = dataTransfer.files;
@@ -261,7 +261,7 @@ const App = () => {
           <Typography variant={"h1"} className="my-2 text-center">
             Create a Business Account on Hopterlink
           </Typography>
-          <Typography variant={"h4"} className="text-primary text-center">
+          <Typography variant={"h4"} className="text-[#c55e0c] text-center">
             Offer services and products to fellow hopterlinkers
           </Typography>
         </div>
@@ -273,7 +273,7 @@ const App = () => {
             <Label>Business Email</Label>
             <Input {...register("email")} placeholder="Email" />
             {errors.email && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
+              <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.email.message}
               </div>
             )}
@@ -283,7 +283,7 @@ const App = () => {
             <Label>Business Name</Label>
             <Input {...register("business_name")} placeholder="Business Name" />
             {errors.business_name && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
+              <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.business_name.message}
               </div>
             )}
@@ -293,7 +293,7 @@ const App = () => {
             <Label>Description</Label>
             <Textarea {...register("description")} placeholder="Description" />
             {errors.description && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
+              <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.description.message}
               </div>
             )}
@@ -303,7 +303,7 @@ const App = () => {
             <Label>Location</Label>
             <Input {...register("location")} placeholder="Location" />
             {errors.location && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
+              <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.location.message}
               </div>
             )}
@@ -335,7 +335,7 @@ const App = () => {
                 </SelectContent>
               </Select>
               {errors.industry && (
-                <div className="w-full justify-end flex mt-2 text-xs text-primary">
+                <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                   {errors.industry.message}
                 </div>
               )}
@@ -368,7 +368,7 @@ const App = () => {
                 </SelectContent>
               </Select>
               {errors.industry_subcategory && (
-                <div className="w-full justify-end flex mt-2 text-xs text-primary">
+                <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                   {errors.industry_subcategory.message}
                 </div>
               )}
@@ -379,20 +379,20 @@ const App = () => {
             <Label>Website</Label>
             <Input {...register("website")} placeholder="Website" />
             {errors.website && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
+              <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.website.message}
               </div>
             )}
           </div>
           <div className="lg:flex lg:items-center lg:flex-row gap-8 lg:w-full flex-grow">
             <div className="lg:w-1/2">
-              <Label>Primary Business Phone</Label>
+              <Label>[#c55e0c] Business Phone</Label>
               <Input
                 {...register("business_phone_1")}
-                placeholder="Primary Business Phone"
+                placeholder="[#c55e0c] Business Phone"
               />
               {errors.business_phone_1 && (
-                <div className="w-full justify-end flex mt-2 text-xs text-primary">
+                <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                   {errors.business_phone_1.message}
                 </div>
               )}
@@ -405,7 +405,7 @@ const App = () => {
                 placeholder="Secondary Business Phone"
               />
               {errors.business_phone_2 && (
-                <div className="w-full justify-end flex mt-2 text-xs text-primary">
+                <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                   {errors.business_phone_2.message}
                 </div>
               )}
@@ -422,7 +422,7 @@ const App = () => {
                 placeholder="Min Delivery Time"
               />
               {errors.min_delivery_time_in_days && (
-                <div className="w-full justify-end flex mt-2 text-xs text-primary">
+                <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                   {errors.min_delivery_time_in_days.message}
                 </div>
               )}
@@ -438,7 +438,7 @@ const App = () => {
                 placeholder="Max Delivery Time"
               />
               {errors.max_delivery_time_in_days && (
-                <div className="w-full justify-end flex mt-2 text-xs text-primary">
+                <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                   {errors.max_delivery_time_in_days.message}
                 </div>
               )}
@@ -452,7 +452,7 @@ const App = () => {
               placeholder="Business Registration Number"
             />
             {errors.business_reg_no && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
+              <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.business_reg_no.message}
               </div>
             )}
@@ -466,7 +466,7 @@ const App = () => {
             </Avatar>
             <Input type="file" onChange={handleFileChange} />
             {errors.logo && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
+              <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.logo.message}
               </div>
             )}
@@ -479,7 +479,7 @@ const App = () => {
               onChange={handleImagesChange}
             />
             {errors.uploaded_images && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
+              <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.uploaded_images.message}
               </div>
             )}
@@ -490,12 +490,12 @@ const App = () => {
               <input
                 type="checkbox"
                 {...register("acceptTerms")}
-                className="text-primary"
+                className="text-[#c55e0c]"
               />
               Accept terms and conditions
             </Label>
             {errors.acceptTerms && (
-              <div className="w-full justify-end flex mt-2 text-xs text-primary">
+              <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.acceptTerms.message}
               </div>
             )}

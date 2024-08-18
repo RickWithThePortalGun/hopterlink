@@ -91,7 +91,7 @@ const VerifyEmail = (props: Props) => {
     >
       <div className="bg-transparent w-1/2 max-lg:w-full">
         <div className="w-full h-screen flex items-center justify-center px-4">
-          <div className="rounded-lg text-card-primary shadow-sm w-full max-w-sm">
+          <div className="rounded-lg text-card-[#c55e0c] shadow-sm w-full max-w-sm">
             <Stepper
               steps={steps}
               currentStepIndex={currentStepIndex}
@@ -101,7 +101,7 @@ const VerifyEmail = (props: Props) => {
               styles={styles}
             />
             {currentStepIndex === 1 && (
-              <div className="rounded-lg text-card-primary w-full max-w-sm">
+              <div className="rounded-lg text-card-[#c55e0c] w-full max-w-sm">
                 <div
                   className="flex flex-col text-center justify-center items-center
               space-y-1.5 p-6 my-6"
@@ -136,7 +136,7 @@ const VerifyEmail = (props: Props) => {
             )}
             {currentStepIndex === 2 && (
               <>
-                <div className="rounded-lg text-card-primary w-full max-w-sm">
+                <div className="rounded-lg text-card-[#c55e0c] w-full max-w-sm">
                   <div
                     className="flex flex-col text-center justify-center items-center
               space-y-1.5 p-6 my-6"

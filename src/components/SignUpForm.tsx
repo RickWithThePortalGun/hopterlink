@@ -46,7 +46,7 @@ const SignUpForm = () => {
         .regex(/\d/, "Password must contain at least one number")
         .regex(
           /[^a-zA-Z0-9]/,
-          "Password must contain at least one special character",
+          "Password must contain at least one special character"
         ),
       password2: z
         .string()
@@ -131,7 +131,7 @@ const SignUpForm = () => {
               acc[key] = Array.isArray(value) ? value.join(" ") : value;
               return acc;
             },
-            {},
+            {}
           );
           setErrors(formattedErrors);
           toast({
@@ -184,7 +184,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="rounded-lg text-card-primary shadow-sm w-full max-w-sm">
+    <div className="rounded-lg text-card-[#c55e0c] shadow-sm w-full max-w-sm">
       <Stepper
         steps={steps}
         currentStepIndex={currentStepIndex}
@@ -194,7 +194,7 @@ const SignUpForm = () => {
         styles={styles}
       />
       {currentStepIndex === 0 && (
-        <div className="rounded-lg text-card-primary shadow-sm w-full max-w-sm">
+        <div className="rounded-lg text-card-[#c55e0c] shadow-sm w-full max-w-sm">
           <div
             className="flex flex-col text-center justify-center items-center
               space-y-1.5 p-6"
@@ -382,8 +382,8 @@ const SignUpForm = () => {
                 transition-colors focus-visible:outline-none
                 focus-visible:ring-2 focus-visible:ring-ring
                 focus-visible:ring-offset-2 disabled:pointer-events-none
-                disabled:opacity-50 bg-primary text-primary-foreground
-                hover:bg-primary/90 h-10 px-4 py-2 w-full"
+                disabled:opacity-50 bg-[#c55e0c] text-[#c55e0c]-foreground
+                hover:bg-[#c55e0c]/90 h-10 px-4 py-2 w-full"
               control-id="ControlID-3"
             >
               Continue
@@ -392,7 +392,7 @@ const SignUpForm = () => {
         </div>
       )}
       {currentStepIndex === 1 && (
-        <div className="rounded-lg text-card-primary w-full max-w-sm">
+        <div className="rounded-lg text-card-[#c55e0c] w-full max-w-sm">
           <div
             className="flex flex-col text-center justify-center items-center
               space-y-1.5 p-6 my-6"
@@ -412,7 +412,7 @@ const SignUpForm = () => {
               <p className="text-grey-500 text-sm mt-6">
                 We just sent a verification link to your registered email{" "}
                 {formData.email}. Please check your spam or junk folders if you
-                can't see it in your primary inbox.
+                can't see it in your [#c55e0c] inbox.
               </p>
             </div>
           </div>

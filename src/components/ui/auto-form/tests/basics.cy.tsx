@@ -51,7 +51,7 @@ describe("<AutoForm />", () => {
           },
         }}
         formSchema={formSchema}
-      />,
+      />
     );
 
     cy.get("label").contains("My field name");
@@ -72,13 +72,13 @@ describe("<AutoForm />", () => {
             },
           },
         }}
-      />,
+      />
     );
 
     cy.get("input[name=username]").should(
       "have.attr",
       "placeholder",
-      "Enter your username",
+      "Enter your username"
     );
   });
 
@@ -95,7 +95,7 @@ describe("<AutoForm />", () => {
             fieldType: "number",
           },
         }}
-      />,
+      />
     );
 
     cy.get("input").should("have.attr", "type", "number");
@@ -116,7 +116,7 @@ describe("<AutoForm />", () => {
         }}
       >
         <button type="submit">Submit</button>
-      </AutoForm>,
+      </AutoForm>
     );
 
     cy.get("input[name=username]").type("john");
@@ -136,7 +136,7 @@ describe("<AutoForm />", () => {
         }}
       >
         <button type="submit">Submit</button>
-      </AutoForm>,
+      </AutoForm>
     );
 
     cy.get("button[type=submit]").click();
@@ -167,7 +167,7 @@ describe("<AutoForm />", () => {
         }}
       >
         <button type="submit">Submit</button>
-      </AutoForm>,
+      </AutoForm>
     );
 
     cy.get("button[type=submit]").click();
@@ -188,7 +188,7 @@ describe("<AutoForm />", () => {
         }}
       >
         <button type="submit">Submit</button>
-      </AutoForm>,
+      </AutoForm>
     );
 
     cy.get("input[name=username]").should("have.value", "");
@@ -208,7 +208,7 @@ describe("<AutoForm />", () => {
             description: "Your username here",
           },
         }}
-      />,
+      />
     );
 
     cy.get("p").contains("Your username here");

@@ -16,13 +16,13 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           disabled:cursor-not-allowed disabled:opacity-50
           focus-visible:border-0 focus-visible:outline-none
           focus-visible:ring-custom-color`,
-          className,
+          className
         )}
         ref={ref}
         {...props}
       />
     );
-  },
+  }
 );
 Textarea.displayName = "Textarea";
 

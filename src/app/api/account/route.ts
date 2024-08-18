@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     console.error("Error fetching user:", error);
     return NextResponse.json(
       { error: "Error fetching user data" },
-      { status: 400 },
+      { status: 400 }
     );
   }
 }
@@ -31,7 +31,7 @@ export async function PATCH(req: NextRequest) {
     console.error("Error updating profile", error);
     return NextResponse.json(
       { error: "Error updating profile" },
-      { status: 400 },
+      { status: 400 }
     );
   }
 }

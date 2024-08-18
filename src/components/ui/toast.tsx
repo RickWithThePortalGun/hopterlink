@@ -19,7 +19,7 @@ const ToastViewport = React.forwardRef<
       `fixed top-0 z-[100] flex max-h-screen w-full
         flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto
         sm:flex-col md:max-w-[420px]`,
-      className,
+      className
     )}
     {...props}
   />
@@ -39,7 +39,7 @@ const toastVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  },
+  }
 );
 
 const Toast = React.forwardRef<
@@ -74,7 +74,7 @@ const ToastAction = React.forwardRef<
         group-[.destructive]:hover:bg-destructive
         group-[.destructive]:hover:text-destructive-foreground
         group-[.destructive]:focus:ring-destructive`,
-      className,
+      className
     )}
     {...props}
   />
@@ -95,7 +95,7 @@ const ToastClose = React.forwardRef<
         group-[.destructive]:hover:text-red-50
         group-[.destructive]:focus:ring-red-400
         group-[.destructive]:focus:ring-offset-red-600`,
-      className,
+      className
     )}
     toast-close=""
     {...props}

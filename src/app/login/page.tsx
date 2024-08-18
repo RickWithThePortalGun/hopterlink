@@ -17,7 +17,7 @@ export default function AuthenticationPage() {
         href="/"
         className={cn(
           buttonVariants({ variant: "ghost" }),
-          "absolute right-4 top-4 hidden md:right-8 md:top-8 cursor-pointer",
+          "absolute right-4 top-4 hidden md:right-8 md:top-8 cursor-pointer"
         )}
       >
         Login
@@ -69,14 +69,14 @@ export default function AuthenticationPage() {
             By clicking continue, you agree to our{" "}
             <Link
               href="/terms"
-              className="underline underline-offset-4 hover:text-primary"
+              className="underline underline-offset-4 hover:text-[#c55e0c]"
             >
               Terms of Service
             </Link>{" "}
             and{" "}
             <Link
               href="/privacy"
-              className="underline underline-offset-4 hover:text-primary"
+              className="underline underline-offset-4 hover:text-[#c55e0c]"
             >
               Privacy Policy
             </Link>

@@ -29,14 +29,14 @@ const Collection = () => {
 
   const deleteCollection = async (
     collectionId: string,
-    businessName: string,
+    businessName: string
   ) => {
     try {
       await axios.post(`/api/remove-from-collection/${collectionId}`);
       setCollections((prevBusinesses) =>
         prevBusinesses.filter(
-          (business) => business.business.id.toString() !== collectionId,
-        ),
+          (business) => business.business.id.toString() !== collectionId
+        )
       );
       toast({
         title: "Removed from Collections",
@@ -67,7 +67,7 @@ const Collection = () => {
             title: "Error",
             description: "Failed to copy the link. Please try again.",
           });
-        },
+        }
       );
     } else {
       toast({
@@ -84,7 +84,7 @@ const Collection = () => {
 
     const checkTouchDevice = () => {
       setIsTouchDevice(
-        "ontouchstart" in window || navigator.maxTouchPoints > 0,
+        "ontouchstart" in window || navigator.maxTouchPoints > 0
       );
     };
 
@@ -151,7 +151,7 @@ const Collection = () => {
                                 onClick: () =>
                                   deleteCollection(
                                     business.business.id.toString(),
-                                    business.business.business_name,
+                                    business.business.business_name
                                   ),
                               },
                               {
@@ -162,7 +162,7 @@ const Collection = () => {
                                 ),
                                 onClick: () =>
                                   shareCollection(
-                                    business.business.id.toString(),
+                                    business.business.id.toString()
                                   ),
                               },
                             ]}
@@ -215,7 +215,7 @@ const Collection = () => {
                                 onClick={() =>
                                   deleteCollection(
                                     business.business.id.toString(),
-                                    business.business.business_name,
+                                    business.business.business_name
                                   )
                                 }
                               >
@@ -225,7 +225,7 @@ const Collection = () => {
                                 variant="secondary"
                                 onClick={() =>
                                   shareCollection(
-                                    business.business.id.toString(),
+                                    business.business.id.toString()
                                   )
                                 }
                               >

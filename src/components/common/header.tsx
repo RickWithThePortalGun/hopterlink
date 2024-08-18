@@ -76,7 +76,7 @@ export function Header({ className }: SidebarProps) {
       <>
         <Button
           variant={"default"}
-          className="text-white"
+          className="text-white bg-[#c55e0c]"
           onClick={() => router.replace("/add-a-business")}
         >
           Add a Business
@@ -147,7 +147,7 @@ export function Header({ className }: SidebarProps) {
       {status === "authenticated" && (
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Avatar className="bg-primary">
+            <Avatar className="bg-[#c55e0c]">
               <AvatarImage src={session?.user?.profile || ""} />
               <AvatarFallback>
                 {session?.user?.first_name?.[0] || "H"}
@@ -192,7 +192,7 @@ export function Header({ className }: SidebarProps) {
             ref={ref}
             className={cn(
               "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-              className,
+              className
             )}
             {...props}
           >
@@ -294,7 +294,7 @@ export function Header({ className }: SidebarProps) {
     <div
       className={cn(
         `flex md:h-12 py-8 h-14 items-center justify-center w-full border-b fixed z-50 bg-secondary`,
-        className,
+        className
       )}
     >
       <div className="w-full max-w-[1440px] md:px-8 px-4">
