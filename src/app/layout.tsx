@@ -42,18 +42,16 @@ export default function RootLayout({
       </head>
       <Analytics />
       <body className={poppins.className}>
-      <Providers>
-        <ThemeProvider attribute="class" enableSystem>
-          <AuthProvider>
-            <CategoriesProvider>
-              {" "}
-              <main className={`flex min-h-screen flex-col`}>
-                {children}
-              </main>
-              <Toaster />
-            </CategoriesProvider>
-          </AuthProvider>
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider attribute="class" enableSystem>
+            <AuthProvider>
+              <CategoriesProvider>
+                {" "}
+                <main className={`flex min-h-screen flex-col`}>{children}</main>
+                <Toaster />
+              </CategoriesProvider>
+            </AuthProvider>
+          </ThemeProvider>
         </Providers>
       </body>
     </html>

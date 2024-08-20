@@ -26,24 +26,24 @@ function CometChatNoSSR() {
   const [user, setUser] = useState(null);
   const [cometChatInitialized, setCometChatInitialized] = useState(false);
   const searchParams = useSearchParams();
-  const uid=searchParams.get("uid")
+  const uid = searchParams.get("uid");
   const { data: session, status } = useSession();
   const { theme: nextTheme } = useTheme();
 
   // Detect if the device is mobile
-useEffect(() => {
-  if (uid) {
-    const getUser = async () => {
-      try {
-        const user = await CometChat.getUser(uid);
-        setUser(user);
-      } catch (error) {
-        console.error("Error fetching CometChat user:", error);
-      }
-    };
-    getUser();
-  }
-}, [uid]);
+  useEffect(() => {
+    if (uid) {
+      const getUser = async () => {
+        try {
+          const user = await CometChat.getUser(uid);
+          setUser(user);
+        } catch (error) {
+          console.error("Error fetching CometChat user:", error);
+        }
+      };
+      getUser();
+    }
+  }, [uid]);
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -102,7 +102,7 @@ useEffect(() => {
   }, [status, session?.user?.email, initialized]);
 
   // Adjust CometChat theme based on next-themes
-  
+
   const themeContext = useMemo(() => {
     const isDarkMode = nextTheme === "dark";
     return {
