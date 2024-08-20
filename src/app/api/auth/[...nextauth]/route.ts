@@ -2,6 +2,8 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import axios from "axios";
+import { toast } from "@/components/ui-hooks/use-toast";
+
 
 // These two values should be a bit less than actual token lifetimes
 const BACKEND_ACCESS_TOKEN_LIFETIME = 45 * 60; // 45 minutes
@@ -188,6 +190,11 @@ const handler = NextAuth({
             return null;
           }
         } catch (error: any) {
+          console.log("logging in...")
+          toast({
+            title: "Login Error",
+            description: `${error?.response?.data?.non_field_errors[0]}`,
+          })
           console.error(error?.response?.data);
           console.error(
             "Error during authentication:",

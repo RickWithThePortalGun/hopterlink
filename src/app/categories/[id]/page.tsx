@@ -205,6 +205,12 @@ const Page = ({ params }: Props) => {
                     <SearchLoaders />
                   ) : error ? (
                     <Typography className="text-red-500">{error}</Typography>
+                  ):displayData?.length < 1 ?(
+                    <div className="flex w-full h-full items-center justify-center">
+                      <Typography variant={"p"}>
+                        No results under this subcategory at this time.
+                      </Typography>
+                    </div>
                   ) : (
                     <div>
                       {displayData?.map((item: any, index: number) => (

@@ -412,7 +412,7 @@ const SignUpForm = () => {
               <p className="text-grey-500 text-sm mt-6">
                 We just sent a verification link to your registered email{" "}
                 {formData.email}. Please check your spam or junk folders if you
-                can't see it in your [#c55e0c] inbox.
+                can't see it in your primary inbox.
               </p>
             </div>
           </div>

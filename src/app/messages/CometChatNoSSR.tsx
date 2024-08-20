@@ -10,6 +10,7 @@ import {
   ConversationsConfiguration,
   ConversationsStyle,
   LoaderStyle,
+  MessagesConfiguration,
   UIKitSettingsBuilder,
 } from "@cometchat/chat-uikit-react";
 import { useTheme } from "next-themes";
@@ -25,10 +26,25 @@ function CometChatNoSSR() {
   const [user, setUser] = useState(null);
   const [cometChatInitialized, setCometChatInitialized] = useState(false);
   const searchParams = useSearchParams();
+  const uid=searchParams.get("uid")
   const { data: session, status } = useSession();
   const { theme: nextTheme } = useTheme();
 
   // Detect if the device is mobile
+useEffect(() => {
+  if (uid) {
+    const getUser = async () => {
+      try {
+        const user = await CometChat.getUser(uid);
+        setUser(user);
+      } catch (error) {
+        console.error("Error fetching CometChat user:", error);
+      }
+    };
+    getUser();
+  }
+}, [uid]);
+
   useEffect(() => {
     const checkIsMobile = () => {
       if (typeof window !== "undefined") {
@@ -70,9 +86,8 @@ function CometChatNoSSR() {
         console.log("Logged in User from CometChat:", loggedInUser);
         if (status === "authenticated" && session?.user?.email) {
           console.log("Logging into CometChat with hopterlink...");
-          const user = await CometChatUIKit.login("hopterlink");
+          const user = await CometChatUIKit.login("superman");
           console.log("Login successful:", user);
-          setUser(user);
         }
       }
 
@@ -80,7 +95,6 @@ function CometChatNoSSR() {
         console.log("Logging out from CometChat...");
         await CometChat.logout();
         console.log("Logout successful");
-        setUser(null);
       }
     };
 
@@ -88,6 +102,7 @@ function CometChatNoSSR() {
   }, [status, session?.user?.email, initialized]);
 
   // Adjust CometChat theme based on next-themes
+  
   const themeContext = useMemo(() => {
     const isDarkMode = nextTheme === "dark";
     return {
@@ -102,14 +117,14 @@ function CometChatNoSSR() {
             light: "#c55e0c",
             dark: "#c55e0c",
           },
-          accent50: {
-            light: "white",
-            dark: "black",
-          },
-          accent900: {
-            light: "white",
-            dark: "black",
-          },
+          // accent50: {
+          //   light: "white",
+          //   dark: "#292524",
+          // },
+          // accent900: {
+          //   light: "#292524",
+          //   dark: "white",
+          // },
         }),
       }),
     };
@@ -140,7 +155,7 @@ function CometChatNoSSR() {
   };
 
   // If CometChat is not initialized or user is not logged in, show loading state
-  if (!cometChatInitialized || !user) {
+  if (!cometChatInitialized) {
     return <div>Loading...</div>;
   }
 

@@ -53,9 +53,9 @@ const validationSchema = z.object({
     .describe("Website"),
   business_phone_1: z
     .string()
-    .min(1, "[#c55e0c] Business Phone is required")
+    .min(1, "Primary Business Phone is required")
     .regex(/^[0-9]{10,15}$/, "Phone number is not valid")
-    .describe("[#c55e0c] Business Phone"),
+    .describe("Primary Business Phone"),
   business_phone_2: z
     .string()
     .regex(/^[0-9]{10,15}$/, "Phone number is not valid")
@@ -386,10 +386,10 @@ const App = () => {
           </div>
           <div className="lg:flex lg:items-center lg:flex-row gap-8 lg:w-full flex-grow">
             <div className="lg:w-1/2">
-              <Label>[#c55e0c] Business Phone</Label>
+              <Label>Primary Business Phone</Label>
               <Input
                 {...register("business_phone_1")}
-                placeholder="[#c55e0c] Business Phone"
+                placeholder="Primary Business Phone"
               />
               {errors.business_phone_1 && (
                 <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">

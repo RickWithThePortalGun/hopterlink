@@ -101,7 +101,7 @@ export default function Home() {
                   <ChevronRight />
                 </AnimatedShinyText>
               </div>
-              <div className="max-w-4xl text-6xl max-md:text-3xl text-[#c55e0c] font-extrabold tracking-tight text-start max-md:text-center">
+              <div className="max-w-4xl text-6xl max-md:text-3xl text-[#c55e0c] dark:text-white font-extrabold tracking-tight text-start max-md:text-center">
                 <FlipWords words={words} />
                 Service Providers
               </div>
