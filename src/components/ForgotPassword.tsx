@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -5,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Credenza,
   CredenzaBody,
-  CredenzaClose,
   CredenzaContent,
   CredenzaDescription,
   CredenzaFooter,
@@ -17,7 +17,6 @@ import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import axios from "axios";
-import { Toast } from "./ui/toast";
 import { toast } from "./ui-hooks/use-toast";
 
 // Validation schema using zod
@@ -32,6 +31,7 @@ type FormData = z.infer<typeof schema>;
 
 const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
   const {
     register,
     handleSubmit,
@@ -41,26 +41,47 @@ const ForgotPassword = () => {
   });
 
   const onSubmit = async (data: FormData) => {
-    // Handle form submission
     setLoading(true);
     try {
       const response = await axios.post("/api/password-reset/", data);
-      if (response.status === 200) {
+      if (response.status === 201) {
+        setEmailSent(true); // Set emailSent to true when the email is successfully sent
         toast({
           title: "Password reset sent",
           description:
             "Your password reset email has been successfully sent. Check your spam or junk folder if you can't find it in your inbox.",
         });
       }
-    } catch (error) {
-      toast({
-        title: "Password reset failed",
-        description: "Something went wrong. Please try again later.",
-      });
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        const errorMessages = error.response.data;
+        if (typeof errorMessages === "object") {
+          for (const key in errorMessages) {
+            if (Array.isArray(errorMessages[key])) {
+              errorMessages[key].forEach((message: string) => {
+                toast({
+                  title: "Password Reset",
+                  description: message,
+                  variant: "destructive",
+                });
+              });
+            } else {
+              toast({
+                title: "Password Reset Error",
+                description: errorMessages[key],
+                variant: "destructive",
+              });
+            }
+          }
+        } else {
+          toast({
+            title: "Password Reset Error",
+            description: errorMessages,
+          });
+        }
+      }
     }
     setLoading(false);
-    console.log(data);
-    // Add your password reset logic here, such as calling an API
   };
 
   return (
@@ -81,15 +102,22 @@ const ForgotPassword = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 z-50">
             <div>
               <Label>Email</Label>
-              <Input {...register("email")} placeholder="Email" />
+              <Input {...register("email")} placeholder="Email" disabled={emailSent} />
               {errors.email && (
                 <div className="w-full justify-end flex mt-2 text-xs text-red-500">
                   {errors.email.message}
                 </div>
               )}
             </div>
-            <Button type="submit" variant={"default"} className="w-full">
-              <div className="text-white">Send Password Reset Email</div>
+            <Button
+              type="submit"
+              variant={"default"}
+              className="w-full"
+              disabled={loading || emailSent} // Disable button when loading or email is sent
+            >
+              <div className="text-white">
+                {emailSent ? "Password reset email sent" : loading ? "Sending your reset email..." : "Send Password Reset Email"}
+              </div>
             </Button>
           </form>
         </CredenzaBody>

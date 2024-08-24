@@ -21,6 +21,7 @@ import { signIn } from "next-auth/react";
 import { toast } from "@/components/ui-hooks/use-toast";
 import ForgotPassword from "@/components/ForgotPassword";
 
+// Validation schema
 const formSchema = z.object({
   email: z.string().email({ message: "Enter a valid email address" }),
   password: z.string(),
@@ -33,17 +34,19 @@ export default function UserAuthForm() {
   const searchParams = useSearchParams();
   const callback = searchParams.get("callbackUrl");
   const [loading, setLoading] = useState(false);
+
   const defaultValues = {
     email: "",
-    password: "", // Add the 'password' field to the default values
+    password: "",
   };
+
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
 
   const onSubmit = async (data: UserFormValue) => {
-    setLoading(true); // Set loading to true when submitting
+    setLoading(true);
     try {
       const result = await signIn("credentials", {
         email: data.email,
@@ -51,19 +54,15 @@ export default function UserAuthForm() {
         redirect: false,
         callbackUrl: callback ?? "/",
       });
-
+console.log(result)
       if (result?.error) {
-        if (result?.error === "CredentialsSignin") {
-          toast({
-            title: "Login Error",
-            description: "Username or password is incorrect. Please try again.",
-          });
-        } else {
-          toast({
-            title: "Login Error",
-            description: "Something went wrong. Please try again later.",
-          });
-        }
+        console.log(result?.error)
+        toast({
+          title: "Login Error",
+          description: result.error === "CredentialsSignin"
+            ? "Username or password is incorrect. Please try again."
+            : "Something went wrong. Please try again later.",
+        });
       } else if (result?.ok) {
         toast({
           title: "Login Success",
@@ -78,7 +77,7 @@ export default function UserAuthForm() {
         description: "There was an error logging in. Please try again.",
       });
     }
-    setLoading(false); // Set loading to false after the sign-in process
+    setLoading(false);
   };
 
   return (
@@ -126,7 +125,6 @@ export default function UserAuthForm() {
               </FormItem>
             )}
           />
-          <ForgotPassword />
           <Button disabled={loading} className="ml-auto w-full" type="submit">
             <p className="">
               {loading ? "Logging you in..." : "Continue With Email"}
@@ -134,6 +132,9 @@ export default function UserAuthForm() {
           </Button>
         </form>
       </Form>
+
+      <ForgotPassword /> {/* Moved outside of the login form */}
+
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />

@@ -1,15 +1,22 @@
-"use client";
-import Logo from "@/components/Logo";
-import Particles from "@/components/magicui/particles";
-import { buttonVariants } from "@/components/ui/button";
-import UserAuthForm from "@/components/ui/forms/user-auth-form";
-import Typography from "@/components/ui/typography";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+'use client'
 
-export default function AuthenticationPage() {
+import Logo from '@/components/Logo';
+import Particles from '@/components/magicui/particles';
+import PasswordReset from '@/components/PasswordReset';
+import { buttonVariants } from '@/components/ui/button';
+import UserAuthForm from '@/components/ui/forms/user-auth-form';
+import Typography from '@/components/ui/typography';
+import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+
+export default function PasswordResetConfirmPage() {
+  const params = useParams();
+  const { uid, token } = params;
+
   return (
-    <div
+   
+      <div
       className="relative h-screen flex-col items-center justify-center
         md:grid lg:max-w-none lg:grid-cols-2 lg:px-0"
     >
@@ -56,35 +63,16 @@ export default function AuthenticationPage() {
             sm:w-[350px]"
         >
           <div className="flex flex-col space-y-2 text-center">
-          <div className='hidden justify-center items-center max-lg:flex'>
+            <div className='hidden justify-center items-center max-lg:flex'>
           <Logo/>
           </div>
-            <Typography variant={"h2"} className="font-semibold tracking-tight">Log in</Typography>
+            <h1 className="text-2xl font-semibold tracking-tight">Password Reset</h1>
             <p className="text-sm text-muted-foreground">
-              Enter your details to log in to your account.
+              Reset your password
             </p>
-            <Link href={`/signup`} className="text-xs text-[#c55e0c]">
-              Don&apos;t have an account?
-            </Link>
           </div>
-          <UserAuthForm />
-          <p className="px-8 text-center text-sm text-muted-foreground">
-            By clicking continue, you agree to our{" "}
-            <Link
-              href="/terms"
-              className="underline underline-offset-4 hover:text-[#c55e0c]"
-            >
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link
-              href="/privacy"
-              className="underline underline-offset-4 hover:text-[#c55e0c]"
-            >
-              Privacy Policy
-            </Link>
-            .
-          </p>
+          <PasswordReset uid={uid} token={token}/>
+          
         </div>
       </div>
     </div>

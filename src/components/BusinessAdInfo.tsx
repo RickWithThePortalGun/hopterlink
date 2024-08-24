@@ -24,7 +24,7 @@ const BusinessAdInfo = ({ businessInfo }: Props) => {
           <Link2 />
         </div>
         <Separator />
-        <div className="flex flex-row justify-between items-center">
+        {/* <div className="flex flex-row justify-between items-center">
           {businessInfo?.business_phone_1 ? (
             <Link href={"tel:" + businessInfo?.business_phone_1}>
               {businessInfo?.business_phone_1}{" "}
@@ -33,7 +33,7 @@ const BusinessAdInfo = ({ businessInfo }: Props) => {
             ""
           )}
           <Phone />
-        </div>
+        </div> */}
         <Separator />
         <div className="gap-4 flex flex-col">
           <Typography className="" variant={"h5"}>

@@ -12,6 +12,8 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { PhoneInput } from "./ui/phone-input";
+import Typography from "./ui/typography";
+import Logo from "./Logo";
 
 const SignUpForm = () => {
   const router = useRouter();
@@ -199,7 +201,10 @@ const SignUpForm = () => {
             className="flex flex-col text-center justify-center items-center
               space-y-1.5 p-6"
           >
-            <h3 className="font-semibold tracking-tight text-2xl">Sign Up</h3>
+                        <div className='hidden justify-center items-center max-lg:flex'>
+          <Logo/>
+          </div>
+            <Typography variant={"h2"}  className="font-semibold tracking-tight ">Sign Up</Typography>
             <p className="text-sm text-muted-foreground">
               Enter your details below to join Hopterlink.
             </p>

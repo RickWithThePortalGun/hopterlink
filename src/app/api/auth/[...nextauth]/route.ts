@@ -190,10 +190,6 @@ const handler = NextAuth({
           }
         } catch (error: any) {
           console.log("logging in...");
-          toast({
-            title: "Login Error",
-            description: `${error?.response?.data?.non_field_errors[0]}`,
-          });
           console.error(error?.response?.data);
           console.error(
             "Error during authentication:",

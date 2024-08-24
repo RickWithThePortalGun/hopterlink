@@ -6,14 +6,10 @@ import {
   useState,
   ReactNode,
 } from "react";
-import { Category, COMETCHAT_CONSTANTS } from "@/constants/constants";
+import { Category } from "@/constants/constants";
 import axios from "axios";
 import { toast } from "@/components/ui-hooks/use-toast";
 import { useSession } from "next-auth/react";
-import {
-  CometChatUIKit,
-  UIKitSettingsBuilder,
-} from "@cometchat/chat-uikit-react";
 
 interface CategoriesContextType {
   categories: Category[];
@@ -24,6 +20,8 @@ interface CategoriesContextType {
   loading: boolean;
   initialized: boolean;
   user: any | undefined;
+  userInfo: any | null;
+  userLoading: boolean;
 }
 
 const CategoriesContext = createContext<CategoriesContextType>({
@@ -35,6 +33,8 @@ const CategoriesContext = createContext<CategoriesContextType>({
   loading: true,
   initialized: false,
   user: undefined,
+  userInfo: null,
+  userLoading: true,
 });
 
 interface Props {
@@ -46,10 +46,12 @@ export const CategoriesProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState(true);
   const [collectionLoading, setCollectionLoading] = useState(true);
   const [collections, setCollections] = useState<[]>([]);
-  const [user, setUser] = useState<any>(undefined);
+  const [userInfo, setUserInfo] = useState<any | null>(null);
+  const [userLoading, setUserLoading] = useState(true);
   const { data: session, status } = useSession();
   const [initialized, setInitialized] = useState(false);
 
+  // Fetch categories
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -75,20 +77,52 @@ export const CategoriesProvider = ({ children }: Props) => {
     fetchCategories();
   }, []);
 
+  // Fetch collections if user is authenticated
   useEffect(() => {
     const fetchCollection = async () => {
-      setCollectionLoading(true);
+      if (status === "authenticated" && session?.user) {
+        setCollectionLoading(true);
 
-      try {
-        const response = await axios.get("/api/collection/");
-        setCollections(response.data);
-      } catch (error) {
-        console.error("Failed to fetch collection:", error);
+        try {
+          const response = await axios.get("/api/collection/");
+          setCollections(response.data);
+        } catch (error) {
+          console.error("Failed to fetch collection:", error);
+        } finally {
+          setCollectionLoading(false);
+        }
       }
-      setCollectionLoading(false);
     };
-    void fetchCollection();
-  }, []);
+
+    if (status === "authenticated") {
+      void fetchCollection();
+    } else if (status === "unauthenticated") {
+      setCollections([]); // Clear collections if user logs out
+    }
+  }, [status, session]);
+
+  // Fetch user info if authenticated
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      if (status === "authenticated") {
+        setUserLoading(true);
+        try {
+          const response = await axios.get("/api/account/");
+          setUserInfo(response.data);
+        } catch (error) {
+          console.error("Error fetching user info:", error);
+          setUserInfo(null); // Reset user info if there's an error
+        } finally {
+          setUserLoading(false);
+        }
+      } else {
+        setUserInfo(null); // Clear user info if not authenticated
+        setUserLoading(false);
+      }
+    };
+
+    fetchUserInfo();
+  }, [status]);
 
   return (
     <CategoriesContext.Provider
@@ -99,7 +133,9 @@ export const CategoriesProvider = ({ children }: Props) => {
         categories,
         loading,
         initialized,
-        user,
+        user: session?.user,
+        userInfo,
+        userLoading,
         setCollectionLoading,
       }}
     >

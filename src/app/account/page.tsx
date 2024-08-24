@@ -10,71 +10,35 @@ import { Card } from "@/components/ui/cards";
 import { MultiStepLoader } from "@/components/ui/multi-step-loader";
 import Typography from "@/components/ui/typography";
 import { useCategories } from "@/contexts/ReUsableData";
-import axios from "axios";
-import { VerifiedIcon } from "lucide-react";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import colors from "tailwindcss/colors";
 import { motion } from "framer-motion";
 import NumberTicker from "@/components/magicui/number-ticker";
+import ManageListing from "@/components/ManageListing";
 
 const Page = () => {
-  const { status, data: session } = useSession() as unknown as {
-    status: string;
-    data: { access_token: string };
-  };
-  const { collections } = useCategories();
-  const [loading, setLoading] = useState(true);
-  const [userInfo, setUserInfo] = useState<{
-    first_name: string | null;
-    last_name: string | null;
-    email: string | null;
-    review_count: number;
-    businesses: any[];
-    reviews?: any[];
-    bio?: string | null;
-    phone?: string | null;
-    profile?: string | null;
-    is_business?: boolean;
-  } | null>(null);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (status === "authenticated") {
-        try {
-          const response = await axios.get("/api/account/");
-          setUserInfo(response.data);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
-
-    void fetchUserData();
-  }, [status]);
+  const { collections, userInfo, userLoading } = useCategories();
 
   const loadingStates = [
     {
       text: `Getting your account information..`,
     },
     {
-      text: `Recieving information..`,
+      text: `Receiving information..`,
     },
     {
       text: `Rendering information..`,
     },
   ];
 
-  if (loading) {
+  if (userLoading) {
     return (
       <div className="w-full h-[60vh] flex items-center justify-center">
         <MultiStepLoader
           loadingStates={loadingStates}
-          loading={loading}
+          loading={userLoading}
           duration={1000}
         />
       </div>
@@ -126,18 +90,10 @@ const Page = () => {
                 >
                   {userInfo?.first_name || "New"}{" "}
                   {userInfo?.last_name || "User"}
-                  <VerifiedIcon
-                    color={
-                      userInfo?.is_business
-                        ? "#c55e0c"
-                        : "rgba(122, 122, 122, 1)"
-                    }
-                  />
                 </Typography>
                 <div className="flex flex-row max-lg:flex-col items-center gap-4">
                   <div className="flex flex-col gap-2 items-center">
                     <Typography className="font-bold" variant={"h2"}>
-                      {/* <NumberTicker value={userInfo?.review_count ? userInfo?.review_count : 0}/> */}
                       0
                     </Typography>
                     <p className="text-[#c55e0c] font-bold text-sm text-center">
@@ -183,9 +139,12 @@ const Page = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.5 }}
-            className="flex w-full items-end justify-end max-lg:justify-center"
+            className="flex flex-row gap-4 w-full max-lg:flex-col items-center justify-end max-lg:justify-center"
           >
+
             <EditAProfile userInfo={userInfo} />
+            {userInfo?.is_business ?
+            <ManageListing/>:<></>}
           </motion.div>
         </motion.div>
         <motion.div

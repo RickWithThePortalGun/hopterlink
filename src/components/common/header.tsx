@@ -46,13 +46,12 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Collection from "../Collection";
-import LanguageSwitcher from "../lang-switcher";
+import ListItem2 from "../ListItem";
 import Logo from "../Logo";
 import RecentlyViewed from "../RecentlyViewed";
 import SearchComponent from "../SearchComponent";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { ScrollArea } from "../ui/scroll-area";
-import ListItem2 from "../ListItem";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -60,6 +59,8 @@ export function Header({ className }: SidebarProps) {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const { status, data: session } = useSession();
+  const {userInfo, userLoading} = useCategories();
+
   const avatarSrc =
     session?.picture ||
     "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"; // Default Gravatar image
@@ -74,24 +75,27 @@ export function Header({ className }: SidebarProps) {
   const getAuthButtons = () => (
     <div className="flex gap-3 items-center">
       <>
-        <Button
-          variant={"default"}
-          className="text-white bg-[#c55e0c]"
-          onClick={() => router.replace("/add-a-business")}
-        >
-          Add a Business
-        </Button>
+      {status === "authenticated" && !userLoading && !userInfo?.is_business && (
+          <Button
+            variant={"default"}
+            className="text-white bg-[#c55e0c]"
+            onClick={() => router.replace("/add-a-business")}
+          >
+            Add a Business
+          </Button>
+        )}
+       
       </>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="secondary" size="sm">
             <SunIcon
               className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all
-                dark:-rotate-90 dark:scale-0"
+                dark:-rotate-90 dark:scale-0 hover:text-primary"
             />
             <MoonIcon
               className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0
-                transition-all dark:rotate-0 dark:scale-100"
+                transition-all dark:rotate-0 dark:scale-100 hover:text-primary"
             />
             <span className="sr-only">Toggle theme</span>
           </Button>
@@ -112,11 +116,12 @@ export function Header({ className }: SidebarProps) {
         <>
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Activity size={20} />
+              <Activity size={20} className="hover:text-primary cursor-pointer"/>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem className="flex flex-row items-center gap-4">
-                <Activity size={14} /> Activity Feed
+              <DropdownMenuItem className="flex flex-row items-center gap-4 font-bold text-md">
+                {/* <Activity size={14} /> */}
+                 Activity Feed
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <RecentlyViewed />
@@ -372,9 +377,13 @@ export function Header({ className }: SidebarProps) {
                   <Link href={"/"}>
                     <ListItem2 title="Home" />
                   </Link>
-                  <Link href={"/add-a-business"}>
-                    <ListItem2 title="Add a business" />
-                  </Link>
+                  {
+                                          userInfo?.is_business ? "" :  <Link href={"/add-a-business"}>
+                                          <ListItem2 title="Add a business" />
+                                        </Link>
+
+                  }
+                 
                   <div className=" flex flex-row items-center justify-between">
                     {/* <DropdownMenu>
                       <DropdownMenuTrigger>
@@ -385,12 +394,12 @@ export function Header({ className }: SidebarProps) {
                       <DropdownMenuTrigger asChild>
                         <Button variant="secondary" size="sm">
                           <SunIcon
-                            className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all
+                            className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all hover:text-primary
                 dark:-rotate-90 dark:scale-0"
                           />
                           <MoonIcon
                             className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0
-                transition-all dark:rotate-0 dark:scale-100"
+                transition-all dark:rotate-0 dark:scale-100 hover:text-primary"
                           />
                           <span className="sr-only">Toggle theme</span>
                         </Button>
@@ -415,12 +424,13 @@ export function Header({ className }: SidebarProps) {
                       <DropdownMenu>
                         <DropdownMenuTrigger>
                           <Button variant="secondary" size="sm">
-                            <Activity size={20} />
+                            <Activity size={20} className="hover:text-primary"/>
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuItem className="flex flex-row items-center gap-4">
-                            <Activity size={14} /> Activity Feed
+                          <DropdownMenuItem className="flex flex-row items-center gap-4 font-bold text-md">
+                            {/* <Activity size={14} /> */}
+                             Activity Feed
                           </DropdownMenuItem>
                           <DropdownMenuItem asChild>
                             <RecentlyViewed />
@@ -429,7 +439,7 @@ export function Header({ className }: SidebarProps) {
                             <File size={14} /> My Interest
                           </DropdownMenuItem>
                           <DropdownMenuItem className="flex flex-row items-center gap-4">
-                            <PaperPlaneIcon size={14} /> Invite Friends
+                            <PaperPlaneIcon size={14}  className="hover:text-primary"/> Invite Friends
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>

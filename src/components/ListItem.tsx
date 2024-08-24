@@ -8,7 +8,7 @@ type Props = {
 
 const ListItem = ({ title }: Props) => {
   return (
-    <div className="w-full flex justify-between items-center my-8">
+    <div className="w-full flex justify-between items-center my-8 cursor-pointer">
       <Typography variant={"h4"}>{title}</Typography>
       <ChevronRight className="text-[#c55e0c]" />
     </div>
