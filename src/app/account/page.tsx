@@ -45,8 +45,8 @@ const Page = () => {
       </div>
     );
   }
-const router=useRouter()
-const {businessData}=useCategories()
+  const router = useRouter();
+  const { businessData } = useCategories();
   return (
     <HeaderContainer>
       <motion.div
@@ -144,9 +144,20 @@ const {businessData}=useCategories()
             className="flex flex-row gap-4 w-full max-lg:flex-col items-center justify-end max-lg:justify-center"
           >
             <EditAProfile userInfo={userInfo} />
-            {userInfo?.is_business ?<> <ManageListing /><div className="flex items-center gap-4" onClick={()=>router.push(`/business/${businessData.id}`)}>
-          <ShinyButton text="Visit your business" />
-        </div></>: <></>}
+            {userInfo?.is_business ? (
+              <>
+                {" "}
+                <ManageListing />
+                <div
+                  className="flex items-center gap-4"
+                  onClick={() => router.push(`/business/${businessData.id}`)}
+                >
+                  <ShinyButton text="Visit your business" />
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
           </motion.div>
         </motion.div>
         <motion.div

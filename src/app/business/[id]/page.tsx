@@ -310,7 +310,7 @@ const Business = ({ params }: Props) => {
                 <Share size={16} /> Share
               </Button>
             </div>
-            <div className="flex flex-row items-center gap-4">
+            <div className="flex flex-row max-lg:flex-col items-center gap-4">
               {isFavorite ? (
                 <Button
                   className="flex min-w-60 gap-2 items-center max-md:mt-2"
@@ -372,10 +372,9 @@ const Business = ({ params }: Props) => {
                   </Button>
                 </motion.div>
               )}
-                  <ReportBusiness businessInfo={businessInfo}/>
+              <ReportBusiness businessInfo={businessInfo} />
             </div>
           </motion.div>
-      
 
           {/* Tab section */}
           <div className="flex flex-row max-lg:flex-col gap-2 w-full mt-8">

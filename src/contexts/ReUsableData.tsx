@@ -128,12 +128,12 @@ export const CategoriesProvider = ({ children }: Props) => {
               setBusinessDataLoading(false);
             }
           } else {
-            setBusinessData(null); 
+            setBusinessData(null);
             setBusinessDataLoading(false);
           }
         } catch (error) {
           console.error("Error fetching user info:", error);
-          setUserInfo(null); 
+          setUserInfo(null);
           setUserLoading(false);
         } finally {
           setUserLoading(false);

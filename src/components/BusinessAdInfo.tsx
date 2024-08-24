@@ -28,11 +28,11 @@ const BusinessAdInfo = ({ businessInfo }: Props) => {
           {businessInfo?.is_active ? (
             <div className=" bg-green-400/10 px-2 rounded-full py-2 text-sm">
               Active
-              </div>
+            </div>
           ) : (
             <div className="bg-yellow-300/20 text-sm px-2 py-1 rounded-full">
               Away
-              </div>
+            </div>
           )}
         </div>
         <Separator />

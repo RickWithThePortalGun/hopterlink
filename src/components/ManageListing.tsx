@@ -20,7 +20,9 @@ const ManageListing = () => {
   const { businessData } = useCategories();
 
   // Using useState with a function to initialize state only on the first render
-  const [isActive, setIsActive] = useState(() => businessData?.is_active || false);
+  const [isActive, setIsActive] = useState(
+    () => businessData?.is_active || false
+  );
 
   // Function to toggle active status and update backend
   const toggleActiveStatus = async () => {
@@ -28,29 +30,27 @@ const ManageListing = () => {
     setIsActive(newActiveState);
 
     const formData = new FormData();
-    formData.append('is_active', newActiveState);
+    formData.append("is_active", newActiveState);
 
     try {
       const response = await fetch(`/api/business/${businessData.id}`, {
-        method: 'PATCH',
-        body: formData
+        method: "PATCH",
+        body: formData,
       });
       const data = await response.json();
-      console.log('Updated active status:', data);
+      console.log("Updated active status:", data);
       toast({
         title: "Business Status",
-        description: "Your business status has been updated."
+        description: "Your business status has been updated.",
       });
     } catch (error) {
-      console.error('Failed to update active status:', error);
+      console.error("Failed to update active status:", error);
       toast({
         title: "Error",
-        description: "Failed to update business status."
+        description: "Failed to update business status.",
       });
     }
   };
-
-
 
   // Effect to update local state if businessData changes externally
   useEffect(() => {
@@ -74,7 +74,8 @@ const ManageListing = () => {
         <CredenzaBody>
           <>
             <div className="flex items-center justify-between">
-              Availability Status <Switch checked={isActive} onCheckedChange={toggleActiveStatus} />
+              Availability Status{" "}
+              <Switch checked={isActive} onCheckedChange={toggleActiveStatus} />
             </div>
             {/* <div className="flex items-center justify-between my-2">
               Let users see your contact information <Switch checked={showContact} onCheckedChange={toggleContactVisibility} />

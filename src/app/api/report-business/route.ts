@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   try {
     const uri = `${process.env.NEXTAUTH_BACKEND_URL}api/businesses/${body.business}/complaints/`;
     const result = await request.post(uri, {
-      content:body.content
+      content: body.content,
     });
     return NextResponse.json(result.data, { status: 200 });
   } catch (error) {
