@@ -34,12 +34,26 @@ const validationSchema = z.object({
   industry: z.number().optional(),
   industry_subcategory: z.number().optional(),
   website: z.string().url("Invalid URL"),
-  business_phone_1: z.string().regex(/^[0-9]{10,15}$/, "Phone number is not valid").optional(),
-  business_phone_2: z.string().regex(/^[0-9]{10,15}$/, "Phone number is not valid").optional(),
-  min_delivery_time_in_days: z.number().min(1, "Min Delivery Time is required").optional(),
-  max_delivery_time_in_days: z.number().min(1, "Max Delivery Time is required").optional(),
+  business_phone_1: z
+    .string()
+    .regex(/^[0-9]{10,15}$/, "Phone number is not valid")
+    .optional(),
+  business_phone_2: z
+    .string()
+    .regex(/^[0-9]{10,15}$/, "Phone number is not valid")
+    .optional(),
+  min_delivery_time_in_days: z
+    .number()
+    .min(1, "Min Delivery Time is required")
+    .optional(),
+  max_delivery_time_in_days: z
+    .number()
+    .min(1, "Max Delivery Time is required")
+    .optional(),
   business_reg_no: z.string().optional(),
-  acceptTerms: z.literal(true, { errorMap: () => ({ message: "You must accept the terms and conditions" }) }),
+  acceptTerms: z.literal(true, {
+    errorMap: () => ({ message: "You must accept the terms and conditions" }),
+  }),
 });
 
 const App = () => {
@@ -90,7 +104,8 @@ const App = () => {
     if (uploadedImages.length === 0) {
       toast({
         title: "Images are required",
-        description: "Please upload at least one image before submitting the form.",
+        description:
+          "Please upload at least one image before submitting the form.",
         variant: "destructive",
       });
       return;
@@ -104,14 +119,23 @@ const App = () => {
     formData.append("description", values.description);
     formData.append("location", values.location);
     formData.append("industry", values.industry?.toString() || "");
-    formData.append("industry_subcategory", values.industry_subcategory?.toString() || "");
+    formData.append(
+      "industry_subcategory",
+      values.industry_subcategory?.toString() || ""
+    );
     formData.append("website", values.website);
     formData.append("business_phone_1", values.business_phone_1);
     formData.append("business_phone_2", values.business_phone_2 || "");
-    
+
     if (requiresDelivery) {
-      formData.append("min_delivery_time_in_days", values.min_delivery_time_in_days.toString());
-      formData.append("max_delivery_time_in_days", values.max_delivery_time_in_days.toString());
+      formData.append(
+        "min_delivery_time_in_days",
+        values.min_delivery_time_in_days.toString()
+      );
+      formData.append(
+        "max_delivery_time_in_days",
+        values.max_delivery_time_in_days.toString()
+      );
     }
 
     formData.append("business_reg_no", values.business_reg_no || "");
@@ -136,14 +160,19 @@ const App = () => {
         const status = response.status;
         const errorData = await response.json();
         if (errorData && typeof errorData === "object") {
-          Object.entries(errorData.details || {}).forEach(([field, messages]) => {
-            const errorMessage = Array.isArray(messages) ? messages.join(", ") : messages;
-            setError(field, { type: "manual", message: errorMessage });
-          });
+          Object.entries(errorData.details || {}).forEach(
+            ([field, messages]) => {
+              const errorMessage = Array.isArray(messages)
+                ? messages.join(", ")
+                : messages;
+              setError(field, { type: "manual", message: errorMessage });
+            }
+          );
 
           toast({
             title: "Error",
-            description: errorData?.details?.error || "An unexpected error occurred",
+            description:
+              errorData?.details?.error || "An unexpected error occurred",
             variant: "destructive",
           });
         } else {
@@ -167,7 +196,9 @@ const App = () => {
 
   const getImageData = (event: ChangeEvent<HTMLInputElement>) => {
     const dataTransfer = new DataTransfer();
-    Array.from(event.target.files!).forEach((image) => dataTransfer.items.add(image));
+    Array.from(event.target.files!).forEach((image) =>
+      dataTransfer.items.add(image)
+    );
 
     const files = dataTransfer.files;
     const displayUrl = URL.createObjectURL(files[0]);
@@ -227,7 +258,11 @@ const App = () => {
 
           <div>
             <Label>Description</Label>
-            <Textarea className="border border-input" {...register("description")} placeholder="Description" />
+            <Textarea
+              className="border border-input"
+              {...register("description")}
+              placeholder="Description"
+            />
             {errors.description && (
               <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.description.message}
@@ -362,7 +397,9 @@ const App = () => {
                 <Label>Minimum Delivery Time (in days)</Label>
                 <Input
                   type="number"
-                  {...register("min_delivery_time_in_days", { valueAsNumber: true })}
+                  {...register("min_delivery_time_in_days", {
+                    valueAsNumber: true,
+                  })}
                   placeholder="Min Delivery Time"
                 />
                 {errors.min_delivery_time_in_days && (
@@ -376,7 +413,9 @@ const App = () => {
                 <Label>Maximum Delivery Time (in days)</Label>
                 <Input
                   type="number"
-                  {...register("max_delivery_time_in_days", { valueAsNumber: true })}
+                  {...register("max_delivery_time_in_days", {
+                    valueAsNumber: true,
+                  })}
                   placeholder="Max Delivery Time"
                 />
                 {errors.max_delivery_time_in_days && (

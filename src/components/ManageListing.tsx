@@ -15,7 +15,6 @@ import ListItem from "./ListItem";
 import Link from "next/link";
 
 const ManageListing = () => {
-
   return (
     <Credenza>
       <CredenzaTrigger asChild>
@@ -31,22 +30,19 @@ const ManageListing = () => {
           </CredenzaDescription>
         </CredenzaHeader>
         <CredenzaBody>
-         <>
-         <div className="flex items-center justify-between">
-        Availability Status               <Switch />
-
-         </div>
-         <div className="flex items-center justify-between my-2">
-        Let users see your contact information               <Switch />
-
-         </div>
-         <div>
-          <Link href={"/manage-your-business"}>
-          <ListItem title="Edit your business profile"/>
-          </Link>
-         </div>
-
-         </>
+          <>
+            <div className="flex items-center justify-between">
+              Availability Status <Switch />
+            </div>
+            <div className="flex items-center justify-between my-2">
+              Let users see your contact information <Switch />
+            </div>
+            <div>
+              <Link href={"/manage-your-business"}>
+                <ListItem title="Edit your business profile" />
+              </Link>
+            </div>
+          </>
         </CredenzaBody>
       </CredenzaContent>
     </Credenza>

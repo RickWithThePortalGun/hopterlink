@@ -59,7 +59,7 @@ export function Header({ className }: SidebarProps) {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const { status, data: session } = useSession();
-  const {userInfo, userLoading} = useCategories();
+  const { userInfo, userLoading } = useCategories();
 
   const avatarSrc =
     session?.picture ||
@@ -75,7 +75,7 @@ export function Header({ className }: SidebarProps) {
   const getAuthButtons = () => (
     <div className="flex gap-3 items-center">
       <>
-      {status === "authenticated" && !userLoading && !userInfo?.is_business && (
+        {status === "authenticated" && !userLoading && !userInfo?.is_business && (
           <Button
             variant={"default"}
             className="text-white bg-[#c55e0c]"
@@ -84,7 +84,6 @@ export function Header({ className }: SidebarProps) {
             Add a Business
           </Button>
         )}
-       
       </>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -116,12 +115,15 @@ export function Header({ className }: SidebarProps) {
         <>
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Activity size={20} className="hover:text-primary cursor-pointer"/>
+              <Activity
+                size={20}
+                className="hover:text-primary cursor-pointer"
+              />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem className="flex flex-row items-center gap-4 font-bold text-md">
                 {/* <Activity size={14} /> */}
-                 Activity Feed
+                Activity Feed
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <RecentlyViewed />
@@ -377,13 +379,14 @@ export function Header({ className }: SidebarProps) {
                   <Link href={"/"}>
                     <ListItem2 title="Home" />
                   </Link>
-                  {
-                                          userInfo?.is_business ? "" :  <Link href={"/add-a-business"}>
-                                          <ListItem2 title="Add a business" />
-                                        </Link>
+                  {userInfo?.is_business ? (
+                    ""
+                  ) : (
+                    <Link href={"/add-a-business"}>
+                      <ListItem2 title="Add a business" />
+                    </Link>
+                  )}
 
-                  }
-                 
                   <div className=" flex flex-row items-center justify-between">
                     {/* <DropdownMenu>
                       <DropdownMenuTrigger>
@@ -424,13 +427,16 @@ export function Header({ className }: SidebarProps) {
                       <DropdownMenu>
                         <DropdownMenuTrigger>
                           <Button variant="secondary" size="sm">
-                            <Activity size={20} className="hover:text-primary"/>
+                            <Activity
+                              size={20}
+                              className="hover:text-primary"
+                            />
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuItem className="flex flex-row items-center gap-4 font-bold text-md">
                             {/* <Activity size={14} /> */}
-                             Activity Feed
+                            Activity Feed
                           </DropdownMenuItem>
                           <DropdownMenuItem asChild>
                             <RecentlyViewed />
@@ -439,7 +445,11 @@ export function Header({ className }: SidebarProps) {
                             <File size={14} /> My Interest
                           </DropdownMenuItem>
                           <DropdownMenuItem className="flex flex-row items-center gap-4">
-                            <PaperPlaneIcon size={14}  className="hover:text-primary"/> Invite Friends
+                            <PaperPlaneIcon
+                              size={14}
+                              className="hover:text-primary"
+                            />{" "}
+                            Invite Friends
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>

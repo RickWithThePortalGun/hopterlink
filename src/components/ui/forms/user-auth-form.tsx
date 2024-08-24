@@ -54,14 +54,15 @@ export default function UserAuthForm() {
         redirect: false,
         callbackUrl: callback ?? "/",
       });
-console.log(result)
+      console.log(result);
       if (result?.error) {
-        console.log(result?.error)
+        console.log(result?.error);
         toast({
           title: "Login Error",
-          description: result.error === "CredentialsSignin"
-            ? "Username or password is incorrect. Please try again."
-            : "Something went wrong. Please try again later.",
+          description:
+            result.error === "CredentialsSignin"
+              ? "Username or password is incorrect. Please try again."
+              : "Something went wrong. Please try again later.",
         });
       } else if (result?.ok) {
         toast({
@@ -132,9 +133,7 @@ console.log(result)
           </Button>
         </form>
       </Form>
-
       <ForgotPassword /> {/* Moved outside of the login form */}
-
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />

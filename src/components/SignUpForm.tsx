@@ -201,10 +201,15 @@ const SignUpForm = () => {
             className="flex flex-col text-center justify-center items-center
               space-y-1.5 p-6"
           >
-                        <div className='hidden justify-center items-center max-lg:flex'>
-          <Logo/>
-          </div>
-            <Typography variant={"h2"}  className="font-semibold tracking-tight ">Sign Up</Typography>
+            <div className="hidden justify-center items-center max-lg:flex">
+              <Logo />
+            </div>
+            <Typography
+              variant={"h2"}
+              className="font-semibold tracking-tight "
+            >
+              Sign Up
+            </Typography>
             <p className="text-sm text-muted-foreground">
               Enter your details below to join Hopterlink.
             </p>

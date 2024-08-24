@@ -43,10 +43,7 @@ const validationSchema = z.object({
   location: z.string().min(1, "Location is required").describe("Location"),
   industry: z.number().optional().describe("Industry"),
   industry_subcategory: z.number().optional().describe("Industry Subcategory"),
-  website: z
-    .string()
-    .url("Invalid URL")
-    .describe("Website"),
+  website: z.string().url("Invalid URL").describe("Website"),
   business_phone_1: z
     .string()
     .min(1, "Primary Business Phone is required")
@@ -101,10 +98,8 @@ const EditBusiness = ({ businessData }) => {
       website: businessData?.website || "",
       business_phone_1: businessData?.business_phone_1 || "",
       business_phone_2: businessData?.business_phone_2 || "",
-      min_delivery_time_in_days:
-        businessData?.min_delivery_time_in_days || "",
-      max_delivery_time_in_days:
-        businessData?.max_delivery_time_in_days || "",
+      min_delivery_time_in_days: businessData?.min_delivery_time_in_days || "",
+      max_delivery_time_in_days: businessData?.max_delivery_time_in_days || "",
       business_reg_no: businessData?.business_reg_no || "",
     },
   });
@@ -248,7 +243,10 @@ const EditBusiness = ({ businessData }) => {
             Edit Business Information
           </Typography>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 z-50 text-[16px]">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-5 z-50 text-[16px]"
+        >
           {/* ...form fields remain the same, with pre-filled values */}
           <div>
             <Label>Business Email</Label>
@@ -272,7 +270,11 @@ const EditBusiness = ({ businessData }) => {
 
           <div>
             <Label>Description</Label>
-            <Textarea className="border border-input" {...register("description")} placeholder="Description" />
+            <Textarea
+              className="border border-input"
+              {...register("description")}
+              placeholder="Description"
+            />
             {errors.description && (
               <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.description.message}

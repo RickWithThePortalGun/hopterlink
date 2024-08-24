@@ -141,10 +141,8 @@ const Page = () => {
             transition={{ delay: 1, duration: 0.5 }}
             className="flex flex-row gap-4 w-full max-lg:flex-col items-center justify-end max-lg:justify-center"
           >
-
             <EditAProfile userInfo={userInfo} />
-            {userInfo?.is_business ?
-            <ManageListing/>:<></>}
+            {userInfo?.is_business ? <ManageListing /> : <></>}
           </motion.div>
         </motion.div>
         <motion.div

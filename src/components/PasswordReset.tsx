@@ -71,7 +71,7 @@ export default function PasswordReset({ uid, token }: Props) {
         "/api/confirm-password-reset/",
         JSON.stringify(payload)
       );
-      
+
       if (response.status === 201) {
         toast({
           title: "Password changed successfully",
@@ -80,13 +80,13 @@ export default function PasswordReset({ uid, token }: Props) {
         });
         router.push("/login");
       }
-  
+
       setLoading(false);
     } catch (error: any) {
       // Check if the error response exists and if it contains error data
       if (error.response && error.response.data) {
         const errorMessages = error.response.data; // Extract error messages from the API response
-  
+
         // If errorMessages is an object, check if it has keys with the error array.
         if (typeof errorMessages === "object") {
           for (const key in errorMessages) {
@@ -113,7 +113,8 @@ export default function PasswordReset({ uid, token }: Props) {
       } else {
         toast({
           title: "Password Reset Error",
-          description: "There was an error resetting your password. Please try again.",
+          description:
+            "There was an error resetting your password. Please try again.",
         });
       }
     }

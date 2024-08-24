@@ -128,7 +128,12 @@ const Cards = () => {
           {recent.map((activity) => (
             <div
               onClick={() => {
-                handleRoute({ slug: activity.activity_type==="reviews" ?  activity.content_object_id:activity.content_object.id });
+                handleRoute({
+                  slug:
+                    activity.activity_type === "reviews"
+                      ? activity.content_object_id
+                      : activity.content_object.id,
+                });
               }}
               key={activity.content_object.id}
               className="flex flex-col z-40 p-4 rounded-md bg-background border-[1px]

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -102,7 +102,11 @@ const ForgotPassword = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 z-50">
             <div>
               <Label>Email</Label>
-              <Input {...register("email")} placeholder="Email" disabled={emailSent} />
+              <Input
+                {...register("email")}
+                placeholder="Email"
+                disabled={emailSent}
+              />
               {errors.email && (
                 <div className="w-full justify-end flex mt-2 text-xs text-red-500">
                   {errors.email.message}
@@ -116,7 +120,11 @@ const ForgotPassword = () => {
               disabled={loading || emailSent} // Disable button when loading or email is sent
             >
               <div className="text-white">
-                {emailSent ? "Password reset email sent" : loading ? "Sending your reset email..." : "Send Password Reset Email"}
+                {emailSent
+                  ? "Password reset email sent"
+                  : loading
+                  ? "Sending your reset email..."
+                  : "Send Password Reset Email"}
               </div>
             </Button>
           </form>

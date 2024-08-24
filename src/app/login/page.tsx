@@ -56,10 +56,12 @@ export default function AuthenticationPage() {
             sm:w-[350px]"
         >
           <div className="flex flex-col space-y-2 text-center">
-          <div className='hidden justify-center items-center max-lg:flex'>
-          <Logo/>
-          </div>
-            <Typography variant={"h2"} className="font-semibold tracking-tight">Log in</Typography>
+            <div className="hidden justify-center items-center max-lg:flex">
+              <Logo />
+            </div>
+            <Typography variant={"h2"} className="font-semibold tracking-tight">
+              Log in
+            </Typography>
             <p className="text-sm text-muted-foreground">
               Enter your details to log in to your account.
             </p>

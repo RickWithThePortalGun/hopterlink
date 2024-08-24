@@ -112,7 +112,7 @@ const Collection = () => {
     <Credenza>
       <CredenzaTrigger asChild>
         <div className="flex items-center gap-4 cursor-pointer hover:">
-          <Bookmark size={20} className="hover:text-primary"/>
+          <Bookmark size={20} className="hover:text-primary" />
         </div>
       </CredenzaTrigger>
       <CredenzaContent>

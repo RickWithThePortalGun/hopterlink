@@ -1,22 +1,21 @@
-'use client'
+"use client";
 
-import Logo from '@/components/Logo';
-import Particles from '@/components/magicui/particles';
-import PasswordReset from '@/components/PasswordReset';
-import { buttonVariants } from '@/components/ui/button';
-import UserAuthForm from '@/components/ui/forms/user-auth-form';
-import Typography from '@/components/ui/typography';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import Logo from "@/components/Logo";
+import Particles from "@/components/magicui/particles";
+import PasswordReset from "@/components/PasswordReset";
+import { buttonVariants } from "@/components/ui/button";
+import UserAuthForm from "@/components/ui/forms/user-auth-form";
+import Typography from "@/components/ui/typography";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 export default function PasswordResetConfirmPage() {
   const params = useParams();
   const { uid, token } = params;
 
   return (
-   
-      <div
+    <div
       className="relative h-screen flex-col items-center justify-center
         md:grid lg:max-w-none lg:grid-cols-2 lg:px-0"
     >
@@ -63,16 +62,15 @@ export default function PasswordResetConfirmPage() {
             sm:w-[350px]"
         >
           <div className="flex flex-col space-y-2 text-center">
-            <div className='hidden justify-center items-center max-lg:flex'>
-          <Logo/>
+            <div className="hidden justify-center items-center max-lg:flex">
+              <Logo />
+            </div>
+            <h1 className="text-2xl font-semibold tracking-tight">
+              Password Reset
+            </h1>
+            <p className="text-sm text-muted-foreground">Reset your password</p>
           </div>
-            <h1 className="text-2xl font-semibold tracking-tight">Password Reset</h1>
-            <p className="text-sm text-muted-foreground">
-              Reset your password
-            </p>
-          </div>
-          <PasswordReset uid={uid} token={token}/>
-          
+          <PasswordReset uid={uid} token={token} />
         </div>
       </div>
     </div>

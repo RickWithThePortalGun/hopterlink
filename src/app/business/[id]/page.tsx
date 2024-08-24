@@ -44,8 +44,9 @@ const Business = ({ params }: Props) => {
   const [loading, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
-  const { collections, setCollections, collectionLoading, user } = useCategories();
-  console.log(user)
+  const { collections, setCollections, collectionLoading, user } =
+    useCategories();
+  console.log(user);
 
   useEffect(() => {
     if (
@@ -130,7 +131,7 @@ const Business = ({ params }: Props) => {
               <Image
                 src={businessInfo.logo}
                 alt={`${businessInfo?.business_name} logo`}
-                width={150} 
+                width={150}
                 height={150}
                 objectFit="cover"
                 className="rounded-full"
@@ -245,15 +246,18 @@ const Business = ({ params }: Props) => {
             transition={{ duration: 0.6 }}
           >
             <div className="flex flex-row items-center max-md:w-full gap-2 max-lg:flex-col">
-              {
-                businessInfo.owner.email === user.email? <></>: <><AddAReview
-                onReviewAdded={handleReviewAdded}
-                businessInfo={businessInfo}
-              />
-              <SendAMesage businessInfo={businessInfo} />
-              </>
-              }
-             
+              {businessInfo.owner.email === user.email ? (
+                <></>
+              ) : (
+                <>
+                  <AddAReview
+                    onReviewAdded={handleReviewAdded}
+                    businessInfo={businessInfo}
+                  />
+                  <SendAMesage businessInfo={businessInfo} />
+                </>
+              )}
+
               <Button
                 className="flex gap-2 items-center min-w-60"
                 variant={"secondary"}
