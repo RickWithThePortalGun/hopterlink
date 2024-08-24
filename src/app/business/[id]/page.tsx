@@ -14,10 +14,13 @@ import { Separator } from "@/components/ui/separator";
 import Typography from "@/components/ui/typography";
 import axios from "axios";
 import {
+  AlertCircle,
   Bookmark,
   BookmarkCheck,
+  Edit,
   Link2,
   MapPin,
+  Router,
   Share,
   Timer,
 } from "lucide-react";
@@ -33,12 +36,15 @@ import DotPattern from "@/components/magicui/dot-pattern";
 import { useCategories } from "@/contexts/ReUsableData";
 import BusinessOwner from "@/components/BusinessOwner";
 import ReadMoreText from "@/components/ReadMore";
+import { useRouter } from "next/navigation";
+import ReportBusiness from "@/components/ReportBusiness";
 
 interface Props {
   params: { id: string };
 }
 
 const Business = ({ params }: Props) => {
+  const router = useRouter();
   const [businessInfo, setBusinessInfo] = useState<any>({});
   const [reviews, setReviews] = useState<any>({});
   const [loading, setLoading] = useState(false);
@@ -79,11 +85,10 @@ const Business = ({ params }: Props) => {
     setReviews((prevReviews) => {
       const updatedReviews = [newReview, ...prevReviews];
 
-      // Update the businessInfo state to reflect the new review count
       setBusinessInfo((prevBusinessInfo) => ({
         ...prevBusinessInfo,
         reviews: updatedReviews,
-        average_rating: calculateNewAverageRating(updatedReviews), // Optional: Update average rating if necessary
+        average_rating: calculateNewAverageRating(updatedReviews),
       }));
 
       return updatedReviews;
@@ -97,7 +102,7 @@ const Business = ({ params }: Props) => {
   };
   return (
     <HeaderContainer>
-      {loading || !businessInfo.business_name ? (
+      {loading || !businessInfo?.business_name ? (
         <div className="w-full h-[60vh] flex items-center justify-center">
           <MultiStepLoader
             loadingStates={[
@@ -246,15 +251,27 @@ const Business = ({ params }: Props) => {
             transition={{ duration: 0.6 }}
           >
             <div className="flex flex-row items-center max-md:w-full gap-2 max-lg:flex-col">
-              {businessInfo.owner.email === user.email ? (
-                <></>
+              {businessInfo?.owner.email === user?.email ? (
+                <>
+                  <Button
+                    className="flex gap-2 items-center min-w-60"
+                    variant={"secondary"}
+                    onClick={() => router.push("/manage-your-business")}
+                  >
+                    <Edit size={16} /> Edit
+                  </Button>
+                </>
               ) : (
                 <>
                   <AddAReview
                     onReviewAdded={handleReviewAdded}
                     businessInfo={businessInfo}
                   />
-                  <SendAMesage businessInfo={businessInfo} />
+                  {businessInfo?.is_active ? (
+                    <SendAMesage businessInfo={businessInfo} />
+                  ) : (
+                    ""
+                  )}
                 </>
               )}
 
@@ -293,7 +310,7 @@ const Business = ({ params }: Props) => {
                 <Share size={16} /> Share
               </Button>
             </div>
-            <div>
+            <div className="flex flex-row items-center gap-4">
               {isFavorite ? (
                 <Button
                   className="flex min-w-60 gap-2 items-center max-md:mt-2"
@@ -355,8 +372,10 @@ const Business = ({ params }: Props) => {
                   </Button>
                 </motion.div>
               )}
+                  <ReportBusiness businessInfo={businessInfo}/>
             </div>
           </motion.div>
+      
 
           {/* Tab section */}
           <div className="flex flex-row max-lg:flex-col gap-2 w-full mt-8">

@@ -24,60 +24,43 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { RotatingLines } from "react-loader-spinner";
-import * as z from "zod";
+import { z } from "zod";
 
+// Patch validation schema allows optional fields
 const validationSchema = z.object({
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Invalid email address")
-    .describe("Email"),
-  business_name: z
-    .string()
-    .min(1, "Business Name is required")
-    .describe("Business Name"),
-  description: z
-    .string()
-    .min(1, "Description is required")
-    .describe("Description"),
-  location: z.string().min(1, "Location is required").describe("Location"),
-  industry: z.number().optional().describe("Industry"),
-  industry_subcategory: z.number().optional().describe("Industry Subcategory"),
-  website: z.string().url("Invalid URL").describe("Website"),
+  email: z.string()
+  // .email("Invalid email address")
+  .optional(),
+  business_name: z.string().optional(),
+  description: z.string().optional(),
+  location: z.string().optional(),
+  // industry: z.number().optional(),
+  // industry_subcategory: z.number().optional(),
+  website: z.string()
+  // .url("Invalid URL").
+  .optional(),
   business_phone_1: z
     .string()
-    .min(1, "Primary Business Phone is required")
-    .regex(/^[0-9]{10,15}$/, "Phone number is not valid")
-    .describe("Primary Business Phone")
+    // .regex(/^[0-9]{10,15}$/, "Phone number is not valid")
     .optional(),
   business_phone_2: z
     .string()
-    .regex(/^[0-9]{10,15}$/, "Phone number is not valid")
-    .optional()
-    .describe("Secondary Business Phone"),
-  min_delivery_time_in_days: z
-    .number()
-    .min(1, "Min Delivery Time is required")
-    .describe("Min Delivery Time"),
-  max_delivery_time_in_days: z
-    .number()
-    .min(1, "Max Delivery Time is required")
-    .describe("Max Delivery Time"),
-  business_reg_no: z
-    .string()
-    .optional()
-    .describe("Business Registration Number"),
+    // .regex(/^[0-9]{10,15}$/, "Phone number is not valid")
+    .optional(),
+  min_delivery_time_in_days: z.number().optional(),
+  max_delivery_time_in_days: z.number().optional(),
+  business_reg_no: z.string().optional(),
 });
 
-const EditBusiness = ({ businessData }) => {
+const EditBusiness = () => {
   const router = useRouter();
-  const { categories } = useCategories();
+  const { categories, businessData } = useCategories();
   const [selectedIndustry, setSelectedIndustry] = useState(
     businessData?.industry?.toString() || ""
   );
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
-  const [logo, setLogo] = useState(null);
-  const [uploadedImages, setUploadedImages] = useState([]);
+  const [logo, setLogo] = useState<File | null>(null);
+  const [uploadedImages, setUploadedImages] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
 
   const {
@@ -119,94 +102,96 @@ const EditBusiness = ({ businessData }) => {
     }
   }, [selectedIndustry, categories]);
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: any) => {
     setLoading(true);
     const formData = new FormData();
-    formData.append("email", values.email);
-    if (logo) formData.append("logo", logo); // Only append logo if it was changed
-    formData.append("business_name", values.business_name);
-    formData.append("description", values.description);
-    formData.append("location", values.location);
-    formData.append("industry", values.industry?.toString() || "");
-    formData.append(
-      "industry_subcategory",
-      values.industry_subcategory?.toString() || ""
-    );
-    formData.append("website", values.website);
-    formData.append("business_phone_1", values.business_phone_1);
-    formData.append("business_phone_2", values.business_phone_2 || "");
-    formData.append(
-      "min_delivery_time_in_days",
-      values.min_delivery_time_in_days.toString()
-    );
-    formData.append(
-      "max_delivery_time_in_days",
-      values.max_delivery_time_in_days.toString()
-    );
-    formData.append("business_reg_no", values.business_reg_no || "");
 
+    formData.append("email", values.email || businessData?.email || "");
+    formData.append("business_name", values.business_name || businessData?.business_name || "");
+    formData.append("description", values.description || businessData?.description || "");
+    formData.append("location", values.location || businessData?.location || "");
+    
+    if (values.industry) {
+        formData.append("industry", values.industry.id);
+    } else {
+        formData.append("industry", businessData?.industry?.id || "");
+    }
+    
+    if (values.industry_subcategory) {
+        formData.append("industry_subcategory", values.industry_subcategory.id);
+    } else {
+        formData.append("industry_subcategory", businessData?.industry_subcategory?.id || "");
+    }
+    
+    formData.append("website", values.website || businessData?.website || "");
+    formData.append("business_phone_1", values.business_phone_1 || businessData?.business_phone_1 || "");
+    formData.append("business_phone_2", values.business_phone_2 || businessData?.business_phone_2 || "");
+    
+    formData.append("min_delivery_time_in_days", values.min_delivery_time_in_days ? values.min_delivery_time_in_days.toString() : "0");
+    formData.append("max_delivery_time_in_days", values.max_delivery_time_in_days ? values.max_delivery_time_in_days.toString() : "0");
+    
+    
+    formData.append("business_reg_no", values.business_reg_no || businessData?.business_reg_no || "");
+
+    // Only append the logo if it was changed
+    if (logo) formData.append("logo", logo);
+    
+    // Append uploaded images if they exist
     uploadedImages.forEach((image, index) => {
-      formData.append(`uploaded_images[${index}]`, image);
+        formData.append(`uploaded_images[${index}]`, image);
     });
 
     try {
-      const response = await fetch(`/api/edit-business/${businessData.id}`, {
-        method: "PUT",
-        body: formData,
-      });
-
-      if (response.ok) {
-        toast({
-          title: "Business Edit Successful",
-          description: "Your business has been successfully updated",
+        const response = await fetch(`/api/business/${businessData.id}`, {
+            method: "PATCH",
+            body: formData,
         });
-        const responseData = await response.json();
-        router.push(`/business/${responseData.id}`);
-      } else {
-        const status = response.status;
-        const errorData = await response.json();
-        let errorMessage = `An unexpected error occurred. Status: ${status}.`;
 
-        if (errorData && typeof errorData === "object") {
-          Object.entries(errorData.details || {}).forEach(
-            ([field, messages]) => {
-              const errorMessage = Array.isArray(messages)
-                ? messages.join(", ")
-                : messages;
-              setError(field, {
-                type: "manual",
-                message: errorMessage,
-              });
-            }
-          );
-
-          toast({
-            title: "Error",
-            description:
-              errorData?.details?.error || "An unexpected error occurred",
-            variant: "destructive",
-          });
-
-          console.error("Form submission failed", errorData);
+        if (response.ok) {
+            toast({
+                title: "Business Edit Successful",
+                description: "Your business has been successfully updated",
+            });
+            const responseData = await response.json();
+            router.push(`/business/${responseData.id}`);
         } else {
-          errorMessage += " " + JSON.stringify(errorData);
-          toast({
-            title: "Error",
-            description: errorMessage,
-            variant: "destructive",
-          });
+            const status = response.status;
+            const errorData = await response.json();
+
+            if (errorData && typeof errorData === "object") {
+                Object.entries(errorData.details || {}).forEach(([field, messages]) => {
+                    const errorMessage = Array.isArray(messages)
+                        ? messages.join(", ")
+                        : messages;
+                    setError(field as keyof typeof validationSchema, {
+                        type: "manual",
+                        message: errorMessage,
+                    });
+                });
+
+                toast({
+                    title: "Error",
+                    description: errorData?.details?.error || "An unexpected error occurred",
+                    variant: "destructive",
+                });
+            } else {
+                toast({
+                    title: "Error",
+                    description: "An unexpected error occurred",
+                    variant: "destructive",
+                });
+            }
         }
-      }
     } catch (error) {
-      toast({
-        title: "Submission Error",
-        description: `${error}`,
-        variant: "destructive",
-      });
+        toast({
+            title: "Submission Error",
+            description: `${error}`,
+            variant: "destructive",
+        });
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
+};
 
   const getImageData = (event: ChangeEvent<HTMLInputElement>) => {
     const dataTransfer = new DataTransfer();
@@ -225,10 +210,10 @@ const EditBusiness = ({ businessData }) => {
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { files, displayUrl } = getImageData(event);
     setPreview(displayUrl);
-    setLogo(event?.target?.files[0]);
+    setLogo(files[0]);
   };
 
-  const handleImagesChange = (newFiles) => {
+  const handleImagesChange = (newFiles: File[]) => {
     setUploadedImages((prevUploadedImages) => [
       ...prevUploadedImages,
       ...newFiles,
@@ -240,17 +225,22 @@ const EditBusiness = ({ businessData }) => {
       <div className="p-20 max-md:p-6 mt-20 min-w-full relative">
         <div className="pb-10">
           <Typography variant={"h1"} className="my-2 text-center">
-            Edit Business Information
+            Edit { businessData? businessData.business_name :"Your Business"} Information
           </Typography>
         </div>
+       
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="space-y-5 z-50 text-[16px]"
         >
-          {/* ...form fields remain the same, with pre-filled values */}
+          {/* Form Fields with Prefilled Values or Placeholders */}
           <div>
             <Label>Business Email</Label>
-            <Input {...register("email")} placeholder="Email" />
+            <Input
+              {...register("email")}
+              placeholder={businessData?.email || "Email"}
+              defaultValue={businessData?.email || ""}
+            />
             {errors.email && (
               <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.email.message}
@@ -260,7 +250,11 @@ const EditBusiness = ({ businessData }) => {
 
           <div>
             <Label>Business Name</Label>
-            <Input {...register("business_name")} placeholder="Business Name" />
+            <Input
+              {...register("business_name")}
+              placeholder={businessData?.business_name || "Business Name"}
+              defaultValue={businessData?.business_name || ""}
+            />
             {errors.business_name && (
               <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.business_name.message}
@@ -273,7 +267,8 @@ const EditBusiness = ({ businessData }) => {
             <Textarea
               className="border border-input"
               {...register("description")}
-              placeholder="Description"
+              placeholder={businessData?.description || "Description"}
+              defaultValue={businessData?.description || ""}
             />
             {errors.description && (
               <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
@@ -284,39 +279,45 @@ const EditBusiness = ({ businessData }) => {
 
           <div>
             <Label>Location</Label>
-            <Input {...register("location")} placeholder="Location" />
+            <Input
+              {...register("location")}
+              placeholder={businessData?.location || "Location"}
+              defaultValue={businessData?.location || ""}
+            />
             {errors.location && (
               <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.location.message}
               </div>
             )}
           </div>
+
           <div className="lg:flex lg:items-center lg:flex-row gap-8 lg:w-full flex-grow">
             <div className="lg:w-1/2">
               <Label>Industry</Label>
               <Select
-                onValueChange={(value) => {
-                  setSelectedIndustry(value);
-                  setValue("industry", parseInt(value));
-                }}
-              >
-                <SelectTrigger className="w-full mt-4">
-                  <SelectValue
-                    placeholder="Select an Industry"
-                    className="text-xs"
-                  />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Industries on Hopterlink</SelectLabel>
-                    {categories.map((category) => (
-                      <SelectItem key={category.name} value={`${category.id}`}>
-                        {category.name}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+  onValueChange={(value) => {
+    setSelectedIndustry(value);
+    setValue("industry", parseInt(value));  // Parse the value as number
+  }}
+>
+  <SelectTrigger className="w-full mt-4">
+    <SelectValue
+      placeholder={businessData?.industry?.name?.toString() || "Select an Industry"}
+      defaultValue={businessData?.industry?.id || ""}
+      className="text-xs"
+    />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectGroup>
+      <SelectLabel>Industries</SelectLabel>
+      {categories.map((category) => (
+        <SelectItem key={category.id} value={category.id.toString()}>
+          {category.name}
+        </SelectItem>
+      ))}
+    </SelectGroup>
+  </SelectContent>
+</Select>
               {errors.industry && (
                 <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                   {errors.industry.message}
@@ -333,7 +334,8 @@ const EditBusiness = ({ businessData }) => {
               >
                 <SelectTrigger className="w-full mt-4">
                   <SelectValue
-                    placeholder="Select a subcategory"
+                    placeholder={businessData?.industry_subcategory?.name?.toString() || "Select a subcategory"}
+                    defaultValue={businessData?.industry_subcategory?.id || ""}
                     className="text-xs"
                   />
                 </SelectTrigger>
@@ -360,19 +362,25 @@ const EditBusiness = ({ businessData }) => {
 
           <div>
             <Label>Website</Label>
-            <Input {...register("website")} placeholder="Website" />
+            <Input
+              {...register("website")}
+              placeholder={businessData?.website || "Website"}
+              defaultValue={businessData?.website || ""}
+            />
             {errors.website && (
               <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
                 {errors.website.message}
               </div>
             )}
           </div>
+
           <div className="lg:flex lg:items-center lg:flex-row gap-8 lg:w-full flex-grow">
             <div className="lg:w-1/2">
               <Label>Primary Business Phone</Label>
               <Input
                 {...register("business_phone_1")}
-                placeholder="Primary Business Phone"
+                placeholder={businessData?.business_phone_1 || "Primary Business Phone"}
+                defaultValue={businessData?.business_phone_1 || ""}
               />
               {errors.business_phone_1 && (
                 <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
@@ -385,7 +393,8 @@ const EditBusiness = ({ businessData }) => {
               <Label>Secondary Business Phone</Label>
               <Input
                 {...register("business_phone_2")}
-                placeholder="Secondary Business Phone"
+                placeholder={businessData?.business_phone_2 || "Secondary Business Phone"}
+                defaultValue={businessData?.business_phone_2 || ""}
               />
               {errors.business_phone_2 && (
                 <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
@@ -394,6 +403,7 @@ const EditBusiness = ({ businessData }) => {
               )}
             </div>
           </div>
+
           <div className="lg:flex lg:items-center lg:flex-row gap-8 lg:w-full flex-grow">
             <div className="lg:w-1/2">
               <Label>Minimum Delivery Time (in days)</Label>
@@ -402,7 +412,8 @@ const EditBusiness = ({ businessData }) => {
                 {...register("min_delivery_time_in_days", {
                   valueAsNumber: true,
                 })}
-                placeholder="Min Delivery Time"
+                placeholder={businessData?.min_delivery_time_in_days || "Min Delivery Time"}
+                defaultValue={businessData?.min_delivery_time_in_days || ""}
               />
               {errors.min_delivery_time_in_days && (
                 <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
@@ -418,7 +429,8 @@ const EditBusiness = ({ businessData }) => {
                 {...register("max_delivery_time_in_days", {
                   valueAsNumber: true,
                 })}
-                placeholder="Max Delivery Time"
+                placeholder={businessData?.max_delivery_time_in_days || "Max Delivery Time"}
+                defaultValue={businessData?.max_delivery_time_in_days || ""}
               />
               {errors.max_delivery_time_in_days && (
                 <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
@@ -432,7 +444,8 @@ const EditBusiness = ({ businessData }) => {
             <Label>Business Registration Number</Label>
             <Input
               {...register("business_reg_no")}
-              placeholder="Business Registration Number"
+              placeholder={businessData?.business_reg_no || "Business Registration Number"}
+              defaultValue={businessData?.business_reg_no || ""}
             />
             {errors.business_reg_no && (
               <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">
@@ -444,7 +457,7 @@ const EditBusiness = ({ businessData }) => {
           <div>
             <Label>Logo</Label>
             <Avatar className="w-24 h-24 my-4 justify-center flex">
-              <AvatarImage src={preview} onLoad={() => <RotatingLines />} />
+              <AvatarImage src={preview} />
               <AvatarFallback>Logo</AvatarFallback>
             </Avatar>
             <Input type="file" onChange={handleFileChange} />

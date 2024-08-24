@@ -22,6 +22,8 @@ interface CategoriesContextType {
   user: any | undefined;
   userInfo: any | null;
   userLoading: boolean;
+  businessData: any | null;
+  businessDataLoading: boolean;
 }
 
 const CategoriesContext = createContext<CategoriesContextType>({
@@ -35,6 +37,8 @@ const CategoriesContext = createContext<CategoriesContextType>({
   user: undefined,
   userInfo: null,
   userLoading: true,
+  businessData: null,
+  businessDataLoading: true,
 });
 
 interface Props {
@@ -48,6 +52,8 @@ export const CategoriesProvider = ({ children }: Props) => {
   const [collections, setCollections] = useState<[]>([]);
   const [userInfo, setUserInfo] = useState<any | null>(null);
   const [userLoading, setUserLoading] = useState(true);
+  const [businessData, setBusinessData] = useState<any | null>(null);
+  const [businessDataLoading, setBusinessDataLoading] = useState(true);
   const { data: session, status } = useSession();
   const [initialized, setInitialized] = useState(false);
 
@@ -97,26 +103,43 @@ export const CategoriesProvider = ({ children }: Props) => {
     if (status === "authenticated") {
       void fetchCollection();
     } else if (status === "unauthenticated") {
-      setCollections([]); // Clear collections if user logs out
+      setCollections([]);
     }
   }, [status, session]);
 
-  // Fetch user info if authenticated
   useEffect(() => {
     const fetchUserInfo = async () => {
       if (status === "authenticated") {
         setUserLoading(true);
         try {
           const response = await axios.get("/api/account/");
-          setUserInfo(response.data);
+          const userData = response.data;
+          setUserInfo(userData);
+
+          if (userData?.is_business) {
+            setBusinessDataLoading(true);
+            try {
+              const businessResponse = await axios.get("/api/user-business/");
+              setBusinessData(businessResponse.data);
+            } catch (error) {
+              console.error("Error fetching business data:", error);
+              setBusinessData(null);
+            } finally {
+              setBusinessDataLoading(false);
+            }
+          } else {
+            setBusinessData(null); 
+            setBusinessDataLoading(false);
+          }
         } catch (error) {
           console.error("Error fetching user info:", error);
-          setUserInfo(null); // Reset user info if there's an error
+          setUserInfo(null); 
+          setUserLoading(false);
         } finally {
           setUserLoading(false);
         }
       } else {
-        setUserInfo(null); // Clear user info if not authenticated
+        setUserInfo(null);
         setUserLoading(false);
       }
     };
@@ -136,6 +159,8 @@ export const CategoriesProvider = ({ children }: Props) => {
         user: session?.user,
         userInfo,
         userLoading,
+        businessData,
+        businessDataLoading,
         setCollectionLoading,
       }}
     >
