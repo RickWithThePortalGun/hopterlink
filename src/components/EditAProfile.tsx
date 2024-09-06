@@ -109,9 +109,10 @@ const EditAProfile = ({ userInfo }: Props) => {
     <Credenza>
       <CredenzaTrigger asChild>
         <div className="flex items-center gap-4">
-        <Button
-
-className="flex gap-2 items-center min-w-60" >Edit your profile</Button>        </div>
+          <Button className="flex gap-2 items-center min-w-60">
+            Edit your profile
+          </Button>{" "}
+        </div>
       </CredenzaTrigger>
       <CredenzaContent>
         <CredenzaHeader>

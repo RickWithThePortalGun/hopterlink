@@ -62,9 +62,13 @@ const ManageListing = () => {
     <Credenza>
       <CredenzaTrigger asChild>
         <div className="flex items-center gap-4">
-        <Button variant={"secondary"}
-
-className="flex gap-2 items-center min-w-60" >Manage your business</Button>        </div>
+          <Button
+            variant={"secondary"}
+            className="flex gap-2 items-center min-w-60"
+          >
+            Manage your business
+          </Button>{" "}
+        </div>
       </CredenzaTrigger>
       <CredenzaContent>
         <CredenzaHeader>

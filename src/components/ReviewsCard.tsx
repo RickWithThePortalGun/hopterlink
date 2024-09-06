@@ -6,7 +6,7 @@ interface Props {
 }
 
 const ReviewsCard = ({ review }: Props) => {
-  function truncateEmail(email:any) {
+  function truncateEmail(email: any) {
     const [name, domain] = email.split("@"); // Split the email into name and domain
     if (name.length > 4) {
       return `${name.slice(0, 5)}***${name.slice(-3)}@${domain}`; // Take first 5 and last 3 characters of the name part
@@ -22,7 +22,9 @@ const ReviewsCard = ({ review }: Props) => {
               {review.user.first_name} {review.user.last_name}
             </p>
           ) : (
-            <p className="text-sm font-bold">{truncateEmail(review.user.email)}</p>
+            <p className="text-sm font-bold">
+              {truncateEmail(review.user.email)}
+            </p>
           )}
         </div>
         <AverageReview size={12} value={review.rating} />

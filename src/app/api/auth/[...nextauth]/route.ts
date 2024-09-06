@@ -60,7 +60,7 @@ export const authOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
- 
+
       async authorize(credentials, req) {
         try {
           const response = await axios({

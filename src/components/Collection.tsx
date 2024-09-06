@@ -22,7 +22,12 @@ import AverageReview from "./AverageReview";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { ScrollArea } from "./ui/scroll-area";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 const Collection = () => {
   const { collections, setCollections, collectionLoading } = useCategories();
   const [isWideScreen, setIsWideScreen] = useState(false);
@@ -112,21 +117,26 @@ const Collection = () => {
   return (
     <Credenza>
       <CredenzaTrigger>
-      <TooltipProvider>
-  <Tooltip>
-    <TooltipTrigger>
-    <Button
-      className=" relative rounded-full  bg-transparent group hover:bg-none" // Added 'group' class here
-      variant={"outline"}
-    >          <Bookmark size={20} className="h-[1.2rem] w-[1.2rem] scale-100 transition-all 
-    group-hover:text-primary group-hover:scale-110"               />
-        </Button>
-    </TooltipTrigger>
-    <TooltipContent>
-      <p>Collections</p>
-    </TooltipContent>
-  </Tooltip>
-</TooltipProvider>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                className=" relative rounded-full  bg-transparent group hover:bg-none" // Added 'group' class here
+                variant={"outline"}
+              >
+                {" "}
+                <Bookmark
+                  size={20}
+                  className="h-[1.2rem] w-[1.2rem] scale-100 transition-all 
+    group-hover:text-primary group-hover:scale-110"
+                />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Collections</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </CredenzaTrigger>
       <CredenzaContent>
         <CredenzaHeader>
@@ -150,7 +160,10 @@ const Collection = () => {
                 {collections.length > 0 ? (
                   <ul>
                     {collections.map((business, index) => (
-                      <li key={index} className="my-2 collection-item shadow-md rounded-md px-2 py-1 mr-2">
+                      <li
+                        key={index}
+                        className="my-2 collection-item shadow-md rounded-md px-2 py-1 mr-2"
+                      >
                         {isTouchDevice ? (
                           <SwipeToRevealActions
                             hideDotsButton

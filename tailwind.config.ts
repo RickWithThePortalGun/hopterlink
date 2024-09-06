@@ -128,13 +128,12 @@ const config: Config = {
         },
       },
       animation: {
-        
         "caret-blink": "caret-blink 1.25s ease-out infinite",
         shimmer: "shimmer 8s infinite",
         ripple: "ripple 3400ms ease infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        marquee:"marquee var(--duration) linear infinite",
+        marquee: "marquee var(--duration) linear infinite",
         "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
       },
     },

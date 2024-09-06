@@ -28,7 +28,10 @@ import * as z from "zod";
 
 const validationSchema = z
   .object({
-    email: z.string().min(1, "Email is required").email("Invalid email address"),
+    email: z
+      .string()
+      .min(1, "Email is required")
+      .email("Invalid email address"),
     business_name: z.string().min(1, "Business Name is required"),
     description: z.string().min(1, "Description is required"),
     location: z.string().min(1, "Location is required"),
@@ -68,11 +71,11 @@ const validationSchema = z
       return true;
     },
     {
-      message: "Min Delivery Time must be less than or equal to Max Delivery Time",
+      message:
+        "Min Delivery Time must be less than or equal to Max Delivery Time",
       path: ["min_delivery_time_in_days"],
     }
   );
-
 
 const App = () => {
   const router = useRouter();

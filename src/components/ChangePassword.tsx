@@ -63,20 +63,20 @@ const ChangePassword = () => {
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
-const router=useRouter()
+  const router = useRouter();
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     try {
       const response = await axios.post("/api/password-change/", data);
-      if (response && response.status === 200 || response.ok) {
+      if ((response && response.status === 200) || response.ok) {
         toast({
           title: "Password Change",
           description: `Your password has been changed successfully.`,
         });
         reset();
         setTimeout(() => {
-          router.back()
-        },2000);
+          router.back();
+        }, 2000);
         // Reset the form fields after a successful password change
       }
     } catch (error) {

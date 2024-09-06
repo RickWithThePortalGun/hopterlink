@@ -441,7 +441,8 @@ const EditBusiness = () => {
               <Input
                 {...register("business_phone_2")}
                 placeholder={
-                  businessData?.business_phone_2 || "Secondary Business Phone(Optional)"
+                  businessData?.business_phone_2 ||
+                  "Secondary Business Phone(Optional)"
                 }
                 defaultValue={businessData?.business_phone_2 || ""}
               />

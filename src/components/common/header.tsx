@@ -92,32 +92,31 @@ export function Header({ className }: SidebarProps) {
         )}
       </>
       <DropdownMenu>
-      <DropdownMenuTrigger>
-  <TooltipProvider >
-  <Tooltip>
-  <TooltipTrigger>
-    <Button
-      className="rounded-full relative bg-transparent group hover:bg-none" // Added 'group' class here
-      variant={"outline"}
-    >
-      <SunIcon
-        className="h-[1.4rem] w-[1.4rem] rotate-0 scale-100 transition-all 
+        <DropdownMenuTrigger>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  className="rounded-full relative bg-transparent group hover:bg-none" // Added 'group' class here
+                  variant={"outline"}
+                >
+                  <SunIcon
+                    className="h-[1.4rem] w-[1.4rem] rotate-0 scale-100 transition-all 
         group-hover:-rotate-90 dark:scale-0 group-hover:text-primary hover:scale-110" // Color change on hover
-      />
-      <MoonIcon
-        className="absolute h-[1.4rem] w-[1.4rem] rotate-0 scale-0 transition-all 
+                  />
+                  <MoonIcon
+                    className="absolute h-[1.4rem] w-[1.4rem] rotate-0 scale-0 transition-all 
         group-hover:rotate-90 dark:scale-100 group-hover:text-primary text-white hover:scale-110" // Color change on hover
-      />
-      <span className="sr-only">Toggle theme</span>
-    </Button>
-  </TooltipTrigger>
-  <TooltipContent>
-    <p>Appearance</p>
-  </TooltipContent>
-</Tooltip>
-
-  </TooltipProvider>
-</DropdownMenuTrigger>
+                  />
+                  <span className="sr-only">Toggle theme</span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Appearance</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => setTheme("light")}>
@@ -138,18 +137,18 @@ export function Header({ className }: SidebarProps) {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                  <Button
-      className=" relative rounded-full  bg-transparent group hover:bg-none" // Added 'group' class here
-      variant={"outline"}
-    >
-                    <Activity
-                      size={19}
-                      className="h-[1.2rem] w-[1.2rem] scale-100 transition-all 
-                     group-hover:text-primary group-hover:scale-110"                    />
-                     </Button>
+                    <Button
+                      className=" relative rounded-full  bg-transparent group hover:bg-none" // Added 'group' class here
+                      variant={"outline"}
+                    >
+                      <Activity
+                        size={19}
+                        className="h-[1.2rem] w-[1.2rem] scale-100 transition-all 
+                     group-hover:text-primary group-hover:scale-110"
+                      />
+                    </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                  
                     <p>Activity Feed</p>
                   </TooltipContent>
                 </Tooltip>
@@ -432,7 +431,6 @@ export function Header({ className }: SidebarProps) {
                   )}
 
                   <div className=" flex flex-row items-center justify-between">
-                   
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="secondary" size="sm">

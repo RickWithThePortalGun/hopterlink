@@ -46,7 +46,7 @@ const Cards = () => {
   const handleRoute = (item: { slug: any }) => {
     router.push(`/business/${item.slug}`);
   };
-  function truncateEmail(email:any) {
+  function truncateEmail(email: any) {
     const [name, domain] = email.split("@"); // Split the email into name and domain
     if (name.length > 4) {
       return `${name.slice(0, 5)}***${name.slice(-3)}@${domain}`; // Take first 5 and last 3 characters of the name part
@@ -59,7 +59,7 @@ const Cards = () => {
         return (
           <div className="flex flex-col gap-2">
             <Typography variant={"h5"} className="font-bold text-sm">
-            {truncateEmail(activity.content_object.user.email)}
+              {truncateEmail(activity.content_object.user.email)}
             </Typography>
             <div className="flex flex-row gap-2">
               <AverageReview value={activity.content_object.rating} size={14} />
@@ -99,8 +99,7 @@ const Cards = () => {
   return (
     <>
       {loading ? (
-              <Marquee pauseOnHover className="[--duration:50s]">
-
+        <Marquee pauseOnHover className="[--duration:50s]">
           <Skeleton
             className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
             items-center justify-center mx-4"
@@ -120,7 +119,6 @@ const Cards = () => {
         </Marquee>
       ) : (
         <Marquee pauseOnHover className="[--duration:100s]">
-
           {recent.map((activity) => (
             <div
               onClick={() => {

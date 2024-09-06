@@ -177,7 +177,10 @@ const Page = ({ params }: Props) => {
                 <div className="flex flex-row gap-2 items-center">
                   Sponsored Ads <Info size={14} />
                 </div>
-                <ScrollArea className="w-full whitespace-nowrap rounded-md border-none flex items-center scroll-smooth" hideScrollbars={true}>
+                <ScrollArea
+                  className="w-full whitespace-nowrap rounded-md border-none flex items-center scroll-smooth"
+                  hideScrollbars={true}
+                >
                   <div className="flex flex-row gap-2 items-center mt-4 mb-4">
                     {category.subcategories.map(
                       (subcategory: Subcategory, index: number) => (
