@@ -7,11 +7,11 @@ import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Marquee from "react-fast-marquee";
 import AverageReview from "./AverageReview";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Skeleton } from "./ui/skeleton";
 import Typography from "./ui/typography";
+import Marquee from "./magicui/marquee";
 
 const Cards = () => {
   const [recent, setRecents] = useState<any[]>([]);
@@ -46,14 +46,20 @@ const Cards = () => {
   const handleRoute = (item: { slug: any }) => {
     router.push(`/business/${item.slug}`);
   };
-
+  function truncateEmail(email:any) {
+    const [name, domain] = email.split("@"); // Split the email into name and domain
+    if (name.length > 4) {
+      return `${name.slice(0, 5)}***${name.slice(-3)}@${domain}`; // Take first 5 and last 3 characters of the name part
+    }
+    return email; // If the name is too short, return the email as is
+  }
   const renderContent = (activity) => {
     switch (activity.activity_type) {
       case "review":
         return (
           <div className="flex flex-col gap-2">
             <Typography variant={"h5"} className="font-bold text-sm">
-              {activity.content_object.user.email}
+            {truncateEmail(activity.content_object.user.email)}
             </Typography>
             <div className="flex flex-row gap-2">
               <AverageReview value={activity.content_object.rating} size={14} />
@@ -93,13 +99,8 @@ const Cards = () => {
   return (
     <>
       {loading ? (
-        <Marquee
-          gradient
-          gradientColor={"rgba(197, 94, 12, 0.03)"}
-          autoFill
-          pauseOnHover
-          className="gap-6 flex items-center rounded-md"
-        >
+              <Marquee pauseOnHover className="[--duration:50s]">
+
           <Skeleton
             className="flex flex-col z-40 p-4 rounded-md gap-6 w-[200px] h-[200px]
             items-center justify-center mx-4"
@@ -118,13 +119,8 @@ const Cards = () => {
           />
         </Marquee>
       ) : (
-        <Marquee
-          gradient
-          gradientColor={"rgba(197, 94, 12, 0.05)"}
-          autoFill
-          pauseOnHover
-          className="gap-6 flex items-center w-full rounded-md"
-        >
+        <Marquee pauseOnHover className="[--duration:100s]">
+
           {recent.map((activity) => (
             <div
               onClick={() => {

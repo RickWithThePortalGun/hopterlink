@@ -57,7 +57,7 @@ const ReportBusiness = ({ businessInfo }: Props) => {
     <Credenza open={isOpen} onOpenChange={setIsOpen}>
       <CredenzaTrigger asChild>
         <Button
-          className=" flex items-center gap-2 min-w-44"
+          className=" flex items-center gap-2 min-w-60"
           variant={"destructive"}
         >
           <AlertCircle size={16} /> Report

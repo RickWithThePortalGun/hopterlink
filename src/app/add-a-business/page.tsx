@@ -26,35 +26,53 @@ import { useForm } from "react-hook-form";
 import { RotatingLines } from "react-loader-spinner";
 import * as z from "zod";
 
-const validationSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email address"),
-  business_name: z.string().min(1, "Business Name is required"),
-  description: z.string().min(1, "Description is required"),
-  location: z.string().min(1, "Location is required"),
-  industry: z.number().optional(),
-  industry_subcategory: z.number().optional(),
-  website: z.string().url("Invalid URL"),
-  business_phone_1: z
-    .string()
-    .regex(/^[0-9]{10,15}$/, "Phone number is not valid")
-    .optional(),
-  business_phone_2: z
-    .string()
-    .regex(/^[0-9]{10,15}$/, "Phone number is not valid")
-    .optional(),
-  min_delivery_time_in_days: z
-    .number()
-    .min(1, "Min Delivery Time is required")
-    .optional(),
-  max_delivery_time_in_days: z
-    .number()
-    .min(1, "Max Delivery Time is required")
-    .optional(),
-  business_reg_no: z.string().optional(),
-  acceptTerms: z.literal(true, {
-    errorMap: () => ({ message: "You must accept the terms and conditions" }),
-  }),
-});
+const validationSchema = z
+  .object({
+    email: z.string().min(1, "Email is required").email("Invalid email address"),
+    business_name: z.string().min(1, "Business Name is required"),
+    description: z.string().min(1, "Description is required"),
+    location: z.string().min(1, "Location is required"),
+    industry: z.number().optional(),
+    industry_subcategory: z.number().optional(),
+    website: z.string().url("Invalid URL"),
+    business_phone_1: z
+      .string()
+      .regex(/^[0-9]{10,15}$/, "Phone number is not valid")
+      .optional(),
+    business_phone_2: z
+      .string()
+      .regex(/^[0-9]{10,15}$/, "Phone number is not valid")
+      .optional(),
+    min_delivery_time_in_days: z
+      .number()
+      .min(1, "Min Delivery Time is required")
+      .optional(),
+    max_delivery_time_in_days: z
+      .number()
+      .min(1, "Max Delivery Time is required")
+      .optional(),
+    business_reg_no: z.string().optional(),
+    acceptTerms: z.literal(true, {
+      errorMap: () => ({ message: "You must accept the terms and conditions" }),
+    }),
+  })
+  .refine(
+    (data) => {
+      if (
+        data.min_delivery_time_in_days &&
+        data.max_delivery_time_in_days &&
+        data.min_delivery_time_in_days > data.max_delivery_time_in_days
+      ) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: "Min Delivery Time must be less than or equal to Max Delivery Time",
+      path: ["min_delivery_time_in_days"],
+    }
+  );
+
 
 const App = () => {
   const router = useRouter();
@@ -373,7 +391,7 @@ const App = () => {
               <Label>Secondary Business Phone</Label>
               <Input
                 {...register("business_phone_2")}
-                placeholder="Secondary Business Phone"
+                placeholder="Secondary Business Phone(Optional)"
               />
               {errors.business_phone_2 && (
                 <div className="w-full justify-end flex mt-2 text-xs text-[#c55e0c]">

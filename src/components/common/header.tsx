@@ -52,6 +52,12 @@ import RecentlyViewed from "../RecentlyViewed";
 import SearchComponent from "../SearchComponent";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { ScrollArea } from "../ui/scroll-area";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -73,7 +79,7 @@ export function Header({ className }: SidebarProps) {
   );
 
   const getAuthButtons = () => (
-    <div className="flex gap-3 items-center">
+    <div className="flex gap-3 items-center justify-between">
       <>
         {status === "authenticated" && !userLoading && !userInfo?.is_business && (
           <Button
@@ -86,19 +92,33 @@ export function Header({ className }: SidebarProps) {
         )}
       </>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="secondary" size="sm">
-            <SunIcon
-              className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all
-                dark:-rotate-90 dark:scale-0 hover:text-primary"
-            />
-            <MoonIcon
-              className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0
-                transition-all dark:rotate-0 dark:scale-100 hover:text-primary"
-            />
-            <span className="sr-only">Toggle theme</span>
-          </Button>
-        </DropdownMenuTrigger>
+      <DropdownMenuTrigger>
+  <TooltipProvider >
+  <Tooltip>
+  <TooltipTrigger>
+    <Button
+      className="rounded-full relative bg-transparent group hover:bg-none" // Added 'group' class here
+      variant={"outline"}
+    >
+      <SunIcon
+        className="h-[1.4rem] w-[1.4rem] rotate-0 scale-100 transition-all 
+        group-hover:-rotate-90 dark:scale-0 group-hover:text-primary hover:scale-110" // Color change on hover
+      />
+      <MoonIcon
+        className="absolute h-[1.4rem] w-[1.4rem] rotate-0 scale-0 transition-all 
+        group-hover:rotate-90 dark:scale-100 group-hover:text-primary text-white hover:scale-110" // Color change on hover
+      />
+      <span className="sr-only">Toggle theme</span>
+    </Button>
+  </TooltipTrigger>
+  <TooltipContent>
+    <p>Appearance</p>
+  </TooltipContent>
+</Tooltip>
+
+  </TooltipProvider>
+</DropdownMenuTrigger>
+
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => setTheme("light")}>
             Light
@@ -115,10 +135,25 @@ export function Header({ className }: SidebarProps) {
         <>
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Activity
-                size={20}
-                className="hover:text-primary cursor-pointer"
-              />
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                  <Button
+      className=" relative rounded-full  bg-transparent group hover:bg-none" // Added 'group' class here
+      variant={"outline"}
+    >
+                    <Activity
+                      size={19}
+                      className="h-[1.2rem] w-[1.2rem] scale-100 transition-all 
+                     group-hover:text-primary group-hover:scale-110"                    />
+                     </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                  
+                    <p>Activity Feed</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem className="flex flex-row items-center gap-4 font-bold text-md">
@@ -154,13 +189,22 @@ export function Header({ className }: SidebarProps) {
       {status === "authenticated" && (
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Avatar className="bg-[#c55e0c]">
-              <AvatarImage src={session?.user?.profile || ""} />
-              <AvatarFallback>
-                {session?.user?.first_name?.[0] || "H"}
-                {session?.user?.last_name?.[0] || "U"}
-              </AvatarFallback>
-            </Avatar>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Avatar className="bg-[#c55e0c] mx-2">
+                    <AvatarImage src={session?.user?.profile || ""} />
+                    <AvatarFallback>
+                      {session?.user?.first_name?.[0] || "H"}
+                      {session?.user?.last_name?.[0] || "U"}
+                    </AvatarFallback>
+                  </Avatar>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Your Account</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <Link href="/account">
@@ -388,11 +432,7 @@ export function Header({ className }: SidebarProps) {
                   )}
 
                   <div className=" flex flex-row items-center justify-between">
-                    {/* <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <LanguageSwitcher />
-                      </DropdownMenuTrigger>
-                    </DropdownMenu> */}
+                   
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="secondary" size="sm">

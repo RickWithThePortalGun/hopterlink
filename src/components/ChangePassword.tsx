@@ -20,6 +20,7 @@ import { Eye, EyeOff } from "lucide-react"; // Assuming you're using lucide-reac
 import axios from "axios";
 import { toast } from "./ui-hooks/use-toast";
 import ListItem from "./ListItem";
+import { useRouter } from "next/navigation";
 
 // Validation schema using zod
 const schema = z
@@ -62,17 +63,21 @@ const ChangePassword = () => {
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
-
+const router=useRouter()
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     try {
       const response = await axios.post("/api/password-change/", data);
-      if (response.status === 200) {
+      if (response && response.status === 200 || response.ok) {
         toast({
           title: "Password Change",
           description: `Your password has been changed successfully.`,
         });
-        reset(); // Reset the form fields after a successful password change
+        reset();
+        setTimeout(() => {
+          router.back()
+        },2000);
+        // Reset the form fields after a successful password change
       }
     } catch (error) {
       if (error.response && error.response.data) {

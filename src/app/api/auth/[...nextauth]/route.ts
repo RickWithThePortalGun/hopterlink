@@ -60,8 +60,7 @@ export const authOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      // The data returned from this function is passed forward as the
-      // `user` variable to the signIn() and jwt() callback
+ 
       async authorize(credentials, req) {
         try {
           const response = await axios({

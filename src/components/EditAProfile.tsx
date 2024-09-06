@@ -16,6 +16,7 @@ import { Textarea } from "./ui/textarea";
 import { toast } from "./ui-hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { RotatingLines } from "react-loader-spinner";
+import { Button } from "./ui/button";
 
 type UserInfo = {
   first_name: string | null;
@@ -108,8 +109,9 @@ const EditAProfile = ({ userInfo }: Props) => {
     <Credenza>
       <CredenzaTrigger asChild>
         <div className="flex items-center gap-4">
-          <ShinyButton text="Edit your Profile" />
-        </div>
+        <Button
+
+className="flex gap-2 items-center min-w-60" >Edit your profile</Button>        </div>
       </CredenzaTrigger>
       <CredenzaContent>
         <CredenzaHeader>

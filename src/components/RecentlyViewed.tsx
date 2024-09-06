@@ -12,15 +12,14 @@ import {
   CredenzaTrigger,
 } from "@/components/ui/credenza";
 import axios from "axios";
-import { Bookmark, Clock, StopCircle } from "lucide-react";
+import { Clock, StopCircle } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { RotatingLines } from "react-loader-spinner";
 import AverageReview from "./AverageReview";
 import { Button } from "./ui/button";
-import { Separator } from "./ui/separator";
 import { ScrollArea } from "./ui/scroll-area";
-import { RotatingLines } from "react-loader-spinner";
 
 const RecentlyViewed = () => {
   const [businesses, setBusinesses] = useState<any[]>([]);
@@ -32,7 +31,6 @@ const RecentlyViewed = () => {
       setLoading(true);
       const response = await axios.get("/api/recently-viewed/");
       setLoading(false);
-
       setBusinesses(response.data.results);
     } catch (error) {
       console.error("Error fetching favorites:", error);
@@ -74,7 +72,7 @@ const RecentlyViewed = () => {
                     {businesses.map((business) => (
                       <>
                         <Link href={`/business/${business.id}`}>
-                          <div className="flex gap-1 flex-col">
+                          <div className="flex gap-1 flex-col shadow-md rounded-md px-2 py-1 my-2">
                             <div className="flex flex-row items-center justify-between mt-2">
                               <li key={business.id} className="my-2">
                                 {business.business_name}
@@ -95,7 +93,7 @@ const RecentlyViewed = () => {
                             </div>
                           </div>
                         </Link>
-                        <Separator />
+                        {/* <Separator /> */}
                       </>
                     ))}
                   </ul>

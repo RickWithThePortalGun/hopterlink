@@ -10,6 +10,7 @@ export async function POST(req: Request, context: { params: { id: string } }) {
 
   try {
     const reviews = await request.post(uri, {
+      // object_id:parseInt(id),
       rating: body.stars,
       comment: body.content,
     });

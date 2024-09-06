@@ -150,9 +150,10 @@ const Page = () => {
                 <ManageListing />
                 <div
                   className="flex items-center gap-4"
-                  onClick={() => router.push(`/business/${businessData.id}`)}
                 >
-                  <ShinyButton text="Visit your business" />
+                        <Button                   onClick={() => router.push(`/business/${businessData.id}`)}
+
+          className="flex gap-2 items-center min-w-60" >Visit your business</Button>
                 </div>
               </>
             ) : (

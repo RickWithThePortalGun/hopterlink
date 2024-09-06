@@ -14,6 +14,7 @@ import ListItem from "./ListItem";
 import Link from "next/link";
 import { useCategories } from "@/contexts/ReUsableData";
 import { toast } from "./ui-hooks/use-toast";
+import { Button } from "./ui/button";
 
 const ManageListing = () => {
   // Extracting businessData from context
@@ -61,8 +62,9 @@ const ManageListing = () => {
     <Credenza>
       <CredenzaTrigger asChild>
         <div className="flex items-center gap-4">
-          <ShinyButton text="Manage your business" />
-        </div>
+        <Button variant={"secondary"}
+
+className="flex gap-2 items-center min-w-60" >Manage your business</Button>        </div>
       </CredenzaTrigger>
       <CredenzaContent>
         <CredenzaHeader>
