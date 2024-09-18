@@ -147,7 +147,6 @@
   -ms-overflow-style: none; /* Hide scrollbars in IE and Edge */
 }
 
-
 @media (min-width: 1024px) {
   .swipe-to-reveal-actions {
     display: none; /* Hide swipe actions on wider screens */

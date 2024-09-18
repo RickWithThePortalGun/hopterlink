@@ -177,9 +177,7 @@ const Page = ({ params }: Props) => {
                 <div className="flex flex-row gap-2 items-center">
                   Sponsored Ads <Info size={14} />
                 </div>
-                <ScrollArea
-                  className="w-full whitespace-nowrap rounded-md border-none flex items-center scroll-smooth"
-                >
+                <ScrollArea className="w-full whitespace-nowrap rounded-md border-none flex items-center scroll-smooth">
                   <div className="flex flex-row gap-2 items-center mt-4 mb-4">
                     {category.subcategories.map(
                       (subcategory: Subcategory, index: number) => (
@@ -200,7 +198,7 @@ const Page = ({ params }: Props) => {
                       )
                     )}
                   </div>
-                  <ScrollBar className="hidden" orientation="horizontal"/>
+                  <ScrollBar className="hidden" orientation="horizontal" />
                 </ScrollArea>
                 <div ref={ref} className="mt-6">
                   {loading ? (

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "HopterLink - Find, Review, and Connect with Local Gems.",
   description: "Every review tells a story, every story shapes a community.",
   icons: {
-    icon: '/favicon.ico',
+    icon: "/favicon.ico",
   },
   openGraph: {
     images: "/hopterlinklogo.png",

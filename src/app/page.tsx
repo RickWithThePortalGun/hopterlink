@@ -1,12 +1,7 @@
 import Cards from "@/components/Cards";
 import HeaderContainer from "@/components/HeaderContainer";
 import Typography from "@/components/ui/typography";
-import {
-  ChevronRight,
-  Share2Icon,
-  Shield,
-  Waves
-} from "lucide-react";
+import { ChevronRight, Share2Icon, Shield, Waves } from "lucide-react";
 
 import AppStores from "@/components/AppStores";
 import CategoryCards from "@/components/CategoryCards";
@@ -105,8 +100,7 @@ export default function Home() {
               <div className="flex gap-4 items-center max-lg:justify-center mt-6 w-full">
                 <SearchComponent />
               </div>
-              <AppStores/>
-
+              <AppStores />
             </div>
             <div className="flex items-center justify-center w-full max-w-[500px]">
               <Gallery noNavigation images={images} autoplayDelay={5000} />

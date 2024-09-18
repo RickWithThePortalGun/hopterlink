@@ -68,7 +68,7 @@ const ChangePassword = () => {
     setLoading(true);
     try {
       const response = await axios.post("/api/password-change/", data);
-      if ((response && response.status === 201)) {
+      if (response && response.status === 201) {
         toast({
           title: "Password Change",
           description: `Your password has been changed successfully.`,
