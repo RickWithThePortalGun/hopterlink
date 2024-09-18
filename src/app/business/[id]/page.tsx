@@ -314,11 +314,11 @@ const Business = ({ params }: Props) => {
               {isFavorite ? (
                 <Button
                   className="flex min-w-60 gap-2 items-center max-md:mt-2"
-                  variant={"ghost"}
+                  variant={"secondary"}
                   disabled
                 >
                   <BookmarkCheck size={16} />
-                  Added to Favorites
+                  Added to Collections
                 </Button>
               ) : (
                 <motion.div
@@ -337,10 +337,8 @@ const Business = ({ params }: Props) => {
                             id: businessInfo.id,
                             business_name: businessInfo.business_name,
                             average_rating: businessInfo.average_rating,
-                            // Include other relevant fields from businessInfo as needed
                           },
                         };
-                        // Add the new item to the global collections state
                         setCollections((prevCollections) => [
                           ...prevCollections,
                           newCollectionItem,

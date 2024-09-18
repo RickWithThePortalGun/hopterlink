@@ -3,28 +3,22 @@ import HeaderContainer from "@/components/HeaderContainer";
 import Typography from "@/components/ui/typography";
 import {
   ChevronRight,
-  Share,
   Share2Icon,
   Shield,
-  Star,
-  Timer,
-  Waves,
+  Waves
 } from "lucide-react";
-import Feature from "./feature";
 
+import AppStores from "@/components/AppStores";
 import CategoryCards from "@/components/CategoryCards";
-import ImageCarousel from "@/components/ImageCarousel";
+import Gallery from "@/components/Gallery";
 import AnimatedShinyText from "@/components/magicui/animated-shiny-text";
-import Particles from "@/components/magicui/particles";
+import { ShootingStars } from "@/components/magicui/shooting-stars";
+import { StarsBackground } from "@/components/magicui/stars-background";
 import SearchComponent from "@/components/SearchComponent";
+import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { FlipWords } from "@/components/ui/flip-words";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import GoogleTranslate from "@/GoogleTranslate";
-import Gallery from "@/components/Gallery";
-import { ShootingStars } from "@/components/magicui/shooting-stars";
-import { HoverEffect } from "@/components/ui/card-hover-effect";
-import { StarsBackground } from "@/components/magicui/stars-background";
 
 export default function Home() {
   const projects = [
@@ -111,6 +105,8 @@ export default function Home() {
               <div className="flex gap-4 items-center max-lg:justify-center mt-6 w-full">
                 <SearchComponent />
               </div>
+              <AppStores/>
+
             </div>
             <div className="flex items-center justify-center w-full max-w-[500px]">
               <Gallery noNavigation images={images} autoplayDelay={5000} />

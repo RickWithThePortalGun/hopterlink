@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import { useCategories } from "@/contexts/ReUsableData";
 import { Subcategory } from "@/constants/constants";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion, useInView } from "framer-motion";
 import axios from "axios";
@@ -179,7 +179,6 @@ const Page = ({ params }: Props) => {
                 </div>
                 <ScrollArea
                   className="w-full whitespace-nowrap rounded-md border-none flex items-center scroll-smooth"
-                  hideScrollbars={true}
                 >
                   <div className="flex flex-row gap-2 items-center mt-4 mb-4">
                     {category.subcategories.map(
@@ -193,7 +192,7 @@ const Page = ({ params }: Props) => {
                           className={`cursor-pointer p-2  rounded-full whitespace-nowrap ${
                             selectedSubcategory === subcategory.id
                               ? "border-[#c55e0c] bg-[#c55e0c] text-white shadow-md font-bold border-0 border-transparent"
-                              : "border-gray-300 border-[1px]"
+                              : "border-[#e5e5e5] text-[#e5e5e5] border-[1px]"
                           }`}
                         >
                           <p className="text-xs">{subcategory.name}</p>
@@ -201,6 +200,7 @@ const Page = ({ params }: Props) => {
                       )
                     )}
                   </div>
+                  <ScrollBar className="hidden" orientation="horizontal"/>
                 </ScrollArea>
                 <div ref={ref} className="mt-6">
                   {loading ? (

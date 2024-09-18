@@ -1,13 +1,12 @@
 import { Toaster } from "@/components/ui/toaster";
+import { CategoriesProvider } from "@/contexts/ReUsableData";
+import Providers from "@/providers/loaderProvider";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
-import { Inter, Montserrat, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import AuthProvider from "./auth/Provider";
 import "./globals.css";
-import { CategoriesProvider } from "@/contexts/ReUsableData";
-import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
-import Providers from "@/providers/loaderProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -17,13 +16,16 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "HopterLink - Find, Review, and Connect with Local Gems.",
   description: "Every review tells a story, every story shapes a community.",
+  icons: {
+    icon: '/favicon.ico',
+  },
   openGraph: {
-    images: "/opengraph-image.png",
+    images: "/hopterlinklogo.png",
   },
   twitter: {
     card: "summary_large_image",
     title: "Hopterlink - Find, Review, and Connect with Local Gems.",
-    images: ["https://i.imgur.com/MPMcyPP.png"],
+    images: ["https://hopterlink.vercel.app/hopterlinklogo.png"],
   },
 };
 

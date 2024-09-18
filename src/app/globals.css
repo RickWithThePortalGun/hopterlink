@@ -137,6 +137,16 @@
 .swiper-navigation {
   --swiper-navigation-color: #fff !important;
 }
+/* Hide scrollbars but keep scroll functionality */
+.hide-scrollbars::-webkit-scrollbar {
+  display: none; /* Hide scrollbars in WebKit browsers (Chrome, Safari) */
+}
+
+.hide-scrollbars {
+  scrollbar-width: none; /* Hide scrollbars in Firefox */
+  -ms-overflow-style: none; /* Hide scrollbars in IE and Edge */
+}
+
 
 @media (min-width: 1024px) {
   .swipe-to-reveal-actions {

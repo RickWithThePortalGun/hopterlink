@@ -97,17 +97,16 @@ export function Header({ className }: SidebarProps) {
             <Tooltip>
               <TooltipTrigger>
                 <Button
-                  className="rounded-full relative bg-transparent group hover:bg-none" // Added 'group' class here
+                  className="rounded-full relative bg-transparent group hover:bg-none" 
                   variant={"outline"}
                 >
                   <SunIcon
                     className="h-[1.4rem] w-[1.4rem] rotate-0 scale-100 transition-all 
-        group-hover:-rotate-90 dark:scale-0 group-hover:text-primary hover:scale-110" // Color change on hover
+        group-hover:-rotate-90 dark:scale-0 group-hover:text-primary hover:scale-110" 
                   />
                   <MoonIcon
                     className="absolute h-[1.4rem] w-[1.4rem] rotate-0 scale-0 transition-all 
-        group-hover:rotate-90 dark:scale-100 group-hover:text-primary text-white hover:scale-110" // Color change on hover
-                  />
+        group-hover:rotate-90 dark:scale-100 group-hover:text-primary text-white hover:scale-110"                   />
                   <span className="sr-only">Toggle theme</span>
                 </Button>
               </TooltipTrigger>
@@ -176,7 +175,8 @@ export function Header({ className }: SidebarProps) {
       {status === "unauthenticated" && (
         <>
           <Link href="/login" target="_blank">
-            <Typography variant="p">Sign in</Typography>
+            <Button size="tiny" variant="link">
+            Sign in            </Button>
           </Link>
           <Link href="/signup" target="_blank">
             <Button size="tiny" variant="outline">

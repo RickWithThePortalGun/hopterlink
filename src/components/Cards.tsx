@@ -11,8 +11,7 @@ import AverageReview from "./AverageReview";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Skeleton } from "./ui/skeleton";
 import Typography from "./ui/typography";
-import Marquee from "./magicui/marquee";
-
+import Marquee from "react-fast-marquee";
 const Cards = () => {
   const [recent, setRecents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
