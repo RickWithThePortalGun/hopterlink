@@ -23,7 +23,8 @@ const ContactUs = (props: Props) => {
             <h2 className="text-3xl font-bold">Get in touch with us</h2>
             <p className="text-gray-500 dark:text-gray-400 mb-4">
               Feel free to leave any enquiries below, or give us a call to speak
-              with our helpful care team.           </p>
+              with our helpful care team.{" "}
+            </p>
           </div>
           <div className="space-y-4">
             <Card>
@@ -43,7 +44,7 @@ const ContactUs = (props: Props) => {
                   <div className="flex items-center space-x-2">
                     <Avatar className="w-4 h-4" />
                     <Link href="#" prefetch={false}>
-                    info@hopterlink.com
+                      info@hopterlink.com
                     </Link>
                   </div>
                 </div>
