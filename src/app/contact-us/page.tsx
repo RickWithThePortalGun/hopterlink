@@ -17,14 +17,13 @@ type Props = {};
 const ContactUs = (props: Props) => {
   return (
     <HeaderContainer>
-      <div className="space-y-8 relative flex justify-center items-center h-screen w-full">
+      <div className="space-y-8 relative flex justify-center items-center h-screen w-full px-4">
         <div className="z-40">
-          <div className="space-y-2">
+          <div className="space-y-2 mb-4">
             <h2 className="text-3xl font-bold">Get in touch with us</h2>
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-gray-500 dark:text-gray-400 mb-4">
               Feel free to leave any enquiries below, or give us a call to speak
-              with our helpful sales team.
-            </p>
+              with our helpful care team.           </p>
           </div>
           <div className="space-y-4">
             <Card>
@@ -35,16 +34,16 @@ const ContactUs = (props: Props) => {
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
                     <Avatar className="w-4 h-4" />
-                    <span>1234 Street, City, State, 56789</span>
+                    <span>Paris, France</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Avatar className="w-4 h-4" />
-                    <span>(123) 456-7890</span>
+                    <span>+33 6 95 40 93 04</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Avatar className="w-4 h-4" />
                     <Link href="#" prefetch={false}>
-                      info@example.com
+                    info@hopterlink.com
                     </Link>
                   </div>
                 </div>
